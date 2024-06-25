@@ -4,6 +4,8 @@ minSdk = "28"
 targetSdk = "34"
 versionCode = "1"
 versionName = "1.0.0"
+jvmTarget = "1.8"
+kotlinCompilerExtensionVersion = "1.5.13"
 
 # Kotlin
 agp = "8.5.0"
@@ -19,6 +21,24 @@ coreKtx = "1.13.1"
 lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
+navigation = "2.7.7"
+
+# Google
+googleServices = "4.4.1"
+firebaseCrashlytics = "2.9.9"
+firebaseBom = "32.7.4"
+
+# Third Party
+okhttp = "4.11.0"
+retrofit = "2.9.0"
+retrofitKotlinSerializationConverter = "1.0.0"
+kotlinxSerializationJson = "1.5.1"
+daggerHilt = "2.50"
+ktlint = "11.5.1"
+coil = "2.4.0"
+timber = "5.0.1"
+sentry = "4.1.1"
+kakao = "2.15.0"
 
 [libraries]
 # Test
@@ -40,10 +60,37 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+# Google
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
+google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+
+# Third Party
+okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinSerializationConverter" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
+hilt-android-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "daggerHilt" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+sentry = { id = "io.sentry.android.gradle", version.ref = "sentry" }
 
 [bundles]
 androidx = [
@@ -53,7 +100,8 @@ androidx = [
     "androidx-ui",
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
-    "androidx-material3"
+    "androidx-material3",
+    "androidx-navigation"
 ]
 
 test = [
@@ -65,4 +113,18 @@ test = [
 debug = [
     "androidx-ui-tooling",
     "androidx-ui-test-manifest"
+]
+
+okhttp = [
+    "okhttp",
+    "okhttp-logging-interceptor"
+]
+
+retrofit = [
+    "retrofit",
+    "retrofit-kotlin-serialization-converter"
+]
+
+kakao = [
+    "kakao-v2-user"
 ]

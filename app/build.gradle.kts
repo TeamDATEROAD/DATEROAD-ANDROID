@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.sentry)
 }
 
 android {
@@ -34,13 +40,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtensionVersion.get()
     }
     packaging {
         resources {
@@ -50,10 +56,6 @@ android {
 }
 
 dependencies {
-    // AndroidX
-    implementation(libs.bundles.androidx)
-    implementation(platform(libs.androidx.compose.bom))
-
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -61,4 +63,31 @@ dependencies {
 
     // Debug
     debugImplementation(libs.bundles.debug)
+
+    // AndroidX
+    implementation(libs.bundles.androidx)
+    implementation(platform(libs.androidx.compose.bom))
+
+    // Google
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.crashlytics)
+
+    // Network
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.bundles.okhttp)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Timber
+    implementation(libs.timber)
+
+    // Kakao
+    implementation(libs.bundles.kakao)
 }
