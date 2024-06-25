@@ -15,6 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DATEROAD"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="${IO_SENTRY_DSN}" />
+        <meta-data
+            android:name="io.sentry.traces.user-interaction.enable"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.attach-screenshot"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.attach-view-hierarchy"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.traces.sample-rate"
+            android:value="1.0" />
+        <meta-data
+            android:name="io.sentry.traces.profiling.sample-rate"
+            android:value="1.0" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

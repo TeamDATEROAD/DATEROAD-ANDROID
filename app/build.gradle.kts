@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -7,6 +9,10 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sentry)
+}
+
+val properties = Properties().apply {
+    load(project.rootProject.file("local.properties").inputStream())
 }
 
 android {
@@ -24,6 +30,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY_MANIFEST"] = properties["kakao.native.app.key.manifest"] as String
     }
 
     buildTypes {
@@ -43,6 +52,8 @@ android {
         jvmTarget = libs.versions.jvmTarget.get()
     }
     buildFeatures {
+        viewBinding = true
+        buildConfig = true
         compose = true
     }
     composeOptions {
