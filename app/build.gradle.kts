@@ -36,8 +36,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", properties["dev.base.url"].toString())
+        }
+
         release {
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", properties["prod.base.url"].toString())
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
