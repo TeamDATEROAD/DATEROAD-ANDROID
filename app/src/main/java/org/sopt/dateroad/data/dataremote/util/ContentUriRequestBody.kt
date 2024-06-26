@@ -46,5 +46,5 @@ class ContentUriRequestBody(
         }
     }
 
-    fun toFormData() = MultipartBody.Part.createFormData(API.FORM_DATA_IMAGE, getFileName(), this)
+    fun toFormData() = MultipartBody.Part.createFormData(Api.FORM_DATA_IMAGE, getFileName(), this)
 }
