@@ -2,6 +2,7 @@ package org.sopt.dateroad.data.repositoryimpl
 
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
+import org.sopt.dateroad.data.mapper.todata.toData
 import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.DummyModel
 import org.sopt.dateroad.domain.repository.DummyRepository
@@ -14,6 +15,10 @@ class DummyRepositoryImpl @Inject constructor(
         dummyRemoteDataSource.getDummies(page = page).data.map { responseDummyDto: ResponseDummiesDto.ResponseDummyDto ->
             responseDummyDto.toDomain()
         }
+    }
+
+    override suspend fun postDummy(dummyModel: DummyModel): Result<Unit> = runCatching {
+        dummyRemoteDataSource.postDummy(requestDummyDto = dummyModel.toData())
     }
 
     override suspend fun postDummyMultipart(image: String, content: String): Result<Unit> =

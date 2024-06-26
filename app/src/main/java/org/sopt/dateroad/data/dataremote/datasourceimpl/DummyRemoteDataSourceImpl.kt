@@ -6,6 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.base.BaseResponse
+import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
 import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.util.Api.TEXT_PLANE
@@ -18,6 +19,8 @@ class DummyRemoteDataSourceImpl @Inject constructor(
 ) : DummyRemoteDataSource {
     override suspend fun getDummies(page: Int): ResponseDummiesDto =
         dummyService.getDummies(page = page)
+
+    override suspend fun postDummy(requestDummyDto: RequestDummyDto): BaseResponse<Unit> = dummyService.postDummy(requestDummyDto = requestDummyDto)
 
     override suspend fun postDummyMultipart(
         image: String,

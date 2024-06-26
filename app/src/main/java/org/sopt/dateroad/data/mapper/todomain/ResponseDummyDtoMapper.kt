@@ -4,6 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
 import org.sopt.dateroad.domain.model.DummyModel
 
 fun ResponseDummiesDto.ResponseDummyDto.toDomain(): DummyModel = DummyModel(
-    id = id,
-    email = email
+    id = this.id,
+    email = this.email
 )

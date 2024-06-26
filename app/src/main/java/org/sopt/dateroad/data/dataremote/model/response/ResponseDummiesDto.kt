@@ -16,7 +16,7 @@ data class ResponseDummiesDto(
     @SerialName("data")
     val data: List<ResponseDummyDto>,
     @SerialName("support")
-    val responseSupportDto: RespnoseSupportDto
+    val responseSupportDto: ResponseSupportDto
 ) {
     @Serializable
     data class ResponseDummyDto(
@@ -33,7 +33,7 @@ data class ResponseDummiesDto(
     )
 
     @Serializable
-    data class RespnoseSupportDto(
+    data class ResponseSupportDto(
         @SerialName("url")
         val url: String,
         @SerialName("text")
