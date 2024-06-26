@@ -1,6 +1,6 @@
 package org.sopt.dateroad.domain.usecase
 
-import org.sopt.dateroad.domain.model.DummyModel
+import org.sopt.dateroad.domain.model.Dummy
 import org.sopt.dateroad.domain.repository.DummyRepository
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -9,6 +9,6 @@ import javax.inject.Singleton
 class PostDummyUseCase @Inject constructor(
     private val dummyRepository: DummyRepository
 ){
-    suspend operator fun invoke(dummyModel: DummyModel): Result<Unit> =
-        dummyRepository.postDummy(dummyModel = dummyModel)
+    suspend operator fun invoke(dummy: Dummy): Result<Unit> =
+        dummyRepository.postDummy(dummy = dummy)
 }

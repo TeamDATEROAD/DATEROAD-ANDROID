@@ -1,6 +1,6 @@
 package org.sopt.dateroad.domain.model
 
-data class DummyModel(
+data class Dummy(
     val id: Int,
     val email: String
 )
