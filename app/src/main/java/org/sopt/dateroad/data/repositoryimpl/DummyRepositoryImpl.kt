@@ -15,4 +15,9 @@ class DummyRepositoryImpl @Inject constructor(
             responseDummyDto.toDomain()
         }
     }
+
+    override suspend fun postDummyMultipart(image: String, content: String): Result<Unit> =
+        runCatching {
+            dummyRemoteDataSource.postDummyMultipart(image = image, content = content)
+        }
 }
