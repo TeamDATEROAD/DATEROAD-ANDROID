@@ -22,6 +22,7 @@ lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 navigation = "2.7.7"
+security = "1.1.0-alpha06"
 
 # Google
 googleServices = "4.4.1"
@@ -61,6 +62,7 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+androidx-security = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security" }
 
 # Google
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
@@ -101,7 +103,8 @@ androidx = [
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
     "androidx-material3",
-    "androidx-navigation"
+    "androidx-navigation",
+    "androidx-security"
 ]
 
 test = [
