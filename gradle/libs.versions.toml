@@ -25,18 +25,19 @@ navigation = "2.7.7"
 security = "1.1.0-alpha06"
 
 # Google
-googleServices = "4.4.1"
-firebaseCrashlytics = "2.9.9"
-firebaseBom = "32.7.4"
+googleServices = "4.4.2"
+firebaseCrashlytics = "3.0.2"
+firebaseBom = "33.1.1"
 
 # Third Party
 okhttp = "4.11.0"
 retrofit = "2.9.0"
 retrofitKotlinSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.5.1"
-daggerHilt = "2.50"
+daggerHilt = "2.51"
+hiltNavigationCompose = "1.0.0"
 ktlint = "11.5.1"
-coil = "2.4.0"
+coil = "2.6.0"
 timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.15.0"
@@ -80,6 +81,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "daggerHilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "daggerHilt" }
 hilt-android-gradle-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "daggerHilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
@@ -126,6 +128,11 @@ okhttp = [
 retrofit = [
     "retrofit",
     "retrofit-kotlin-serialization-converter"
+]
+
+hilt = [
+    "hilt",
+    "hilt-navigation-compose"
 ]
 
 kakao = [
