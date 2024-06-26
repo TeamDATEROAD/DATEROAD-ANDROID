@@ -11,6 +11,7 @@ import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
+import org.sopt.dateroad.presentation.ui.dummy.navigation.navigationDummy
 
 class MainNavigator(
     val navHostController: NavHostController
@@ -34,7 +35,7 @@ class MainNavigator(
             restoreState = true
         }.let { navOptions ->
             when (mainNavigationBarItemType) {
-                MainNavigationBarItemType.DUMMY -> navHostController
+                MainNavigationBarItemType.DUMMY -> navHostController.navigationDummy(navOptions)
             }
         }
     }

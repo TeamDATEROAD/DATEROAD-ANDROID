@@ -95,7 +95,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Hilt
-    implementation(libs.hilt)
+    implementation(libs.bundles.hilt)
     kapt(libs.hilt.compiler)
 
     // Coil
