@@ -4,11 +4,11 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

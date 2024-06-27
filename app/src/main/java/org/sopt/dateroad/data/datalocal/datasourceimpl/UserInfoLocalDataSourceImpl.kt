@@ -6,9 +6,9 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import org.sopt.dateroad.BuildConfig
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
-import javax.inject.Inject
 
 class UserInfoLocalDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context

@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -17,8 +19,6 @@ import org.sopt.dateroad.data.dataremote.interceptor.AuthInterceptor
 import org.sopt.dateroad.di.qualifier.Auth
 import org.sopt.dateroad.di.qualifier.DateRoad
 import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

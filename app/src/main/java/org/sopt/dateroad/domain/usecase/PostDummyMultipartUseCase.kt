@@ -1,8 +1,8 @@
 package org.sopt.dateroad.domain.usecase
 
-import org.sopt.dateroad.domain.repository.DummyRepository
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.sopt.dateroad.domain.repository.DummyRepository
 
 @Singleton
 class PostDummyMultipartUseCase @Inject constructor(

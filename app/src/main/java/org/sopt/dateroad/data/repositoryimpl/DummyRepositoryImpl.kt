@@ -1,12 +1,12 @@
 package org.sopt.dateroad.data.repositoryimpl
 
+import javax.inject.Inject
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
 import org.sopt.dateroad.data.mapper.todata.toData
 import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.Dummy
 import org.sopt.dateroad.domain.repository.DummyRepository
-import javax.inject.Inject
 
 class DummyRepositoryImpl @Inject constructor(
     private val dummyRemoteDataSource: DummyRemoteDataSource

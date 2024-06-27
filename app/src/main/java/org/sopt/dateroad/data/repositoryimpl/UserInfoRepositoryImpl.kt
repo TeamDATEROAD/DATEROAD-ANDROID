@@ -1,8 +1,8 @@
 package org.sopt.dateroad.data.repositoryimpl
 
+import javax.inject.Inject
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.domain.repository.UserInfoRepository
-import javax.inject.Inject
 
 class UserInfoRepositoryImpl @Inject constructor(
     private val userInfoLocalDataSource: UserInfoLocalDataSource
