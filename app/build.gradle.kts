@@ -108,3 +108,11 @@ dependencies {
     // Kakao
     implementation(libs.bundles.kakao)
 }
+
+ktlint {
+    android = true
+    debug = true
+    coloredOutput = true
+    verbose = true
+    outputToConsole = true
+}

@@ -1,0 +1,90 @@
+name: DATEROAD PR Builder
+on:
+  pull_request:
+    branches: [ develop, main ]
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+jobs:
+  build:
+    name: PR Checker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: set up JDK 1_8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1_8
+
+      - name: Change gradlew permissions
+        run: chmod +x ./gradlew
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+        run: echo $FIREBASE_SECRET > app/google-services.json
+
+      - name: Access local properties
+        env:
+          HFM_BASE_URL: ${{ secrets.BASE_URL }}
+          IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
+          KAKAO_NATIVE_APP_KEY_MANIFEST: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+          KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+        run: |
+          echo "dev.base.url=\"$BASE_URL\"" >> local.properties
+          echo "io.sentry.dsn=\"$IO_SENTRY_DSN\"" >> local.properties
+          echo "kakao.native.app.key.manifest=\"$KAKAO_NATIVE_APP_KEY_MANIFEST\"" >> local.properties
+          echo "kakao.native.app.key=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
+
+      - name: Access sentry properties
+        env:
+          DEFAULTS_ORG: ${{ secrets.DEFAULTS_ORG }}
+          DEFAULTS_PROJECT: ${{ secrets.DEFAULTS_PROJECT }}
+        run: |
+          echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
+          echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
+
+      - name: Lint Check
+        run: ./gradlew ktlintCheck -PcompileSdkVersion=34
+
+      - name: Build with Gradle
+        run: ./gradlew build -PcompileSdkVersion=34
+
+      - name: Slack Notify - Success
+        if: ${{ success() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#B7FF1D'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '✅ PR Success ✅'
+          SLACK_USERNAME: DATEROAD-ANDROID 🍫
+          SLACK_MESSAGE: 'PR이 완료되었습니다! 👩‍❤️‍👨'
+
+      - name: Slack Notify - Failure
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_COLOR: '#FF9254'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: '❌ PR Failed ❌'
+          SLACK_USERNAME: DATEROAD-ANDROID 🍫
+          SLACK_MESSAGE: '에러를 확인해 주세요 🫨'
