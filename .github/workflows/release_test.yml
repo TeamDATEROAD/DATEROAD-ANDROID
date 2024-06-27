@@ -75,7 +75,7 @@ jobs:
         uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channels: ${{ secrets.SLACK_CHANNEL_DEPLOY }}
+          channel_id: ${{ secrets.SLACK_CHANNEL_DEPLOY }}
           file_path: 'app/build/outputs/apk/debug/app-debug.apk'
           file_name: 'DATEROAD-ANDROID.apk'
           file_type: 'apk'
