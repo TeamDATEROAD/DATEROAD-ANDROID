@@ -35,12 +35,13 @@ retrofit = "2.9.0"
 retrofitKotlinSerializationConverter = "1.0.0"
 kotlinxSerializationJson = "1.5.1"
 daggerHilt = "2.51"
-hiltNavigationCompose = "1.0.0"
+hiltNavigationCompose = "1.2.0"
 ktlint = "11.5.1"
 coil = "2.6.0"
 timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.15.0"
+lifecycleRuntimeComposeAndroid = "2.8.2"
 
 [libraries]
 # Test
@@ -64,6 +65,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-security = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security" }
+androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 # Google
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
@@ -90,6 +92,7 @@ kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kaka
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
@@ -106,7 +109,8 @@ androidx = [
     "androidx-ui-tooling-preview",
     "androidx-material3",
     "androidx-navigation",
-    "androidx-security"
+    "androidx-security",
+    "androidx-lifecycle-runtime-compose-android"
 ]
 
 test = [
