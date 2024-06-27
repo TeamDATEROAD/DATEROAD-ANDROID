@@ -2,10 +2,12 @@ name: DATEROAD PR Builder
 on:
   pull_request:
     branches: [ develop, main ]
+
 defaults:
   run:
     shell: bash
     working-directory: .
+
 jobs:
   build:
     name: PR Checker
