@@ -72,7 +72,7 @@ jobs:
 
       - name: Slack Notify - Success
         if: ${{ success() }}
-        uses: MeilCli/slack-upload-file@v1
+        uses: MeilCli/slack-upload-file@v3
         with:
           slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
           channels: ${{ secrets.SLACK_CHANNEL_DEPLOY }}
