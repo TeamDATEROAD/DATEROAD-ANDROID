@@ -5,10 +5,10 @@ import okhttp3.RequestBody
 import org.sopt.dateroad.data.dataremote.model.base.BaseResponse
 import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
-import org.sopt.dateroad.data.dataremote.util.Api.API
-import org.sopt.dateroad.data.dataremote.util.Api.CONTENT
-import org.sopt.dateroad.data.dataremote.util.Api.PAGE
-import org.sopt.dateroad.data.dataremote.util.Api.USERS
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CONTENT
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.PAGE
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart

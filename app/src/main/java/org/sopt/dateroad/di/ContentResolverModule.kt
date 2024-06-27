@@ -15,6 +15,6 @@ object ContentResolverModule {
     @Provides
     @Singleton
     fun providesContentResolver(
-        @ApplicationContext context: Context,
+        @ApplicationContext context: Context
     ): ContentResolver = context.contentResolver
 }

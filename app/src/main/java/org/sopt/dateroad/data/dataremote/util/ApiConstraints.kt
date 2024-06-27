@@ -1,6 +1,6 @@
 package org.sopt.dateroad.data.dataremote.util
 
-object Api {
+object ApiConstraints {
     const val FORM_DATA_IMAGE = "image"
     const val TEXT_PLANE = "text/plain"
     const val API = "api"

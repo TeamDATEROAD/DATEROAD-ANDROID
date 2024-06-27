@@ -9,7 +9,7 @@ import org.sopt.dateroad.data.dataremote.model.base.BaseResponse
 import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDummiesDto
 import org.sopt.dateroad.data.dataremote.service.DummyService
-import org.sopt.dateroad.data.dataremote.util.Api.TEXT_PLANE
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.TEXT_PLANE
 import org.sopt.dateroad.data.dataremote.util.ContentUriRequestBody
 import javax.inject.Inject
 
@@ -29,6 +29,7 @@ class DummyRemoteDataSourceImpl @Inject constructor(
         image = ContentUriRequestBody(
             contentResolver = contentResolver,
             uri = Uri.parse(image)
-        ).toFormData(), content = content.toRequestBody(TEXT_PLANE.toMediaType())
+        ).toFormData(),
+        content = content.toRequestBody(TEXT_PLANE.toMediaType())
     )
 }

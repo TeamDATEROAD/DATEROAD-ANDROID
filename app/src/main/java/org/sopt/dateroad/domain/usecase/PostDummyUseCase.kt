@@ -8,7 +8,7 @@ import javax.inject.Singleton
 @Singleton
 class PostDummyUseCase @Inject constructor(
     private val dummyRepository: DummyRepository
-){
+) {
     suspend operator fun invoke(dummy: Dummy): Result<Unit> =
         dummyRepository.postDummy(dummy = dummy)
 }

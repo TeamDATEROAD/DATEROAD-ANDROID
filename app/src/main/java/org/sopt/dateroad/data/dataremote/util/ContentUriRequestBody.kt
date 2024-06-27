@@ -12,7 +12,7 @@ import okio.source
 
 class ContentUriRequestBody(
     private val contentResolver: ContentResolver,
-    private val uri: Uri,
+    private val uri: Uri
 ) : RequestBody() {
     private var fileName = ""
     private var size = -1L
@@ -23,7 +23,7 @@ class ContentUriRequestBody(
             arrayOf(MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DISPLAY_NAME),
             null,
             null,
-            null,
+            null
         )?.use { cursor ->
             if (cursor.moveToFirst()) {
                 size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE))
@@ -46,5 +46,5 @@ class ContentUriRequestBody(
         }
     }
 
-    fun toFormData() = MultipartBody.Part.createFormData(Api.FORM_DATA_IMAGE, getFileName(), this)
+    fun toFormData() = MultipartBody.Part.createFormData(ApiConstraints.FORM_DATA_IMAGE, getFileName(), this)
 }

@@ -38,7 +38,7 @@ object NetworkModule {
     @Singleton
     fun providesOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        @Auth authInterceptor: Interceptor,
+        @Auth authInterceptor: Interceptor
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             connectTimeout(10, TimeUnit.SECONDS)
@@ -66,13 +66,13 @@ object NetworkModule {
     @Singleton
     fun providesPingleRetrofit(
         okHttpClient: OkHttpClient,
-        json: Json,
+        json: Json
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(
-                json.asConverterFactory(requireNotNull("application/json".toMediaTypeOrNull())),
+                json.asConverterFactory(requireNotNull("application/json".toMediaTypeOrNull()))
             )
             .build()
 }

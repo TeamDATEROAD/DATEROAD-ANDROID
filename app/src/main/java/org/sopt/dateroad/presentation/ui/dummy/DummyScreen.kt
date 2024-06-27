@@ -78,7 +78,7 @@ fun DummyScreen(
                 onDummyTvClicked()
             }
             .padding(padding)
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         Text(
             text = email,
