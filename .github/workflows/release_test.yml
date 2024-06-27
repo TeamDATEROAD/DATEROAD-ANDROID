@@ -39,6 +39,34 @@ jobs:
       - name: Change gradlew permissions
         run: chmod +x ./gradlew
 
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+        run: echo $FIREBASE_SECRET > app/google-services.json
+
+      - name: Access local properties
+        env:
+          HFM_BASE_URL: ${{ secrets.BASE_URL }}
+          IO_SENTRY_TOKEN: ${{ secrets.IO_SENTRY_DSN }}
+          KAKAO_NATIVE_APP_KEY_MANIFEST: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+          KAKAO_NATIVE_APP_KEY: ${{ secrets.KAKAO_NATIVE_APP_KEY }}
+        run: |
+          echo "dev.base.url=\"$BASE_URL\"" >> local.properties
+          echo "io.sentry.dsn=\"$IO_SENTRY_DSN\"" >> local.properties
+          echo "kakao.native.app.key.manifest=\"$KAKAO_NATIVE_APP_KEY_MANIFEST\"" >> local.properties
+          echo "kakao.native.app.key=\"$KAKAO_NATIVE_APP_KEY\"" >> local.properties
+
+      - name: Access sentry properties
+        env:
+          DEFAULTS_ORG: ${{ secrets.DEFAULTS_ORG }}
+          DEFAULTS_PROJECT: ${{ secrets.DEFAULTS_PROJECT }}
+        run: |
+          echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
+          echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
+
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
