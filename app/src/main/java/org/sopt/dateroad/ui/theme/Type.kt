@@ -35,7 +35,7 @@ val Typography = Typography(
     */
 )
 
-//title font setting
+// title font setting
 val title_extra_24 = TextStyle(
     fontFamily = FontFamily(Font(R.font.suit_extrabold)),
     fontSize = 24.sp,
@@ -66,7 +66,7 @@ val title_med_18 = TextStyle(
     lineHeight = 18.sp * 1.4
 )
 
-//body font setting
+// body font setting
 val body_bold_17 = TextStyle(
     fontFamily = FontFamily(Font(R.font.suit_bold)),
     fontSize = 17.sp,
@@ -133,7 +133,7 @@ val body_med_13_context = TextStyle(
     lineHeight = 13.sp * 1.5
 )
 
-//caption font setting
+// caption font setting
 val cap_bold_11 = TextStyle(
     fontFamily = FontFamily(Font(R.font.suit_bold)),
     fontSize = 11.sp,
