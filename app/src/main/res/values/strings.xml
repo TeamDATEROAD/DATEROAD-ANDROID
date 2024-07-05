@@ -31,5 +31,10 @@
     <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고 포인트를 받아보세요</string>
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
     <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
+    
+    <!-- RegionType -->
+    <string name="region_Seoul">서울</string>
+    <string name="region_gyeonggi">경기</string>
+    <string name="region_incheon">인천</string>
 
 </resources>
