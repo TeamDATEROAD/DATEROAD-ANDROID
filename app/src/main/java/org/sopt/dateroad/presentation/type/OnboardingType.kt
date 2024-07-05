@@ -6,22 +6,22 @@ import org.sopt.dateroad.R
 
 enum class OnboardingType(
     @StringRes val titleRes: Int,
-    @StringRes val description: Int,
+    @StringRes val descriptionRes: Int,
     @DrawableRes val imageRes: Int
 ) {
     FIRST(
         titleRes = R.string.onboarding_first_title,
-        description = R.string.onboarding_first_description,
+        descriptionRes = R.string.onboarding_first_description,
         imageRes = R.drawable.ic_launcher_foreground
     ),
     SECOND(
         titleRes = R.string.onboarding_second_title,
-        description = R.string.onboarding_second_description,
+        descriptionRes = R.string.onboarding_second_description,
         imageRes = R.drawable.ic_launcher_foreground
     ),
     THIRD(
         titleRes = R.string.onboarding_third_title,
-        description = R.string.onboarding_third_description,
+        descriptionRes = R.string.onboarding_third_description,
         imageRes = R.drawable.ic_launcher_foreground
     )
 }
