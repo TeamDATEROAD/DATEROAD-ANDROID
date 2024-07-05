@@ -86,6 +86,16 @@
     <string name="point_history_tab_earn_history">획득 내역</string>
     <string name="point_history_tab_usage_history">사용 내역</string>
 
+    <!-- PointSystemType -->
+    <string name="point_system_first_title">데이트 코스를 등록하면\n포인트를 얻을 수 있어요</string>
+    <string name="point_system_first_description">데이트 코스를 자랑하고 포인트를 받아보세요.</string>
+    <string name="point_system_second_title">처음 3번은 무료로\n데이트 코스를 열람할 수 있어요</string>
+    <string name="point_system_second_description">무료 찬스를 사용해 다른 데이트를 열람하세요.</string>
+    <string name="point_system_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="point_system_third_description">다른 커플들의 데이트, 궁금하지 않으신가요?</string>
+    <string name="point_system_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
+    <string name="point_system_fourth_description">추후 만들어질 기능을 기대해주세요!</string>
+
     <!-- RegionType -->
     <string name="region_Seoul">서울</string>
     <string name="region_gyeonggi">경기</string>
