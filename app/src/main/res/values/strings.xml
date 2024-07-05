@@ -135,5 +135,7 @@
     <!-- Top Bar Title -->
     <string name="top_bar_title_enroll_course">코스 등록하기</string>
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
+    <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
+    <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
 
 </resources>
