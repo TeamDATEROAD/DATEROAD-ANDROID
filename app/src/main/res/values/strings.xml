@@ -103,5 +103,23 @@
     <string name="seoul_area_yangcheon_gangseo">양천/강서</string>
     <string name="seoul_area_seongbuk_nowon_jungnang">성북/노원/중랑</string>
     <string name="seoul_area_guro_gwanak_dongjak">구로/관악/동작</string>
-    
+
+    <!-- TwoButtonDialogType -->
+    <string name="two_button_dialog_open_kakaotalk_title">데이트로드에서 카카오톡을 열려고 해요</string>
+    <string name="two_button_dialog_open_kakaotalk_confirm_button_text">열기</string>
+    <string name="two_button_dialog_logout_title">로그아웃 하시겠어요?</string>
+
+    <!-- TwoButtonDialogWithDescriptionType -->
+    <string name="two_button_dialog_with_description_read_course_title">50p를 사용해서 코스를 확인해 보시겠어요?</string>
+    <string name="two_button_dialog_with_description_read_course_description">구매 후 포인트는 환불되지 않아요</string>
+    <string name="two_button_dialog_with_description_point_lack_title">코스를 열람하기에 포인트가 부족해요</string>
+    <string name="two_button_dialog_with_description_point_lack_description">코스를 등록하고 포인트를 모아보아요</string>
+    <string name="two_button_dialog_with_description_point_lack_confirm_button_text">코스 등록하기</string>
+    <string name="two_button_dialog_with_description_free_read_title">무료 열람 기회를 사용해 보시겠어요?</string>
+    <string name="two_button_dialog_with_description_free_read_description">무료 열람 기회는 한 번 사용하면 취소할 수 없어요</string>
+    <string name="two_button_dialog_with_description_delete_timeline_title">데이트 일정을 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_delete_past_title">지난 데이트를 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
+    <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
+
 </resources>
