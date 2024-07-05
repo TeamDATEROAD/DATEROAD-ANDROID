@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.type
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.util.PointHistoryTab.EARN_HISTORY_POSITION

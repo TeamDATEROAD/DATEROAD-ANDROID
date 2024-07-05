@@ -13,7 +13,7 @@
     <string name="dialog_delete_schedule">삭제된 일정은 복구하실 수 없어요</string>
 
     <!-- AdvertisementTitleType -->
-    <strinA name="advertisement_title_editor_pick">에디터픽</strinA>
+    <string name="advertisement_title_editor_pick">에디터픽</string>
     <string name="advertisement_title_advertisement">광고</string>
 
     <!-- DateTagType -->

@@ -39,5 +39,5 @@ enum class EmptyViewType(
     MY_COURSE_ENROLL(
         titleRes = R.string.empty_view_my_course_enroll,
         imageRes = R.drawable.ic_launcher_foreground
-    ),
+    )
 }
