@@ -54,6 +54,10 @@
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
     <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
     
+    <!-- PointHistoryTabType -->
+    <string name="point_history_tab_earn_history">획득 내역</string>
+    <string name="point_history_tab_usage_history">사용 내역</string>
+    
     <!-- RegionType -->
     <string name="region_Seoul">서울</string>
     <string name="region_gyeonggi">경기</string>
