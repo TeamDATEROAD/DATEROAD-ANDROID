@@ -1,5 +1,7 @@
 package org.sopt.dateroad.ui.theme
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 // Main
@@ -24,3 +26,56 @@ val White = Color(0xFFFFFFFF)
 
 // Notif
 val AlertRed = Color(0xFFFF0000)
+
+@Immutable
+data class DateRoadColors(
+    // Main
+    val deepPurple: Color,
+    val mediumPurple: Color,
+    val lightPurple: Color,
+    val lilac: Color,
+    val lightPink: Color,
+    val pink: Color,
+    val lime: Color,
+    val lightLime: Color,
+
+    // GrayScale
+    val black: Color,
+    val gray600: Color,
+    val gray500: Color,
+    val gray400: Color,
+    val gray300: Color,
+    val gray200: Color,
+    val gray100: Color,
+    val white: Color,
+
+    // Notif
+    val alertRed: Color
+)
+
+val defaultDateRoadColors = DateRoadColors(
+    // Main
+    deepPurple = DeepPurple,
+    mediumPurple = MediumPurple,
+    lightPurple = LightPurple,
+    lilac = Lilac,
+    lightPink = LightPink,
+    pink = Pink,
+    lime = Lime,
+    lightLime = LightLime,
+
+    // GrayScale
+    black = Black,
+    gray600 = Gray600,
+    gray500 = Gray500,
+    gray400 = Gray400,
+    gray300 = Gray300,
+    gray200 = Gray200,
+    gray100 = Gray100,
+    white = White,
+
+    // Notif
+    alertRed = AlertRed
+)
+
+val localDateRoadColors = staticCompositionLocalOf { defaultDateRoadColors }
