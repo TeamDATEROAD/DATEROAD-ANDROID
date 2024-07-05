@@ -18,6 +18,16 @@
     <string name="date_tag_performance_music">🎭 공연·음악</string>
     <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
 
+    <!-- EmptyViewType -->
+    <string name="empty_view_point_history_earn_history">아직 포인트 획득 내역이 없어요!</string>
+    <string name="empty_view_point_history_usage_history">아직 포인트 사용 내역이 없어요!</string>
+    <string name="empty_view_read">다른 커플들의 데이트 코스를 열람해 보세요!</string>
+    <string name="empty_view_look">아직 등록된 코스가 없어요!</string>
+    <string name="empty_view_timeline">아직 연인과의 데이트 일정을 등록하지 않으셨나요?</string>
+    <string name="empty_view_past">지난 데이트가 없어요!</string>
+    <string name="empty_view_my_course_read">아직 열람한 코스가 없어요!</string>
+    <string name="empty_view_my_course_enroll">아직 등록한 코스가 없어요!</string>
+
     <!-- GyeonggiAreaType -->
     <string name="gyeonggi_area_whole">경기 전체</string>
     <string name="gyeonggi_area_seongnam">성남</string>
