@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class AdvertisementTitleType(
-    @StringRes titleRes: Int
+    @StringRes val titleRes: Int
 ) {
     EDITOR_PICK(
         titleRes = R.string.advertisement_title_editor_pick

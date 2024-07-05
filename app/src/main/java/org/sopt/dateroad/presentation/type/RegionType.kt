@@ -4,15 +4,15 @@ import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class RegionType(
-    @StringRes name: Int
+    @StringRes val nameRes: Int
 ) {
     SEOUL(
-        name = R.string.region_Seoul
+        nameRes = R.string.region_Seoul
     ),
     GYEONGGI(
-        name = R.string.region_gyeonggi
+        nameRes = R.string.region_gyeonggi
     ),
     INCHEON(
-        name = R.string.region_incheon
+        nameRes = R.string.region_incheon
     )
 }

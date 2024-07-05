@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class MoneyTagType(
-    @StringRes titleRes: Int
+    @StringRes val titleRes: Int
 ) {
     EXCESS_100000(
         titleRes = R.string.money_tag_excess_100000

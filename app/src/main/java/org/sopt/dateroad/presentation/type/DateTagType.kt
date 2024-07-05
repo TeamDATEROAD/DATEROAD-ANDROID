@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class DateTagType(
-    @StringRes titleRes: Int
+    @StringRes val titleRes: Int
 ) {
     DRIVE(
         titleRes = R.string.date_tag_drive
