@@ -132,4 +132,8 @@
     <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
 
+    <!-- Top Bar Title -->
+    <string name="top_bar_title_enroll_course">코스 등록하기</string>
+    <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
+
 </resources>
