@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">DATEROAD</string>
 
+    <!-- DateTagType -->
+    <string name="date_tag_drive">🚙 드라이브</string>
+    <string name="date_tag_shopping">🛍️ 쇼핑</string>
+    <string name="date_tag_indoor">🚪 실내</string>
+    <string name="date_tag_healing">🍵 힐링</string>
+    <string name="date_tag_alcohol">🥂 알콜</string>
+    <string name="date_tag_epicurism">🍜 식도락</string>
+    <string name="date_tag_craft_shop">💍 공방</string>
+    <string name="date_tag_nature">🌊 자연</string>
+    <string name="date_tag_activity">🛼️ 액티비티</string>
+    <string name="date_tag_performance_music">🎭 공연·음악</string>
+    <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="onboarding_first_description">최초 3회 찬스로 다른 사람의 데이트 코스를 구경해 보세요</string>
