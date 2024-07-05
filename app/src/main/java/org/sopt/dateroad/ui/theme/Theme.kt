@@ -1,18 +1,15 @@
 package org.sopt.dateroad.ui.theme
 
 import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
@@ -29,7 +26,7 @@ object DateRoadTheme {
 }
 
 @Composable
-fun provideDateRoadColorsAndTypography(
+fun ProvideDateRoadColorsAndTypography(
     colors: DateRoadColors,
     typography: DateRoadTypography,
     content: @Composable () -> Unit,
@@ -43,9 +40,10 @@ fun provideDateRoadColorsAndTypography(
 
 @Composable
 fun DATEROADTheme(
+    backgroundColor: Color = defaultDateRoadColors.white,
     content: @Composable () -> Unit
 ) {
-    provideDateRoadColorsAndTypography(colors = defaultDateRoadColors, typography = defaultDateRoadTypography) {
+    ProvideDateRoadColorsAndTypography(colors = defaultDateRoadColors, typography = defaultDateRoadTypography) {
         val view = LocalView.current
         if (!view.isInEditMode) {
             SideEffect {
@@ -54,6 +52,11 @@ fun DATEROADTheme(
                 WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
             }
         }
-        MaterialTheme(content = content)
+
+        androidx.compose.material3.Surface(
+            modifier = Modifier.background(backgroundColor)
+        ) {
+            MaterialTheme(content = content)
+        }
     }
 }
