@@ -17,6 +17,12 @@
     <string name="date_tag_activity">🛼️ 액티비티</string>
     <string name="date_tag_performance_music">🎭 공연·음악</string>
     <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+    
+    <!-- MoneyTagType -->
+    <string name="money_tag_excess_100000">10만원 초과</string>
+    <string name="money_tag_less_than_100000">10만원 이하</string>
+    <string name="money_tag_less_than_50000">5만원 이하</string>
+    <string name="money_tag_less_than_30000">3만원 이하</string>
 
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
