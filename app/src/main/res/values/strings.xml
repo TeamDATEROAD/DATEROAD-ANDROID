@@ -17,6 +17,25 @@
     <string name="date_tag_activity">🛼️ 액티비티</string>
     <string name="date_tag_performance_music">🎭 공연·음악</string>
     <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+
+    <!-- GyeonggiAreaType -->
+    <string name="gyeonggi_area_whole">경기 전체</string>
+    <string name="gyeonggi_area_seongnam">성남</string>
+    <string name="gyeonggi_area_suwon">수원</string>
+    <string name="gyeonggi_area_goyang_paju">고양/파주</string>
+    <string name="gyeonggi_area_kimpo">김포</string>
+    <string name="gyeonggi_area_yongin_hwaseong">용인/화성</string>
+    <string name="gyeonggi_area_anyang_gwacheon">안양/과천</string>
+    <string name="gyeonggi_area_pocheon_yangju">포천/양주</string>
+    <string name="gyeonggi_area_namyangju_uijeongbu">남양주/의정부</string>
+    <string name="gyeonggi_area_gwangju_icheon_yeoju">광주/이천/여주</string>
+    <string name="gyeonggi_area_gapyeong_yangpyeong">가평/양평</string>
+    <string name="gyeonggi_area_gunpo_uiwang">군포/의왕</string>
+    <string name="gyeonggi_area_yongin_hanam_guri">하남/구리</string>
+    <string name="gyeonggi_area_siheung_gwangmyeong">시흥/광명</string>
+    <string name="gyeonggi_area_bucheon_ansan">부천/안산</string>
+    <string name="gyeonggi_area_dongducheon_yeoncheon">동두천/연천</string>
+    <string name="gyeonggi_area_pyeongtaek_osan_anseong">평택/오산/안성</string>
     
     <!-- MoneyTagType -->
     <string name="money_tag_excess_100000">10만원 초과</string>
