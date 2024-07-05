@@ -37,4 +37,17 @@
     <string name="region_gyeonggi">경기</string>
     <string name="region_incheon">인천</string>
 
+    <!-- SeoulAreaType -->
+    <string name="seoul_area_whole">서울 전체</string>
+    <string name="seoul_area_gangnam_seocho">강남/서초</string>
+    <string name="seoul_area_jamsil_songpa_gangdong">잠실/송파/강동</string>
+    <string name="seoul_area_konkuk_university_seongsu_wangsimni">건대/성수/왕십리</string>
+    <string name="seoul_area_jongno_junggu">종로/중구</string>
+    <string name="seoul_area_hongik_university_hapjeong_mapo">홍대/합정/마포</string>
+    <string name="seoul_area_yeongdeungpo_yeouido">영등포/여의도</string>
+    <string name="seoul_area_yongsan_itaewon_hannam">용산/이태원/한남</string>
+    <string name="seoul_area_yangcheon_gangseo">양천/강서</string>
+    <string name="seoul_area_seongbuk_nowon_jungnang">성북/노원/중랑</string>
+    <string name="seoul_area_guro_gwanak_dongjak">구로/관악/동작</string>
+    
 </resources>
