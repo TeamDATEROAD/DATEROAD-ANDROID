@@ -36,6 +36,9 @@
     <string name="gyeonggi_area_bucheon_ansan">부천/안산</string>
     <string name="gyeonggi_area_dongducheon_yeoncheon">동두천/연천</string>
     <string name="gyeonggi_area_pyeongtaek_osan_anseong">평택/오산/안성</string>
+
+    <!-- IncheonAreaType -->
+    <string name="incheon_area_whole">인천 전체</string>
     
     <!-- MoneyTagType -->
     <string name="money_tag_excess_100000">10만원 초과</string>
