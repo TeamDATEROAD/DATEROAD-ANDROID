@@ -2,7 +2,6 @@ package org.sopt.dateroad.ui.theme
 
 import android.app.Activity
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -28,7 +27,7 @@ object DateRoadTheme {
 fun ProvideDateRoadColorsAndTypography(
     colors: DateRoadColors,
     typography: DateRoadTypography,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
         LocalDateRoadColors provides colors,

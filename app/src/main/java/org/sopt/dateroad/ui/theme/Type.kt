@@ -39,7 +39,7 @@ data class DateRoadTypography(
 
     // Caption
     val capBold11: TextStyle,
-    val capReg11: TextStyle,
+    val capReg11: TextStyle
 )
 
 val defaultDateRoadTypography = DateRoadTypography(
