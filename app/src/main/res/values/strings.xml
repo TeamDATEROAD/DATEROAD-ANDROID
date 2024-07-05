@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">DATEROAD</string>
-    
+
+    <!-- ALL -->
+    <string name="logout">로그아웃</string>
+    <string name="withdrawal">탈퇴</string>
+
+    <!-- Dialog All -->
+    <string name="dialog_cancel">취소</string>
+    <string name="dialog_check">확인</string>
+    <string name="dialog_checked">확인했어요</string>
+    <string name="dialog_delete">삭제</string>
+    <string name="dialog_delete_schedule">삭제된 일정은 복구하실 수 없어요</string>
+
     <!-- AdvertisementTitleType -->
-    <string name="advertisement_title_editor_pick">에디터픽</string>
+    <strinA name="advertisement_title_editor_pick">에디터픽</strinA>
     <string name="advertisement_title_advertisement">광고</string>
 
     <!-- DateTagType -->
@@ -49,7 +60,7 @@
 
     <!-- IncheonAreaType -->
     <string name="incheon_area_whole">인천 전체</string>
-    
+
     <!-- MoneyTagType -->
     <string name="money_tag_excess_100000">10만원 초과</string>
     <string name="money_tag_less_than_100000">10만원 이하</string>
@@ -63,11 +74,18 @@
     <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고 포인트를 받아보세요</string>
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
     <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
-    
+
+    <!-- OneButtonDialogType -->
+    <string name="one_button_dialog_with_description_enroll_timeline_title">데이트 일정이 등록되었어요!</string>
+
+    <!-- OneButtonDialogWithDescriptionType -->
+    <string name="one_button_dialog_with_description_enroll_course_title">코스 등록이 되었어요</string>
+    <string name="one_button_dialog_with_description_enroll_course_description">100P가 적립되었어요!</string>
+
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_earn_history">획득 내역</string>
     <string name="point_history_tab_usage_history">사용 내역</string>
-    
+
     <!-- RegionType -->
     <string name="region_Seoul">서울</string>
     <string name="region_gyeonggi">경기</string>
