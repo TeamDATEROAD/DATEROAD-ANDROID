@@ -81,6 +81,8 @@
     <!-- OneButtonDialogWithDescriptionType -->
     <string name="one_button_dialog_with_description_enroll_course_title">코스 등록이 되었어요</string>
     <string name="one_button_dialog_with_description_enroll_course_description">100P가 적립되었어요!</string>
+    <string name="one_button_dialog_with_description_soon_title">곧 오픈될 기능이에요!</string>
+    <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
 
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_earn_history">획득 내역</string>
