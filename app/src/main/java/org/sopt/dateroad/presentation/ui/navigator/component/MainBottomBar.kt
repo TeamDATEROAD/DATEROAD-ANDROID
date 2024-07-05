@@ -8,18 +8,15 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
+import org.sopt.dateroad.ui.theme.Black
 import org.sopt.dateroad.ui.theme.DATEROADTheme
-import org.sopt.dateroad.ui.theme.capReg11
 import org.sopt.dateroad.ui.theme.Gray200
 import org.sopt.dateroad.ui.theme.Gray300
-import org.sopt.dateroad.ui.theme.Black
+import org.sopt.dateroad.ui.theme.capReg11
 
 @Composable
 fun MainBottomBar(
@@ -56,8 +53,6 @@ fun MainBottomBar(
             }
         }
     }
-
-
 }
 
 @Preview

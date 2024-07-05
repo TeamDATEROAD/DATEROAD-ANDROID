@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.sopt.dateroad.presentation.ui.dummy.navigation.dummyNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.lookNavGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
