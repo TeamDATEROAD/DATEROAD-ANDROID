@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">DATEROAD</string>
+    
+    <!-- AdvertisementTitleType -->
+    <string name="advertisement_title_editor_pick">에디터픽</string>
+    <string name="advertisement_title_advertisement">광고</string>
 
     <!-- DateTagType -->
     <string name="date_tag_drive">🚙 드라이브</string>
