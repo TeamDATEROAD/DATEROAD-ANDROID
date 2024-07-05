@@ -1,3 +1,143 @@
 <resources>
     <string name="app_name">DATEROAD</string>
+
+    <!-- ALL -->
+    <string name="logout">로그아웃</string>
+    <string name="withdrawal">탈퇴</string>
+
+    <!-- Dialog All -->
+    <string name="dialog_cancel">취소</string>
+    <string name="dialog_check">확인</string>
+    <string name="dialog_checked">확인했어요</string>
+    <string name="dialog_delete">삭제</string>
+    <string name="dialog_delete_schedule">삭제된 일정은 복구하실 수 없어요</string>
+
+    <!-- AdvertisementTitleType -->
+    <string name="advertisement_title_editor_pick">에디터픽</string>
+    <string name="advertisement_title_advertisement">광고</string>
+
+    <!-- DateTagType -->
+    <string name="date_tag_drive">🚙 드라이브</string>
+    <string name="date_tag_shopping">🛍️ 쇼핑</string>
+    <string name="date_tag_indoor">🚪 실내</string>
+    <string name="date_tag_healing">🍵 힐링</string>
+    <string name="date_tag_alcohol">🥂 알콜</string>
+    <string name="date_tag_epicurism">🍜 식도락</string>
+    <string name="date_tag_craft_shop">💍 공방</string>
+    <string name="date_tag_nature">🌊 자연</string>
+    <string name="date_tag_activity">🛼️ 액티비티</string>
+    <string name="date_tag_performance_music">🎭 공연·음악</string>
+    <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+
+    <!-- EmptyViewType -->
+    <string name="empty_view_point_history_earn_history">아직 포인트 획득 내역이 없어요!</string>
+    <string name="empty_view_point_history_usage_history">아직 포인트 사용 내역이 없어요!</string>
+    <string name="empty_view_read">다른 커플들의 데이트 코스를 열람해 보세요!</string>
+    <string name="empty_view_look">아직 등록된 코스가 없어요!</string>
+    <string name="empty_view_timeline">아직 연인과의 데이트 일정을 등록하지 않으셨나요?</string>
+    <string name="empty_view_past">지난 데이트가 없어요!</string>
+    <string name="empty_view_my_course_read">아직 열람한 코스가 없어요!</string>
+    <string name="empty_view_my_course_enroll">아직 등록한 코스가 없어요!</string>
+
+    <!-- GyeonggiAreaType -->
+    <string name="gyeonggi_area_whole">경기 전체</string>
+    <string name="gyeonggi_area_seongnam">성남</string>
+    <string name="gyeonggi_area_suwon">수원</string>
+    <string name="gyeonggi_area_goyang_paju">고양/파주</string>
+    <string name="gyeonggi_area_kimpo">김포</string>
+    <string name="gyeonggi_area_yongin_hwaseong">용인/화성</string>
+    <string name="gyeonggi_area_anyang_gwacheon">안양/과천</string>
+    <string name="gyeonggi_area_pocheon_yangju">포천/양주</string>
+    <string name="gyeonggi_area_namyangju_uijeongbu">남양주/의정부</string>
+    <string name="gyeonggi_area_gwangju_icheon_yeoju">광주/이천/여주</string>
+    <string name="gyeonggi_area_gapyeong_yangpyeong">가평/양평</string>
+    <string name="gyeonggi_area_gunpo_uiwang">군포/의왕</string>
+    <string name="gyeonggi_area_yongin_hanam_guri">하남/구리</string>
+    <string name="gyeonggi_area_siheung_gwangmyeong">시흥/광명</string>
+    <string name="gyeonggi_area_bucheon_ansan">부천/안산</string>
+    <string name="gyeonggi_area_dongducheon_yeoncheon">동두천/연천</string>
+    <string name="gyeonggi_area_pyeongtaek_osan_anseong">평택/오산/안성</string>
+
+    <!-- IncheonAreaType -->
+    <string name="incheon_area_whole">인천 전체</string>
+
+    <!-- MoneyTagType -->
+    <string name="money_tag_excess_100000">10만원 초과</string>
+    <string name="money_tag_less_than_100000">10만원 이하</string>
+    <string name="money_tag_less_than_50000">5만원 이하</string>
+    <string name="money_tag_less_than_30000">3만원 이하</string>
+
+    <!-- OnboardingType -->
+    <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
+    <string name="onboarding_first_description">최초 3회 찬스로 다른 사람의 데이트 코스를 구경해 보세요</string>
+    <string name="onboarding_second_title">데이트 코스를 등록하면\n100 포인트를 얻을 수 있어요</string>
+    <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고 포인트를 받아보세요</string>
+    <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
+
+    <!-- OneButtonDialogType -->
+    <string name="one_button_dialog_with_description_enroll_timeline_title">데이트 일정이 등록되었어요!</string>
+
+    <!-- OneButtonDialogWithDescriptionType -->
+    <string name="one_button_dialog_with_description_enroll_course_title">코스 등록이 되었어요</string>
+    <string name="one_button_dialog_with_description_enroll_course_description">100P가 적립되었어요!</string>
+    <string name="one_button_dialog_with_description_soon_title">곧 오픈될 기능이에요!</string>
+    <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
+
+    <!-- PointHistoryTabType -->
+    <string name="point_history_tab_earn_history">획득 내역</string>
+    <string name="point_history_tab_usage_history">사용 내역</string>
+
+    <!-- PointSystemType -->
+    <string name="point_system_first_title">데이트 코스를 등록하면\n포인트를 얻을 수 있어요</string>
+    <string name="point_system_first_description">데이트 코스를 자랑하고 포인트를 받아보세요.</string>
+    <string name="point_system_second_title">처음 3번은 무료로\n데이트 코스를 열람할 수 있어요</string>
+    <string name="point_system_second_description">무료 찬스를 사용해 다른 데이트를 열람하세요.</string>
+    <string name="point_system_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="point_system_third_description">다른 커플들의 데이트, 궁금하지 않으신가요?</string>
+    <string name="point_system_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
+    <string name="point_system_fourth_description">추후 만들어질 기능을 기대해주세요!</string>
+
+    <!-- RegionType -->
+    <string name="region_Seoul">서울</string>
+    <string name="region_gyeonggi">경기</string>
+    <string name="region_incheon">인천</string>
+
+    <!-- SeoulAreaType -->
+    <string name="seoul_area_whole">서울 전체</string>
+    <string name="seoul_area_gangnam_seocho">강남/서초</string>
+    <string name="seoul_area_jamsil_songpa_gangdong">잠실/송파/강동</string>
+    <string name="seoul_area_konkuk_university_seongsu_wangsimni">건대/성수/왕십리</string>
+    <string name="seoul_area_jongno_junggu">종로/중구</string>
+    <string name="seoul_area_hongik_university_hapjeong_mapo">홍대/합정/마포</string>
+    <string name="seoul_area_yeongdeungpo_yeouido">영등포/여의도</string>
+    <string name="seoul_area_yongsan_itaewon_hannam">용산/이태원/한남</string>
+    <string name="seoul_area_yangcheon_gangseo">양천/강서</string>
+    <string name="seoul_area_seongbuk_nowon_jungnang">성북/노원/중랑</string>
+    <string name="seoul_area_guro_gwanak_dongjak">구로/관악/동작</string>
+
+    <!-- TwoButtonDialogType -->
+    <string name="two_button_dialog_open_kakaotalk_title">데이트로드에서 카카오톡을 열려고 해요</string>
+    <string name="two_button_dialog_open_kakaotalk_confirm_button_text">열기</string>
+    <string name="two_button_dialog_logout_title">로그아웃 하시겠어요?</string>
+
+    <!-- TwoButtonDialogWithDescriptionType -->
+    <string name="two_button_dialog_with_description_read_course_title">50p를 사용해서 코스를 확인해 보시겠어요?</string>
+    <string name="two_button_dialog_with_description_read_course_description">구매 후 포인트는 환불되지 않아요</string>
+    <string name="two_button_dialog_with_description_point_lack_title">코스를 열람하기에 포인트가 부족해요</string>
+    <string name="two_button_dialog_with_description_point_lack_description">코스를 등록하고 포인트를 모아보아요</string>
+    <string name="two_button_dialog_with_description_point_lack_confirm_button_text">코스 등록하기</string>
+    <string name="two_button_dialog_with_description_free_read_title">무료 열람 기회를 사용해 보시겠어요?</string>
+    <string name="two_button_dialog_with_description_free_read_description">무료 열람 기회는 한 번 사용하면 취소할 수 없어요</string>
+    <string name="two_button_dialog_with_description_delete_timeline_title">데이트 일정을 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_delete_past_title">지난 데이트를 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
+    <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
+
+    <!-- Top Bar Title -->
+    <string name="top_bar_title_enroll_course">코스 등록하기</string>
+    <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
+    <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
+    <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+
 </resources>
