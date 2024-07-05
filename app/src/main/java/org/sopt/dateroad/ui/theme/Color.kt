@@ -22,6 +22,5 @@ val Gray200 = Color(0xFFD5D5DE)
 val Gray100 = Color(0xFFEBEBF3)
 val White = Color(0xFFFFFFFF)
 
-
 // Notif
 val AlertRed = Color(0xFFFF0000)
