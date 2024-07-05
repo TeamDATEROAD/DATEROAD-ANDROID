@@ -78,4 +78,4 @@ val defaultDateRoadColors = DateRoadColors(
     alertRed = AlertRed
 )
 
-val localDateRoadColors = staticCompositionLocalOf { defaultDateRoadColors }
+val LocalDateRoadColors = staticCompositionLocalOf { defaultDateRoadColors }

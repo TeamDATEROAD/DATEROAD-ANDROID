@@ -140,4 +140,4 @@ val defaultDateRoadTypography = DateRoadTypography(
     )
 )
 
-val localDateRoadTypography = staticCompositionLocalOf { defaultDateRoadTypography }
+val LocalDateRoadTypography = staticCompositionLocalOf { defaultDateRoadTypography }
