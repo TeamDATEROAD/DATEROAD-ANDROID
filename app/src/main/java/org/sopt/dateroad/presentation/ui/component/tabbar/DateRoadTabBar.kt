@@ -31,10 +31,8 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
-import org.sopt.dateroad.ui.theme.Black
 import org.sopt.dateroad.ui.theme.DATEROADTheme
-import org.sopt.dateroad.ui.theme.Gray300
-import org.sopt.dateroad.ui.theme.bodyBold17
+import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 enum class SubComposeID {
     HEIGHT,
@@ -51,8 +49,8 @@ data class TabPosition(
 
 @Composable
 fun DateRoadTabBar(
-    dividerColor: Color = Gray300,
-    indicatorColor: Color = Black,
+    dividerColor: Color = DateRoadTheme.colors.gray300,
+    indicatorColor: Color = DateRoadTheme.colors.black,
     animationSpec: AnimationSpec<Dp> = tween(durationMillis = 250, easing = FastOutSlowInEasing),
     selectedTabPosition: Int = 0,
     tabItem: @Composable () -> Unit
@@ -137,9 +135,9 @@ private fun Modifier.tabIndicator(
 fun DateRoadTabTitle(
     title: String,
     selected: Boolean,
-    selectedTextColor: Color = Black,
-    unselectedTextColor: Color = Gray300,
-    textStyle: TextStyle = bodyBold17,
+    selectedTextColor: Color = DateRoadTheme.colors.black,
+    unselectedTextColor: Color = DateRoadTheme.colors.gray300,
+    textStyle: TextStyle = DateRoadTheme.typography.bodyBold17,
     position: Int,
     padding: PaddingValues = PaddingValues(vertical = 15.dp),
     onClick: (Int) -> Unit = {}
