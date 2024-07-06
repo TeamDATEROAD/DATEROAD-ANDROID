@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,15 +19,13 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.DeepPurple
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadHeartTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = DeepPurple,
-    contentColor: Color = White
+    backgroundColor: Color = DateRoadTheme.colors.deepPurple,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier
@@ -39,18 +36,14 @@ fun DateRoadHeartTag(
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_tag_heart),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(CircleShape)
-                .align(Alignment.CenterVertically)
+            contentDescription = null
         )
         Spacer(modifier = Modifier.size(5.dp))
         Text(
             text = text,
             style = DateRoadTheme.typography.bodyBold13,
             color = contentColor,
-            maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            maxLines = 1
         )
     }
 }

@@ -12,17 +12,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.ui.theme.Black
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.Gray200
 
 @Composable
 fun DateRoadSmallCardTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = Gray200,
-    contentColor: Color = Black
+    backgroundColor: Color = DateRoadTheme.colors.gray200,
+    contentColor: Color = DateRoadTheme.colors.black
 ) {
     Row(
         modifier = modifier
@@ -34,9 +32,7 @@ fun DateRoadSmallCardTag(
         Text(
             text = text,
             style = DateRoadTheme.typography.bodyMed13,
-            color = contentColor,
-            maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            color = contentColor
         )
     }
 }

@@ -3,8 +3,7 @@ package org.sopt.dateroad.presentation.ui.component.tag
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -20,16 +19,14 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.MediumPurple
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadPointTag(
     modifier: Modifier = Modifier,
     text: String,
     profileImage: Painter,
-    backgroundColor: Color = MediumPurple,
-    contentColor: Color = White
+    backgroundColor: Color = DateRoadTheme.colors.mediumPurple,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier
@@ -37,21 +34,19 @@ fun DateRoadPointTag(
             .background(backgroundColor),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.size(14.dp))
         Text(
             text = text,
             style = DateRoadTheme.typography.bodyBold13,
             color = contentColor,
             maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = modifier
+                .padding(start = 14.dp, end = 7.dp)
         )
-        Spacer(modifier = Modifier.size(7.dp))
         Image(
             painter = profileImage,
             contentDescription = null,
-            modifier = Modifier
+            modifier = modifier
                 .clip(CircleShape)
-                .align(Alignment.CenterVertically)
         )
     }
 }

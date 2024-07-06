@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,19 +20,17 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.Gray100
-import org.sopt.dateroad.ui.theme.Gray400
 
 @Composable
 fun DateRoadHomeTimeTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = Gray100,
-    contentColor: Color = Gray400
+    backgroundColor: Color = DateRoadTheme.colors.gray100,
+    contentColor: Color = DateRoadTheme.colors.gray400
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -41,18 +38,13 @@ fun DateRoadHomeTimeTag(
         Image(
             painter = painterResource(id = R.drawable.ic_all_clock_12),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(contentColor),
-            modifier = Modifier
-                .clip(CircleShape)
-                .align(Alignment.CenterVertically)
+            colorFilter = ColorFilter.tint(contentColor)
         )
         Spacer(modifier = Modifier.size(5.dp))
         Text(
             text = text,
             style = DateRoadTheme.typography.bodyMed13,
-            color = contentColor,
-            maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            color = contentColor
         )
     }
 }
