@@ -14,38 +14,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.MediumPurple
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
-fun DateRoadEditorTag(
+fun DateRaodPlaceCardTimeTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = MediumPurple,
-    contentColor: Color = White
+    backgroundColor: Color = DateRoadTheme.colors.gray200,
+    contentColor: Color = DateRoadTheme.colors.black
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(10.dp))
             .background(backgroundColor)
-            .padding(horizontal = 10.dp, vertical = 2.dp),
+            .padding(horizontal = 14.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = text,
-            style = DateRoadTheme.typography.bodySemi13,
-            color = contentColor,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            style = DateRoadTheme.typography.bodyMed13,
+            color = contentColor
         )
     }
 }
 
 @Preview
 @Composable
-fun DateRoadEditorTagPreview() {
+fun DateRoadPlaceCardTagPreview() {
     DATEROADTheme {
-        DateRoadEditorTag(
-            text = "에디터 픽"
+        DateRaodPlaceCardTimeTag(
+            text = "2시간"
         )
     }
 }

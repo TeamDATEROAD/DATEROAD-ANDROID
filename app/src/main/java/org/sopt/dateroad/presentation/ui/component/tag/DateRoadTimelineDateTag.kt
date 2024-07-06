@@ -16,22 +16,22 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadAdvertisementPageNumberTag(
+fun DateRoadTimelineDateTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = DateRoadTheme.colors.gray400,
-    contentColor: Color = DateRoadTheme.colors.white
+    backgroundColor: Color = DateRoadTheme.colors.lightPink,
+    contentColor: Color = DateRoadTheme.colors.black
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
             .background(backgroundColor)
-            .padding(horizontal = 9.dp, vertical = 1.dp),
+            .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = text,
-            style = DateRoadTheme.typography.capReg11,
+            style = DateRoadTheme.typography.bodyMed13,
             color = contentColor
         )
     }
@@ -39,10 +39,10 @@ fun DateRoadAdvertisementPageNumberTag(
 
 @Preview
 @Composable
-fun DateRoadAdvertisementPageNumberTagPreview() {
+fun DateRoadTimelineDateTagPreview() {
     DATEROADTheme {
-        DateRoadAdvertisementPageNumberTag(
-            text = "1/5"
+        DateRoadTimelineDateTag(
+            text = "🎨 전시-팝업"
         )
     }
 }

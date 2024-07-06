@@ -12,41 +12,37 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.ui.theme.Black
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.LightPink
 
 @Composable
-fun DateRoadFieldTag(
+fun DateRoadAdvertisementTitleTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = LightPink,
-    contentColor: Color = Black
+    backgroundColor: Color = DateRoadTheme.colors.mediumPurple,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
-            .padding(horizontal = 10.dp, vertical = 4.dp),
+            .padding(horizontal = 10.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = text,
-            style = DateRoadTheme.typography.bodyMed13,
-            color = contentColor,
-            maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            style = DateRoadTheme.typography.bodySemi13,
+            color = contentColor
         )
     }
 }
 
 @Preview
 @Composable
-fun DDateRoadFieldTagPreview() {
+fun DateRoadAdvertisementTitleTagPreview() {
     DATEROADTheme {
-        DateRoadFieldTag(
-            text = "🎨 전시-팝업"
+        DateRoadAdvertisementTitleTag(
+            text = "에디터 픽"
         )
     }
 }

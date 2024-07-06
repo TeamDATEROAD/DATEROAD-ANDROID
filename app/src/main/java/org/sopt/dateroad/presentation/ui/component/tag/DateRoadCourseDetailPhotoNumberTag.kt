@@ -12,41 +12,37 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.ui.theme.Black
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.LightPink
 
 @Composable
-fun DateRoadPastTag(
+fun DateRoadCourseDetailPhotoNumberTag(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = LightPink,
-    contentColor: Color = Black
+    backgroundColor: Color = DateRoadTheme.colors.gray400,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
-            .padding(horizontal = 14.dp, vertical = 6.dp),
+            .padding(horizontal = 14.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = text,
-            style = DateRoadTheme.typography.bodyMed13,
-            color = contentColor,
-            maxLines = 1,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            style = DateRoadTheme.typography.capReg11,
+            color = contentColor
         )
     }
 }
 
 @Preview
 @Composable
-fun DateRoadPastTagPreview() {
+fun DateRoadCourseDetailPhotoNumberTagPreview() {
     DATEROADTheme {
-        DateRoadPastTag(
-            text = "🚗 드라이브"
+        DateRoadCourseDetailPhotoNumberTag(
+            text = "1/5"
         )
     }
 }
