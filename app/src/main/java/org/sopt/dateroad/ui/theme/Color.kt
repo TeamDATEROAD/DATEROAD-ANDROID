@@ -27,6 +27,9 @@ val White = Color(0xFFFFFFFF)
 // Notif
 val AlertRed = Color(0xFFFF0000)
 
+// kakao
+val KakaoBg = Color(0xFFFEE500)
+
 @Immutable
 data class DateRoadColors(
     // Main
