@@ -29,7 +29,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -69,7 +68,7 @@ fun DateRoadBasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color = DateRoadTheme.colors.gray100, shape = RoundedCornerShape(14.dp))
-                .border(width = 1.dp, color = if (validateState == TextFieldValidateResult.Error) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
+                .border(width = 1.dp, color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -111,10 +110,10 @@ fun DateRoadBasicTextField(
                 .padding(horizontal = 9.dp),
             text = when (validateState) {
                 is TextFieldValidateResult.Success -> successDescription
-                is TextFieldValidateResult.Error -> errorDescription
+                is TextFieldValidateResult.ValidationError -> errorDescription
                 else -> ""
             },
-            color = if (validateState == TextFieldValidateResult.Error) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
+            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
             style = DateRoadTheme.typography.capReg11
         )
     }
@@ -130,7 +129,7 @@ fun DateRoadBasicTextFieldPreview() {
         fun validateTest(text: String) {
             validationState = when {
                 text.isEmpty() -> TextFieldValidateResult.Basic
-                text.length < 5 -> TextFieldValidateResult.Error
+                text.length < 5 -> TextFieldValidateResult.ValidationError
                 else -> TextFieldValidateResult.Success
             }
         }
