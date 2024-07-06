@@ -1,7 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.chip
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,7 +39,7 @@ fun DateRoadRegionChip(
             .clip(RoundedCornerShape(10.dp))
             .fillMaxWidth()
             .background(color = if (selected) DeepPurple else Gray100)
-            .noRippleClickable  {
+            .noRippleClickable {
                 selected = !selected
                 onSelectedChange(selected)
             },
