@@ -13,10 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -25,6 +23,7 @@ import org.sopt.dateroad.presentation.util.context.showToast
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.UiState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
+import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DummyRoute(
@@ -82,8 +81,8 @@ fun DummyScreen(
     ) {
         Text(
             text = email,
-            fontSize = 30.sp,
-            fontWeight = Bold
+            color = DateRoadTheme.colors.deepPurple,
+            style = DateRoadTheme.typography.titleExtra24
         )
     }
 }
