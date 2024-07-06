@@ -84,6 +84,9 @@
     <string name="one_button_dialog_with_description_soon_title">곧 오픈될 기능이에요!</string>
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
 
+    <!-- PointCardText -->
+    <string name="my_page_point_card_text">포인트 내역 보기</string>
+
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_earn_history">획득 내역</string>
     <string name="point_history_tab_usage_history">사용 내역</string>
