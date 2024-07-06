@@ -16,8 +16,10 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,18 +30,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadBasicTextField(
     modifier: Modifier = Modifier,
+    validateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
     title: String? = null,
     placeholder: String = "",
     @DrawableRes iconResourceId: Int? = null,
     iconContentDescription: String = "",
-    description: String = "",
-    descriptionColor: Color = DateRoadTheme.colors.alertRed,
+    successDescription: String = "",
+    errorDescription: String = "",
     readOnly: Boolean = false,
     value: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -65,7 +69,7 @@ fun DateRoadBasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color = DateRoadTheme.colors.gray100, shape = RoundedCornerShape(14.dp))
-                .border(width = 1.dp, color = if (description.isNotEmpty()) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
+                .border(width = 1.dp, color = if (validateState == TextFieldValidateResult.Error) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -105,8 +109,12 @@ fun DateRoadBasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 9.dp),
-            text = description,
-            color = descriptionColor,
+            text = when (validateState) {
+                is TextFieldValidateResult.Success -> successDescription
+                is TextFieldValidateResult.Error -> errorDescription
+                else -> ""
+            },
+            color = if (validateState == TextFieldValidateResult.Error) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
             style = DateRoadTheme.typography.capReg11
         )
     }
@@ -117,14 +125,26 @@ fun DateRoadBasicTextField(
 fun DateRoadBasicTextFieldPreview() {
     DATEROADTheme {
         var text = remember { mutableStateOf("") }
+        var validationState by remember { mutableStateOf<TextFieldValidateResult>(TextFieldValidateResult.Basic) }
+
+        fun validateTest(text: String) {
+            validationState = when {
+                text.isEmpty() -> TextFieldValidateResult.Basic
+                text.length < 5 -> TextFieldValidateResult.Error
+                else -> TextFieldValidateResult.Success
+            }
+        }
 
         DateRoadBasicTextField(
+            validateState = validationState,
             title = "타이틀",
             placeholder = "힌트",
-            iconResourceId = R.drawable.ic_enroll_calendar,
-            iconContentDescription = "calendar",
+            errorDescription = "최소 5글자 이상 입력해 주세요",
             value = text.value,
-            onValueChange = { newValue -> text.value = newValue }
+            onValueChange = { newValue ->
+                text.value = newValue
+                validateTest(text = newValue)
+            }
         )
     }
 }
