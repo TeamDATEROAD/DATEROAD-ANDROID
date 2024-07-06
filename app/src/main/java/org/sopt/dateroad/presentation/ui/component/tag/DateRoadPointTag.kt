@@ -58,7 +58,7 @@ fun DateRoadPointTag(
 
 @Preview
 @Composable
-fun DateRoadTagPreview() {
+fun DateRoadPointTagPreview() {
     DATEROADTheme {
         DateRoadPointTag(
             text = "5000 P",
