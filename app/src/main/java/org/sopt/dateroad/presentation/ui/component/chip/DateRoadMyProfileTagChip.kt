@@ -28,7 +28,7 @@ import org.sopt.dateroad.ui.theme.Gray100
 import org.sopt.dateroad.ui.theme.White
 
 @Composable
-fun DateRoadTagChip(
+fun DateRoadMyProfileTagChip(
     textId: Int,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {}
@@ -49,19 +49,19 @@ fun DateRoadTagChip(
             text = stringResource(id = textId),
             style = DateRoadTheme.typography.bodySemi13,
             color = if (selected) White else Black,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
         )
     }
 }
 
 @Preview
 @Composable
-fun DateRoadTagChipPreview() {
+fun DateRoadMyProfileTagChipPreview() {
     Column {
-        DateRoadTagChip(R.string.date_tag_drive)
+        DateRoadMyProfileTagChip(R.string.date_tag_drive)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadTagChip(R.string.date_tag_alcohol)
+        DateRoadMyProfileTagChip(R.string.date_tag_alcohol)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadTagChip(R.string.date_tag_epicurism)
+        DateRoadMyProfileTagChip(R.string.date_tag_epicurism)
     }
 }
