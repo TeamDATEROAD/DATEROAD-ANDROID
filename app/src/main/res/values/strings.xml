@@ -140,4 +140,7 @@
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
 
+    <!-- DateRoad Text Area -->
+    <string name="text_area_length_content">%d자 / %d자 이상</string>
+
 </resources>
