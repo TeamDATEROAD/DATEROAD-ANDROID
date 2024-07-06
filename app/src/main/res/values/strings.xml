@@ -143,4 +143,7 @@
     <!-- DateRoad Text Area -->
     <string name="text_area_length_content">%d자 / %d자 이상</string>
 
+    <!-- DateRoad Text Field With Button -->
+    <string name="text_field_with_button_length_content">%d/%d</string>
+
 </resources>
