@@ -36,5 +36,9 @@ fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
 @Preview
 @Composable
 fun DateRoadPointHistoryPointBoxPreview() {
-    DateRoadPointHistoryPointBox("호은", 200)
+    Column {
+        DateRoadPointHistoryPointBox("호은", 200)
+        Spacer(modifier = Modifier.height(10.dp))
+        DateRoadMyPagePointBox(nickname = "호은", point = 200)
+    }
 }
