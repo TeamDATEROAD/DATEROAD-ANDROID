@@ -20,7 +20,7 @@ fun DateRoadEnrollPhotoNumberTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = DateRoadTheme.colors.gray400,
-    contentColor: Color = DateRoadTheme.colors.white,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier
@@ -32,7 +32,7 @@ fun DateRoadEnrollPhotoNumberTag(
         Text(
             text = text,
             style = DateRoadTheme.typography.capReg11,
-            color = contentColor,
+            color = contentColor
         )
     }
 }
