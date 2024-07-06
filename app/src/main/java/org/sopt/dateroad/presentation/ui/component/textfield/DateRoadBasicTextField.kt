@@ -48,7 +48,7 @@ fun DateRoadBasicTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     Column(
         modifier = modifier
