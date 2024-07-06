@@ -22,7 +22,7 @@ fun DateRoadMypageTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = White,
-    contentColor: Color = Black,
+    contentColor: Color = Black
 ) {
     Row(
         modifier = modifier
@@ -46,7 +46,7 @@ fun DateRoadMypageTag(
 fun DateRoadMypageTagPreview() {
     DATEROADTheme {
         DateRoadMypageTag(
-            text = "🚗 드라이브",
+            text = "🚗 드라이브"
         )
     }
 }

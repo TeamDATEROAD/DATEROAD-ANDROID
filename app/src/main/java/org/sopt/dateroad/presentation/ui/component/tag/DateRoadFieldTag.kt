@@ -22,7 +22,7 @@ fun DateRoadFieldTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = LightPink,
-    contentColor: Color = Black,
+    contentColor: Color = Black
 ) {
     Row(
         modifier = modifier
@@ -46,7 +46,7 @@ fun DateRoadFieldTag(
 fun DDateRoadFieldTagPreview() {
     DATEROADTheme {
         DateRoadFieldTag(
-            text = "🎨 전시-팝업",
+            text = "🎨 전시-팝업"
         )
     }
 }

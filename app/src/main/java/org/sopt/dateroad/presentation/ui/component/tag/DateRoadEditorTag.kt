@@ -22,7 +22,7 @@ fun DateRoadEditorTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = MediumPurple,
-    contentColor: Color = White,
+    contentColor: Color = White
 ) {
     Row(
         modifier = modifier

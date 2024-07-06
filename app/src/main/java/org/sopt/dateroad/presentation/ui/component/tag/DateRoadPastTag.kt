@@ -22,7 +22,7 @@ fun DateRoadPastTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = LightPink,
-    contentColor: Color = Black,
+    contentColor: Color = Black
 ) {
     Row(
         modifier = modifier
@@ -46,7 +46,7 @@ fun DateRoadPastTag(
 fun DateRoadPastTagPreview() {
     DATEROADTheme {
         DateRoadPastTag(
-            text = "🚗 드라이브",
+            text = "🚗 드라이브"
         )
     }
 }

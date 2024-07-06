@@ -22,13 +22,13 @@ fun DateRoadPlaceCardNumberTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = DeepPurple,
-    contentColor: Color = White,
+    contentColor: Color = White
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(50.dp))
             .background(backgroundColor)
-            .padding(horizontal = 9.dp, vertical = 4.dp),
+            .padding(horizontal = 9.dp, vertical = 4.dp)
     ) {
         Text(
             text = text,
@@ -45,7 +45,7 @@ fun DateRoadPlaceCardNumberTag(
 fun DateRoadPlaceCardNumberTagPreview() {
     DATEROADTheme {
         DateRoadPlaceCardNumberTag(
-            text = "1",
+            text = "1"
         )
     }
 }

@@ -29,7 +29,7 @@ fun DateRoadHomeTimeTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = Gray100,
-    contentColor: Color = Gray400,
+    contentColor: Color = Gray400
 ) {
     Row(
         modifier = modifier
@@ -62,7 +62,7 @@ fun DateRoadHomeTimeTag(
 fun DateRoadHomeTimeTagPreview() {
     DATEROADTheme {
         DateRoadHomeTimeTag(
-            text = "10시간",
+            text = "10시간"
         )
     }
 }

@@ -22,7 +22,7 @@ fun DateRoadDdayTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = DeepPurple,
-    contentColor: Color = White,
+    contentColor: Color = White
 ) {
     Row(
         modifier = modifier

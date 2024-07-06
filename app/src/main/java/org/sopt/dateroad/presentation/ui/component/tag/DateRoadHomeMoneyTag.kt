@@ -29,7 +29,7 @@ fun DateRoadHomeMoneyTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = Gray100,
-    contentColor: Color = Gray400,
+    contentColor: Color = Gray400
 ) {
     Row(
         modifier = modifier
@@ -62,7 +62,7 @@ fun DateRoadHomeMoneyTag(
 fun DateRoadHomeMoneyTagPreview() {
     DATEROADTheme {
         DateRoadHomeMoneyTag(
-            text = "10만원 초과",
+            text = "10만원 초과"
         )
     }
 }

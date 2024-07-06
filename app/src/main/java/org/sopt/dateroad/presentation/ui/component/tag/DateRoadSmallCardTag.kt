@@ -22,7 +22,7 @@ fun DateRoadSmallCardTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = Gray200,
-    contentColor: Color = Black,
+    contentColor: Color = Black
 ) {
     Row(
         modifier = modifier
@@ -46,7 +46,7 @@ fun DateRoadSmallCardTag(
 fun DateRoadSmallCardTagPreview() {
     DATEROADTheme {
         DateRoadSmallCardTag(
-            text = "2시간",
+            text = "2시간"
         )
     }
 }

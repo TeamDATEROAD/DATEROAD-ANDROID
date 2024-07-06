@@ -22,7 +22,7 @@ fun DateRoadPhotoNumberTag(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color = Gray400,
-    contentColor: Color = White,
+    contentColor: Color = White
 ) {
     Row(
         modifier = modifier

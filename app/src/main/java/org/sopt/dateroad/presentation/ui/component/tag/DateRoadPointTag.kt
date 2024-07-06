@@ -29,7 +29,7 @@ fun DateRoadPointTag(
     text: String,
     profileImage: Painter,
     backgroundColor: Color = MediumPurple,
-    contentColor: Color = White,
+    contentColor: Color = White
 ) {
     Row(
         modifier = modifier
