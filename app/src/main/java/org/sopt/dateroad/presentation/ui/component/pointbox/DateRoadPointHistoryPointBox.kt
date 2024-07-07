@@ -35,7 +35,7 @@ fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
             Spacer(modifier = Modifier.height(11.dp))
             Text(
                 text = stringResource(id = R.string.point_box_point, point),
-                color = DateRoadTheme.colors.black,
+                color = DateRoadTheme.colors.white,
                 style = DateRoadTheme.typography.titleExtra24,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

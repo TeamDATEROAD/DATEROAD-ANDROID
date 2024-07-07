@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.component.pointbox
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,14 +26,12 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadMyPagePointBox(nickname: String, point: Int) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.white)
             .padding(start = 14.dp, top = 18.dp, bottom = 11.dp, end = 10.dp)
-            ,
     ) {
         Column(
             modifier = Modifier.weight(1f)
@@ -78,7 +75,6 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
         }
     }
 }
-
 
 @Preview
 @Composable
