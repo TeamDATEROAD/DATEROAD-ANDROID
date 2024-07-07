@@ -28,7 +28,7 @@ fun DateRoadPickerBottomSheet(
     pickerItems: List<List<String>>
 ) {
     DateRoadBottomSheet(
-        modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
         sheetState = rememberModalBottomSheetState(),
         isBottomSheetOpen = isBottomSheetOpen,
         onDismissRequest = onDismissRequest
