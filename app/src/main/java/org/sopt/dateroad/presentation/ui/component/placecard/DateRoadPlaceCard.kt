@@ -5,5 +5,4 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DateRoadPlaceCard(modifier: Modifier = Modifier) {
-    
 }
