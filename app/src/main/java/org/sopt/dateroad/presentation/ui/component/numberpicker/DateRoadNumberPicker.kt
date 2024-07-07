@@ -81,7 +81,7 @@ fun DateRoadNumberPicker(
                     modifier = Modifier
                         .onSizeChanged { intSize: IntSize -> itemHeightPixel = intSize.height },
                     text = items[index],
-                    color = if(pickerState.selectedItem == items[index]) DateRoadTheme.colors.black else DateRoadTheme.colors.deepPurple
+                    color = if(pickerState.selectedItem == items[index]) DateRoadTheme.colors.black else DateRoadTheme.colors.gray200
                 )
             }
             items(visibleItemsMiddle) {
