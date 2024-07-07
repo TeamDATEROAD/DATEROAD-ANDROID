@@ -84,9 +84,6 @@
     <string name="one_button_dialog_with_description_soon_title">곧 오픈될 기능이에요!</string>
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
 
-    <!-- PointCardText -->
-    <string name="my_page_point_card_text">포인트 내역 보기</string>
-
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_earn_history">획득 내역</string>
     <string name="point_history_tab_usage_history">사용 내역</string>
@@ -142,5 +139,11 @@
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+
+    <!-- Point Box -->
+    <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
+    <string name="point_box_point"> %1$d P</string>
+    <string name="my_page_point_card_text">포인트 내역 보기</string>
+
 
 </resources>
