@@ -61,7 +61,7 @@ fun DateRoadBasicTextField(
                 style = DateRoadTheme.typography.bodyBold17
             )
             Spacer(
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.height(12.dp)
             )
         }
         Row(
