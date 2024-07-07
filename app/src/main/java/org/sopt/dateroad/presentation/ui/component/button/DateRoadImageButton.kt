@@ -25,7 +25,7 @@ fun DateRoadImageButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     DateRoadButton(
         modifier = modifier,

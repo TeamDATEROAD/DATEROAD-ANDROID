@@ -14,7 +14,7 @@ fun DateRoadBasicButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
     textContent: String,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
     DateRoadFilledButton(
         modifier = modifier.fillMaxWidth(),

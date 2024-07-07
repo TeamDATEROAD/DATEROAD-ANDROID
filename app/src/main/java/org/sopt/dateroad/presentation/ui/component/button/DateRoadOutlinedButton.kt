@@ -24,7 +24,7 @@ fun DateRoadOutlinedButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp = 0.dp,
     paddingVertical: Dp = 0.dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     DateRoadButton(
         modifier = modifier.fillMaxWidth(),

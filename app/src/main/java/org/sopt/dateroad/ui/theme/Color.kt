@@ -56,7 +56,7 @@ data class DateRoadColors(
     val alertRed: Color,
 
     // kakao
-    val kakao: Color,
+    val kakao: Color
 )
 
 val defaultDateRoadColors = DateRoadColors(

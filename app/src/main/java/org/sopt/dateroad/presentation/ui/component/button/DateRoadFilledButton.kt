@@ -26,7 +26,7 @@ fun DateRoadFilledButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     DateRoadButton(
         modifier = modifier,
@@ -41,7 +41,7 @@ fun DateRoadFilledButton(
             text = textContent,
             style = textStyle,
             color = if (isEnabled) enabledTextColor else disabledTextColor,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }
