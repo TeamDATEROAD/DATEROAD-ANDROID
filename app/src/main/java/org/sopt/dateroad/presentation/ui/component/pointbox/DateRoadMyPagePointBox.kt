@@ -29,7 +29,6 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.white)
     ) {

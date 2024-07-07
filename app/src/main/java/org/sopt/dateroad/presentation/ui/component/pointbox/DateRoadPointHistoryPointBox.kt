@@ -22,7 +22,6 @@ fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.deepPurple)
     ) {
