@@ -23,7 +23,7 @@ fun DateRoadButton(
     paddingHorizontal: Dp = 0.dp,
     paddingVertical: Dp = 0.dp,
     onClick: () -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Box(
         modifier = modifier

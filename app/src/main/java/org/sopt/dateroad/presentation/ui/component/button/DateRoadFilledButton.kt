@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -25,23 +26,22 @@ fun DateRoadFilledButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-    val backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor
-    val textColor = if (isEnabled) enabledTextColor else disabledTextColor
-
     DateRoadButton(
         modifier = modifier,
-        backgroundColor = backgroundColor,
+        backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor,
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
         onClick = onClick
     ) {
         Text(
+            modifier = modifier,
             text = textContent,
             style = textStyle,
-            color = textColor
+            color = if (isEnabled) enabledTextColor else disabledTextColor,
+            textAlign = TextAlign.Center,
         )
     }
 }

@@ -2,6 +2,7 @@
     <string name="app_name">DATEROAD</string>
 
     <!-- ALL -->
+    <string name="kakao_login">카카오 로그인</string>
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
 

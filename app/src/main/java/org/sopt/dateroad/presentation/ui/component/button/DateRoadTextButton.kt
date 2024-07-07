@@ -20,7 +20,7 @@ fun DateRoadTextButton(
     textColor: Color,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     DateRoadButton(
         modifier = modifier,

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +26,7 @@ fun DateRoadKakaoLoginButton(
     modifier: Modifier = Modifier,
     backgroundColor: Color = DateRoadTheme.colors.kakao,
     contentColor: Color = DateRoadTheme.colors.black,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     DateRoadButton(
         modifier = modifier.fillMaxWidth(),
@@ -46,7 +47,7 @@ fun DateRoadKakaoLoginButton(
             )
             Spacer(modifier = Modifier.size(5.dp))
             Text(
-                text = "카카오 로그인",
+                text = stringResource(id = R.string.kakao_login),
                 style = DateRoadTheme.typography.bodyBold13,
                 color = contentColor,
                 textAlign = TextAlign.Center,
