@@ -1,13 +1,11 @@
 package org.sopt.dateroad.presentation.ui.component.numberpicker
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -53,6 +51,10 @@ fun DateRoadNumberPicker(
     val scrollState = rememberLazyListState(initialFirstVisibleItemIndex = startIndex)
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = scrollState)
 
+    LaunchedEffect(itemHeightPixel) {
+        if(itemHeightPixel > 0) scrollState.scrollToItem(startIndex)
+    }
+
     LaunchedEffect(scrollState) {
         snapshotFlow { scrollState.firstVisibleItemIndex }
             .map { index -> items[index] }
@@ -81,7 +83,7 @@ fun DateRoadNumberPicker(
                     modifier = Modifier
                         .onSizeChanged { intSize: IntSize -> itemHeightPixel = intSize.height },
                     text = items[index],
-                    color = if(pickerState.selectedItem == items[index]) DateRoadTheme.colors.black else DateRoadTheme.colors.gray200
+                    color = if (pickerState.selectedItem == items[index]) DateRoadTheme.colors.black else DateRoadTheme.colors.gray200
                 )
             }
             items(visibleItemsMiddle) {
