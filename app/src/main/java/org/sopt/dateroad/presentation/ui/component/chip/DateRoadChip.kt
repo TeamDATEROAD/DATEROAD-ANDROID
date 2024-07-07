@@ -12,22 +12,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
+import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 
 @Composable
 fun DateRoadChip(
     modifier: Modifier = Modifier,
-    selectedBackgroundColor: Color,
-    unselectedBackgroundColor: Color,
-    selectedTextColor: Color,
-    unselectedTextColor: Color,
-    textStyle: TextStyle,
-    horizontalPadding: Dp,
-    verticalPadding: Dp,
-    cornerRadius: Dp,
+    chipType: ChipType = ChipType.ENROLL_COURSE,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {},
     content: @Composable (Boolean) -> Unit
@@ -36,13 +27,13 @@ fun DateRoadChip(
 
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(cornerRadius))
-            .background(color = if (selected) selectedBackgroundColor else unselectedBackgroundColor)
+            .clip(RoundedCornerShape(chipType.cornerRadius))
+            .background(color = if (selected) chipType.selectedBackgroundColor else chipType.unselectedBackgroundColor)
             .noRippleClickable {
                 selected = !selected
                 onSelectedChange(selected)
             }
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+            .padding(horizontal = chipType.horizontalPadding, vertical = chipType.verticalPadding),
         contentAlignment = Alignment.Center
     ) {
         content(selected)

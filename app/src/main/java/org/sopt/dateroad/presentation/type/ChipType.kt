@@ -31,7 +31,6 @@ enum class ChipType(
         cornerRadius = 20.dp,
         textStyle = defaultDateRoadTypography.bodySemi13
     ),
-
     MY_PROFILE(
         selectedBackgroundColor = DeepPurple,
         unselectedBackgroundColor = Gray100,
@@ -42,7 +41,6 @@ enum class ChipType(
         cornerRadius = 20.dp,
         textStyle = defaultDateRoadTypography.bodySemi13
     ),
-
     MONEY(
         selectedBackgroundColor = DeepPurple,
         unselectedBackgroundColor = Gray100,
@@ -53,7 +51,6 @@ enum class ChipType(
         cornerRadius = 20.dp,
         textStyle = defaultDateRoadTypography.bodyMed13
     ),
-
     AREA(
         selectedBackgroundColor = DeepPurple,
         unselectedBackgroundColor = Gray100,
@@ -64,7 +61,6 @@ enum class ChipType(
         cornerRadius = 10.dp,
         textStyle = defaultDateRoadTypography.bodyMed13
     ),
-
     REGION(
         selectedBackgroundColor = DeepPurple,
         unselectedBackgroundColor = Gray100,

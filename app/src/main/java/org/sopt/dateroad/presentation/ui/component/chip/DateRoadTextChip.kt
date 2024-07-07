@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.component.chip
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,22 +14,16 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
 
 @Composable
-fun DateRoadEnrollCourseTagChip(
+fun DateRoadTextChip(
+    modifier: Modifier = Modifier,
     textId: Int,
     chipType: ChipType = ChipType.ENROLL_COURSE,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {}
 ) {
     DateRoadChip(
-        modifier = Modifier,
-        selectedBackgroundColor = chipType.selectedBackgroundColor,
-        unselectedBackgroundColor = chipType.unselectedBackgroundColor,
-        selectedTextColor = chipType.selectedTextColor,
-        unselectedTextColor = chipType.unselectedTextColor,
-        textStyle = chipType.textStyle,
-        horizontalPadding = chipType.horizontalPadding,
-        verticalPadding = chipType.verticalPadding,
-        cornerRadius = chipType.cornerRadius,
+        modifier = modifier,
+        chipType = chipType,
         isSelected = isSelected,
         onSelectedChange = onSelectedChange
     ) { selected ->
@@ -42,12 +37,16 @@ fun DateRoadEnrollCourseTagChip(
 
 @Preview
 @Composable
-fun DateRoadEnrollCourseTagChipPreview() {
+fun DateRoadChipPreview() {
     Column {
-        DateRoadEnrollCourseTagChip(R.string.date_tag_drive)
+        DateRoadTextChip(textId = R.string.money_tag_less_than_100000, chipType = ChipType.MONEY)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadEnrollCourseTagChip(R.string.date_tag_alcohol)
+        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.MY_PROFILE)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadEnrollCourseTagChip(R.string.date_tag_epicurism)
+        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.ENROLL_COURSE)
+        Spacer(modifier = Modifier.height(10.dp))
+        DateRoadTextChip(modifier = Modifier.fillMaxWidth(), textId = R.string.region_Seoul, chipType = ChipType.REGION)
+        Spacer(modifier = Modifier.height(10.dp))
+        DateRoadTextChip(modifier = Modifier.fillMaxWidth(), textId = R.string.gyeonggi_area_suwon, chipType = ChipType.AREA)
     }
 }
