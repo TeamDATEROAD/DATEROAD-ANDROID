@@ -2,6 +2,7 @@
     <string name="app_name">DATEROAD</string>
 
     <!-- ALL -->
+    <string name="kakao_login">카카오 로그인</string>
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
 
@@ -139,5 +140,11 @@
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+
+    <!-- Point Box -->
+    <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
+    <string name="point_box_point"> %1$d P</string>
+    <string name="my_page_point_card_text">포인트 내역 보기</string>
+
 
 </resources>

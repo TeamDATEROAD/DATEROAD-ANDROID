@@ -27,6 +27,9 @@ val White = Color(0xFFFFFFFF)
 // Notif
 val AlertRed = Color(0xFFFF0000)
 
+// kakao
+val Kakao = Color(0xFFFEE500)
+
 @Immutable
 data class DateRoadColors(
     // Main
@@ -50,7 +53,10 @@ data class DateRoadColors(
     val white: Color,
 
     // Notif
-    val alertRed: Color
+    val alertRed: Color,
+
+    // kakao
+    val kakao: Color
 )
 
 val defaultDateRoadColors = DateRoadColors(
@@ -75,7 +81,10 @@ val defaultDateRoadColors = DateRoadColors(
     white = White,
 
     // Notif
-    alertRed = AlertRed
+    alertRed = AlertRed,
+
+    // kakao
+    kakao = Kakao
 )
 
 val LocalDateRoadColors = staticCompositionLocalOf { defaultDateRoadColors }
