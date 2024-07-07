@@ -123,7 +123,7 @@ fun DateRoadBasicTextField(
 @Composable
 fun DateRoadBasicTextFieldPreview() {
     DATEROADTheme {
-        var text = remember { mutableStateOf("") }
+        var text by remember { mutableStateOf("") }
         var validationState by remember { mutableStateOf<TextFieldValidateResult>(TextFieldValidateResult.Basic) }
 
         fun validateTest(text: String) {
@@ -139,9 +139,9 @@ fun DateRoadBasicTextFieldPreview() {
             title = "타이틀",
             placeholder = "힌트",
             errorDescription = "최소 5글자 이상 입력해 주세요",
-            value = text.value,
+            value = text,
             onValueChange = { newValue ->
-                text.value = newValue
+                text = newValue
                 validateTest(text = newValue)
             }
         )

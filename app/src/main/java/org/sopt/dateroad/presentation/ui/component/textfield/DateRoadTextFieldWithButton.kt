@@ -139,7 +139,7 @@ fun DateRoadTextFieldWithButton(
 @Composable
 fun DateRoadTextFieldWithButtonPreview() {
     DATEROADTheme {
-        var text = remember { mutableStateOf("") }
+        var text by remember { mutableStateOf("") }
         var validationState by remember { mutableStateOf<TextFieldValidateResult>(TextFieldValidateResult.Basic) }
         var isButtonEnabled by remember { mutableStateOf(false) }
 
@@ -160,11 +160,11 @@ fun DateRoadTextFieldWithButtonPreview() {
             conflictErrorDescription = "이미 사용중인 닉네임입니다.",
             buttonText = "중복확인",
             isButtonEnabled = isButtonEnabled,
-            value = text.value,
+            value = text,
             onValueChange = { newValue ->
-                text.value = newValue
+                text = newValue
                 validateTest(text = newValue)
-                isButtonEnabled = text.value.isNotEmpty()
+                isButtonEnabled = text.isNotEmpty()
             }
         )
     }
