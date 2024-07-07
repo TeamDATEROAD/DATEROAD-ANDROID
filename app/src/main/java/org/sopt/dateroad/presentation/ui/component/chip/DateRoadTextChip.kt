@@ -18,7 +18,7 @@ import org.sopt.dateroad.presentation.type.ChipType
 fun DateRoadTextChip(
     modifier: Modifier = Modifier,
     @StringRes textId: Int,
-    chipType: ChipType = ChipType.ENROLL_COURSE,
+    chipType: ChipType,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {}
 ) {
