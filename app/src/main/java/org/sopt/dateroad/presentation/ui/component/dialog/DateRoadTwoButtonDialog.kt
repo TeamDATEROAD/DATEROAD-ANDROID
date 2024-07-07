@@ -18,15 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
-import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadTwoButtonDialog(
     twoButtonDialogType: TwoButtonDialogType
-)
-{
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

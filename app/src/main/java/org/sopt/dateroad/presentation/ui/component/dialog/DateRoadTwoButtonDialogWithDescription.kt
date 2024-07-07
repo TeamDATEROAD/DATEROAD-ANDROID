@@ -23,8 +23,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadTwoButtonDialogWithDescription(
-    twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType)
-{
+    twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
