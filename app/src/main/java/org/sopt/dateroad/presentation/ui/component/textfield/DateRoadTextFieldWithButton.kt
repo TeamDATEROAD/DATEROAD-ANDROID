@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -39,11 +41,13 @@ fun DateRoadTextFieldWithButton(
     successDescription: String = "",
     validationErrorDescription: String = "",
     conflictErrorDescription: String = "",
-    buttonText: String = "중복확인",
+    buttonText: String,
+    isButtonEnabled: Boolean,
     maxLength: Int = 5,
     value: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
+    onButtonClick: () -> Unit = {},
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
@@ -93,6 +97,20 @@ fun DateRoadTextFieldWithButton(
                     }
                 }
             )
+            Spacer(modifier = Modifier.width(12.dp))
+            DateRoadFilledButton(
+                isEnabled = isButtonEnabled,
+                textContent = buttonText,
+                textStyle = DateRoadTheme.typography.bodyMed13,
+                enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                enabledTextColor = DateRoadTheme.colors.white,
+                disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                disabledTextColor = DateRoadTheme.colors.gray400,
+                cornerRadius = 10.dp,
+                paddingHorizontal = 14.dp,
+                paddingVertical = 6.dp,
+                onClick = onButtonClick
+            )
         }
         Spacer(modifier = Modifier.height(1.dp))
         Row {
@@ -123,6 +141,7 @@ fun DateRoadTextFieldWithButtonPreview() {
     DATEROADTheme {
         var text = remember { mutableStateOf("") }
         var validationState by remember { mutableStateOf<TextFieldValidateResult>(TextFieldValidateResult.Basic) }
+        var isButtonEnabled by remember { mutableStateOf(false) }
 
         fun validateTest(text: String) {
             validationState = when {
@@ -139,10 +158,13 @@ fun DateRoadTextFieldWithButtonPreview() {
             successDescription = "사용가능한 닉네임입니다.",
             validationErrorDescription = "최소 2글자를 입력해주세요.",
             conflictErrorDescription = "이미 사용중인 닉네임입니다.",
+            buttonText = "중복확인",
+            isButtonEnabled = isButtonEnabled,
             value = text.value,
             onValueChange = { newValue ->
                 text.value = newValue
                 validateTest(text = newValue)
+                isButtonEnabled = text.value.isNotEmpty()
             }
         )
     }
