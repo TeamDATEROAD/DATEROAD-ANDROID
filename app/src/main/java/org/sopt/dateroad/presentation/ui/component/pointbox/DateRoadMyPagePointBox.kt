@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
-
 @Composable
 fun DateRoadMyPagePointBox(nickname: String, point: Int) {
     Box(
@@ -73,7 +72,6 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
         }
     }
 }
-
 
 @Preview
 @Composable
