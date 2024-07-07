@@ -13,7 +13,7 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadEmptyButton(
+fun DateRoadTextButton(
     modifier: Modifier = Modifier,
     textContent: String,
     textStyle: TextStyle,
@@ -39,10 +39,10 @@ fun DateRoadEmptyButton(
 
 @Preview
 @Composable
-fun DateRoadEmptyButtonPreview() {
+fun DateRoadTextButtonPreview() {
     DATEROADTheme {
         Column {
-            DateRoadEmptyButton(
+            DateRoadTextButton(
                 textContent = "편집",
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 textColor = DateRoadTheme.colors.gray400,
@@ -50,7 +50,7 @@ fun DateRoadEmptyButtonPreview() {
                 paddingVertical = 6.dp,
                 onClick = {}
             )
-            DateRoadEmptyButton(
+            DateRoadTextButton(
                 textContent = "완료",
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 textColor = DateRoadTheme.colors.deepPurple,
@@ -58,7 +58,7 @@ fun DateRoadEmptyButtonPreview() {
                 paddingVertical = 6.dp,
                 onClick = {}
             )
-            DateRoadEmptyButton(
+            DateRoadTextButton(
                 textContent = "더보기",
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 textColor = DateRoadTheme.colors.deepPurple,
@@ -66,7 +66,7 @@ fun DateRoadEmptyButtonPreview() {
                 paddingVertical = 8.dp,
                 onClick = {}
             )
-            DateRoadEmptyButton(
+            DateRoadTextButton(
                 textContent = "삭제",
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 textColor = DateRoadTheme.colors.gray400,
