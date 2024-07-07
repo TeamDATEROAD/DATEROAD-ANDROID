@@ -25,7 +25,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
-    isBottomSheetOpen: Boolean = false,
+    isBottomSheetOpen: Boolean,
     onDismissRequest: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
