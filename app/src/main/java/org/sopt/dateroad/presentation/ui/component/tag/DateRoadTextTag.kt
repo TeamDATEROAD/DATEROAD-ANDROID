@@ -12,7 +12,7 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 fun DateRoadTextTag(
     modifier: Modifier = Modifier,
     textContent: String,
-    tagContentType: TagType,
+    tagContentType: TagType
 ) {
     DateRoadTag(
         modifier = modifier,

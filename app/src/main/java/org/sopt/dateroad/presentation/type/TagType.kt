@@ -11,7 +11,7 @@ enum class TagType(
     val paddingHorizontal: Int,
     val paddingVertical: Int,
     val textStyle: TextStyle,
-    val roundedCornerShape: Int,
+    val roundedCornerShape: Int
 ) {
     ADVERTISEMENT_TITLE(
         backgroundColor = defaultDateRoadColors.mediumPurple,
@@ -19,7 +19,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 2,
         textStyle = defaultDateRoadTypography.bodySemi13,
-        roundedCornerShape = 12,
+        roundedCornerShape = 12
     ),
     COURSE_DETAIL_PHOTO_NUMBER(
         backgroundColor = defaultDateRoadColors.gray400,
@@ -27,7 +27,7 @@ enum class TagType(
         paddingHorizontal = 14,
         paddingVertical = 2,
         textStyle = defaultDateRoadTypography.capReg11,
-        roundedCornerShape = 12,
+        roundedCornerShape = 12
     ),
     ROAD_D_DAY(
         backgroundColor = defaultDateRoadColors.deepPurple,
@@ -35,7 +35,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 2,
         textStyle = defaultDateRoadTypography.capBold11,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     ENROLL_PHOTO_NUMBER(
         backgroundColor = defaultDateRoadColors.gray400,
@@ -43,7 +43,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 4,
         textStyle = defaultDateRoadTypography.capReg11,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     HEART_TAG(
         backgroundColor = defaultDateRoadColors.deepPurple,
@@ -51,7 +51,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 2,
         textStyle = defaultDateRoadTypography.bodyBold13,
-        roundedCornerShape = 12,
+        roundedCornerShape = 12
     ),
     HOME_TIME(
         backgroundColor = defaultDateRoadColors.gray100,
@@ -59,7 +59,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 4,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     MONEY_TAG(
         backgroundColor = defaultDateRoadColors.gray100,
@@ -67,7 +67,7 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 4,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     MY_PAGE_DATE(
         backgroundColor = defaultDateRoadColors.white,
@@ -75,7 +75,7 @@ enum class TagType(
         paddingHorizontal = 14,
         paddingVertical = 6,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     PAGE_NUMBER(
         backgroundColor = defaultDateRoadColors.gray400,
@@ -83,7 +83,7 @@ enum class TagType(
         paddingHorizontal = 9,
         paddingVertical = 1,
         textStyle = defaultDateRoadTypography.capReg11,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     PREVIOUS_DATE(
         backgroundColor = defaultDateRoadColors.lightPink,
@@ -91,7 +91,7 @@ enum class TagType(
         paddingHorizontal = 14,
         paddingVertical = 6,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     PLACE_CARD_NUMBER(
         backgroundColor = defaultDateRoadColors.deepPurple,
@@ -99,7 +99,7 @@ enum class TagType(
         paddingHorizontal = 9,
         paddingVertical = 4,
         textStyle = defaultDateRoadTypography.bodyBold13,
-        roundedCornerShape = 50,
+        roundedCornerShape = 50
     ),
     POINT_TAG(
         backgroundColor = defaultDateRoadColors.mediumPurple,
@@ -107,7 +107,7 @@ enum class TagType(
         paddingHorizontal = 0,
         paddingVertical = 0,
         textStyle = defaultDateRoadTypography.bodyBold13,
-        roundedCornerShape = 20,
+        roundedCornerShape = 20
     ),
     SMALL_CARD(
         backgroundColor = defaultDateRoadColors.gray200,
@@ -115,7 +115,7 @@ enum class TagType(
         paddingHorizontal = 14,
         paddingVertical = 5,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 10,
+        roundedCornerShape = 10
     ),
     TIMELINE_DATE(
         backgroundColor = defaultDateRoadColors.lightPink,
@@ -123,6 +123,6 @@ enum class TagType(
         paddingHorizontal = 10,
         paddingVertical = 4,
         textStyle = defaultDateRoadTypography.bodyMed13,
-        roundedCornerShape = 20,
-    ),
+        roundedCornerShape = 20
+    )
 }

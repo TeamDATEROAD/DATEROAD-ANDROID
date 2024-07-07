@@ -14,7 +14,7 @@ import org.sopt.dateroad.presentation.type.TagType
 fun DateRoadTag(
     modifier: Modifier = Modifier,
     tagType: TagType,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     Box(
         modifier = modifier

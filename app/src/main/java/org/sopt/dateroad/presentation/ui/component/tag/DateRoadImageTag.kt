@@ -22,7 +22,7 @@ fun DateRoadImageTag(
     textContent: String,
     imageContent: Int,
     spaceValue: Int = 5,
-    tagContentType: TagType,
+    tagContentType: TagType
 ) {
     DateRoadTag(
         modifier = modifier,
@@ -39,7 +39,7 @@ fun DateRoadImageTag(
             Text(
                 text = textContent,
                 style = tagContentType.textStyle,
-                color = tagContentType.contentColor,
+                color = tagContentType.contentColor
             )
         }
     }
