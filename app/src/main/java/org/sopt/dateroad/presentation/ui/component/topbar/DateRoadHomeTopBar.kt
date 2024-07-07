@@ -20,7 +20,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadHomeTopBar(
-    pointText: String = "0 P",
+    pointText: String = "0 P"
 ) {
     Row(
         modifier = Modifier

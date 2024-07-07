@@ -19,7 +19,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadCourseTopBar(
     pointText: String,
-    content: (@Composable () -> Unit)? = null,
+    content: (@Composable () -> Unit)? = null
 ) {
     Box(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun DateRoadCourseTopBar(
             text = pointText,
             style = DateRoadTheme.typography.titleBold20,
             color = DateRoadTheme.colors.black,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
         if (content != null) {
             Box(

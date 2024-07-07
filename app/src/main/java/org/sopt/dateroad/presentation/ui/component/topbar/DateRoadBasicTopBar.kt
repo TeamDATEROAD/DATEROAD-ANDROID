@@ -25,7 +25,7 @@ fun DateRoadBasicTopBar(
     pointText: String,
     backGroundColor: Color = Color.Transparent,
     iconLeftResource: Int? = null,
-    content: (@Composable () -> Unit)? = null,
+    content: (@Composable () -> Unit)? = null
 ) {
     Box(
         modifier = Modifier
@@ -74,11 +74,11 @@ fun DateRoadBasicTopBarPreview() {
         DateRoadBasicTopBar(
             pointText = "포인트 내역",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            backGroundColor = DateRoadTheme.colors.white,
+            backGroundColor = DateRoadTheme.colors.white
         )
         DateRoadBasicTopBar(
             pointText = "내 프로필",
-            backGroundColor = DateRoadTheme.colors.white,
+            backGroundColor = DateRoadTheme.colors.white
         )
         DateRoadBasicTopBar(
             pointText = "데이트 일정",
