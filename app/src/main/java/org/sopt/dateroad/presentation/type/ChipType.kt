@@ -9,8 +9,6 @@ import org.sopt.dateroad.ui.theme.DeepPurple
 import org.sopt.dateroad.ui.theme.Gray100
 import org.sopt.dateroad.ui.theme.Gray400
 import org.sopt.dateroad.ui.theme.White
-import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.DateRoadTypography
 import org.sopt.dateroad.ui.theme.defaultDateRoadTypography
 
 enum class ChipType(
