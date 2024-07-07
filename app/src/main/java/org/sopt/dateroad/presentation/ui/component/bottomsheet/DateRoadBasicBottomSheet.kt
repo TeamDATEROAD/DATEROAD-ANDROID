@@ -27,15 +27,20 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadBasicBottomSheet(
     isBottomSheetOpen: Boolean,
-    onDismissRequest: () -> Unit = {},
     title: String,
+    isButtonEnabled: Boolean,
     buttonText: String,
+    onButtonClick: () -> Unit = {},
+    onDismissRequest: () -> Unit = {},
     itemList: List<Pair<String, () -> Unit>>
 ) {
     DateRoadBottomSheet(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
         sheetState = rememberModalBottomSheetState(),
         isBottomSheetOpen = isBottomSheetOpen,
+        isButtonEnabled = isButtonEnabled,
+        buttonText = buttonText,
+        onButtonClick = onButtonClick,
         onDismissRequest = onDismissRequest
     ) {
         Column(
@@ -99,13 +104,14 @@ fun DateRoadBasicBottomSheetPreview() {
 
         DateRoadBasicBottomSheet(
             isBottomSheetOpen = isBottomSheetOpen,
-            onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen },
             title = "프로필 사진 설정",
+            isButtonEnabled = false,
             buttonText = "취소",
             itemList = listOf(
                 "사진 등록" to { text = "사진 등록" },
                 "사진 삭제" to { text = "사진 삭제" }
+            ),
+            onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen },
             )
-        )
     }
 }

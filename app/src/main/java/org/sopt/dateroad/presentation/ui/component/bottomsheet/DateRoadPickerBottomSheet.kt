@@ -1,8 +1,10 @@
 package org.sopt.dateroad.presentation.ui.component.bottomsheet
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -24,28 +26,37 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadPickerBottomSheet(
     isBottomSheetOpen: Boolean,
+    isButtonEnabled: Boolean,
+    buttonText: String,
+    onButtonClick: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
     pickerItems: List<List<String>>
 ) {
     DateRoadBottomSheet(
-        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+        modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
         sheetState = rememberModalBottomSheetState(),
         isBottomSheetOpen = isBottomSheetOpen,
+        isButtonEnabled = isButtonEnabled,
+        buttonText = buttonText,
+        onButtonClick = onButtonClick,
         onDismissRequest = onDismissRequest
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            pickerItems.forEachIndexed { index, item ->
-                DateRoadNumberPicker(
-                    modifier = Modifier
-                        .weight(1f),
-                    items = item
-                )
-                if (index != pickerItems.size - 1) {
-                    Spacer(modifier = Modifier.width(17.dp))
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                pickerItems.forEachIndexed { index, item ->
+                    DateRoadNumberPicker(
+                        modifier = Modifier
+                            .weight(1f),
+                        items = item
+                    )
+                    if (index != pickerItems.size - 1) {
+                        Spacer(modifier = Modifier.width(17.dp))
+                    }
                 }
             }
+            Spacer(modifier = Modifier.height(19.dp))
         }
     }
 }
@@ -65,6 +76,8 @@ fun DateRoadPickerBottomSheetPreview() {
 
     DateRoadPickerBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
+        isButtonEnabled = true,
+        buttonText = "취소",
         pickerItems = listOf(
             (2000..2024).map { it.toString() },
             (1..12).map { it.toString() },
