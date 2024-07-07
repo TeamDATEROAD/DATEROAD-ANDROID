@@ -20,7 +20,6 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +42,6 @@ fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
         )
     }
 }
-
 
 @Preview
 @Composable
