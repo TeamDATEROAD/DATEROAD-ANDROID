@@ -1,7 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.pointbox
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +30,8 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.white)
-            .padding(start = 14.dp, top = 18.dp, bottom = 11.dp, end = 10.dp)
+            .padding(start = 14.dp, top = 18.dp, bottom = 11.dp, end = 10.dp),
+        verticalAlignment = Alignment.Bottom
     ) {
         Column(
             modifier = Modifier.weight(1f)
@@ -49,29 +49,24 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+            Spacer(modifier = Modifier.height(3.dp))
         }
         Spacer(modifier = Modifier.width(25.dp))
-        Column(
-            modifier = Modifier.padding(end = 10.dp, top = 33.dp),
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Bottom
+        Row(
+            modifier = Modifier.padding(start = 14.dp, end = 5.dp, top = 5.dp, bottom = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.padding(start = 14.dp, top = 11.dp, bottom = 11.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.my_page_point_card_text),
-                    style = DateRoadTheme.typography.bodyMed13,
-                    color = DateRoadTheme.colors.gray400
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_my_page_point_record_arrow),
-                    contentDescription = null,
-                    tint = DateRoadTheme.colors.gray400
-                )
-            }
+            Text(
+                text = stringResource(id = R.string.my_page_point_card_text),
+                style = DateRoadTheme.typography.bodyMed13,
+                color = DateRoadTheme.colors.gray400
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_my_page_point_record_arrow),
+                contentDescription = null,
+                tint = DateRoadTheme.colors.gray400
+            )
         }
     }
 }

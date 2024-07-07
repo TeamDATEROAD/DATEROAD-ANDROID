@@ -20,36 +20,35 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.deepPurple)
+            .padding(start = 16.dp, top = 16.dp, bottom = 14.dp)
     ) {
-        Column(modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 14.dp)) {
-            Text(
-                text = stringResource(id = R.string.point_box_nickname, nickname),
-                color = DateRoadTheme.colors.white,
-                style = DateRoadTheme.typography.bodyMed13
-            )
-            Spacer(modifier = Modifier.height(11.dp))
-            Text(
-                text = stringResource(id = R.string.point_box_point, point),
-                color = DateRoadTheme.colors.white,
-                style = DateRoadTheme.typography.titleExtra24,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
+        Text(
+            text = stringResource(id = R.string.point_box_nickname, nickname),
+            color = DateRoadTheme.colors.white,
+            style = DateRoadTheme.typography.bodyMed13
+        )
+        Spacer(modifier = Modifier.height(11.dp))
+        Text(
+            text = stringResource(id = R.string.point_box_point, point),
+            color = DateRoadTheme.colors.white,
+            style = DateRoadTheme.typography.titleExtra24,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }
+
 
 @Preview
 @Composable
 fun DateRoadPointHistoryPointBoxPreview() {
     Column {
         DateRoadPointHistoryPointBox("호은", 200)
-        Spacer(modifier = Modifier.height(10.dp))
-        DateRoadMyPagePointBox(nickname = "호은", point = 200)
     }
 }
