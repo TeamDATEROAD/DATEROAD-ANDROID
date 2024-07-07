@@ -53,17 +53,17 @@ fun DateRoadImageTagPreview() {
             DateRoadImageTag(
                 textContent = "10만원 초과",
                 imageContent = R.drawable.ic_all_money_12,
-                tagContentType = TagType.MONEY_TAG
+                tagContentType = TagType.MONEY
             )
             DateRoadImageTag(
                 textContent = "5",
                 imageContent = R.drawable.ic_tag_heart,
-                tagContentType = TagType.HEART_TAG
+                tagContentType = TagType.HEART
             )
             DateRoadImageTag(
                 textContent = "10시간",
                 imageContent = R.drawable.ic_all_clock_12,
-                tagContentType = TagType.HOME_TIME
+                tagContentType = TagType.TIME
             )
         }
     }

@@ -33,7 +33,7 @@ fun DateRoadTextTagPreview() {
         Column {
             DateRoadTextTag(
                 textContent = "2시간",
-                tagContentType = TagType.SMALL_CARD
+                tagContentType = TagType.PLACE_CARD_TIME
             )
             DateRoadTextTag(
                 textContent = "에디터 픽",
@@ -53,11 +53,11 @@ fun DateRoadTextTagPreview() {
             )
             DateRoadTextTag(
                 textContent = "1/5",
-                tagContentType = TagType.PAGE_NUMBER
+                tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER
             )
             DateRoadTextTag(
                 textContent = "\uD83D\uDE97 드라이브",
-                tagContentType = TagType.PREVIOUS_DATE
+                tagContentType = TagType.PAST_DATE
             )
             DateRoadTextTag(
                 textContent = "1",
@@ -69,7 +69,7 @@ fun DateRoadTextTagPreview() {
             )
             DateRoadTextTag(
                 textContent = "D-Day",
-                tagContentType = TagType.ROAD_D_DAY
+                tagContentType = TagType.TIMELINE_D_DAY
             )
         }
     }

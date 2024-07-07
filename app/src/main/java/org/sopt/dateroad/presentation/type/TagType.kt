@@ -29,7 +29,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.capReg11,
         roundedCornerShape = 12
     ),
-    ROAD_D_DAY(
+    TIMELINE_D_DAY(
         backgroundColor = defaultDateRoadColors.deepPurple,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 10,
@@ -45,7 +45,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.capReg11,
         roundedCornerShape = 20
     ),
-    HEART_TAG(
+    HEART(
         backgroundColor = defaultDateRoadColors.deepPurple,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 10,
@@ -53,7 +53,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.bodyBold13,
         roundedCornerShape = 12
     ),
-    HOME_TIME(
+    TIME(
         backgroundColor = defaultDateRoadColors.gray100,
         contentColor = defaultDateRoadColors.gray400,
         paddingHorizontal = 10,
@@ -61,7 +61,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.bodyMed13,
         roundedCornerShape = 20
     ),
-    MONEY_TAG(
+    MONEY(
         backgroundColor = defaultDateRoadColors.gray100,
         contentColor = defaultDateRoadColors.gray400,
         paddingHorizontal = 10,
@@ -77,7 +77,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.bodyMed13,
         roundedCornerShape = 20
     ),
-    PAGE_NUMBER(
+    ADVERTISEMENT_PAGE_NUMBER(
         backgroundColor = defaultDateRoadColors.gray400,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 9,
@@ -85,7 +85,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.capReg11,
         roundedCornerShape = 20
     ),
-    PREVIOUS_DATE(
+    PAST_DATE(
         backgroundColor = defaultDateRoadColors.lightPink,
         contentColor = defaultDateRoadColors.black,
         paddingHorizontal = 14,
@@ -101,15 +101,7 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.bodyBold13,
         roundedCornerShape = 50
     ),
-    POINT_TAG(
-        backgroundColor = defaultDateRoadColors.mediumPurple,
-        contentColor = defaultDateRoadColors.white,
-        paddingHorizontal = 0,
-        paddingVertical = 0,
-        textStyle = defaultDateRoadTypography.bodyBold13,
-        roundedCornerShape = 20
-    ),
-    SMALL_CARD(
+    PLACE_CARD_TIME(
         backgroundColor = defaultDateRoadColors.gray200,
         contentColor = defaultDateRoadColors.black,
         paddingHorizontal = 14,
