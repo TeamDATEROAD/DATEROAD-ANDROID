@@ -20,14 +20,14 @@ fun DateRoadTextButton(
     textColor: Color,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     DateRoadButton(
         modifier = modifier,
         backgroundColor = Color.Transparent,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = onClick,
+        onClick = onClick
     ) {
         Text(
             text = textContent,

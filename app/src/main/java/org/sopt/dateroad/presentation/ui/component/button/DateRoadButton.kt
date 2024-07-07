@@ -23,7 +23,7 @@ fun DateRoadButton(
     paddingHorizontal: Dp = 0.dp,
     paddingVertical: Dp = 0.dp,
     onClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -31,7 +31,7 @@ fun DateRoadButton(
             .background(color = backgroundColor)
             .clickable(onClick = onClick)
             .border(width = borderWidth, color = borderColor, shape = RoundedCornerShape(cornerRadius))
-            .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
+            .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
     ) {
         content()
     }

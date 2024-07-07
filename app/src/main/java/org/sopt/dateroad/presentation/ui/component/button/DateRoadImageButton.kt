@@ -25,7 +25,7 @@ fun DateRoadImageButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     val backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor
     val contentColor = if (isEnabled) enabledContentColor else disabledContentColor
@@ -36,12 +36,12 @@ fun DateRoadImageButton(
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = onClick,
+        onClick = onClick
     ) {
         Icon(
             painter = painterResource(id = iconResId),
             contentDescription = null,
-            tint = contentColor,
+            tint = contentColor
         )
     }
 }

@@ -54,7 +54,7 @@ data class DateRoadColors(
 
     // Notif
     val alertRed: Color,
-    val kakao: Color,
+    val kakao: Color
 )
 
 val defaultDateRoadColors = DateRoadColors(

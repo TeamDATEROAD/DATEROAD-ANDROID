@@ -14,7 +14,7 @@ fun DateRoadBasicButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
     textContent: String,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
     DateRoadFilledButton(
         modifier = modifier.fillMaxWidth(),
@@ -39,11 +39,11 @@ fun DateRoadBasicButtonPreview() {
         Column {
             DateRoadBasicButton(
                 isEnabled = true,
-                textContent = "프로필 등록하기",
+                textContent = "프로필 등록하기"
             )
             DateRoadBasicButton(
                 isEnabled = false,
-                textContent = "프로필 등록하기",
+                textContent = "프로필 등록하기"
             )
         }
     }

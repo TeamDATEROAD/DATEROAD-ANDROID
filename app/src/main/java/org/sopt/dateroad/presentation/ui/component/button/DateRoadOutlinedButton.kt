@@ -23,7 +23,7 @@ fun DateRoadOutlinedButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp = 0.dp,
     paddingVertical: Dp = 0.dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     DateRoadButton(
         modifier = modifier.fillMaxWidth(),
@@ -38,7 +38,7 @@ fun DateRoadOutlinedButton(
         Text(
             text = textContent,
             style = textStyle,
-            color = contentColor,
+            color = contentColor
         )
     }
 }
@@ -55,7 +55,7 @@ fun DateRoadOutlinedButtonPreview() {
             backgroundColor = DateRoadTheme.colors.white,
             cornerRadius = 29.dp,
             borderWidth = 1.dp,
-            paddingVertical = 16.dp,
+            paddingVertical = 16.dp
         )
     }
 }

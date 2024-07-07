@@ -25,7 +25,7 @@ fun DateRoadFilledButton(
     cornerRadius: Dp,
     paddingHorizontal: Dp,
     paddingVertical: Dp,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     val backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor
     val textColor = if (isEnabled) enabledTextColor else disabledTextColor
@@ -36,7 +36,7 @@ fun DateRoadFilledButton(
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = onClick,
+        onClick = onClick
     ) {
         Text(
             text = textContent,

@@ -25,7 +25,7 @@ fun DateRoadKakaoLoginButton(
     modifier: Modifier = Modifier,
     backgroundColor: Color = DateRoadTheme.colors.kakao,
     contentColor: Color = DateRoadTheme.colors.black,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
     DateRoadButton(
         modifier = modifier.fillMaxWidth(),
@@ -36,7 +36,7 @@ fun DateRoadKakaoLoginButton(
         onClick = onClick
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_kakao_logo),
