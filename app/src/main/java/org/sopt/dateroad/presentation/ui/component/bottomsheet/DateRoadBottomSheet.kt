@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -26,6 +27,9 @@ fun DateRoadBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
     isBottomSheetOpen: Boolean,
+    isButtonEnabled: Boolean,
+    buttonText: String,
+    onButtonClick: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
@@ -41,7 +45,11 @@ fun DateRoadBottomSheet(
                 modifier = modifier
             ) {
                 content()
-                // TODO Button 추가
+                DateRoadBasicButton(
+                    isEnabled = isButtonEnabled,
+                    textContent = buttonText,
+                    onClick = onButtonClick
+                )
             }
         }
     }
@@ -66,6 +74,8 @@ fun DateRoadBottomSheetPreview() {
             modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
             isBottomSheetOpen = isBottomSheetOpen,
             onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen },
+            isButtonEnabled = false,
+            buttonText = "test",
             content = {
                 Text(
                     text = "BottomSheet",
