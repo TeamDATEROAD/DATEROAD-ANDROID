@@ -1,13 +1,10 @@
 package org.sopt.dateroad.presentation.ui.component.bottomsheet
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -68,7 +65,10 @@ fun DateRoadPickerBottomSheetPreview() {
 
     DateRoadPickerBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
-        pickerItems = listOf((2000..2024).map { it.toString() }, (1..12).map { it.toString() }, (1..31).map { it.toString() }
+        pickerItems = listOf(
+            (2000..2024).map { it.toString() },
+            (1..12).map { it.toString() },
+            (1..31).map { it.toString() }
         )
     )
 }

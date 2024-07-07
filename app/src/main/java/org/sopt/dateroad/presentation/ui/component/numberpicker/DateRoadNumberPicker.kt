@@ -52,7 +52,7 @@ fun DateRoadNumberPicker(
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = scrollState)
 
     LaunchedEffect(itemHeightPixel) {
-        if(itemHeightPixel > 0) scrollState.scrollToItem(startIndex)
+        if (itemHeightPixel > 0) scrollState.scrollToItem(startIndex)
     }
 
     LaunchedEffect(scrollState) {
@@ -105,7 +105,6 @@ fun DateRoadNumberPicker(
     }
 }
 
-
 @Composable
 fun DateRoadNumberPickerContent(
     modifier: Modifier = Modifier,
@@ -132,7 +131,7 @@ fun DateRoadNumberPickerContent(
 fun DateRoadNumberPickerPreview() {
     DATEROADTheme {
         DateRoadNumberPicker(
-            items = (0..11).map { it.toString() },
+            items = (0..11).map { it.toString() }
         )
     }
 }
