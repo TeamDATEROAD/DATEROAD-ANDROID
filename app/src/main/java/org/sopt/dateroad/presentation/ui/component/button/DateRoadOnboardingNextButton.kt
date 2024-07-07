@@ -17,14 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.DeepPurple
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadOnboardingNextButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = White,
-    contentColor: Color = DeepPurple
+    backgroundColor: Color = DateRoadTheme.colors.white,
+    contentColor: Color = DateRoadTheme.colors.deepPurple,
 ) {
     Row(
         modifier = modifier
@@ -33,7 +31,7 @@ fun DateRoadOnboardingNextButton(
             .background(backgroundColor)
             .border(
                 width = 1.dp,
-                color = DeepPurple,
+                color = contentColor,
                 shape = RoundedCornerShape(29.dp)
             )
             .padding(vertical = 16.dp),

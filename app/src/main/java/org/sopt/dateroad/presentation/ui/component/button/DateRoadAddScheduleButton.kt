@@ -14,12 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
+import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.DeepPurple
 
 @Composable
 fun DateRoadAddScheduleButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = DeepPurple
+    backgroundColor: Color = DateRoadTheme.colors.deepPurple
 ) {
     Row(
         modifier = modifier

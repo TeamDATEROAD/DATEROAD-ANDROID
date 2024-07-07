@@ -15,14 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.DeepPurple
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadNextButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = DeepPurple,
-    contentColor: Color = White
+    backgroundColor: Color = DateRoadTheme.colors.deepPurple,
+    contentColor: Color = DateRoadTheme.colors.white,
 ) {
     Row(
         modifier = modifier
@@ -36,7 +34,7 @@ fun DateRoadNextButton(
             text = "데이트 코스 올리고 50P 받기",
             style = DateRoadTheme.typography.bodyBold15,
             color = contentColor,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = modifier.align(Alignment.CenterVertically)
         )
     }
 }

@@ -21,8 +21,8 @@ import org.sopt.dateroad.ui.theme.White
 @Composable
 fun DateRoadBringButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = DeepPurple,
-    contentColor: Color = White
+    backgroundColor: Color = DateRoadTheme.colors.deepPurple,
+    contentColor: Color = DateRoadTheme.colors.white
 ) {
     Row(
         modifier = modifier

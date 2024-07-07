@@ -24,10 +24,10 @@ import org.sopt.dateroad.ui.theme.White
 fun DateRoadSameCheckButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
-    enabledBackgroundColor: Color = DeepPurple,
-    enabledContentColor: Color = White,
-    disabledBackgroundColor: Color = Gray200,
-    disabledContentColor: Color = Gray400
+    enabledBackgroundColor: Color = DateRoadTheme.colors.deepPurple,
+    enabledContentColor: Color = DateRoadTheme.colors.white,
+    disabledBackgroundColor: Color = DateRoadTheme.colors.gray200,
+    disabledContentColor: Color = DateRoadTheme.colors.gray400
 ) {
     val backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor
     val contentColor = if (isEnabled) enabledContentColor else disabledContentColor
@@ -55,16 +55,6 @@ fun DateRoadSameCheckButtonPreview() {
     DATEROADTheme {
         DateRoadSameCheckButton(
             isEnabled = true
-        )
-    }
-}
-
-@Preview
-@Composable
-fun DateRoadSameCheckButtonDisabledPreview() {
-    DATEROADTheme {
-        DateRoadSameCheckButton(
-            isEnabled = false
         )
     }
 }

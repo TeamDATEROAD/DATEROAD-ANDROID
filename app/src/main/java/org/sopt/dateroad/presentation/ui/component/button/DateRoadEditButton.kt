@@ -20,9 +20,9 @@ fun DateRoadEditButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
     enabledText: String = "편집",
-    enabledContentColor: Color = Gray400,
+    enabledContentColor: Color = DateRoadTheme.colors.gray400,
     disabledText: String = "완료",
-    disabledContentColor: Color = DeepPurple
+    disabledContentColor: Color = DateRoadTheme.colors.deepPurple
 ) {
     val contentColor = if (isEnabled) enabledContentColor else disabledContentColor
     val contentText = if (isEnabled) enabledText else disabledText
@@ -48,16 +48,6 @@ fun DateRoadEditButtonPreview() {
     DATEROADTheme {
         DateRoadEditButton(
             isEnabled = true
-        )
-    }
-}
-
-@Preview
-@Composable
-fun DateRoadEditButtonDisablePreview() {
-    DATEROADTheme {
-        DateRoadEditButton(
-            isEnabled = false
         )
     }
 }

@@ -17,7 +17,7 @@ import org.sopt.dateroad.ui.theme.DeepPurple
 @Composable
 fun DateRoadMoreButton(
     modifier: Modifier = Modifier,
-    contentColor: Color = DeepPurple
+    contentColor: Color = DateRoadTheme.colors.deepPurple
 ) {
     Row(
         modifier = modifier
@@ -29,7 +29,7 @@ fun DateRoadMoreButton(
             text = "더보기",
             style = DateRoadTheme.typography.bodyBold13,
             color = contentColor,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = modifier.align(Alignment.CenterVertically)
         )
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
+import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.DeepPurple
 import org.sopt.dateroad.ui.theme.Gray100
 import org.sopt.dateroad.ui.theme.Gray300
@@ -24,10 +25,10 @@ import org.sopt.dateroad.ui.theme.White
 fun DateRoadAddCourseButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
-    enabledBackgroundColor: Color = DeepPurple,
-    enabledContentColor: Color = White,
-    disabledBackgroundColor: Color = Gray100,
-    disabledContentColor: Color = Gray300
+    enabledBackgroundColor: Color =  DateRoadTheme.colors.deepPurple,
+    enabledContentColor: Color =  DateRoadTheme.colors.white,
+    disabledBackgroundColor: Color =  DateRoadTheme.colors.gray100,
+    disabledContentColor: Color =  DateRoadTheme.colors.gray300
 ) {
     val backgroundColor = if (isEnabled) enabledBackgroundColor else disabledBackgroundColor
     val contentColor = if (isEnabled) enabledContentColor else disabledContentColor
@@ -52,16 +53,6 @@ fun DateRoadAddCourseButtonPreview() {
     DATEROADTheme {
         DateRoadAddCourseButton(
             isEnabled = true
-        )
-    }
-}
-
-@Preview
-@Composable
-fun DateRoadAddCourseButtonDisabledPreview() {
-    DATEROADTheme {
-        DateRoadAddCourseButton(
-            isEnabled = false
         )
     }
 }

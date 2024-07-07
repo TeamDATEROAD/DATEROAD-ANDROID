@@ -17,7 +17,7 @@ import org.sopt.dateroad.ui.theme.Gray400
 @Composable
 fun DateRoadDeleteButton(
     modifier: Modifier = Modifier,
-    contentColor: Color = Gray400
+    contentColor: Color = DateRoadTheme.colors.gray400
 ) {
     Row(
         modifier = modifier
