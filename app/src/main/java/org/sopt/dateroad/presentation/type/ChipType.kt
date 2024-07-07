@@ -69,6 +69,6 @@ enum class ChipType(
         horizontalPadding = 11.dp,
         verticalPadding = 6.dp,
         cornerRadius = 10.dp,
-        textStyle = defaultDateRoadTypography.bodyMed15
+        textStyle = defaultDateRoadTypography.bodySemi15
     )
 }

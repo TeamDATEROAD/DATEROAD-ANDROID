@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.chip
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +17,7 @@ import org.sopt.dateroad.presentation.type.ChipType
 @Composable
 fun DateRoadTextChip(
     modifier: Modifier = Modifier,
-    textId: Int,
+    @StringRes textId: Int,
     chipType: ChipType = ChipType.ENROLL_COURSE,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {}
