@@ -158,4 +158,6 @@
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
     <string name="region_bottom_sheet_button_text">적용하기</string>
 
+    <!-- Course Detail -->
+    <string name="course_detail_duration">%1$d 시간</string>
 </resources>
