@@ -81,7 +81,7 @@ fun DateRoadTwoButtonDialogWithDescriptionPreview() {
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center 
+        contentAlignment = Alignment.Center
     ) {
         Button(onClick = { showDialog.value = true }) {
             Text(text = "Show Dialog")
