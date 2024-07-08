@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.component.placecard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,13 +30,10 @@ fun DateRoadPlaceCard(
     placeCardType: PlaceCardType,
     placeTimeline: String? = null,
     placeTitle: String,
-    placeTime: String
+    placeTime: String,
+    onIconClick: (() -> Unit)? = null
 ) {
-    val paddingValues = if (placeCardType == PlaceCardType.COURSE_NORMAL) {
-        Modifier.padding(start = 14.dp, end = 13.dp)
-    } else {
-        Modifier.padding(start = 17.dp, end = 19.dp)
-    }
+    val paddingValues = Modifier.padding(start = placeCardType.startPadding, end = placeCardType.endPadding)
 
     Row(
         modifier = Modifier
@@ -43,7 +41,7 @@ fun DateRoadPlaceCard(
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.gray100)
             .then(paddingValues)
-            .padding(vertical = 13.dp),
+            .padding(vertical = placeCardType.verticalPadding),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -52,13 +50,15 @@ fun DateRoadPlaceCard(
                 textContent = it,
                 tagContentType = TagType.PLACE_CARD_NUMBER
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(14.dp))
         }
         Text(
             text = placeTitle,
             modifier = Modifier.weight(1f),
             style = DateRoadTheme.typography.bodyBold15
         )
+        Spacer(modifier = Modifier.width(10.dp))
+
         DateRoadTextTag(
             textContent = placeTime,
             tagContentType = TagType.PLACE_CARD_TIME
@@ -67,7 +67,16 @@ fun DateRoadPlaceCard(
             Icon(
                 painter = painterResource(id = it),
                 contentDescription = null,
-                modifier = Modifier.padding(start = 10.dp)
+                modifier = Modifier
+                    .padding(
+                        start = placeCardType.iconStartPadding,
+                        top = placeCardType.iconTopPadding,
+                        end = placeCardType.iconEndPadding,
+                        bottom = placeCardType.iconBottomPadding
+                    )
+                    .clickable {
+                        onIconClick?.invoke()
+                    }
             )
         }
     }
@@ -77,10 +86,25 @@ fun DateRoadPlaceCard(
 @Composable
 fun DateRoadPlaceCardPreview() {
     Column {
-        DateRoadPlaceCard(placeCardType = PlaceCardType.COURSE_NORMAL, placeTimeline = "1", placeTitle = "성수미술관 성수점", placeTime = "2시간")
+        DateRoadPlaceCard(
+            placeCardType = PlaceCardType.COURSE_NORMAL,
+            placeTimeline = "1",
+            placeTitle = "성수미술관 성수점",
+            placeTime = "2시간"
+        )
         Spacer(modifier = Modifier.height(8.dp))
-        DateRoadPlaceCard(placeCardType = PlaceCardType.COURSE_EDIT, placeTitle = "성수미술관 성수점", placeTime = "2시간")
+        DateRoadPlaceCard(
+            placeCardType = PlaceCardType.COURSE_EDIT,
+            placeTitle = "성수미술관 성수점",
+            placeTime = "2시간",
+            onIconClick = { }
+        )
         Spacer(modifier = Modifier.height(8.dp))
-        DateRoadPlaceCard(placeCardType = PlaceCardType.COURSE_DELETE, placeTitle = "성수미술관 성수점", placeTime = "2시간")
+        DateRoadPlaceCard(
+            placeCardType = PlaceCardType.COURSE_DELETE,
+            placeTitle = "성수미술관 성수점",
+            placeTime = "2시간",
+            onIconClick = { }
+        )
     }
 }
