@@ -1,42 +1,55 @@
 package org.sopt.dateroad.presentation.type
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class DateTagType(
-    @StringRes val titleRes: Int
+    @StringRes val titleRes: Int,
+    @DrawableRes val imageRes: Int
 ) {
     DRIVE(
-        titleRes = R.string.date_tag_drive
+        titleRes = R.string.date_tag_drive,
+        imageRes = R.drawable.ic_all_drive
     ),
     SHOPPING(
-        titleRes = R.string.date_tag_shopping
+        titleRes = R.string.date_tag_shopping,
+        imageRes = R.drawable.ic_all_shopping
     ),
     INDOOR(
-        titleRes = R.string.date_tag_indoor
+        titleRes = R.string.date_tag_indoor,
+        imageRes = R.drawable.ic_all_indoor
     ),
     HEALING(
-        titleRes = R.string.date_tag_healing
+        titleRes = R.string.date_tag_healing,
+        imageRes = R.drawable.ic_all_healing
     ),
     ALCOHOL(
-        titleRes = R.string.date_tag_alcohol
+        titleRes = R.string.date_tag_alcohol,
+        imageRes = R.drawable.ic_all_alcohol
     ),
     EPICURISM(
-        titleRes = R.string.date_tag_epicurism
+        titleRes = R.string.date_tag_epicurism,
+        imageRes = R.drawable.ic_all_epicurism
     ),
     CRAFT_SHOP(
-        titleRes = R.string.date_tag_craft_shop
+        titleRes = R.string.date_tag_craft_shop,
+        imageRes = R.drawable.ic_all_craft_shop
     ),
     NATURE(
-        titleRes = R.string.date_tag_nature
+        titleRes = R.string.date_tag_nature,
+        imageRes = R.drawable.ic_all_nature
     ),
     ACTIVITY(
-        titleRes = R.string.date_tag_activity
+        titleRes = R.string.date_tag_activity,
+        imageRes = R.drawable.ic_all_activity
     ),
     PERFORMANCE_MUSIC(
-        titleRes = R.string.date_tag_performance_music
+        titleRes = R.string.date_tag_performance_music,
+        imageRes = R.drawable.ic_all_performance_music
     ),
     EXHIBITION_POP_UP(
-        titleRes = R.string.date_tag_exhibition_pop_up
+        titleRes = R.string.date_tag_exhibition_pop_up,
+        imageRes = R.drawable.ic_all_exhibition_pop_up
     )
 }
