@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.component.bottomsheet
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -22,10 +23,12 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +57,9 @@ fun DateRoadRegionBottomSheet(
     onButtonClick: () -> Unit = {},
     onDismissRequest: () -> Unit = {}
 ) {
+    var contentHeight by remember { mutableStateOf(0) }
+    val scrollState = rememberScrollState()
+
     DateRoadBottomSheet(
         modifier = Modifier.padding(top = 15.dp, start = 16.dp, end = 6.dp, bottom = 16.dp),
         sheetState = rememberModalBottomSheetState(),
@@ -108,52 +114,59 @@ fun DateRoadRegionBottomSheet(
                     .fillMaxWidth()
                     .padding(top = 18.dp, start = 2.dp, end = 2.dp, bottom = 21.dp)
             )
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(9.dp),
-                verticalArrangement = Arrangement.spacedBy(11.dp),
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(max = 208.dp, min = 208.dp)
+                    .heightIn(max = 180.dp, min = 180.dp)
                     .padding(end = 10.dp)
-                    .verticalScroll(rememberScrollState())
+                    .let { if (contentHeight > 180) it.verticalScroll(scrollState) else it }
+                    .onGloballyPositioned { coordinates ->
+                        contentHeight = coordinates.size.height
+                    }
             ) {
-                when (selectedRegion) {
-                    RegionType.INCHEON -> IncheonAreaType.entries.forEach { areaType ->
-                        DateRoadTextChip(
-                            textId = areaType.nameRes,
-                            chipType = ChipType.AREA,
-                            isSelected = selectedArea == areaType,
-                            onSelectedChange = {
-                                onSelectedAreaChanged(areaType)
-                            }
-                        )
-                    }
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(9.dp),
+                    verticalArrangement = Arrangement.spacedBy(11.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    when (selectedRegion) {
+                        RegionType.INCHEON -> IncheonAreaType.entries.forEach { areaType ->
+                            DateRoadTextChip(
+                                textId = areaType.nameRes,
+                                chipType = ChipType.AREA,
+                                isSelected = selectedArea == areaType,
+                                onSelectedChange = {
+                                    onSelectedAreaChanged(areaType)
+                                }
+                            )
+                        }
 
-                    RegionType.GYEONGGI -> GyeonggiAreaType.entries.forEach { areaType ->
-                        DateRoadTextChip(
-                            textId = areaType.nameRes,
-                            chipType = ChipType.AREA,
-                            isSelected = selectedArea == areaType,
-                            onSelectedChange = {
-                                onSelectedAreaChanged(areaType)
-                            }
-                        )
-                    }
+                        RegionType.GYEONGGI -> GyeonggiAreaType.entries.forEach { areaType ->
+                            DateRoadTextChip(
+                                textId = areaType.nameRes,
+                                chipType = ChipType.AREA,
+                                isSelected = selectedArea == areaType,
+                                onSelectedChange = {
+                                    onSelectedAreaChanged(areaType)
+                                }
+                            )
+                        }
 
-                    else -> SeoulAreaType.entries.forEach { areaType ->
-                        DateRoadTextChip(
-                            textId = areaType.nameRes,
-                            chipType = ChipType.AREA,
-                            isSelected = selectedArea == areaType,
-                            onSelectedChange = {
-                                onSelectedAreaChanged(areaType)
-                            }
-                        )
+                        else -> SeoulAreaType.entries.forEach { areaType ->
+                            DateRoadTextChip(
+                                textId = areaType.nameRes,
+                                chipType = ChipType.AREA,
+                                isSelected = selectedArea == areaType,
+                                onSelectedChange = {
+                                    onSelectedAreaChanged(areaType)
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
