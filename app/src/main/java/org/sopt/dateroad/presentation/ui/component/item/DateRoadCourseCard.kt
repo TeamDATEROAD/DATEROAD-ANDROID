@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.component.item
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,27 +15,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadCourseCard(
-    imgResource: Int,
-    heartCount: String,
-    textPlaceContent: String,
-    textTitleContent: String,
-    textPriceContent: String,
-    textTimeContent: String
+    course: Course
 ) {
-    val imgSize = 110.dp
-    val imageCornerRadius = 14.dp
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,30 +37,30 @@ fun DateRoadCourseCard(
     ) {
         Box(
             modifier = Modifier
-                .size(imgSize)
+                .size(110.dp)
         ) {
-            Image(
-                painter = painterResource(id = imgResource),
+            AsyncImage(
+                model = course.url,
                 contentDescription = null,
                 modifier = Modifier
                     .matchParentSize()
-                    .clip(RoundedCornerShape(imageCornerRadius))
+                    .clip(RoundedCornerShape(14.dp))
             )
             DateRoadImageTag(
-                textContent = heartCount,
+                textContent = course.like.toString(),
                 imageContent = R.drawable.ic_tag_heart,
                 tagContentType = TagType.HEART,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(start = 5.dp, bottom = 5.dp)
+                    .padding(start = 5.dp, bottom = 5.dp, end = 5.dp)
             )
         }
         Column(
             modifier = Modifier
-                .height(imgSize)
+                .height(110.dp)
         ) {
             Text(
-                text = textPlaceContent,
+                text = course.city,
                 style = DateRoadTheme.typography.bodyMed13,
                 color = DateRoadTheme.colors.gray400,
                 modifier = Modifier
@@ -76,7 +68,7 @@ fun DateRoadCourseCard(
                     .padding(top = 5.dp, start = 14.dp, bottom = 5.dp)
             )
             Text(
-                text = textTitleContent,
+                text = course.title,
                 style = DateRoadTheme.typography.bodyMed13,
                 color = DateRoadTheme.colors.black,
                 modifier = Modifier
@@ -91,13 +83,13 @@ fun DateRoadCourseCard(
                     .padding(bottom = 4.dp, start = 14.dp)
             ) {
                 DateRoadImageTag(
-                    textContent = textPriceContent,
+                    textContent = "${course.cost}만원 초과",
                     imageContent = R.drawable.ic_all_money_12,
                     tagContentType = TagType.MONEY
                 )
                 Spacer(modifier = Modifier.size(6.dp))
                 DateRoadImageTag(
-                    textContent = textTimeContent,
+                    textContent = "${course.duration}시간",
                     imageContent = R.drawable.ic_all_clock_12,
                     tagContentType = TagType.TIME
                 )
@@ -111,12 +103,16 @@ fun DateRoadCourseCard(
 fun DateRoadCourseCardPreview() {
     Column {
         DateRoadCourseCard(
-            imgResource = R.drawable.ic_launcher_background,
-            heartCount = "5",
-            textPlaceContent = "건대/성수/왕십리",
-            textTitleContent = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-            textPriceContent = "10만원 초과",
-            textTimeContent = "10시간"
+            course = Course(
+                id = 1,
+                url = "https://thumb.mt.co.kr/06/2009/04/2009042416153570569_3.jpg",
+                openedAt = "2023-01-01",
+                city = "건대/성수/왕십리",
+                title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
+                cost = 10,
+                duration = 10,
+                like = 999
+            )
         )
     }
 }

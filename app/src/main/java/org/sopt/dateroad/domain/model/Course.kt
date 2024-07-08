@@ -8,5 +8,5 @@ data class Course(
     val title: String,
     val cost: Int,
     val duration: Int,
-    val like: Int,
+    val like: Int
 )
