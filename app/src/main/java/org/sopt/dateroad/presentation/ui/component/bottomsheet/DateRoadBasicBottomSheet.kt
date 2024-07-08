@@ -111,7 +111,7 @@ fun DateRoadBasicBottomSheetPreview() {
                 "사진 등록" to { text = "사진 등록" },
                 "사진 삭제" to { text = "사진 삭제" }
             ),
-            onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen },
-            )
+            onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen }
+        )
     }
 }
