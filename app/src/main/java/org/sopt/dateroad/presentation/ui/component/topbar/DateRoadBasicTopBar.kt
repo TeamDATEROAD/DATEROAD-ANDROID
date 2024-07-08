@@ -31,7 +31,7 @@ fun DateRoadBasicTopBar(
     title: String,
     backGroundColor: Color = Color.Transparent,
     iconLeftResource: Int? = null,
-    iconRightcontent: (@Composable () -> Unit)? = null,
+    iconRightcontent: (@Composable () -> Unit)? = null
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
@@ -44,7 +44,7 @@ fun DateRoadBasicTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(backGroundColor)
-            .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 11.dp)
     ) {
         if (iconLeftResource != null) {
             Icon(
@@ -56,7 +56,7 @@ fun DateRoadBasicTopBar(
                     .onGloballyPositioned { coordinates ->
                         iconWidth = coordinates.size.width
                     }
-                    .padding(horizontal = 16.dp, vertical = 11.dp)
+                    .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)
             )
         }
 
@@ -67,7 +67,6 @@ fun DateRoadBasicTopBar(
                     .onGloballyPositioned { coordinates ->
                         contentWidth = coordinates.size.width
                     }
-                    .padding(vertical = 11.dp)
             ) {
                 iconRightcontent()
             }
