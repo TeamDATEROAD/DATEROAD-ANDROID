@@ -76,7 +76,7 @@ fun DateRoadRegionBottomSheet(
                 Image(
                     modifier = Modifier
                         .padding(15.dp)
-                        .noRippleClickable(),
+                        .noRippleClickable(onClick = onDismissRequest),
                     painter = painterResource(id = R.drawable.ic_bottom_sheet_close),
                     contentDescription = null
                 )
@@ -174,7 +174,7 @@ fun DateRoadRegionBottomSheetPreview() {
 
     DateRoadRegionBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
-        isButtonEnabled = false,
+        isButtonEnabled = selectedRegion != null && selectedArea != null,
         titleText = stringResource(id = R.string.region_bottom_sheet_title),
         buttonText = stringResource(id = R.string.region_bottom_sheet_button_text),
         selectedRegion = selectedRegion,
@@ -185,6 +185,7 @@ fun DateRoadRegionBottomSheetPreview() {
         },
         onSelectedAreaChanged = { newSelectedArea ->
             selectedArea = newSelectedArea
-        }
+        },
+        onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen }
     )
 }
