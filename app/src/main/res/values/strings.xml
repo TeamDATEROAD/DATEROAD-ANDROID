@@ -17,17 +17,17 @@
     <string name="advertisement_title_advertisement">광고</string>
 
     <!-- DateTagType -->
-    <string name="date_tag_drive">🚙 드라이브</string>
-    <string name="date_tag_shopping">🛍️ 쇼핑</string>
-    <string name="date_tag_indoor">🚪 실내</string>
-    <string name="date_tag_healing">🍵 힐링</string>
-    <string name="date_tag_alcohol">🥂 알콜</string>
-    <string name="date_tag_epicurism">🍜 식도락</string>
-    <string name="date_tag_craft_shop">💍 공방</string>
-    <string name="date_tag_nature">🌊 자연</string>
-    <string name="date_tag_activity">🛼️ 액티비티</string>
-    <string name="date_tag_performance_music">🎭 공연·음악</string>
-    <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+    <string name="date_tag_drive">드라이브</string>
+    <string name="date_tag_shopping">쇼핑</string>
+    <string name="date_tag_indoor">실내</string>
+    <string name="date_tag_healing">힐링</string>
+    <string name="date_tag_alcohol">알콜</string>
+    <string name="date_tag_epicurism">식도락</string>
+    <string name="date_tag_craft_shop">공방</string>
+    <string name="date_tag_nature">자연</string>
+    <string name="date_tag_activity">액티비티</string>
+    <string name="date_tag_performance_music">공연·음악</string>
+    <string name="date_tag_exhibition_pop_up">전시·팝업</string>
 
     <!-- EmptyViewType -->
     <string name="empty_view_point_history_earn_history">아직 포인트 획득 내역이 없어요!</string>

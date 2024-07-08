@@ -10,9 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
@@ -51,7 +54,7 @@ fun DateRoadImageTagPreview() {
     DATEROADTheme {
         Column {
             DateRoadImageTag(
-                textContent = "10만원 초과",
+                textContent = stringResource(id = MoneyTagType.EXCESS_100000.titleRes),
                 imageContent = R.drawable.ic_all_money_12,
                 tagContentType = TagType.MONEY
             )
@@ -64,6 +67,21 @@ fun DateRoadImageTagPreview() {
                 textContent = "10시간",
                 imageContent = R.drawable.ic_all_clock_12,
                 tagContentType = TagType.TIME
+            )
+            DateRoadImageTag(
+                textContent = stringResource(id = DateTagType.DRIVE.titleRes),
+                imageContent = DateTagType.DRIVE.imageRes,
+                tagContentType = TagType.MY_PAGE_DATE
+            )
+            DateRoadImageTag(
+                textContent = stringResource(id = DateTagType.DRIVE.titleRes),
+                imageContent = DateTagType.DRIVE.imageRes,
+                tagContentType = TagType.PAST_DATE
+            )
+            DateRoadImageTag(
+                textContent = stringResource(id = DateTagType.EXHIBITION_POP_UP.titleRes),
+                imageContent = DateTagType.EXHIBITION_POP_UP.imageRes,
+                tagContentType = TagType.TIMELINE_DATE
             )
         }
     }
