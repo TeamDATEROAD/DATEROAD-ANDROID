@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +25,37 @@ import org.sopt.dateroad.ui.theme.Gray300
 import org.sopt.dateroad.ui.theme.White
 
 @Composable
+fun CustomNavigationBarItem(
+    context: Context,
+    mainNavigationBarItemType: MainNavigationBarItemType,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .clickable(onClick = onClick)
+            .background(if (isSelected) White else Color.Transparent),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(modifier = Modifier.height(11.dp))
+        Icon(
+            painter = painterResource(id = mainNavigationBarItemType.iconRes),
+            tint = if (isSelected) Black else Gray200,
+            contentDescription = context.getString(mainNavigationBarItemType.label),
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = context.getString(mainNavigationBarItemType.label),
+            style = DateRoadTheme.typography.capReg11,
+            color = if (isSelected) Black else Gray300
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+    }
+}
+
+@Composable
 fun MainBottomBar(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current,
@@ -34,40 +65,23 @@ fun MainBottomBar(
     onNavigationBarItemSelected: (MainNavigationBarItemType) -> Unit
 ) {
     AnimatedVisibility(visible = isVisible) {
-        NavigationBar(
+        Row(
             modifier = modifier
                 .background(White)
-                .border(1.dp, Color(0xFFF1F1F5)),
-            containerColor = White
+                .border(1.dp, Color(0xFFF1F1F5))
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            navigationBarItems.forEachIndexed { _, mainNavigationBarItemType ->
+            navigationBarItems.forEach { mainNavigationBarItemType ->
                 val isSelected = currentNavigationBarItem == mainNavigationBarItemType
 
-                NavigationBarItem(
-                    selected = isSelected,
+                CustomNavigationBarItem(
+                    context = context,
+                    mainNavigationBarItemType = mainNavigationBarItemType,
+                    isSelected = isSelected,
                     onClick = { onNavigationBarItemSelected(mainNavigationBarItemType) },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = mainNavigationBarItemType.iconRes),
-                            tint = if (isSelected) Black else Gray200,
-                            contentDescription = context.getString(mainNavigationBarItemType.label)
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = context.getString(mainNavigationBarItemType.label),
-                            style = DateRoadTheme.typography.capReg11,
-                            color = if (isSelected) Black else Gray300
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Black,
-                        unselectedIconColor = Gray200,
-                        selectedTextColor = Black,
-                        unselectedTextColor = Gray300,
-                        indicatorColor = White // 선택된 아이템의 배경색을 흰색으로 설정
-                    ),
-                    modifier = Modifier.background(White)
+                    modifier = Modifier.weight(1f) // Ensure equal width for each item
                 )
             }
         }
