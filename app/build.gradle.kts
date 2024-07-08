@@ -107,6 +107,9 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
+
+    // Splash
+    implementation(libs.androidx.core.splashscreen)
 }
 
 ktlint {

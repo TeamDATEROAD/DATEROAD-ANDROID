@@ -1,5 +1,6 @@
 [versions]
 compileSdk = "34"
+coreSplashscreen = "1.0.1"
 minSdk = "28"
 targetSdk = "34"
 versionCode = "1"
@@ -45,6 +46,7 @@ lifecycleRuntimeComposeAndroid = "2.8.2"
 
 [libraries]
 # Test
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
