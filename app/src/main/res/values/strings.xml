@@ -67,6 +67,16 @@
     <string name="money_tag_less_than_50000">5만원 이하</string>
     <string name="money_tag_less_than_30000">3만원 이하</string>
 
+    <!-- My Page Point Info -->
+    <string name="my_page_point_info_first_title">데이트 코스를 등록하면\n 포인트를 얻을 수 있어요</string>
+    <string name="my_page_point_info_description">내 데이트를 자랑하고 포인트를 받아보세요</string>
+    <string name="my_page_point_info_second_title">처음 3번 무료로\n데이트 코스를 열람할 수 있어요</string>
+    <string name="my_page_point_info_second_description">무료 찬스로 데이트를 열람하세요</string>
+    <string name="my_page_point_info_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="my_page_point_info_third_description">다른 커플의 데이트, 궁금하지 않으세요?</string>
+    <string name="my_page_point_info_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
+    <string name="my_page_point_info_fourth_description">추후 만들어질 기능을 기대해주세요</string>
+
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="onboarding_first_description">최초 3회 찬스로 다른 사람의 데이트 코스를 구경해 보세요</string>
@@ -157,5 +167,12 @@
     <!-- Region Bottom Sheet -->
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
     <string name="region_bottom_sheet_button_text">적용하기</string>
+    
+    <!-- My Page Menu -->
+    <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
+    <string name="my_page_menu_point_guide">포인트 제도 소개</string>
+    <string name="my_page_menu_question">문의하기</string>
+    <string name="my_page_menu_logout">로그아웃</string>
+
 
 </resources>
