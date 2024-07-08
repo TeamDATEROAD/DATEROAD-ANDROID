@@ -12,7 +12,7 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 fun DateRoadTextTag(
     modifier: Modifier = Modifier,
     textContent: String,
-    tagContentType: TagType
+    tagContentType: TagType,
 ) {
     DateRoadTag(
         modifier = modifier,
@@ -48,24 +48,12 @@ fun DateRoadTextTagPreview() {
                 tagContentType = TagType.ENROLL_PHOTO_NUMBER
             )
             DateRoadTextTag(
-                textContent = "\uD83D\uDE97 드라이브",
-                tagContentType = TagType.MY_PAGE_DATE
-            )
-            DateRoadTextTag(
                 textContent = "1/5",
                 tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER
             )
             DateRoadTextTag(
-                textContent = "\uD83D\uDE97 드라이브",
-                tagContentType = TagType.PAST_DATE
-            )
-            DateRoadTextTag(
                 textContent = "1",
                 tagContentType = TagType.PLACE_CARD_NUMBER
-            )
-            DateRoadTextTag(
-                textContent = "\uD83C\uDFA8 전시-팝업",
-                tagContentType = TagType.TIMELINE_DATE
             )
             DateRoadTextTag(
                 textContent = "D-Day",

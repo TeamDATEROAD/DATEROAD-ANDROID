@@ -22,7 +22,7 @@ fun DateRoadImageTag(
     textContent: String,
     imageContent: Int,
     spaceValue: Int = 5,
-    tagContentType: TagType
+    tagContentType: TagType,
 ) {
     DateRoadTag(
         modifier = modifier,
@@ -63,7 +63,22 @@ fun DateRoadImageTagPreview() {
             DateRoadImageTag(
                 textContent = "10시간",
                 imageContent = R.drawable.ic_all_clock_12,
-                tagContentType = TagType.TIME
+                tagContentType = TagType.TIME,
+            )
+            DateRoadImageTag(
+                textContent = "드라이브",
+                imageContent = R.drawable.ic_all_drive,
+                tagContentType = TagType.MY_PAGE_DATE,
+            )
+            DateRoadImageTag(
+                textContent = "드라이브",
+                imageContent = R.drawable.ic_all_drive,
+                tagContentType = TagType.PAST_DATE,
+            )
+            DateRoadImageTag(
+                textContent = "전시-팝업",
+                imageContent = R.drawable.ic_all_exhibition_pop_up,
+                tagContentType = TagType.TIMELINE_DATE,
             )
         }
     }
