@@ -17,17 +17,17 @@
     <string name="advertisement_title_advertisement">광고</string>
 
     <!-- DateTagType -->
-    <string name="date_tag_drive">🚙 드라이브</string>
-    <string name="date_tag_shopping">🛍️ 쇼핑</string>
-    <string name="date_tag_indoor">🚪 실내</string>
-    <string name="date_tag_healing">🍵 힐링</string>
-    <string name="date_tag_alcohol">🥂 알콜</string>
-    <string name="date_tag_epicurism">🍜 식도락</string>
-    <string name="date_tag_craft_shop">💍 공방</string>
-    <string name="date_tag_nature">🌊 자연</string>
-    <string name="date_tag_activity">🛼️ 액티비티</string>
-    <string name="date_tag_performance_music">🎭 공연·음악</string>
-    <string name="date_tag_exhibition_pop_up">🎨 전시·팝업</string>
+    <string name="date_tag_drive">드라이브</string>
+    <string name="date_tag_shopping">쇼핑</string>
+    <string name="date_tag_indoor">실내</string>
+    <string name="date_tag_healing">힐링</string>
+    <string name="date_tag_alcohol">알콜</string>
+    <string name="date_tag_epicurism">식도락</string>
+    <string name="date_tag_craft_shop">공방</string>
+    <string name="date_tag_nature">자연</string>
+    <string name="date_tag_activity">액티비티</string>
+    <string name="date_tag_performance_music">공연·음악</string>
+    <string name="date_tag_exhibition_pop_up">전시·팝업</string>
 
     <!-- EmptyViewType -->
     <string name="empty_view_point_history_earn_history">아직 포인트 획득 내역이 없어요!</string>
@@ -66,6 +66,16 @@
     <string name="money_tag_less_than_100000">10만원 이하</string>
     <string name="money_tag_less_than_50000">5만원 이하</string>
     <string name="money_tag_less_than_30000">3만원 이하</string>
+
+    <!-- MyPagePointInfo -->
+    <string name="my_page_point_info_first_title">데이트 코스를 등록하면\n 포인트를 얻을 수 있어요</string>
+    <string name="my_page_point_info_description">내 데이트를 자랑하고 포인트를 받아보세요</string>
+    <string name="my_page_point_info_second_title">처음 3번 무료로\n데이트 코스를 열람할 수 있어요</string>
+    <string name="my_page_point_info_second_description">무료 찬스로 데이트를 열람하세요</string>
+    <string name="my_page_point_info_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="my_page_point_info_third_description">다른 커플의 데이트, 궁금하지 않으세요?</string>
+    <string name="my_page_point_info_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
+    <string name="my_page_point_info_fourth_description">추후 만들어질 기능을 기대해주세요</string>
 
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
@@ -158,8 +168,17 @@
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
     <string name="region_bottom_sheet_button_text">적용하기</string>
 
+    <!-- My Page Menu -->
+    <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
+    <string name="my_page_menu_point_guide">포인트 제도 소개</string>
+    <string name="my_page_menu_question">문의하기</string>
+    <string name="my_page_menu_logout">로그아웃</string>
+
     <!-- Date Chip Group -->
     <string name="date_chip_group_profile">나의 데이트 성향 (%d/%d)</string>
     <string name="date_chip_group_enroll_course">데이트코스와 어울리는 태그를 선택해 주세요 (%d/%d)</string>
 
+
+    <!-- Course Detail -->
+    <string name="course_detail_duration">%1$d 시간</string>
 </resources>
