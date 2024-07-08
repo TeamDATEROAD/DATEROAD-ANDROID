@@ -140,6 +140,24 @@
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
 
+    <!-- Kakao -->
+    <string name="kakao_login">카카오 로그인</string>
+
+    <!-- DateRoad Text Area -->
+    <string name="text_area_length_content">%d자 / %d자 이상</string>
+
+    <!-- DateRoad Text Field With Button -->
+    <string name="text_field_with_button_length_content">%d/%d</string>
+
+    <!-- Point Box -->
+    <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
+    <string name="point_box_point"> %1$d P</string>
+    <string name="my_page_point_card_text">포인트 내역 보기</string>
+
+    <!-- Region Bottom Sheet -->
+    <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
+    <string name="region_bottom_sheet_button_text">적용하기</string>
+
     <!-- Course Detail -->
     <string name="course_detail_duration">%1$d 시간</string>
 </resources>
