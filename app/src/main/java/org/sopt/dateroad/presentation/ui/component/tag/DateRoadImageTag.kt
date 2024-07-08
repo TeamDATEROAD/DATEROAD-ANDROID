@@ -55,7 +55,7 @@ fun DateRoadImageTagPreview() {
         Column {
             DateRoadImageTag(
                 textContent = stringResource(id = MoneyTagType.EXCESS_100000.titleRes),
-                imageContent = MoneyTagType.EXCESS_100000.imageRes,
+                imageContent = R.drawable.ic_all_money_12,
                 tagContentType = TagType.MONEY
             )
             DateRoadImageTag(

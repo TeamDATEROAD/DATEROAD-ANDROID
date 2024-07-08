@@ -6,7 +6,6 @@ import org.sopt.dateroad.R
 
 enum class MoneyTagType(
     @StringRes val titleRes: Int,
-    @DrawableRes val imageRes: Int = R.drawable.ic_all_money_12
 ) {
     EXCESS_100000(
         titleRes = R.string.money_tag_excess_100000
