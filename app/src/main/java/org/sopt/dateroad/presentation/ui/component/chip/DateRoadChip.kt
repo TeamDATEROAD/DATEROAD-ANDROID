@@ -14,7 +14,7 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 @Composable
 fun DateRoadChip(
     modifier: Modifier = Modifier,
-    chipType: ChipType = ChipType.ENROLL_COURSE,
+    chipType: ChipType,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {},
     content: @Composable (Boolean) -> Unit
@@ -24,7 +24,7 @@ fun DateRoadChip(
             .clip(RoundedCornerShape(chipType.cornerRadius))
             .background(color = if (isSelected) chipType.selectedBackgroundColor else chipType.unselectedBackgroundColor)
             .noRippleClickable {
-                onSelectedChange(isSelected)
+                onSelectedChange(!isSelected)
             }
             .padding(horizontal = chipType.horizontalPadding, vertical = chipType.verticalPadding),
         contentAlignment = Alignment.Center
