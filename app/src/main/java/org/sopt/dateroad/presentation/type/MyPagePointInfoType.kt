@@ -2,16 +2,12 @@ package org.sopt.dateroad.presentation.type
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 
 enum class MyPagePointInfoType(
     @StringRes val titleRes: Int,
     @StringRes val descriptionRes: Int,
-    @DrawableRes val imageRes: Int = R.drawable.img_my_page_point_info,
-    val cornerRadius: Dp = 14.dp,
-    val padding: Dp = 16.dp
+    @DrawableRes val imageRes: Int = R.drawable.img_my_page_point_info
 
 ) {
     FIRST(

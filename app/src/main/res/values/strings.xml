@@ -67,7 +67,7 @@
     <string name="money_tag_less_than_50000">5만원 이하</string>
     <string name="money_tag_less_than_30000">3만원 이하</string>
 
-    <!-- My Page Point Info -->
+    <!-- MyPagePointInfo -->
     <string name="my_page_point_info_first_title">데이트 코스를 등록하면\n 포인트를 얻을 수 있어요</string>
     <string name="my_page_point_info_description">내 데이트를 자랑하고 포인트를 받아보세요</string>
     <string name="my_page_point_info_second_title">처음 3번 무료로\n데이트 코스를 열람할 수 있어요</string>

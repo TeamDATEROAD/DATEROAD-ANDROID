@@ -26,12 +26,12 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadMyPageButton(myPageMenuType: MyPageMenuType, onClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
-            .padding(start = 16.dp, top = 19.dp, end = 16.dp, bottom = 20.dp)
+            .padding(top = 19.dp, bottom = 20.dp)
             .fillMaxWidth()
             .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = stringResource(id = myPageMenuType.titleRes), modifier = Modifier.weight(1f))
+        Text(text = stringResource(id = myPageMenuType.titleRes), style = DateRoadTheme.typography.bodySemi15, color = DateRoadTheme.colors.black, modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.width(20.dp))
         Icon(painter = painterResource(id = myPageMenuType.iconRes), contentDescription = null)
     }

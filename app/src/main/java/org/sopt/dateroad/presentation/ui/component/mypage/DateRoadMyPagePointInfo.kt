@@ -25,10 +25,10 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadMyPagePointInfo(myPagePointInfoType: MyPagePointInfoType) {
     Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(myPagePointInfoType.cornerRadius))
+        modifier = Modifier.fillMaxWidth()
+            .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.gray100)
-            .padding(myPagePointInfoType.padding)
+            .padding(14.dp)
     ) {
         Image(painter = painterResource(id = myPagePointInfoType.imageRes), contentDescription = null)
         Spacer(modifier = Modifier.width(10.dp))
