@@ -175,9 +175,8 @@
     <string name="my_page_menu_logout">로그아웃</string>
 
     <!-- Date Chip Group -->
-    <string name="date_chip_group_profile">나의 데이트 성향 (%d/%d)</string>
-    <string name="date_chip_group_enroll_course">데이트코스와 어울리는 태그를 선택해 주세요 (%d/%d)</string>
-
+    <string name="date_chip_group_profile">나의 데이트 성향 (%1$d/%2$d)</string>
+    <string name="date_chip_group_enroll_course">데이트코스와 어울리는 태그를 선택해 주세요 (%1$d/%2$d)</string>
 
     <!-- Course Detail -->
     <string name="course_detail_duration">%1$d 시간</string>
