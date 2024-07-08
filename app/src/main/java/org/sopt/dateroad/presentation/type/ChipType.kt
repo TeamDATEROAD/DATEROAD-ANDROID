@@ -21,17 +21,7 @@ enum class ChipType(
     val cornerRadius: Dp,
     val textStyle: TextStyle
 ) {
-    ENROLL_COURSE(
-        selectedBackgroundColor = DeepPurple,
-        unselectedBackgroundColor = Gray100,
-        selectedTextColor = White,
-        unselectedTextColor = Black,
-        horizontalPadding = 14.dp,
-        verticalPadding = 6.dp,
-        cornerRadius = 20.dp,
-        textStyle = defaultDateRoadTypography.bodySemi13
-    ),
-    MY_PROFILE(
+    DATE(
         selectedBackgroundColor = DeepPurple,
         unselectedBackgroundColor = Gray100,
         selectedTextColor = White,
