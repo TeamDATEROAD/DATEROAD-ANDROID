@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
+import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -48,9 +48,10 @@ fun DateRoadDateChipGroup(
             modifier = Modifier.fillMaxWidth()
         ) {
             DateTagType.entries.forEach { dateTagType: DateTagType ->
-                DateRoadTextChip(
+                DateRoadImageChip(
                     textId = dateTagType.titleRes,
-                    chipType = ChipType.ENROLL_COURSE,
+                    imageRes = dateTagType.imageRes,
+                    chipType = ChipType.DATE,
                     isSelected = selectedDateTags.contains(dateTagType),
                     onSelectedChange = {
                         onSelectedDateTagsChanged(dateTagType)
