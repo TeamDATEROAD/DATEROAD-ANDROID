@@ -18,8 +18,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadCourseTopBar(
-    pointText: String,
-    content: (@Composable () -> Unit)? = null
+    title: String,
+    buttonContent: (@Composable () -> Unit)? = null
 ) {
     Box(
         modifier = Modifier
@@ -28,17 +28,17 @@ fun DateRoadCourseTopBar(
             .padding(vertical = 12.dp, horizontal = 16.dp)
     ) {
         Text(
-            text = pointText,
+            text = title,
             style = DateRoadTheme.typography.titleBold20,
             color = DateRoadTheme.colors.black,
             textAlign = TextAlign.Center
         )
-        if (content != null) {
+        if (buttonContent != null) {
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
             ) {
-                content()
+                buttonContent()
             }
         }
     }
@@ -49,8 +49,8 @@ fun DateRoadCourseTopBar(
 fun DateRoadCourseTopBarPreview() {
     Column {
         DateRoadCourseTopBar(
-            pointText = "코스 둘러보기",
-            content = {
+            title = "코스 둘러보기",
+            buttonContent = {
                 DateRoadImageButton(
                     isEnabled = true,
                     onClick = {},
@@ -61,8 +61,8 @@ fun DateRoadCourseTopBarPreview() {
             }
         )
         DateRoadCourseTopBar(
-            pointText = "데이트 일정",
-            content = {
+            title = "데이트 일정",
+            buttonContent = {
                 DateRoadImageButton(
                     isEnabled = true,
                     onClick = {},

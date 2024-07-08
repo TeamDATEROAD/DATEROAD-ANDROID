@@ -31,7 +31,7 @@ fun DateRoadBasicTopBar(
     title: String,
     backGroundColor: Color = Color.Transparent,
     iconLeftResource: Int? = null,
-    iconRightcontent: (@Composable () -> Unit)? = null
+    buttonContent: (@Composable () -> Unit)? = null
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
@@ -60,7 +60,7 @@ fun DateRoadBasicTopBar(
             )
         }
 
-        if (iconRightcontent != null) {
+        if (buttonContent != null) {
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
@@ -68,7 +68,7 @@ fun DateRoadBasicTopBar(
                         contentWidth = coordinates.size.width
                     }
             ) {
-                iconRightcontent()
+                buttonContent()
             }
         }
 
@@ -102,7 +102,7 @@ fun DateRoadBasicTopBarPreview() {
         DateRoadBasicTopBar(
             title = "데이트 일정",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            iconRightcontent = {
+            buttonContent = {
                 Icon(
                     painterResource(id = R.drawable.ic_top_bar_share),
                     contentDescription = null,
@@ -113,7 +113,7 @@ fun DateRoadBasicTopBarPreview() {
         DateRoadBasicTopBar(
             title = "데이트 일정데이트 일정데이트 일정데이트 일정일정데이트 일정데이트 일정",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            iconRightcontent = {
+            buttonContent = {
                 DateRoadFilledButton(
                     isEnabled = true,
                     textContent = "불러오기",
