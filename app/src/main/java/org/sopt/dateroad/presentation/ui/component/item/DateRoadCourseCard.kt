@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.TagType
@@ -32,15 +36,21 @@ fun DateRoadCourseCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(130.dp)
             .background(DateRoadTheme.colors.white)
             .padding(vertical = 10.dp, horizontal = 16.dp)
     ) {
         Box(
             modifier = Modifier
-                .size(110.dp)
+                .fillMaxHeight()
+                .aspectRatio(1f)
         ) {
             AsyncImage(
-                model = course.url,
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data("https://avatars.githubusercontent.com/u/103172971?v=4")
+                    .crossfade(true)
+                    .build(),
+                placeholder = null,
                 contentDescription = null,
                 modifier = Modifier
                     .matchParentSize()
@@ -57,7 +67,7 @@ fun DateRoadCourseCard(
         }
         Column(
             modifier = Modifier
-                .height(110.dp)
+                .fillMaxHeight()
         ) {
             Text(
                 text = course.city,
@@ -105,7 +115,7 @@ fun DateRoadCourseCardPreview() {
         DateRoadCourseCard(
             course = Course(
                 id = 1,
-                url = "https://thumb.mt.co.kr/06/2009/04/2009042416153570569_3.jpg",
+                url = "https://avatars.githubusercontent.com/u/103172971?v=4",
                 openedAt = "2023-01-01",
                 city = "건대/성수/왕십리",
                 title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
