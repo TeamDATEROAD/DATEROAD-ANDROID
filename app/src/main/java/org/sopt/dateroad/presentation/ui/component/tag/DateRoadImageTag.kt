@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.tag
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,7 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 fun DateRoadImageTag(
     modifier: Modifier = Modifier,
     textContent: String,
-    imageContent: Int,
+    @DrawableRes imageContent: Int,
     spaceValue: Int = 5,
     tagContentType: TagType
 ) {
