@@ -38,7 +38,7 @@ fun DateRoadTextChip(
 
 @Preview
 @Composable
-fun DateRoadChipPreview() {
+fun DateRoadTextChipPreview() {
     Column {
         DateRoadTextChip(textId = R.string.money_tag_less_than_100000, chipType = ChipType.MONEY)
         Spacer(modifier = Modifier.height(10.dp))

@@ -14,7 +14,7 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 @Composable
 fun DateRoadChip(
     modifier: Modifier = Modifier,
-    chipType: ChipType = ChipType.ENROLL_COURSE,
+    chipType: ChipType,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {},
     content: @Composable (Boolean) -> Unit
