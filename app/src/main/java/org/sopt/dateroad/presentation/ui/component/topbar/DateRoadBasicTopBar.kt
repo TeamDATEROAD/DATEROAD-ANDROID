@@ -8,12 +8,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
@@ -22,48 +28,62 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadBasicTopBar(
-    pointText: String,
+    title: String,
     backGroundColor: Color = Color.Transparent,
     iconLeftResource: Int? = null,
-    content: (@Composable () -> Unit)? = null
+    iconRightcontent: (@Composable () -> Unit)? = null,
 ) {
+    var iconWidth by remember { mutableStateOf(0) }
+    var contentWidth by remember { mutableStateOf(0) }
+    var paddingValue = maxOf(iconWidth, contentWidth)
+    LaunchedEffect(iconWidth, contentWidth) {
+        paddingValue = maxOf(iconWidth, contentWidth)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(backGroundColor)
-            .padding(vertical = 15.dp, horizontal = 16.dp)
+            .padding(top = 16.dp, bottom = 16.dp, end = 16.dp)
     ) {
-        Icon(
-            painter = iconLeftResource?.let {
-                painterResource(id = it)
-            } ?: painterResource(id = R.drawable.ic_top_bar_back_white),
-            contentDescription = null,
-            tint = DateRoadTheme.colors.black,
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .graphicsLayer {
-                    alpha = if (iconLeftResource == null) 0f else 1f
-                }
-        )
+        if (iconLeftResource != null) {
+            Icon(
+                painter = painterResource(id = iconLeftResource),
+                contentDescription = null,
+                tint = DateRoadTheme.colors.black,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .onGloballyPositioned { coordinates ->
+                        iconWidth = coordinates.size.width
+                    }
+                    .padding(horizontal = 16.dp, vertical = 11.dp)
+            )
+        }
 
-        Text(
-            text = pointText,
-            style = DateRoadTheme.typography.titleBold18,
-            color = DateRoadTheme.colors.black,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center)
-        )
-
-        if (content != null) {
+        if (iconRightcontent != null) {
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
+                    .onGloballyPositioned { coordinates ->
+                        contentWidth = coordinates.size.width
+                    }
+                    .padding(vertical = 11.dp)
             ) {
-                content()
+                iconRightcontent()
             }
         }
+
+        Text(
+            text = title,
+            style = DateRoadTheme.typography.titleBold18,
+            color = DateRoadTheme.colors.black,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center)
+                .padding(horizontal = paddingValue.dp / 2)
+        )
     }
 }
 
@@ -72,18 +92,18 @@ fun DateRoadBasicTopBar(
 fun DateRoadBasicTopBarPreview() {
     Column {
         DateRoadBasicTopBar(
-            pointText = "포인트 내역",
+            title = "포인트 내역포인트 내역포인트내역내역포인트포인트내역포인트 내역",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white
         )
         DateRoadBasicTopBar(
-            pointText = "내 프로필",
+            title = "내 프로필",
             backGroundColor = DateRoadTheme.colors.white
         )
         DateRoadBasicTopBar(
-            pointText = "데이트 일정",
+            title = "데이트 일정",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            content = {
+            iconRightcontent = {
                 Icon(
                     painterResource(id = R.drawable.ic_top_bar_share),
                     contentDescription = null,
@@ -92,9 +112,9 @@ fun DateRoadBasicTopBarPreview() {
             }
         )
         DateRoadBasicTopBar(
-            pointText = "일정 등록하기",
+            title = "데이트 일정데이트 일정데이트 일정데이트 일정일정데이트 일정데이트 일정",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            content = {
+            iconRightcontent = {
                 DateRoadFilledButton(
                     isEnabled = true,
                     textContent = "불러오기",
