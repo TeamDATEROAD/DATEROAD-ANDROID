@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -35,18 +37,27 @@ fun DateRoadTwoButtonDialogWithDescription(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(color = DateRoadTheme.colors.white),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(23.dp))
         Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            textAlign = TextAlign.Center,
+            color = DateRoadTheme.colors.black,
             text = stringResource(id = twoButtonDialogWithDescriptionType.titleRes),
             style = DateRoadTheme.typography.bodyBold17
         )
         Spacer(modifier = Modifier.height(5.dp))
         Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            textAlign = TextAlign.Center,
+            color = DateRoadTheme.colors.black,
             text = stringResource(id = twoButtonDialogWithDescriptionType.descriptionRes),
             style = DateRoadTheme.typography.bodyMed13
         )
@@ -74,6 +85,21 @@ fun DateRoadTwoButtonDialogWithDescription(
     }
 }
 
+@Composable
+fun DialogWithDescriptionTest(
+    onDismissRequest: () -> Unit,
+    twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType,
+    onConfirmRequest: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        DateRoadTwoButtonDialogWithDescription(
+            twoButtonDialogWithDescriptionType = twoButtonDialogWithDescriptionType,
+            onDismissRequest = onDismissRequest,
+            onConfirmRequest = onConfirmRequest
+        )
+    }
+}
+
 @Preview
 @Composable
 fun DateRoadTwoButtonDialogWithDescriptionPreview() {
@@ -88,13 +114,11 @@ fun DateRoadTwoButtonDialogWithDescriptionPreview() {
         }
 
         if (showDialog.value) {
-            CustomDialogWrapper(onDismissRequest = { showDialog.value = false }) {
-                DateRoadTwoButtonDialogWithDescription(
-                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-                    onDismissRequest = { showDialog.value = false },
-                    onConfirmRequest = { showDialog.value = false }
-                )
-            }
+            DialogWithDescriptionTest(
+                onDismissRequest = { showDialog.value = false },
+                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
+                onConfirmRequest = { showDialog.value = false }
+            )
         }
     }
 }

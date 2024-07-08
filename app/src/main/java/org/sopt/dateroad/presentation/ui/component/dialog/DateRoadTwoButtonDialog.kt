@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -35,14 +37,21 @@ fun DateRoadTwoButtonDialog(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(color = DateRoadTheme.colors.white),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Text(text = stringResource(id = twoButtonDialogType.titleRes), style = DateRoadTheme.typography.bodyBold17)
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(27.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            color = DateRoadTheme.colors.black,
+            textAlign = TextAlign.Center,
+            text = stringResource(id = twoButtonDialogType.titleRes),
+            style = DateRoadTheme.typography.bodyMed15
+        )
+        Spacer(modifier = Modifier.height(29.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,6 +75,21 @@ fun DateRoadTwoButtonDialog(
     }
 }
 
+@Composable
+fun DialogWithTwoButtonsTest(
+    onDismissRequest: () -> Unit,
+    twoButtonDialogType: TwoButtonDialogType,
+    onConfirmRequest: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        DateRoadTwoButtonDialog(
+            twoButtonDialogType = twoButtonDialogType,
+            onDismissRequest = onDismissRequest,
+            onConfirmRequest = onConfirmRequest
+        )
+    }
+}
+
 @Preview
 @Composable
 fun DateRoadTwoButtonDialogPreview() {
@@ -79,13 +103,11 @@ fun DateRoadTwoButtonDialogPreview() {
             Text(text = "Show Dialog")
         }
         if (showDialog.value) {
-            CustomDialogWrapper(onDismissRequest = { showDialog.value = false }) {
-                DateRoadTwoButtonDialog(
-                    twoButtonDialogType = TwoButtonDialogType.LOGOUT,
-                    onDismissRequest = { showDialog.value = false },
-                    onConfirmRequest = { showDialog.value = false }
-                )
-            }
+            DialogWithTwoButtonsTest(
+                onDismissRequest = { showDialog.value = false },
+                twoButtonDialogType = TwoButtonDialogType.LOGOUT,
+                onConfirmRequest = { showDialog.value = false }
+            )
         }
     }
 }
