@@ -28,7 +28,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadPlaceCard(
     placeCardType: PlaceCardType,
     placeTimeline: String? = null,
-    placeTitle : String,
+    placeTitle: String,
     placeTime: String
 ) {
     val paddingValues = if (placeCardType == PlaceCardType.COURSE_NORMAL) {
@@ -84,4 +84,3 @@ fun DateRoadPlaceCardPreview() {
         DateRoadPlaceCard(placeCardType = PlaceCardType.COURSE_DELETE, placeTitle = "성수미술관 성수점", placeTime = "2시간")
     }
 }
-
