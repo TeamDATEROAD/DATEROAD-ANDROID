@@ -32,7 +32,7 @@ fun DateRoadBasicTopBar(
     title: String,
     backGroundColor: Color = Color.Transparent,
     @DrawableRes iconLeftResource: Int? = null,
-    buttonContent: (@Composable () -> Unit)? = null,
+    buttonContent: (@Composable () -> Unit)? = null
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
