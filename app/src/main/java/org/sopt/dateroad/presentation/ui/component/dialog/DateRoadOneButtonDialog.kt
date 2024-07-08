@@ -36,7 +36,7 @@ fun DateRoadOneButtonDialog(
             .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
             .background(color = DateRoadTheme.colors.white),
-        horizontalAlignment = Alignment.CenterHorizontally // Center align the components horizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(40.dp))
         Text(
@@ -86,7 +86,7 @@ fun DateRoadOneButtonDialogPreview() {
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center // Center the button and dialog
+        contentAlignment = Alignment.Center
     ) {
         Button(onClick = { showDialog.value = true }) {
             Text(text = "Show Dialog")

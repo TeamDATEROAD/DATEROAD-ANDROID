@@ -38,7 +38,7 @@ fun DateRoadTwoButtonDialogWithDescription(
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(color = DateRoadTheme.colors.white),
-        horizontalAlignment = Alignment.CenterHorizontally // Center align the components horizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(23.dp))
         Text(
@@ -55,7 +55,7 @@ fun DateRoadTwoButtonDialogWithDescription(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 14.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp) // Space between the buttons
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             DateRoadBasicButton(
                 modifier = Modifier.weight(1f),
@@ -81,7 +81,7 @@ fun DateRoadTwoButtonDialogWithDescriptionPreview() {
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center // Center the button and dialog
+        contentAlignment = Alignment.Center 
     ) {
         Button(onClick = { showDialog.value = true }) {
             Text(text = "Show Dialog")
