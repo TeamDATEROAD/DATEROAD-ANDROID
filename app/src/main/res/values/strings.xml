@@ -154,10 +154,10 @@
     <string name="kakao_login">카카오 로그인</string>
 
     <!-- DateRoad Text Area -->
-    <string name="text_area_length_content">%d자 / %d자 이상</string>
+    <string name="text_area_length_content">%1d자 / %2d자 이상</string>
 
     <!-- DateRoad Text Field With Button -->
-    <string name="text_field_with_button_length_content">%d/%d</string>
+    <string name="text_field_with_button_length_content">%1d/%2d</string>
 
     <!-- Point Box -->
     <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
