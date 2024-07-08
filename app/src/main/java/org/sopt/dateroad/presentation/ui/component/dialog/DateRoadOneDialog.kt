@@ -1,9 +1,11 @@
 package org.sopt.dateroad.presentation.ui.component.dialog
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -59,16 +61,18 @@ fun CustomDialogWrapper(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.4f))
-            .padding(32.dp),
+            .clickable(onClick = onDismissRequest),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(32.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(color = DateRoadTheme.colors.white)
+                .clickable(enabled = false) {}
         ) {
             content()
         }
@@ -80,21 +84,21 @@ fun CustomDialogWrapper(
 fun DateRoadOneButtonDialogPreview() {
     val showDialog = remember { mutableStateOf(false) }
 
-    if (showDialog.value) {
-        CustomDialogWrapper(onDismissRequest = { showDialog.value = false }) {
-            DateRoadOneButtonDialog(
-                oneButtonDialogType = OneButtonDialogType.ENROLL_TIMELINE,
-                onDismissRequest = { showDialog.value = false }
-            )
-        }
-    }
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center // Center the button and dialog
     ) {
         Button(onClick = { showDialog.value = true }) {
             Text(text = "Show Dialog")
+        }
+
+        if (showDialog.value) {
+            CustomDialogWrapper(onDismissRequest = { showDialog.value = false }) {
+                DateRoadOneButtonDialog(
+                    oneButtonDialogType = OneButtonDialogType.ENROLL_TIMELINE,
+                    onDismissRequest = { showDialog.value = false }
+                )
+            }
         }
     }
 }
