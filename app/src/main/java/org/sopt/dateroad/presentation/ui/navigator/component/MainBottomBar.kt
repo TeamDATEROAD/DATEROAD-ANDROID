@@ -79,12 +79,10 @@ fun MainBottomBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             navigationBarItems.forEach { mainNavigationBarItemType ->
-                val isSelected = currentNavigationBarItem == mainNavigationBarItemType
-
                 CustomNavigationBarItem(
                     context = context,
                     mainNavigationBarItemType = mainNavigationBarItemType,
-                    isSelected = isSelected,
+                    isSelected = currentNavigationBarItem == mainNavigationBarItemType,
                     onClick = { onNavigationBarItemSelected(mainNavigationBarItemType) },
                     modifier = Modifier.weight(1f)
                 )

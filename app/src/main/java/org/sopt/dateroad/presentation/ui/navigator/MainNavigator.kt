@@ -44,7 +44,7 @@ class MainNavigator(
                 MainNavigationBarItemType.TIMELINE -> navHostController.navigationTimeline(navOptions)
                 MainNavigationBarItemType.READ -> navHostController.navigationRead(navOptions)
                 MainNavigationBarItemType.MY_PAGE -> navHostController.navigationMyPage(navOptions)
-//                MainNavigationBarItemType.SEARCH -> navHostController.navigationDummy(navOptions)
+                // TODO:MainNavigationBarItemType.SEARCH -> navHostController.navigationDummy(navOptions)
             }
         }
     }

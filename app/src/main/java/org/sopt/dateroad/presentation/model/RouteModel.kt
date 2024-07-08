@@ -9,5 +9,5 @@ sealed interface MainNavigationBarRoute : Route {
     data object Timeline : MainNavigationBarRoute
     data object Read : MainNavigationBarRoute
     data object MyPage : MainNavigationBarRoute
-    data object Search : MainNavigationBarRoute
+// TODO:    data object Search : MainNavigationBarRoute
 }

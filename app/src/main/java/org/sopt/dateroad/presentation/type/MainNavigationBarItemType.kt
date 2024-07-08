@@ -37,7 +37,7 @@ enum class MainNavigationBarItemType(
         label = R.string.main_navigation_bar_item_my_page,
         route = MainNavigationBarRoute.MyPage
     )
-//    SEARCH(
+// TODO:    SEARCH(
 //        iconRes = R.drawable.ic_nav_search_selected,
 //        label = R.string.main_navigation_bar_item_search,
 //        route = MainNavigationBarRoute.Search
