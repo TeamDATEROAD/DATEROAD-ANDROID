@@ -146,5 +146,8 @@
     <string name="point_box_point"> %1$d P</string>
     <string name="my_page_point_card_text">포인트 내역 보기</string>
 
+    <!-- Region Bottom Sheet -->
+    <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
+    <string name="region_bottom_sheet_button_text">적용하기</string>
 
 </resources>
