@@ -73,7 +73,7 @@ fun MainBottomBar(
         Row(
             modifier = modifier
                 .background(White)
-                .border(1.dp, Color(0xFFF1F1F5))
+                .border(1.dp, DateRoadTheme.colors.gray100)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
@@ -86,7 +86,7 @@ fun MainBottomBar(
                     mainNavigationBarItemType = mainNavigationBarItemType,
                     isSelected = isSelected,
                     onClick = { onNavigationBarItemSelected(mainNavigationBarItemType) },
-                    modifier = Modifier.weight(1f) // Ensure equal width for each item
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
