@@ -37,7 +37,7 @@ fun DateRoadImageChip(
         ) {
             Image(
                 painter = painterResource(id = imageRes),
-                contentDescription = null,
+                contentDescription = null
             )
             Spacer(modifier = Modifier.size(2.dp))
             Text(
