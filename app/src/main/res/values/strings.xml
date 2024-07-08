@@ -160,4 +160,11 @@
 
     <!-- Course Detail -->
     <string name="course_detail_duration">%1$d 시간</string>
+
+    <!--DateSchedule-->
+    <string name="date_schedule_is_not">다가오는 데이트 일정이 없어요</string>
+    <string name="date_schedule_enroll">일정을 등록하러 가볼까요?</string>
+    <string name="date_schedule_month_day">%d월 %d일</string>
+    <string name="date_schedule_d_day">D-%s</string>
+    <string name="date_schedule_start">%s 시작</string>
 </resources>
