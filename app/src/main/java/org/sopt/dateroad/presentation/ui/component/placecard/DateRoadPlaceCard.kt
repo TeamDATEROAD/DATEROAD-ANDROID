@@ -62,7 +62,7 @@ fun DateRoadPlaceCard(
         Spacer(modifier = Modifier.width(10.dp))
 
         DateRoadTextTag(
-            textContent =  stringResource(id = R.string.course_detail_duration, place.duration),
+            textContent = stringResource(id = R.string.course_detail_duration, place.duration),
             tagContentType = TagType.PLACE_CARD_TIME
         )
         placeCardType.iconRes?.let {
