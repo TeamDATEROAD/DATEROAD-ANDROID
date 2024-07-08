@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.DateTagType
@@ -23,6 +24,7 @@ fun DateRoadImageChip(
     @StringRes textId: Int,
     @DrawableRes imageRes: Int,
     chipType: ChipType,
+    spaceValue: Dp = 2.dp,
     isSelected: Boolean = false,
     onSelectedChange: (Boolean) -> Unit = {}
 ) {
@@ -39,7 +41,7 @@ fun DateRoadImageChip(
                 painter = painterResource(id = imageRes),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.size(2.dp))
+            Spacer(modifier = Modifier.size(spaceValue))
             Text(
                 text = stringResource(id = textId),
                 style = chipType.textStyle,
