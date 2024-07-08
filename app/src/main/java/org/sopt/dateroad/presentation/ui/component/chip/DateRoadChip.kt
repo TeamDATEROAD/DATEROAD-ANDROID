@@ -24,7 +24,7 @@ fun DateRoadChip(
             .clip(RoundedCornerShape(chipType.cornerRadius))
             .background(color = if (isSelected) chipType.selectedBackgroundColor else chipType.unselectedBackgroundColor)
             .noRippleClickable {
-                onSelectedChange(!isSelected)
+                onSelectedChange(isSelected)
             }
             .padding(horizontal = chipType.horizontalPadding, vertical = chipType.verticalPadding),
         contentAlignment = Alignment.Center
