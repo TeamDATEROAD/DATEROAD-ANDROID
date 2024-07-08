@@ -61,6 +61,14 @@
     <!-- IncheonAreaType -->
     <string name="incheon_area_whole">인천 전체</string>
 
+    <!-- MainNavigationBarItemType -->
+    <string name="main_navigation_bar_item_home">홈</string>
+    <string name="main_navigation_bar_item_look">코스 둘러보기</string>
+    <string name="main_navigation_bar_item_timeline">데이트 일정</string>
+    <string name="main_navigation_bar_item_read">열람한 코스</string>
+    <string name="main_navigation_bar_item_my_page">마이페이지</string>
+    <string name="main_navigation_bar_item_search">데이트 찾기</string>
+
     <!-- MoneyTagType -->
     <string name="money_tag_excess_100000">10만원 초과</string>
     <string name="money_tag_less_than_100000">10만원 이하</string>
