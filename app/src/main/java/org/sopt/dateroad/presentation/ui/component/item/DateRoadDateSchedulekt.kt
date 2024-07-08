@@ -32,7 +32,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadDateSchedule(
-    mainDate: MainDate? = null,
+    mainDate: MainDate? = null
 ) {
     val deepPurple = DateRoadTheme.colors.deepPurple
 

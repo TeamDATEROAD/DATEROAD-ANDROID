@@ -6,5 +6,5 @@ data class MainDate(
     val dateName: String,
     val month: Int,
     val day: Int,
-    val startAt: String,
+    val startAt: String
 )
