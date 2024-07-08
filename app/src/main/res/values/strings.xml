@@ -140,4 +140,6 @@
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
 
+    <!-- Course Detail -->
+    <string name="course_detail_duration">%1$d 시간</string>
 </resources>
