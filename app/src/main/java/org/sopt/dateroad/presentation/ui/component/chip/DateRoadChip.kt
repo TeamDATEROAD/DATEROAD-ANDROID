@@ -5,10 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,19 +19,16 @@ fun DateRoadChip(
     onSelectedChange: (Boolean) -> Unit = {},
     content: @Composable (Boolean) -> Unit
 ) {
-    var selected by remember { mutableStateOf(isSelected) }
-
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(chipType.cornerRadius))
-            .background(color = if (selected) chipType.selectedBackgroundColor else chipType.unselectedBackgroundColor)
+            .background(color = if (isSelected) chipType.selectedBackgroundColor else chipType.unselectedBackgroundColor)
             .noRippleClickable {
-                selected = !selected
-                onSelectedChange(selected)
+                onSelectedChange(isSelected)
             }
             .padding(horizontal = chipType.horizontalPadding, vertical = chipType.verticalPadding),
         contentAlignment = Alignment.Center
     ) {
-        content(selected)
+        content(isSelected)
     }
 }
