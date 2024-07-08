@@ -57,6 +57,6 @@ fun DateRoadImageChipPreview() {
     DateRoadImageChip(
         textId = DateTagType.EXHIBITION_POP_UP.titleRes,
         imageRes = DateTagType.EXHIBITION_POP_UP.imageRes,
-        chipType = ChipType.MY_PROFILE
+        chipType = ChipType.DATE
     )
 }

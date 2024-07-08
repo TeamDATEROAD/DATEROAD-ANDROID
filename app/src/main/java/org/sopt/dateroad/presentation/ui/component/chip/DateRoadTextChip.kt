@@ -42,9 +42,9 @@ fun DateRoadTextChipPreview() {
     Column {
         DateRoadTextChip(textId = R.string.money_tag_less_than_100000, chipType = ChipType.MONEY)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.MY_PROFILE)
+        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.DATE)
         Spacer(modifier = Modifier.height(10.dp))
-        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.ENROLL_COURSE)
+        DateRoadTextChip(textId = R.string.date_tag_epicurism, chipType = ChipType.DATE)
         Spacer(modifier = Modifier.height(10.dp))
         DateRoadTextChip(modifier = Modifier.fillMaxWidth(), textId = R.string.region_Seoul, chipType = ChipType.REGION)
         Spacer(modifier = Modifier.height(10.dp))
