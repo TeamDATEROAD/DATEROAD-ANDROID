@@ -32,7 +32,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeHotCourseCard(
-    course: Course,
+    course: Course
 ) {
     Column(
         modifier = Modifier
