@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.topbar
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,8 +31,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadBasicTopBar(
     title: String,
     backGroundColor: Color = Color.Transparent,
-    iconLeftResource: Int? = null,
-    buttonContent: (@Composable () -> Unit)? = null
+    @DrawableRes iconLeftResource: Int? = null,
+    buttonContent: (@Composable () -> Unit)? = null,
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
