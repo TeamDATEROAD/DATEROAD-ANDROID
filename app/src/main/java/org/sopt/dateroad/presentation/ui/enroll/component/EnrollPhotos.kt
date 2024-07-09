@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +36,7 @@ fun EnrollPhotos(
             .fillMaxWidth()
     ) {
         LazyRow(
+            modifier = Modifier.padding(bottom = 10.dp),
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -54,18 +54,22 @@ fun EnrollPhotos(
                 )
             }
         }
-        Image(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .clip(CircleShape)
-                .background(DateRoadTheme.colors.gray200)
-                .padding(horizontal = 9.dp, vertical = 10.dp),
-            painter = painterResource(id = R.drawable.ic_all_camera),
-            contentDescription = null
-        )
+        if (images.isNotEmpty()) {
+            Image(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(start = 16.dp)
+                    .clip(CircleShape)
+                    .background(DateRoadTheme.colors.gray200)
+                    .padding(horizontal = 9.dp, vertical = 10.dp),
+                painter = painterResource(id = R.drawable.ic_all_camera),
+                contentDescription = null
+            )
+        }
         DateRoadTextTag(
             modifier = Modifier
-                .align(Alignment.BottomEnd),
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp),
             textContent = stringResource(id = R.string.fraction_format, images.size, 10),
             tagContentType = TagType.ENROLL_PHOTO_NUMBER
         )
