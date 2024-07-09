@@ -4,6 +4,7 @@
     <!-- ALL -->
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
+    <string name="fraction_format">%1$d/%2$d</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
@@ -163,9 +164,6 @@
 
     <!-- DateRoad Text Area -->
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
-
-    <!-- DateRoad Text Field With Button -->
-    <string name="text_field_with_button_length_content">%1$d/%2$d</string>
 
     <!-- Point Box -->
     <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
