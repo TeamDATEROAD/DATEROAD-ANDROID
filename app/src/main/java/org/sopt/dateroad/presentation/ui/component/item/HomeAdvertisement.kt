@@ -3,8 +3,8 @@ package org.sopt.dateroad.presentation.ui.component.item
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,17 +21,20 @@ import coil.request.ImageRequest
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadAdvertisement(
-    advertisement: Advertisement
+fun HomeAdvertisement(
+    advertisement: Advertisement,
+    onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(132.dp)
             .clip(RoundedCornerShape(14.dp))
+            .aspectRatio(328f / 132f)
+            .noRippleClickable(onClick = { onClick(advertisement.advertismentId) })
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
@@ -62,9 +65,9 @@ fun DateRoadAdvertisement(
 
 @Preview
 @Composable
-fun DateRoadAdvertisementPreview() {
+fun HomeAdvertisementPreview() {
     Column {
-        DateRoadAdvertisement(
+        HomeAdvertisement(
             advertisement = Advertisement(
                 advertismentId = 0,
                 imageUrl = "www.naver.jpg",
