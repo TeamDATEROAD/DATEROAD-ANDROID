@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -47,12 +48,14 @@ fun DateRoadBasicTextField(
     value: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
+    onClick: () -> Unit =  {},
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .noRippleClickable(onClick = onClick)
     ) {
         title?.let {
             Text(
@@ -103,19 +106,21 @@ fun DateRoadBasicTextField(
                 Icon(painter = painterResource(id = it), contentDescription = iconContentDescription)
             }
         }
-        Spacer(modifier = Modifier.height(1.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 9.dp),
-            text = when (validateState) {
-                is TextFieldValidateResult.Success -> successDescription
-                is TextFieldValidateResult.ValidationError -> errorDescription
-                else -> ""
-            },
-            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
-            style = DateRoadTheme.typography.capReg11
-        )
+        if (errorDescription.isNotEmpty() || successDescription.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 9.dp),
+                text = when (validateState) {
+                    is TextFieldValidateResult.Success -> successDescription
+                    is TextFieldValidateResult.ValidationError -> errorDescription
+                    else -> ""
+                },
+                color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
+                style = DateRoadTheme.typography.capReg11
+            )
+        }
     }
 }
 
