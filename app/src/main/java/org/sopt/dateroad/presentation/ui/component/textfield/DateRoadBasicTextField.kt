@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
@@ -94,7 +95,9 @@ fun DateRoadBasicTextField(
                         Text(
                             text = placeholder,
                             color = DateRoadTheme.colors.gray300,
-                            style = DateRoadTheme.typography.bodySemi13
+                            style = DateRoadTheme.typography.bodySemi13,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 }
