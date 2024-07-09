@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.look
+package org.sopt.dateroad.presentation.ui.look.component
 
 import android.content.Context
 import androidx.compose.foundation.Image
