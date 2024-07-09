@@ -28,6 +28,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.domain.model.TimelineTag
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -39,11 +40,11 @@ fun TimelineDateCardSmall(
     dateCard: Date,
     onClick: (Int) -> Unit = {}
 ) {
-    val (bgColor, lineColor, tagColor) = remember(dateCard.dateId) {
+    val dateType = remember(dateCard.dateId) {
         when (dateCard.dateId % 3) {
-            0 -> Triple(defaultDateRoadColors.pink200, defaultDateRoadColors.pink300, defaultDateRoadColors.pink100)
-            1 -> Triple(defaultDateRoadColors.purple200, defaultDateRoadColors.purple300, defaultDateRoadColors.purple100)
-            else -> Triple(defaultDateRoadColors.lime, defaultDateRoadColors.lime300, defaultDateRoadColors.lime100)
+            0 -> DateType.PINK
+            1 -> DateType.PURPLE
+            else -> DateType.LIME
         }
     }
 
@@ -52,13 +53,13 @@ fun TimelineDateCardSmall(
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(328 / 203f)
-            .background(bgColor)
+            .background(dateType.bgColor)
             .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_date_card_small),
             contentDescription = null,
-            tint = lineColor,
+            tint = dateType.lineColor,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -145,13 +146,13 @@ fun TimelineDateCardSmall(
                         textContent = stringResource(id = dateCard.tags[0].timelineTag.titleRes),
                         imageContent = dateCard.tags[0].timelineTag.imageRes,
                         tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = tagColor
+                        backgroundColor = dateType.tagColor
                     )
                     DateRoadImageTag(
                         textContent = stringResource(id = dateCard.tags[1].timelineTag.titleRes),
                         imageContent = dateCard.tags[1].timelineTag.imageRes,
                         tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = tagColor,
+                        backgroundColor = dateType.tagColor,
                         modifier = Modifier
                             .padding(start = 6.dp)
                     )
@@ -159,7 +160,7 @@ fun TimelineDateCardSmall(
                         textContent = stringResource(id = dateCard.tags[2].timelineTag.titleRes),
                         imageContent = dateCard.tags[2].timelineTag.imageRes,
                         tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = tagColor,
+                        backgroundColor = dateType.tagColor,
                         modifier = Modifier
                             .padding(start = 6.dp)
                     )
