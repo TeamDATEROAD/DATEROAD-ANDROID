@@ -17,7 +17,7 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadCourseTopBar(
+fun DateRoadLeftTitleTopBar(
     title: String,
     buttonContent: (@Composable () -> Unit)? = null
 ) {
@@ -46,9 +46,9 @@ fun DateRoadCourseTopBar(
 
 @Preview
 @Composable
-fun DateRoadCourseTopBarPreview() {
+fun DateRoadLeftTitlePreview() {
     Column {
-        DateRoadCourseTopBar(
+        DateRoadLeftTitleTopBar(
             title = "코스 둘러보기",
             buttonContent = {
                 DateRoadImageButton(
@@ -60,7 +60,7 @@ fun DateRoadCourseTopBarPreview() {
                 )
             }
         )
-        DateRoadCourseTopBar(
+        DateRoadLeftTitleTopBar(
             title = "데이트 일정",
             buttonContent = {
                 DateRoadImageButton(
