@@ -5,13 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -23,8 +21,9 @@ fun SplashScreen() {
             .background(DateRoadTheme.colors.deepPurple),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(226.dp))
+        Spacer(modifier = Modifier.weight(226f / (226f + 284f)))
         Image(painter = painterResource(id = R.drawable.ic_splash_logo), contentDescription = "")
+        Spacer(modifier = Modifier.weight(284f / (226f + 284f)))
     }
 }
 
