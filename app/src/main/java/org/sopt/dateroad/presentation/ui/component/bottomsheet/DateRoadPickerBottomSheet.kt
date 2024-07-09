@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.numberpicker.DateRoadNumberPicker
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -29,7 +30,7 @@ fun DateRoadPickerBottomSheet(
     buttonText: String,
     onButtonClick: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
-    pickerItems: List<List<String>>
+    pickers: List<Picker>
 ) {
     DateRoadBottomSheet(
         modifier = Modifier.padding(top = 20.dp, bottom = 16.dp, start = 16.dp, end = 16.dp),
@@ -43,13 +44,14 @@ fun DateRoadPickerBottomSheet(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                pickerItems.forEachIndexed { index, item ->
+                pickers.forEachIndexed { index, item ->
                     DateRoadNumberPicker(
                         modifier = Modifier
                             .weight(1f),
-                        items = item
+                        items = item.items,
+                        pickerState = item.pickerState
                     )
-                    if (index != pickerItems.size - 1) {
+                    if (index != pickers.size - 1) {
                         Spacer(modifier = Modifier.width(17.dp))
                     }
                 }
@@ -76,10 +78,10 @@ fun DateRoadPickerBottomSheetPreview() {
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = true,
         buttonText = "취소",
-        pickerItems = listOf(
-            (2000..2024).map { it.toString() },
-            (1..12).map { it.toString() },
-            (1..31).map { it.toString() }
+        pickers = listOf(
+            Picker(items = (2000..2024).map { it.toString() }),
+            Picker(items = (1..12).map { it.toString() }),
+            Picker(items = (1..31).map { it.toString() })
         )
     )
 }
