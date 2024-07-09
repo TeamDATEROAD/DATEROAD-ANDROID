@@ -17,7 +17,7 @@ class PointHistoryViewModel @Inject constructor(
     override suspend fun handleEvent(event: PointHistoryContract.PointHistoryEvent) {
         when (event) {
             is PointHistoryContract.PointHistoryEvent.FetchPointHistory -> fetchPointHistory()
-            is PointHistoryContract.PointHistoryEvent.OnTabBarClicked -> setState { copy(pointHistoryTabType = pointHistoryTabType) }
+            is PointHistoryContract.PointHistoryEvent.OnTabBarClicked -> setState { copy(pointHistoryTabType = event.pointHistoryTabType) }
         }
     }
 

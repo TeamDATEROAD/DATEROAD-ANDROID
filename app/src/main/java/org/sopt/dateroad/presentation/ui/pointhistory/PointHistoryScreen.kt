@@ -63,7 +63,8 @@ fun PointHistoryRoute(
             PointHistoryScreen(
                 padding = padding,
                 pointHistoryUiState = uiState,
-                onTabBarClicked = { pointHistoryTabType -> viewModel.setEvent(PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType)) }
+                onTabBarClicked = { pointHistoryTabType -> viewModel.setEvent(PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType)) },
+                onTopBarIconClicked = popBackStack
             )
         }
 
@@ -75,7 +76,8 @@ fun PointHistoryRoute(
 fun PointHistoryScreen(
     padding: PaddingValues,
     pointHistoryUiState: PointHistoryContract.PointHistoryUiState = PointHistoryContract.PointHistoryUiState(),
-    onTabBarClicked: (PointHistoryTabType) -> Unit
+    onTabBarClicked: (PointHistoryTabType) -> Unit,
+    onTopBarIconClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -86,7 +88,8 @@ fun PointHistoryScreen(
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_point_history),
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            backGroundColor = DateRoadTheme.colors.white
+            backGroundColor = DateRoadTheme.colors.white,
+            onIconClick = onTopBarIconClicked
         )
         Spacer(modifier = Modifier.height(22.dp))
         PointHistoryPointBox(
@@ -102,10 +105,11 @@ fun PointHistoryScreen(
                 DateRoadTabTitle(
                     title = stringResource(id = pointHistoryTabType.titleRes),
                     selected = index == pointHistoryUiState.pointHistoryTabType.position,
-                    position = index
-                ) {
-                    onTabBarClicked(pointHistoryTabType)
-                }
+                    position = index,
+                    onClick = {
+                        onTabBarClicked(pointHistoryTabType)
+                    }
+                )
             }
         }
         LazyColumn {
@@ -156,7 +160,8 @@ fun PointHistoryPreview() {
                     used = listOf()
                 )
             ),
-            onTabBarClicked = {}
+            onTabBarClicked = {},
+            onTopBarIconClicked = {}
         )
     }
 }
