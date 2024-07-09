@@ -8,9 +8,9 @@ data class Date(
     val date: String,
     val city: String,
     val tags: List<TimelineTag>,
-    val dDay: String,
+    val dDay: String
 )
 
 data class TimelineTag(
-    val timelineTag: DateTagType,
+    val timelineTag: DateTagType
 )

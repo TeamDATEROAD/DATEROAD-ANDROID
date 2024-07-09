@@ -44,7 +44,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 @Composable
 fun TimelineDateCard(
     dateCard: Date,
-    onClick: (Int) -> Unit = {},
+    onClick: (Int) -> Unit = {}
 ) {
     val (bgColor, lineColor, tagColor) = remember(dateCard.dateId) {
         when (dateCard.dateId % 3) {
@@ -81,7 +81,7 @@ fun TimelineDateCard(
                 Row(
                     modifier = Modifier
                         .padding(20.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
                 ) {
                     Column(
                         modifier = Modifier
@@ -92,14 +92,14 @@ fun TimelineDateCard(
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Text(
                             text = dateCard.date.split(".")[1],
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
@@ -145,7 +145,7 @@ fun TimelineDateCard(
                         imageContent = dateCard.tags[0].timelineTag.imageRes,
                         tagContentType = TagType.TIMELINE_DATE,
                         backgroundColor = tagColor,
-                        spaceValue = 2,
+                        spaceValue = 2
                     )
                 }
             }
