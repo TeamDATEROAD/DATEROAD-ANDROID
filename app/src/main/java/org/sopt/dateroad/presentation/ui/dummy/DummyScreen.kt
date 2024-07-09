@@ -21,7 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.presentation.util.context.showToast
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
-import org.sopt.dateroad.presentation.util.view.UiState
+import org.sopt.dateroad.presentation.util.view.MviState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -48,8 +48,8 @@ fun DummyRoute(
     }
 
     when (state.dummyUiState) {
-        is UiState.Success -> {
-            val dummies = (state.dummyUiState as UiState.Success).data
+        is MviState.Success -> {
+            val dummies = (state.dummyUiState as MviState.Success).data
             DummyScreen(
                 padding = padding,
                 email = dummies[0].email,
@@ -57,7 +57,7 @@ fun DummyRoute(
             )
         }
 
-        is UiState.Loading -> {
+        is MviState.Loading -> {
             LoadingScreen()
         }
 

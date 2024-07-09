@@ -6,14 +6,14 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.GetDummiesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
-import org.sopt.dateroad.presentation.util.view.UiState
+import org.sopt.dateroad.presentation.util.view.MviState
 
 @HiltViewModel
 class DummyViewModel @Inject constructor(
     private val getDummiesUseCase: GetDummiesUseCase
-) : BaseViewModel<DummyContract.DummyState, DummyContract.DummySideEffect, DummyContract.DummyEvent>() {
-    override fun createInitialState(): DummyContract.DummyState =
-        DummyContract.DummyState(dummyUiState = UiState.Idle)
+) : BaseViewModel<DummyContract.DummyUiState, DummyContract.DummySideEffect, DummyContract.DummyEvent>() {
+    override fun createInitialState(): DummyContract.DummyUiState =
+        DummyContract.DummyUiState(dummyUiState = MviState.Idle)
 
     override suspend fun handleEvent(event: DummyContract.DummyEvent) {
         when (event) {
@@ -25,11 +25,11 @@ class DummyViewModel @Inject constructor(
 
     fun getDummies() {
         viewModelScope.launch {
-            setState { copy(dummyUiState = UiState.Loading) }
+            setState { copy(dummyUiState = MviState.Loading) }
             getDummiesUseCase(page = 1).onSuccess { dummies ->
-                setState { copy(dummyUiState = UiState.Success(data = dummies)) }
+                setState { copy(dummyUiState = MviState.Success(data = dummies)) }
             }.onFailure { exception: Throwable ->
-                setState { copy(dummyUiState = UiState.Error(exception.message)) }
+                setState { copy(dummyUiState = MviState.Error(exception.message)) }
             }
         }
     }
