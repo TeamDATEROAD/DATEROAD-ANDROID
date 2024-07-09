@@ -21,7 +21,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun PointHistoryPointBox(
     modifier: Modifier = Modifier,
-    name: String, point: Int
+    name: String,
+    point: Int
 ) {
     Column(
         modifier = modifier

@@ -22,7 +22,7 @@ fun HomeRoute(
     HomeScreen(
         padding = padding,
         navigateToPointHistory
-        )
+    )
 }
 
 @Composable
@@ -36,7 +36,7 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = {navigateToPointHistory()}),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory() }),
             text = "HomeScreen",
             fontSize = 30.sp,
             fontWeight = Bold
