@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.look
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,6 +42,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun LookCourseCard(
     modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
     course: Course,
     onClick: (Int) -> Unit = {}
 ) {
@@ -51,7 +53,7 @@ fun LookCourseCard(
     ) {
         Box {
             AsyncImage(
-                model = ImageRequest.Builder(context = LocalContext.current)
+                model = ImageRequest.Builder(context = context)
                     .data(course.url)
                     .crossfade(true)
                     .build(),
