@@ -25,7 +25,7 @@ fun DateRoadLeftTitleTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(vertical = 12.dp, horizontal = 16.dp)
+            .padding(vertical = 13.dp, horizontal = 16.dp)
     ) {
         Text(
             text = title,
