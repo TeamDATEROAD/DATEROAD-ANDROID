@@ -111,7 +111,6 @@ fun HomeHotCourseCardPreview() {
             course = Course(
                 id = 1,
                 url = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                openedAt = "2023-01-01",
                 city = "건대/성수/왕십리",
                 title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다에 있습니다.",
                 cost = stringResource(id = MoneyTagType.EXCESS_100000.titleRes),
