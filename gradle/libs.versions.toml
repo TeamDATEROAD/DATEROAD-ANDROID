@@ -1,4 +1,5 @@
 [versions]
+accompanistPager = "0.23.1"
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
@@ -45,6 +46,8 @@ lifecycleRuntimeComposeAndroid = "2.8.2"
 
 [libraries]
 # Test
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
