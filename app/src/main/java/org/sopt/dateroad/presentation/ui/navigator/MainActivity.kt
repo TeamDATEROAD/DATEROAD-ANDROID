@@ -11,7 +11,6 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             val navigator: MainNavigator = rememberMainNavigator()
 
