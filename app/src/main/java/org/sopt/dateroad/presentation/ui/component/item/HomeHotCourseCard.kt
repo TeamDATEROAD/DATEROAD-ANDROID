@@ -28,16 +28,19 @@ import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeHotCourseCard(
-    course: Course
+    course: Course,
+    onClick: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .background(DateRoadTheme.colors.white)
             .width(230.dp)
+            .noRippleClickable(onClick = { onClick(course.id) })
     ) {
         Text(
             text = course.city,
@@ -72,16 +75,18 @@ fun HomeHotCourseCard(
                     .padding(start = 5.dp, bottom = 5.dp)
             )
         }
+        Spacer(modifier = Modifier.size(8.dp))
         Text(
             text = course.title,
             style = DateRoadTheme.typography.bodyBold17,
             color = DateRoadTheme.colors.black,
             modifier = Modifier
-                .padding(top = 6.dp, bottom = 8.dp)
                 .fillMaxWidth(),
             maxLines = 2,
+            minLines = 2,
             overflow = TextOverflow.Ellipsis
         )
+        Spacer(modifier = Modifier.size(6.dp))
         Row {
             DateRoadImageTag(
                 textContent = course.cost,
