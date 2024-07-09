@@ -11,14 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.domain.model.PointHistory
+import org.sopt.dateroad.domain.model.Point
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun PointHistoryCard(
     modifier: Modifier = Modifier,
-    pointHistory: PointHistory
+    point: Point
 ) {
     Row(
         modifier = modifier
@@ -29,7 +29,7 @@ fun PointHistoryCard(
             modifier = Modifier
                 .weight(1f)
                 .padding(end = 15.dp),
-            text = pointHistory.point,
+            text = point.point,
             color = DateRoadTheme.colors.black,
             style = DateRoadTheme.typography.bodyBold15
         )
@@ -37,13 +37,13 @@ fun PointHistoryCard(
             modifier = Modifier.weight(235 / 74f)
         ) {
             Text(
-                text = pointHistory.description,
+                text = point.description,
                 color = DateRoadTheme.colors.gray500,
                 style = DateRoadTheme.typography.bodyBold15
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = pointHistory.gainedAt,
+                text = point.gainedAt,
                 color = DateRoadTheme.colors.gray500,
                 style = DateRoadTheme.typography.bodyMed15
             )
@@ -56,7 +56,7 @@ fun PointHistoryCard(
 fun PointHistoryCardPreview() {
     DATEROADTheme {
         PointHistoryCard(
-            pointHistory = PointHistory(
+            point = Point(
                 point = "+10P",
                 description = "코스 등록하기",
                 gainedAt = "2024.06.23"
