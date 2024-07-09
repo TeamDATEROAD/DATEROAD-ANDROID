@@ -61,6 +61,14 @@
     <!-- IncheonAreaType -->
     <string name="incheon_area_whole">인천 전체</string>
 
+    <!-- MainNavigationBarItemType -->
+    <string name="main_navigation_bar_item_home">홈</string>
+    <string name="main_navigation_bar_item_look">코스 둘러보기</string>
+    <string name="main_navigation_bar_item_timeline">데이트 일정</string>
+    <string name="main_navigation_bar_item_read">열람한 코스</string>
+    <string name="main_navigation_bar_item_my_page">마이페이지</string>
+    <string name="main_navigation_bar_item_search">데이트 찾기</string>
+
     <!-- MoneyTagType -->
     <string name="money_tag_excess_100000">10만원 초과</string>
     <string name="money_tag_less_than_100000">10만원 이하</string>
@@ -181,4 +189,11 @@
 
     <!-- Course Detail -->
     <string name="course_detail_duration">%1$d 시간</string>
+
+    <!--DateSchedule-->
+    <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>
+    <string name="home_timeline_enroll">일정을 등록하러 가볼까요?</string>
+    <string name="home_timeline_month_day">%d월 %d일</string>
+    <string name="home_timeline_d_day">D-%s</string>
+    <string name="home_timeline_start">%s 시작</string>
 </resources>
