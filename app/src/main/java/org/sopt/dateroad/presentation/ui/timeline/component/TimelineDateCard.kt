@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.item
+package org.sopt.dateroad.presentation.ui.timeline.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,7 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.DateCard
+import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.domain.model.TimelineTag
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.TagType
@@ -42,13 +43,13 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
 fun TimelineDateCard(
-    dateCard: DateCard,
-    onClick: (Long) -> Unit = {}
+    dateCard: Date,
+    onClick: (Int) -> Unit = {},
 ) {
     val (bgColor, lineColor, tagColor) = remember(dateCard.dateId) {
         when (dateCard.dateId % 3) {
-            0L -> Triple(defaultDateRoadColors.pink200, defaultDateRoadColors.pink300, defaultDateRoadColors.pink100)
-            1L -> Triple(defaultDateRoadColors.purple200, defaultDateRoadColors.purple300, defaultDateRoadColors.purple100)
+            0 -> Triple(defaultDateRoadColors.pink200, defaultDateRoadColors.pink300, defaultDateRoadColors.pink100)
+            1 -> Triple(defaultDateRoadColors.purple200, defaultDateRoadColors.purple300, defaultDateRoadColors.purple100)
             else -> Triple(defaultDateRoadColors.lime, defaultDateRoadColors.lime300, defaultDateRoadColors.lime100)
         }
     }
@@ -62,7 +63,7 @@ fun TimelineDateCard(
             .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_datecard_bg),
+            painter = painterResource(id = R.drawable.bg_date_card),
             contentDescription = null,
             tint = lineColor,
             modifier = Modifier
@@ -81,28 +82,37 @@ fun TimelineDateCard(
                     modifier = Modifier
                         .padding(20.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = "${dateCard.month}\n${dateCard.day}",
-                        style = DateRoadTheme.typography.titleExtra24,
-                        color = DateRoadTheme.colors.black,
-                        minLines = 2,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f)
-                    )
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Text(
+                            text = dateCard.date.split(".")[0],
+                            style = DateRoadTheme.typography.titleExtra24,
+                            color = DateRoadTheme.colors.black,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            text = dateCard.date.split(".")[1],
+                            style = DateRoadTheme.typography.titleExtra24,
+                            color = DateRoadTheme.colors.black,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
                     DateRoadTextTag(
                         textContent = stringResource(R.string.home_timeline_d_day, dateCard.dDay),
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight()
-                        .padding(start = 13.dp, end = 13.dp, bottom = 21.dp),
+                        .padding(start = 20.dp, end = 20.dp, bottom = 21.dp),
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.Start
                 ) {
@@ -112,6 +122,7 @@ fun TimelineDateCard(
                             imageContent = dateCard.tags[2].timelineTag.imageRes,
                             tagContentType = TagType.TIMELINE_DATE,
                             backgroundColor = tagColor,
+                            spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = -12f)
                                 .padding(start = 19.dp, bottom = 5.dp)
@@ -123,6 +134,7 @@ fun TimelineDateCard(
                             imageContent = dateCard.tags[1].timelineTag.imageRes,
                             tagContentType = TagType.TIMELINE_DATE,
                             backgroundColor = tagColor,
+                            spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = 15f)
                                 .padding(start = 60.dp, bottom = 10.dp)
@@ -132,7 +144,8 @@ fun TimelineDateCard(
                         textContent = stringResource(id = dateCard.tags[0].timelineTag.titleRes),
                         imageContent = dateCard.tags[0].timelineTag.imageRes,
                         tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = tagColor
+                        backgroundColor = tagColor,
+                        spaceValue = 2,
                     )
                 }
             }
@@ -174,7 +187,7 @@ fun TimelineDateCard(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .padding(horizontal = 13.dp, vertical = 25.dp)
+                    .padding(horizontal = 20.dp, vertical = 25.dp)
             ) {
                 Text(
                     text = dateCard.city,
@@ -182,6 +195,7 @@ fun TimelineDateCard(
                     color = DateRoadTheme.colors.gray500,
                     modifier = Modifier.fillMaxWidth()
                 )
+                Spacer(modifier = Modifier.height(5.dp))
                 Text(
                     text = dateCard.title,
                     style = DateRoadTheme.typography.titleExtra24,
@@ -189,7 +203,6 @@ fun TimelineDateCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                        .padding(top = 5.dp)
                         .fillMaxWidth()
                 )
             }
@@ -202,13 +215,11 @@ fun TimelineDateCard(
 fun TimelineDateCardPreview() {
     Column {
         TimelineDateCard(
-            dateCard = DateCard(
+            dateCard = Date(
                 dateId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트\n가볼까요?",
-                year = "2024",
-                month = "JUNE",
-                day = "23",
+                date = "JUNE.23",
                 city = "건대/성수/왕십리",
                 tags = listOf(TimelineTag(DateTagType.SHOPPING), TimelineTag(DateTagType.DRIVE), TimelineTag(DateTagType.EXHIBITION_POP_UP))
             )
