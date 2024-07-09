@@ -147,8 +147,8 @@ fun LookCourseCardPreview() {
         LazyVerticalGrid(
             modifier = Modifier.fillMaxSize(),
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(horizontal = 16.dp), // 그리드의 외부 간격 설정
-            horizontalArrangement = Arrangement.spacedBy(12.dp), // 열 간격 설정
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(courses.size) { index ->
