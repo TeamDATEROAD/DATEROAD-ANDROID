@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.home
+package org.sopt.dateroad.presentation.ui.mypage
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

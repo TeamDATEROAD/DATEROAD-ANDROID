@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.home
+package org.sopt.dateroad.presentation.ui.look
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
@@ -29,10 +32,8 @@ fun LookScreen(
             .padding(padding)
             .fillMaxSize()
     ) {
-        Text(
-            text = "LookScreen",
-            fontSize = 30.sp,
-            fontWeight = Bold
+        DateRoadLeftTitleTopBar(
+            title = stringResource(id = R.string.top_bar_title_look)
         )
     }
 }
