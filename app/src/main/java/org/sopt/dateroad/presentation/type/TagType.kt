@@ -110,7 +110,7 @@ enum class TagType(
         roundedCornerShape = 10
     ),
     TIMELINE_DATE(
-        backgroundColor = defaultDateRoadColors.lightPink,
+        backgroundColor = defaultDateRoadColors.pink100,
         contentColor = defaultDateRoadColors.black,
         paddingHorizontal = 10,
         paddingVertical = 4,
