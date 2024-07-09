@@ -99,7 +99,7 @@ fun LookCourseCard(
             Spacer(modifier = Modifier.width(5.dp))
             Text(
                 modifier = Modifier.weight(1f),
-                text = stringResource(id = course.cost.titleRes),
+                text = course.cost,
                 color = DateRoadTheme.colors.gray400,
                 style = DateRoadTheme.typography.capReg11
             )
@@ -129,7 +129,7 @@ fun LookCourseCardPreview() {
                 url = "https://avatars.githubusercontent.com/u/103172971?v=4",
                 city = "건대/성수/왕십리",
                 title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                cost = MoneyTagType.LESS_THAN_50000,
+                cost = "5만원 이하",
                 duration = "10시간",
                 like = "999"
             ),
@@ -138,7 +138,7 @@ fun LookCourseCardPreview() {
                 url = "https://avatars.githubusercontent.com/u/103172971?v=4",
                 city = "홍대",
                 title = "데로 파이띵 !",
-                cost = MoneyTagType.LESS_THAN_100000,
+                cost = "10만원 이하",
                 duration = "1시간",
                 like = "3"
             )
