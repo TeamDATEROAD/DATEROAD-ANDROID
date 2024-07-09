@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
+import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
-import org.sopt.dateroad.presentation.ui.component.numberpicker.rememberPickerState
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadBasicTextField
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -39,6 +39,7 @@ fun EnrollPlaceInsertBar(
     place: Place,
     onSelectedCourseTimeClick: () -> Unit = {},
     onTitleChange: (String) -> Unit = {},
+    onAddCourseButtonClick: () -> Unit = {}
 ) {
     var textFieldHeight by remember { mutableStateOf(0) }
     val density = LocalDensity.current
@@ -85,7 +86,7 @@ fun EnrollPlaceInsertBar(
             paddingVertical = 15.dp,
             disabledBackgroundColor = DateRoadTheme.colors.gray100,
             disabledContentColor = DateRoadTheme.colors.gray300,
-            onClick = {}
+            onClick = onAddCourseButtonClick
         )
     }
 }
@@ -96,7 +97,9 @@ fun EnrollPlaceInsertBarPreview() {
     DATEROADTheme {
         var place by remember { mutableStateOf(Place()) }
         var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
-        var pickerState = rememberPickerState()
+        var pickerItems by remember {
+            mutableStateOf(listOf(Picker(items = (1..12).map { (it * 0.5).toString() })))
+        }
 
         EnrollPlaceInsertBar(
             place = place,
@@ -113,11 +116,9 @@ fun EnrollPlaceInsertBarPreview() {
             isBottomSheetOpen = isBottomSheetOpen,
             isButtonEnabled = true,
             buttonText = "적용하기",
-            pickerItems = listOf(
-                (1..12).map { (it * 0.5).toString() }
-            ),
+            pickers = pickerItems,
             onButtonClick = {
-                place = place.copy(duration = "0.5시간")
+                place = place.copy(duration = pickerItems[0].pickerState.selectedItem + " 시간")
                 isBottomSheetOpen = false
             }
         )
