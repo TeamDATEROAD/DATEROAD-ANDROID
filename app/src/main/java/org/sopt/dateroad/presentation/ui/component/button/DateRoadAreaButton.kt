@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.component.button
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,7 +23,8 @@ fun DateRoadAreaButton(
     onClick: () -> Unit = {}
 ) {
     DateRoadButton(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth(),
         backgroundColor = DateRoadTheme.colors.gray100,
         cornerRadius = 10.dp,
         paddingVertical = 6.dp,
@@ -37,7 +39,7 @@ fun DateRoadAreaButton(
                 color = DateRoadTheme.colors.gray400,
                 style = DateRoadTheme.typography.bodyMed13
             )
-            Spacer(modifier = Modifier.width(25.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Icon(painter = painterResource(id = R.drawable.ic_area_dropdown), contentDescription = null, tint = DateRoadTheme.colors.gray400)
         }
     }

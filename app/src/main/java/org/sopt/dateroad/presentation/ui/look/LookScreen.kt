@@ -110,7 +110,10 @@ fun LookScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.width(16.dp))
-            DateRoadAreaButton(textContent = "건대/성수/왕십리")
+            DateRoadAreaButton(
+                modifier = Modifier.weight(1f),
+                textContent = "건대/성수/왕십리"
+            )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 modifier = Modifier.padding(8.dp),
