@@ -103,8 +103,8 @@
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
 
     <!-- PointHistoryTabType -->
-    <string name="point_history_tab_earn_history">획득 내역</string>
-    <string name="point_history_tab_usage_history">사용 내역</string>
+    <string name="point_history_tab_gained_history">획득 내역</string>
+    <string name="point_history_tab_used_history">사용 내역</string>
 
     <!-- PointSystemType -->
     <string name="point_system_first_title">데이트 코스를 등록하면\n포인트를 얻을 수 있어요</string>
@@ -153,6 +153,7 @@
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
 
     <!-- Top Bar Title -->
+    <string name="top_bar_title_point_history">포인트 내역</string>
     <string name="top_bar_title_enroll_course">코스 등록하기</string>
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
