@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.pointhistory
+package org.sopt.dateroad.presentation.ui.pointhistory.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +43,7 @@ fun PointHistoryCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = point.gainedAt,
+                text = point.createdAt,
                 color = DateRoadTheme.colors.gray500,
                 style = DateRoadTheme.typography.bodyMed15
             )
@@ -59,7 +59,7 @@ fun PointHistoryCardPreview() {
             point = Point(
                 point = "+10P",
                 description = "코스 등록하기",
-                gainedAt = "2024.06.23"
+                createdAt = "2024.06.23"
             )
         )
     }
