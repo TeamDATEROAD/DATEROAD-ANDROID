@@ -75,7 +75,7 @@ fun HomeHotCourseCard(
                     .padding(start = 5.dp, bottom = 5.dp)
             )
         }
-        Spacer(modifier = Modifier.size(8.dp))
+        Spacer(modifier = Modifier.size(6.dp))
         Text(
             text = course.title,
             style = DateRoadTheme.typography.bodyBold17,
@@ -86,7 +86,7 @@ fun HomeHotCourseCard(
             minLines = 2,
             overflow = TextOverflow.Ellipsis
         )
-        Spacer(modifier = Modifier.size(6.dp))
+        Spacer(modifier = Modifier.size(8.dp))
         Row {
             DateRoadImageTag(
                 textContent = course.cost,
