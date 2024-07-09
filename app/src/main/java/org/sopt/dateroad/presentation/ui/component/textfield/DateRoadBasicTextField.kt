@@ -49,14 +49,12 @@ fun DateRoadBasicTextField(
     value: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
-    onClick: () -> Unit =  {},
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .noRippleClickable(onClick = onClick)
     ) {
         title?.let {
             Text(
