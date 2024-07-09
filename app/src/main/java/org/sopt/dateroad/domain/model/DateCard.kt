@@ -5,6 +5,7 @@ import org.sopt.dateroad.presentation.type.DateTagType
 data class DateCard(
     val dateId: Long,
     val title: String,
+    val year: String,
     val month: String,
     val day: String,
     val city: String,
