@@ -34,16 +34,20 @@ import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun LookCourseCard(
     modifier: Modifier = Modifier,
-    course: Course
+    course: Course,
+    onClick: (Int) -> Unit = {}
 ) {
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .noRippleClickable(onClick = { onClick(course.id) })
     ) {
         Box {
             AsyncImage(
