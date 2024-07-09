@@ -36,12 +36,14 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
 fun TimelineDateCard(
-    dateCard: DateCard
+    dateCard: DateCard,
+    onClick: (Long) -> Unit = {}
 ) {
     val (bgColor, lineColor, tagColor) = remember(dateCard.dateId) {
         when (dateCard.dateId % 3) {
@@ -57,6 +59,7 @@ fun TimelineDateCard(
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(291 / 406f)
             .background(bgColor)
+            .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_datecard_bg),
@@ -203,6 +206,7 @@ fun TimelineDateCardPreview() {
                 dateId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트\n가볼까요?",
+                year = "2024",
                 month = "JUNE",
                 day = "23",
                 city = "건대/성수/왕십리",
