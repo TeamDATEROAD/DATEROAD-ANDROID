@@ -11,8 +11,10 @@ import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
+import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationLook
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
@@ -52,6 +54,10 @@ class MainNavigator(
 
     fun navigatePointHistory() {
         navHostController.navigationPointHistory()
+    }
+
+    fun navigateMyCourse(myCourseType: MyCourseType) {
+        navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
     private fun popBackStack() {
