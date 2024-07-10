@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.enroll.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -46,7 +47,8 @@ fun EnrollPlaceInsertBar(
 
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         DateRoadBasicTextField(
             modifier = Modifier
@@ -58,7 +60,6 @@ fun EnrollPlaceInsertBar(
             value = place.title,
             onValueChange = onTitleChange
         )
-        Spacer(modifier = Modifier.width(8.dp))
         Text(
             modifier = Modifier
                 .weight(72f)
@@ -76,7 +77,6 @@ fun EnrollPlaceInsertBar(
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.width(8.dp))
         DateRoadImageButton(
             modifier = Modifier
                 .size(with(density) { textFieldHeight.toDp() }),
