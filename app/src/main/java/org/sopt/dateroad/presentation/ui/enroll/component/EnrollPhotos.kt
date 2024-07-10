@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -42,7 +43,9 @@ fun EnrollPhotos(
         ) {
             if (images.isEmpty()) {
                 item {
-                    EnrollAddPhotoButton()
+                    EnrollAddPhotoButton(
+                        onClick = onPhotoButtonClick
+                    )
                 }
             }
             items(images.size) { index ->
@@ -61,7 +64,8 @@ fun EnrollPhotos(
                     .padding(start = 16.dp)
                     .clip(CircleShape)
                     .background(DateRoadTheme.colors.gray200)
-                    .padding(horizontal = 9.dp, vertical = 10.dp),
+                    .padding(horizontal = 9.dp, vertical = 10.dp)
+                    .noRippleClickable(onClick = onPhotoButtonClick),
                 painter = painterResource(id = R.drawable.ic_all_camera),
                 contentDescription = null
             )
