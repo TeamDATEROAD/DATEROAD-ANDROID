@@ -4,6 +4,7 @@
     <!-- ALL -->
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
+    <string name="region">지역</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
