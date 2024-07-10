@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enrollprofile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWithButton
@@ -42,6 +44,9 @@ fun EnrollProfileScreen() {
     var isNicknameButtonEnabled by remember { mutableStateOf(false) }
     var selectedDateTags by rememberSaveable { mutableStateOf<List<DateTagType>>(emptyList()) }
     var isEnrollButtonEnabled by remember { mutableStateOf(false) }
+
+    var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
+
 
     fun updateEnrollButtonState() {
         isEnrollButtonEnabled = validationState == TextFieldValidateResult.Success && selectedDateTags.isNotEmpty()
@@ -87,6 +92,7 @@ fun EnrollProfileScreen() {
                 painter = painterResource(id = R.drawable.btn_my_profile_plus),
                 contentDescription = null,
                 modifier = Modifier.align(Alignment.BottomEnd)
+                    .clickable { isBottomSheetOpen = true }
             )
         }
         Spacer(modifier = Modifier.height(screenHeight * 40 / 708))
@@ -142,6 +148,17 @@ fun EnrollProfileScreen() {
             paddingVertical = 17.dp
         )
         Spacer(modifier = Modifier.height(16.dp))
+        DateRoadBasicBottomSheet(
+            isBottomSheetOpen = isBottomSheetOpen,
+            title = "프로필 사진 설정",
+            isButtonEnabled = false,
+            buttonText = "취소",
+            itemList = listOf(
+                "사진 등록" to { text = "사진 등록" },
+                "사진 삭제" to { text = "사진 삭제" }
+            ),
+            onDismissRequest = { isBottomSheetOpen = !isBottomSheetOpen }
+        )
     }
 }
 
