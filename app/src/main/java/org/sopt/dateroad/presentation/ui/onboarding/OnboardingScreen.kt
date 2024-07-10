@@ -29,8 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
@@ -41,40 +41,53 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingScreen(
-    onFinish: () -> Unit, modifier: Modifier = Modifier
+    onFinish: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DateRoadTheme.colors.white),
+            .background(DateRoadTheme.colors.white)
     ) {
         HorizontalPager(
-            count = 3, state = pagerState, modifier = Modifier
+            count = 3,
+            state = pagerState,
+            modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
         ) { page ->
             val onboardingPage = OnboardingType.entries[page]
-            Column (horizontalAlignment = Alignment.CenterHorizontally){
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = onboardingPage.imageRes), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier
+                    painter = painterResource(id = onboardingPage.imageRes),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
                 )
                 Spacer(modifier = Modifier.height(22.dp))
                 Text(
-                    text = getStyledText(stringResource(id = onboardingPage.titleRes)), style = DateRoadTheme.typography.titleExtra24, textAlign = TextAlign.Center
+                    text = getStyledText(stringResource(id = onboardingPage.titleRes)),
+                    style = DateRoadTheme.typography.titleExtra24,
+                    textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = stringResource(id = onboardingPage.descriptionRes), style = DateRoadTheme.typography.bodySemi13, color = DateRoadTheme.colors.gray500, textAlign = TextAlign.Center
+                    text = stringResource(id = onboardingPage.descriptionRes),
+                    style = DateRoadTheme.typography.bodySemi13,
+                    color = DateRoadTheme.colors.gray500,
+                    textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = stringResource(id = onboardingPage.subDescriptionRes), style = DateRoadTheme.typography.capReg11, color = DateRoadTheme.colors.gray400, textAlign = TextAlign.Center
+                    text = stringResource(id = onboardingPage.subDescriptionRes),
+                    style = DateRoadTheme.typography.capReg11,
+                    color = DateRoadTheme.colors.gray400,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -85,8 +98,11 @@ fun OnboardingScreen(
                 .padding(horizontal = 60.dp),
             isEnabled = true,
             textContent =
-            if (pagerState.currentPage == pagerState.pageCount - 1) stringResource(id = R.string.onboarding_profile_enroll)
-            else stringResource(id = R.string.onboarding_next),
+            if (pagerState.currentPage == pagerState.pageCount - 1) {
+                stringResource(id = R.string.onboarding_profile_enroll)
+            } else {
+                stringResource(id = R.string.onboarding_next)
+            },
             onClick = {
                 scope.launch {
                     if (pagerState.currentPage == pagerState.pageCount - 1) {
@@ -100,17 +116,20 @@ fun OnboardingScreen(
         )
         Spacer(modifier = Modifier.height(15.dp))
         DotsIndicator(
-            totalDots = 3, selectedIndex = pagerState.currentPage, modifier = Modifier.align(Alignment.CenterHorizontally)
+            totalDots = 3,
+            selectedIndex = pagerState.currentPage,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(15.dp))
     }
 }
 
-
 @Composable
 fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier) {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom, modifier = modifier.width(44.dp)
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom,
+        modifier = modifier.width(44.dp)
     ) {
         for (i in 0 until totalDots) {
             val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
