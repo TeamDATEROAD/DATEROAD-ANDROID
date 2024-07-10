@@ -55,7 +55,7 @@ fun TimelineCard(
             .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.bg_date_card),
+            painter = painterResource(id = R.drawable.bg_timeline_card),
             contentDescription = null,
             tint = dateType.lineColor,
             modifier = Modifier
