@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -12,8 +11,7 @@ fun NavController.navigationProfile() {
     )
 }
 
-fun NavGraphBuilder.profileNavGraph(
-) {
+fun NavGraphBuilder.profileNavGraph() {
     composable(route = ProfileRoute.ROUTE) {
         ProfileRoute()
     }

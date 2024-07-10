@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import org.sopt.dateroad.presentation.ui.profile.ProfileRoute
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @AndroidEntryPoint

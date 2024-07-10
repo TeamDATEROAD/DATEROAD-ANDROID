@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -55,30 +54,28 @@ fun ProfileRoute(
             }
     }
 
-        when (uiState.loadState) {
-            LoadState.Idle -> {
-                ProfileScreen(
-                    profileUiState = uiState,
-                    onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-                    onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
-                    onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                    onNicknameButtonClicked = {viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameButtonClicked)}
-                )
-            }
-
-            else -> Unit
+    when (uiState.loadState) {
+        LoadState.Idle -> {
+            ProfileScreen(
+                profileUiState = uiState,
+                onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+                onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
+                onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+                onNicknameButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameButtonClicked) }
+            )
         }
 
-    if (uiState.nicknameValidateResult==TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
-        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+        else -> Unit
     }
 
+    if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
+        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+    }
 
 //    if (uiState.tag.isNotEmpty()) {
 //        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
 //    }
-
 }
 
 @Composable
@@ -88,7 +85,7 @@ fun ProfileScreen(
     onNicknameValueChanged: (String) -> Unit,
     onDateChipClicked: (DateTagType) -> Unit,
     onBottomSheetDismissRequest: () -> Unit,
-    onNicknameButtonClicked:()->Unit
+    onNicknameButtonClicked: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -139,7 +136,7 @@ fun ProfileScreen(
             isButtonEnabled = profileUiState.isNicknameButtonEnabled,
             value = profileUiState.name,
             onValueChange = onNicknameValueChanged,
-            onButtonClick = {onNicknameButtonClicked()}
+            onButtonClick = { onNicknameButtonClicked() }
         )
         Spacer(modifier = Modifier.height(23.dp))
 

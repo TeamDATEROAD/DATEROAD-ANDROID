@@ -34,6 +34,6 @@ class ProfileContract {
         data class ImageChanged(val image: String) : ProfileEvent()
         data object OnBottomSheetDismissRequest : ProfileEvent()
         data object OnNicknameButtonClicked : ProfileEvent()
-        data class CheckEnrollButtonEnable(val isEnrollButtonEnabled: Boolean):ProfileEvent()
+        data class CheckEnrollButtonEnable(val isEnrollButtonEnabled: Boolean) : ProfileEvent()
     }
 }

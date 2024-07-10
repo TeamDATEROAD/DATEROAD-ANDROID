@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -26,7 +25,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> handleNicknameValueChanged(event.name)
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
             is ProfileContract.ProfileEvent.OnNicknameButtonClicked -> handleNicknameCheck()
-            is ProfileContract.ProfileEvent.CheckEnrollButtonEnable ->  setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
+            is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
         }
     }
 
@@ -38,7 +37,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
                 updatedTags.size < 3 -> updatedTags += dateTagType
             }
             copy(
-                tag = updatedTags,
+                tag = updatedTags
             )
         }
     }
@@ -62,7 +61,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
                     name.isEmpty() -> TextFieldValidateResult.Basic
                     isNicknameChecked -> TextFieldValidateResult.Success
                     else -> TextFieldValidateResult.Success
-                },
+                }
 
             )
         }

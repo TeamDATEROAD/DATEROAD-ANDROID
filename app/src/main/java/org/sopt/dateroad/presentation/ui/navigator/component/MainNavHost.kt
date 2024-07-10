@@ -52,8 +52,7 @@ fun MainNavHost(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            profileNavGraph(
-            )
+            profileNavGraph()
         }
     }
 }
