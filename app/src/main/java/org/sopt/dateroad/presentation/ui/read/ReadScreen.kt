@@ -11,18 +11,25 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
 fun ReadRoute(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToMyCourseHistory: (MyCourseType) -> Unit
 ) {
-    ReadScreen(padding)
+    ReadScreen(
+        padding,
+        navigateToMyCourseHistory = navigateToMyCourseHistory
+    )
 }
 
 @Composable
 fun ReadScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToMyCourseHistory: (MyCourseType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -30,6 +37,7 @@ fun ReadScreen(
             .fillMaxSize()
     ) {
         Text(
+            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourseHistory(MyCourseType.READ) }),
             text = "ReadScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -41,6 +49,6 @@ fun ReadScreen(
 @Composable
 fun ReadScreenPreview() {
     DATEROADTheme {
-        ReadScreen(padding = PaddingValues(0.dp))
+        ReadScreen(padding = PaddingValues(0.dp), navigateToMyCourseHistory = {})
     }
 }
