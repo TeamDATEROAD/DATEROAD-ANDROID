@@ -23,13 +23,13 @@ class LookContract {
     sealed interface LookSideEffect : UiSideEffect
 
     sealed class LookEvent : UiEvent {
-        data object FetchCourses: LookEvent()
+        data object FetchCourses : LookEvent()
         data object OnAreaButtonClicked : LookEvent()
-        data object OnResetButtonClicked: LookEvent()
-        data object OnRegionBottomSheetDismissRequest: LookEvent()
+        data object OnResetButtonClicked : LookEvent()
+        data object OnRegionBottomSheetDismissRequest : LookEvent()
         data class OnMoneyChipClicked(val money: MoneyTagType?) : LookEvent()
-        data class OnRegionBottomSheetButtonClicked(val region: RegionType?, val area: Any?): LookEvent()
-        data class OnRegionBottomSheetRegionClicked(val region: RegionType?): LookEvent()
-        data class OnRegionBottomSheetAreaClicked(val area: Any?): LookEvent()
+        data class OnRegionBottomSheetButtonClicked(val region: RegionType?, val area: Any?) : LookEvent()
+        data class OnRegionBottomSheetRegionClicked(val region: RegionType?) : LookEvent()
+        data class OnRegionBottomSheetAreaClicked(val area: Any?) : LookEvent()
     }
 }

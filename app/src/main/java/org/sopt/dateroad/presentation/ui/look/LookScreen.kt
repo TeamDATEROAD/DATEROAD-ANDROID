@@ -124,7 +124,7 @@ fun LookScreen(
                         else -> R.string.region
                     }
                 ),
-                onClick = onAreaButtonClicked,
+                onClick = onAreaButtonClicked
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
