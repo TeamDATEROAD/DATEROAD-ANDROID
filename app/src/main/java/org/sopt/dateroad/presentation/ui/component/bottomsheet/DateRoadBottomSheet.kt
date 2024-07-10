@@ -1,7 +1,12 @@
 package org.sopt.dateroad.presentation.ui.component.bottomsheet
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +40,7 @@ fun DateRoadBottomSheet(
 ) {
     if (isBottomSheetOpen) {
         ModalBottomSheet(
+            modifier = Modifier.padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()),
             sheetState = sheetState,
             shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
             onDismissRequest = onDismissRequest,
@@ -50,6 +56,7 @@ fun DateRoadBottomSheet(
                     textContent = buttonText,
                     onClick = onButtonClick
                 )
+                Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
             }
         }
     }
