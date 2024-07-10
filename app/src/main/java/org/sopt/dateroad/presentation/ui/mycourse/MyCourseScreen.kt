@@ -39,7 +39,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun MyCourseRoute(
     padding: PaddingValues,
     viewModel: MyCourseViewModel = hiltViewModel(),
-    popBackStack: () -> Unit,
+    popBackStack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -81,7 +81,7 @@ fun MyCourseScreen(
     @DrawableRes emptyImage: Int,
     emptyContent: String,
     courses: List<Course>?,
-    onIconClick: () -> Unit,
+    onIconClick: () -> Unit
 ) {
     Column(
         modifier = Modifier

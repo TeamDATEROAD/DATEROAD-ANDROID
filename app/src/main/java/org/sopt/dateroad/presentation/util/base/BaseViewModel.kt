@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State : org.sopt.dateroad.presentation.util.base.State, SideEffect : UiSideEffect, Event : UiEvent>() :
+abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event : UiEvent>() :
     ViewModel() {
     private val initialState: State by lazy { createInitialState() }
     abstract fun createInitialState(): State
