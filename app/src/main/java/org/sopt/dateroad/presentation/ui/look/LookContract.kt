@@ -15,7 +15,7 @@ class LookContract {
         val region: RegionType? = null,
         val area: Any? = null,
         val money: MoneyTagType? = null,
-        val regionBottomSheetSelectedRegion: RegionType? = null,
+        val regionBottomSheetSelectedRegion: RegionType? = RegionType.SEOUL,
         val regionBottomSheetSelectedArea: Any? = null,
         val courses: List<Course> = listOf()
     ) : UiState

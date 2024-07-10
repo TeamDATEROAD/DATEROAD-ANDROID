@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.look
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import org.sopt.dateroad.domain.model.Course
+import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -14,7 +15,7 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
         when (event) {
             is LookContract.LookEvent.FetchCourses -> fetchCourses()
             is LookContract.LookEvent.OnAreaButtonClicked -> {
-                setState { copy(isRegionBottomSheetOpen = true, regionBottomSheetSelectedRegion = null, regionBottomSheetSelectedArea = null) }
+                setState { copy(isRegionBottomSheetOpen = true, regionBottomSheetSelectedRegion = RegionType.SEOUL, regionBottomSheetSelectedArea = null) }
             }
 
             is LookContract.LookEvent.OnResetButtonClicked -> {
