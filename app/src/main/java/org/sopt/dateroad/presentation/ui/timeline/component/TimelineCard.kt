@@ -112,8 +112,7 @@ fun TimelineCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = dateCard.tags[2].titleRes),
                             imageContent = dateCard.tags[2].imageRes,
-                            tagContentType = TagType.TIMELINE_DATE,
-                            backgroundColor = dateType.tagColor,
+                            tagContentType = dateType.tagColor,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = -12f)
@@ -124,8 +123,7 @@ fun TimelineCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = dateCard.tags[1].titleRes),
                             imageContent = dateCard.tags[1].imageRes,
-                            tagContentType = TagType.TIMELINE_DATE,
-                            backgroundColor = dateType.tagColor,
+                            tagContentType = dateType.tagColor,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = 15f)
@@ -135,8 +133,7 @@ fun TimelineCard(
                     DateRoadImageTag(
                         textContent = stringResource(id = dateCard.tags[0].titleRes),
                         imageContent = dateCard.tags[0].imageRes,
-                        tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = dateType.tagColor,
+                        tagContentType = dateType.tagColor,
                         spaceValue = 2
                     )
                 }
@@ -206,7 +203,7 @@ fun TimelineCard(
 fun TimelineCardPreview() {
     Column {
         TimelineCard(
-            dateType = DateType.PINK,
+            dateType = DateType.PURPLE,
             dateCard = Date(
                 dateId = 0,
                 dDay = "3",

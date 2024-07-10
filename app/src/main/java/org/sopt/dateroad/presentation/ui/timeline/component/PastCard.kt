@@ -29,7 +29,6 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
-import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -138,8 +137,7 @@ fun PastCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
-                            tagContentType = TagType.TIMELINE_DATE,
-                            backgroundColor = dateType.tagColor,
+                            tagContentType = dateType.tagColor,
                             modifier = Modifier.padding(start = if (index > 0) 6.dp else 0.dp)
                         )
                     }
