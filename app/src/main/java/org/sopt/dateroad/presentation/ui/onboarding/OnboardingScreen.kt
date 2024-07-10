@@ -38,7 +38,6 @@ import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingScreen(
@@ -47,76 +46,63 @@ fun OnboardingScreen(
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
 
-    Box(
-        modifier = modifier.fillMaxSize()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(DateRoadTheme.colors.white),
     ) {
         HorizontalPager(
-            count = 3, state = pagerState, modifier = Modifier.fillMaxSize()
+            count = 3, state = pagerState, modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
         ) { page ->
             val onboardingPage = OnboardingType.entries[page]
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
+            Column (horizontalAlignment = Alignment.CenterHorizontally){
                 Image(
-                    painter = painterResource(id = onboardingPage.imageRes), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize()
+                    painter = painterResource(id = onboardingPage.imageRes), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
                 )
-
-                Column(
-                    modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
-                ) {
-                    Spacer(modifier = Modifier.height(463.dp))
-
-                    Text(
-                        text = getStyledText(stringResource(id = onboardingPage.titleRes)), style = DateRoadTheme.typography.titleExtra24, textAlign = TextAlign.Center
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(
-                        text = stringResource(id = onboardingPage.descriptionRes), style = DateRoadTheme.typography.bodySemi13, color = DateRoadTheme.colors.gray500, textAlign = TextAlign.Center
-                    )
-
-                    Spacer(modifier = Modifier.height(5.dp))
-
-                    Text(
-                        text = stringResource(id = onboardingPage.subDescriptionRes), style = DateRoadTheme.typography.capReg11, color = DateRoadTheme.colors.gray400, textAlign = TextAlign.Center
-                    )
-                }
+                Spacer(modifier = Modifier.height(22.dp))
+                Text(
+                    text = getStyledText(stringResource(id = onboardingPage.titleRes)), style = DateRoadTheme.typography.titleExtra24, textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = stringResource(id = onboardingPage.descriptionRes), style = DateRoadTheme.typography.bodySemi13, color = DateRoadTheme.colors.gray500, textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = stringResource(id = onboardingPage.subDescriptionRes), style = DateRoadTheme.typography.capReg11, color = DateRoadTheme.colors.gray400, textAlign = TextAlign.Center
+                )
             }
         }
-
-        DotsIndicator(
-            totalDots = 3, selectedIndex = pagerState.currentPage, modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(top = 533.dp)
-        )
-
-        Column(
+        Spacer(modifier = Modifier.height(14.dp))
+        DateRoadFilledButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 60.dp)
-                .padding(bottom = 16.dp)
-        ) {
-            DateRoadFilledButton(
-                modifier = Modifier.fillMaxWidth(),
-                isEnabled = true,
-                textContent =
-                if (pagerState.currentPage == pagerState.pageCount - 1) stringResource(id = R.string.onboarding_profile_enroll)
-                else stringResource(id = R.string.onboarding_next),
-                onClick = {
-                    scope.launch {
-                        if (pagerState.currentPage == pagerState.pageCount - 1) {
-                            onFinish()
-                        } else {
-                            val nextPage = pagerState.currentPage + 1
-                            pagerState.animateScrollToPage(nextPage)
-                        }
+                .padding(horizontal = 60.dp),
+            isEnabled = true,
+            textContent =
+            if (pagerState.currentPage == pagerState.pageCount - 1) stringResource(id = R.string.onboarding_profile_enroll)
+            else stringResource(id = R.string.onboarding_next),
+            onClick = {
+                scope.launch {
+                    if (pagerState.currentPage == pagerState.pageCount - 1) {
+                        onFinish()
+                    } else {
+                        val nextPage = pagerState.currentPage + 1
+                        pagerState.animateScrollToPage(nextPage)
                     }
-                }, textStyle = DateRoadTheme.typography.bodyBold15, enabledBackgroundColor = DateRoadTheme.colors.deepPurple, enabledTextColor = DateRoadTheme.colors.white, disabledBackgroundColor = DateRoadTheme.colors.gray200, disabledTextColor = DateRoadTheme.colors.gray400, cornerRadius = 29.dp, paddingHorizontal = 0.dp, paddingVertical = 16.dp
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+                }
+            }, textStyle = DateRoadTheme.typography.bodyBold15, enabledBackgroundColor = DateRoadTheme.colors.deepPurple, enabledTextColor = DateRoadTheme.colors.white, disabledBackgroundColor = DateRoadTheme.colors.gray200, disabledTextColor = DateRoadTheme.colors.gray400, cornerRadius = 29.dp, paddingHorizontal = 0.dp, paddingVertical = 16.dp
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        DotsIndicator(
+            totalDots = 3, selectedIndex = pagerState.currentPage, modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.height(15.dp))
     }
 }
 
