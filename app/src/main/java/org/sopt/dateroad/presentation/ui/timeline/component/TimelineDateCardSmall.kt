@@ -4,17 +4,17 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Date
-import org.sopt.dateroad.domain.model.TimelineTag
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.TagType
@@ -36,24 +35,17 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
-fun TimelineDateCardSmall(
+fun PastCard(
     dateCard: Date,
-    onClick: (Int) -> Unit = {}
+    dateType: DateType,
+    onClick: (Int) -> Unit = {},
 ) {
-    val dateType = remember(dateCard.dateId) {
-        when (dateCard.dateId % 3) {
-            0 -> DateType.PINK
-            1 -> DateType.PURPLE
-            else -> DateType.LIME
-        }
-    }
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(328 / 203f)
-            .background(dateType.bgColor)
+            .background(dateType.backgroundColor)
             .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
@@ -77,21 +69,20 @@ fun TimelineDateCardSmall(
                     text = dateCard.date,
                     style = DateRoadTheme.typography.bodySemi13,
                     color = DateRoadTheme.colors.black,
-                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .fillMaxWidth()
                 )
                 Text(
                     text = dateCard.title,
-                    style = DateRoadTheme.typography.titleExtra24,
+                    style = DateRoadTheme.typography.titleExtra20,
                     color = DateRoadTheme.colors.black,
                     minLines = 2,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 12.dp)
                 )
+                Spacer(modifier = Modifier.height(12.dp))
             }
             Canvas(
                 modifier = Modifier
@@ -126,6 +117,7 @@ fun TimelineDateCardSmall(
                     center = Offset(x = canvasWidth - strokeWidth / 2 + 5, y = 0f)
                 )
             }
+            Spacer(modifier = Modifier.height(17.dp))
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -134,54 +126,62 @@ fun TimelineDateCardSmall(
             ) {
                 Text(
                     text = dateCard.city,
-                    style = DateRoadTheme.typography.bodyMed15,
-                    color = DateRoadTheme.colors.gray500
+                    style = DateRoadTheme.typography.bodyMed13,
+                    color = DateRoadTheme.colors.black
                 )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp)
+                LazyRow(
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 ) {
-                    DateRoadImageTag(
-                        textContent = stringResource(id = dateCard.tags[0].timelineTag.titleRes),
-                        imageContent = dateCard.tags[0].timelineTag.imageRes,
-                        tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = dateType.tagColor
-                    )
-                    DateRoadImageTag(
-                        textContent = stringResource(id = dateCard.tags[1].timelineTag.titleRes),
-                        imageContent = dateCard.tags[1].timelineTag.imageRes,
-                        tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = dateType.tagColor,
-                        modifier = Modifier
-                            .padding(start = 6.dp)
-                    )
-                    DateRoadImageTag(
-                        textContent = stringResource(id = dateCard.tags[2].timelineTag.titleRes),
-                        imageContent = dateCard.tags[2].timelineTag.imageRes,
-                        tagContentType = TagType.TIMELINE_DATE,
-                        backgroundColor = dateType.tagColor,
-                        modifier = Modifier
-                            .padding(start = 6.dp)
-                    )
+                    item {
+                        DateRoadImageTag(
+                            textContent = stringResource(id = dateCard.tags[0].titleRes),
+                            imageContent = dateCard.tags[0].imageRes,
+                            tagContentType = TagType.TIMELINE_DATE,
+                            backgroundColor = dateType.tagColor
+                        )
+                    }
+                    item {
+                        DateRoadImageTag(
+                            textContent = stringResource(id = dateCard.tags[1].titleRes),
+                            imageContent = dateCard.tags[1].imageRes,
+                            tagContentType = TagType.TIMELINE_DATE,
+                            backgroundColor = dateType.tagColor,
+                            modifier = Modifier
+                                .padding(start = 6.dp)
+                        )
+                    }
+                    item {
+                        DateRoadImageTag(
+                            textContent = stringResource(id = dateCard.tags[2].titleRes),
+                            imageContent = dateCard.tags[2].imageRes,
+                            tagContentType = TagType.TIMELINE_DATE,
+                            backgroundColor = dateType.tagColor,
+                            modifier = Modifier
+                                .padding(start = 6.dp)
+                        )
+                    }
                 }
+
             }
+
         }
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 
 @Preview
 @Composable
-fun TimelineDateCardSmallPreview() {
+fun PastCardPreview() {
     Column {
-        TimelineDateCardSmall(
+        PastCard(
+            dateType = DateType.PINK,
             dateCard = Date(
                 dateId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
                 date = "2024년 6월 23일",
                 city = "건대/성수/왕십리",
-                tags = listOf(TimelineTag(DateTagType.SHOPPING), TimelineTag(DateTagType.DRIVE), TimelineTag(DateTagType.EXHIBITION_POP_UP))
+                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP)
             )
         )
     }

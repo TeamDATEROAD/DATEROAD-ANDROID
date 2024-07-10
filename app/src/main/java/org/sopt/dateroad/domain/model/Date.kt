@@ -7,10 +7,6 @@ data class Date(
     val title: String,
     val date: String,
     val city: String,
-    val tags: List<TimelineTag>,
-    val dDay: String
-)
-
-data class TimelineTag(
-    val timelineTag: DateTagType
+    val tags: List<DateTagType>,
+    val dDay: String,
 )
