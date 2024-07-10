@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.look
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -46,7 +47,80 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
         setState {
             copy(
                 loadState = LoadState.Success,
-                courses = listOf()
+                courses = listOf(
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "건대/성수/왕십리",
+                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
+                        cost = "5만원 이하",
+                        duration = "10시간",
+                        like = "999"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "홍대",
+                        title = "데로 파이띵 !",
+                        cost = "10만원 이하",
+                        duration = "1시간",
+                        like = "3"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "건대/성수/왕십리",
+                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
+                        cost = "5만원 이하",
+                        duration = "10시간",
+                        like = "999"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "홍대",
+                        title = "데로 파이띵 !",
+                        cost = "10만원 이하",
+                        duration = "1시간",
+                        like = "3"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "건대/성수/왕십리",
+                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
+                        cost = "5만원 이하",
+                        duration = "10시간",
+                        like = "999"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "홍대",
+                        title = "데로 파이띵 !",
+                        cost = "10만원 이하",
+                        duration = "1시간",
+                        like = "3"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "건대/성수/왕십리",
+                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
+                        cost = "5만원 이하",
+                        duration = "10시간",
+                        like = "999"
+                    ),
+                    Course(
+                        id = 1,
+                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "홍대",
+                        title = "데로 파이띵 !",
+                        cost = "10만원 이하",
+                        duration = "1시간",
+                        like = "3"
+                    )
+                )
             )
         }
     }
