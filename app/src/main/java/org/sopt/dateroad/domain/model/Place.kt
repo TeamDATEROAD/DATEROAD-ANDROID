@@ -1,6 +1,7 @@
 package org.sopt.dateroad.domain.model
 
 data class Place(
-    val title: String,
-    val duration: Int
+    val sequence: Int = 0,
+    val title: String = "",
+    val duration: String = ""
 )
