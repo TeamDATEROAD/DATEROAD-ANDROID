@@ -5,8 +5,8 @@ import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class EmptyViewType(
-    @StringRes titleRes: Int,
-    @DrawableRes imageRes: Int
+    @StringRes val titleRes: Int,
+    @DrawableRes val imageRes: Int
 ) {
     POINT_HISTORY_EARN_HISTORY(
         titleRes = R.string.empty_view_point_history_earn_history,
