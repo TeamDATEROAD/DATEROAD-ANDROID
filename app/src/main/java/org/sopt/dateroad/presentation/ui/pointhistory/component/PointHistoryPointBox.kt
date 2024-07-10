@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.pointbox
+package org.sopt.dateroad.presentation.ui.pointhistory.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -19,16 +19,20 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
+fun PointHistoryPointBox(
+    modifier: Modifier = Modifier,
+    name: String,
+    point: Int
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.deepPurple)
             .padding(start = 16.dp, top = 16.dp, bottom = 14.dp)
     ) {
         Text(
-            text = stringResource(id = R.string.point_box_nickname, nickname),
+            text = stringResource(id = R.string.point_box_nickname, name),
             color = DateRoadTheme.colors.white,
             style = DateRoadTheme.typography.bodyMed13
         )
@@ -45,8 +49,8 @@ fun DateRoadPointHistoryPointBox(nickname: String, point: Int) {
 
 @Preview
 @Composable
-fun DateRoadPointHistoryPointBoxPreview() {
+fun PointHistoryPointBoxPreview() {
     Column {
-        DateRoadPointHistoryPointBox("호은", 200)
+        PointHistoryPointBox(name = "호은", point = 200)
     }
 }
