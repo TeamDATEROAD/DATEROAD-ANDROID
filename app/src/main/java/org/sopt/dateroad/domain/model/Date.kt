@@ -8,5 +8,5 @@ data class Date(
     val date: String,
     val city: String,
     val tags: List<DateTagType>,
-    val dDay: String,
+    val dDay: String
 )

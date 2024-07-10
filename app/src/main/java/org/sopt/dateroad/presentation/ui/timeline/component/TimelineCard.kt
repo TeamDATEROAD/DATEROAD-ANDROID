@@ -44,7 +44,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 fun TimelineCard(
     dateCard: Date,
     dateType: DateType,
-    onClick: (Int) -> Unit = {},
+    onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier

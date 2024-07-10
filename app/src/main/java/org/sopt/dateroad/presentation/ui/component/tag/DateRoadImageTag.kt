@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,13 +26,11 @@ fun DateRoadImageTag(
     textContent: String,
     @DrawableRes imageContent: Int,
     spaceValue: Int = 5,
-    tagContentType: TagType,
-    backgroundColor: Color = tagContentType.backgroundColor
+    tagContentType: TagType
 ) {
     DateRoadTag(
         modifier = modifier,
-        tagType = tagContentType,
-        backgroundColor = backgroundColor
+        tagType = tagContentType
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically

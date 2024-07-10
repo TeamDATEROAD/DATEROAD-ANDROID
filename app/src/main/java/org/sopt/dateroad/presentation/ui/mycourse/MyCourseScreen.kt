@@ -23,7 +23,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun MyCourseRoute(
     padding: PaddingValues,
     topBarTitle: String,
-    courses: List<Course>,
+    courses: List<Course>
 ) {
     MyCourseScreen(padding, topBarTitle, courses)
 }
@@ -32,7 +32,7 @@ fun MyCourseRoute(
 fun MyCourseScreen(
     padding: PaddingValues = PaddingValues(0.dp),
     topBarTitle: String,
-    courses: List<Course>,
+    courses: List<Course>
 ) {
     Column(
         modifier = Modifier

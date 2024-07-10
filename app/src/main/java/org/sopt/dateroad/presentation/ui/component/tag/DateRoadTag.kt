@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.type.TagType
 
@@ -15,13 +14,12 @@ import org.sopt.dateroad.presentation.type.TagType
 fun DateRoadTag(
     modifier: Modifier = Modifier,
     tagType: TagType,
-    backgroundColor: Color = tagType.backgroundColor,
     content: @Composable () -> Unit
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(tagType.roundedCornerShape.dp))
-            .background(color = backgroundColor)
+            .background(color = tagType.backgroundColor)
             .padding(horizontal = tagType.paddingHorizontal.dp, vertical = tagType.paddingVertical.dp)
     ) {
         content()
