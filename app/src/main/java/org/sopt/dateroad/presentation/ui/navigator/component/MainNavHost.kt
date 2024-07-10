@@ -43,10 +43,12 @@ fun MainNavHost(
                 padding = padding
             )
             readNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToMyCourseHistory = navigator::navigateMyCourse
             )
             myPageNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToMyCourseHistory = navigator::navigateMyCourse
             )
             pointHistoryGraph(
                 padding = padding,
