@@ -137,7 +137,7 @@ fun PastCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
-                            tagContentType = dateType.tagColor,
+                            tagContentType = dateType.tagType,
                             modifier = Modifier.padding(start = if (index > 0) 6.dp else 0.dp)
                         )
                     }
