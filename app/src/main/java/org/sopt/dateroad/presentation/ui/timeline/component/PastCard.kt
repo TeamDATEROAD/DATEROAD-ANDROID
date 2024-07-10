@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -49,7 +50,7 @@ fun PastCard(
             .noRippleClickable(onClick = { onClick(dateCard.dateId) })
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.bg_date_card_small),
+            painter = painterResource(id = R.drawable.bg_past_card),
             contentDescription = null,
             tint = dateType.lineColor,
             modifier = Modifier
@@ -72,6 +73,8 @@ fun PastCard(
                     modifier = Modifier
                         .fillMaxWidth()
                 )
+                Spacer(modifier = Modifier.height(12.dp))
+
                 Text(
                     text = dateCard.title,
                     style = DateRoadTheme.typography.titleExtra20,
@@ -82,7 +85,6 @@ fun PastCard(
                     modifier = Modifier
                         .fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(12.dp))
             }
             Canvas(
                 modifier = Modifier
@@ -122,7 +124,7 @@ fun PastCard(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .padding(vertical = 17.dp, horizontal = 16.dp)
+                    .padding(start = 16.dp)
             ) {
                 Text(
                     text = dateCard.city,
@@ -130,40 +132,19 @@ fun PastCard(
                     color = DateRoadTheme.colors.black
                 )
                 LazyRow(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    item {
+                    itemsIndexed(dateCard.tags) { index, tag ->
                         DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[0].titleRes),
-                            imageContent = dateCard.tags[0].imageRes,
-                            tagContentType = TagType.TIMELINE_DATE,
-                            backgroundColor = dateType.tagColor
-                        )
-                    }
-                    item {
-                        DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[1].titleRes),
-                            imageContent = dateCard.tags[1].imageRes,
+                            textContent = stringResource(id = tag.titleRes),
+                            imageContent = tag.imageRes,
                             tagContentType = TagType.TIMELINE_DATE,
                             backgroundColor = dateType.tagColor,
-                            modifier = Modifier
-                                .padding(start = 6.dp)
-                        )
-                    }
-                    item {
-                        DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[2].titleRes),
-                            imageContent = dateCard.tags[2].imageRes,
-                            tagContentType = TagType.TIMELINE_DATE,
-                            backgroundColor = dateType.tagColor,
-                            modifier = Modifier
-                                .padding(start = 6.dp)
+                            modifier = Modifier.padding(start = if (index > 0) 6.dp else 0.dp)
                         )
                     }
                 }
-
             }
-
         }
         Spacer(modifier = Modifier.height(10.dp))
     }
