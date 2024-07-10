@@ -27,7 +27,7 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
             }
 
             is LookContract.LookEvent.OnMoneyChipClicked -> {
-                setState { copy(money = event.money) }
+                setState { copy(money = event.money.takeUnless { it == currentState.money }) }
             }
 
             is LookContract.LookEvent.OnRegionBottomSheetButtonClicked -> {
