@@ -127,7 +127,7 @@ fun DateRoadTextFieldWithButton(
                 style = DateRoadTheme.typography.capReg11
             )
             Text(
-                text = stringResource(id = R.string.text_field_with_button_length_content, value.length, maxLength),
+                text = stringResource(id = R.string.fraction_format, value.length, maxLength),
                 color = DateRoadTheme.colors.gray300,
                 style = DateRoadTheme.typography.capReg11
             )

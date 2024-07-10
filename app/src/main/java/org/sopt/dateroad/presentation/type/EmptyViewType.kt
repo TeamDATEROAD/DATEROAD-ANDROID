@@ -8,11 +8,11 @@ enum class EmptyViewType(
     @StringRes val titleRes: Int,
     @DrawableRes val imageRes: Int
 ) {
-    POINT_HISTORY_EARN_HISTORY(
+    POINT_HISTORY_GAINED_HISTORY(
         titleRes = R.string.empty_view_point_history_earn_history,
         imageRes = R.drawable.ic_empty_point_history
     ),
-    POINT_HISTORY_USAGE_HISTORY(
+    POINT_HISTORY_USED_HISTORY(
         titleRes = R.string.empty_view_point_history_usage_history,
         imageRes = R.drawable.ic_empty_point_history
     ),
