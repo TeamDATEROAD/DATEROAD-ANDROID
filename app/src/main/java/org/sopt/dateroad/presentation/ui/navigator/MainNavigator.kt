@@ -11,6 +11,7 @@ import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
+import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
@@ -48,6 +49,10 @@ class MainNavigator(
                 // TODO:MainNavigationBarItemType.SEARCH -> navHostController.navigationDummy(navOptions)
             }
         }
+    }
+
+    fun navigateEnroll() {
+        navHostController.navigationEnroll()
     }
 
     fun navigatePointHistory() {
