@@ -1,22 +1,20 @@
-package org.sopt.dateroad.presentation.ui.read.navigation
+package org.sopt.dateroad.presentation.ui.pastdate.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
+import androidx.navigation.compose.composable
+import org.sopt.dateroad.presentation.ui.read.PastDateRoute
 
-fun NavController.navigationPastDate(navOptions: NavOptions) {
-    navigate(
-        route = MainNavigationBarRoute.Read::class.simpleName.orEmpty(),
-        navOptions = navOptions
-    )
+fun NavController.navigateToPastDate(navOptions: NavOptions? = null) {
+    this.navigate("past_date", navOptions)
 }
 
 fun NavGraphBuilder.pastDateNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
 ) {
-//    composable(route = MainNavigationBarRoute.PastDate::class.simpleName.orEmpty()) {
-//        PastDateRoute(padding = padding)
-//    }
+    composable(route = "past_date") {
+        PastDateRoute(padding = padding)
+    }
 }
