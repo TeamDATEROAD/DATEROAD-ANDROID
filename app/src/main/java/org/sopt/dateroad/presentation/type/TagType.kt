@@ -109,8 +109,24 @@ enum class TagType(
         textStyle = defaultDateRoadTypography.bodyMed13,
         roundedCornerShape = 10
     ),
-    TIMELINE_DATE(
-        backgroundColor = defaultDateRoadColors.lightPink,
+    TIMELINE_DATE_LIME(
+        backgroundColor = defaultDateRoadColors.lime100,
+        contentColor = defaultDateRoadColors.black,
+        paddingHorizontal = 10,
+        paddingVertical = 4,
+        textStyle = defaultDateRoadTypography.bodyMed13,
+        roundedCornerShape = 20
+    ),
+    TIMELINE_DATE_PINK(
+        backgroundColor = defaultDateRoadColors.pink100,
+        contentColor = defaultDateRoadColors.black,
+        paddingHorizontal = 10,
+        paddingVertical = 4,
+        textStyle = defaultDateRoadTypography.bodyMed13,
+        roundedCornerShape = 20
+    ),
+    TIMELINE_DATE_PURPLE(
+        backgroundColor = defaultDateRoadColors.purple100,
         contentColor = defaultDateRoadColors.black,
         paddingHorizontal = 10,
         paddingVertical = 4,

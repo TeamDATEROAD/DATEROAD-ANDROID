@@ -12,6 +12,7 @@ import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
 import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
+import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 
@@ -31,7 +32,8 @@ fun MainNavHost(
             startDestination = navigator.startDestination::class.simpleName.orEmpty()
         ) {
             homeNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToPointHistory = navigator::navigatePointHistory
             )
             lookNavGraph(
                 padding = padding
@@ -44,6 +46,10 @@ fun MainNavHost(
             )
             myPageNavGraph(
                 padding = padding
+            )
+            pointHistoryGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
             )
         }
     }
