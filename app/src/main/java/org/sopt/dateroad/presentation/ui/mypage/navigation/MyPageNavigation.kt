@@ -18,9 +18,9 @@ fun NavController.navigationMyPage(navOptions: NavOptions) {
 
 fun NavGraphBuilder.myPageNavGraph(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.MyPage::class.simpleName.orEmpty()) {
-        MyPageRoute(padding = padding, navigateToMyCourseHistory = navigateToMyCourseHistory)
+        MyPageRoute(padding = padding, navigateToMyCourse = navigateToMyCourse)
     }
 }

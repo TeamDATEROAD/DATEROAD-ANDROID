@@ -18,18 +18,18 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     MyPageScreen(
         padding = padding,
-        navigateToMyCourseHistory = navigateToMyCourseHistory
+        navigateToMyCourse = navigateToMyCourse
     )
 }
 
 @Composable
 fun MyPageScreen(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +37,7 @@ fun MyPageScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourseHistory(MyCourseType.ENROLL) }),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourse(MyCourseType.ENROLL) }),
             text = "MyPageScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -49,6 +49,6 @@ fun MyPageScreen(
 @Composable
 fun MyPageScreenPreview() {
     DATEROADTheme {
-        MyPageScreen(padding = PaddingValues(0.dp), navigateToMyCourseHistory = {})
+        MyPageScreen(padding = PaddingValues(0.dp), navigateToMyCourse = {})
     }
 }
