@@ -159,6 +159,7 @@
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+    <string name="top_bar_title_enroll">코스 등록하기</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
@@ -197,6 +198,11 @@
     
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
-    <string name="enroll_place_insert_bar_enter_place_hint">장소명을 입력해주세요</string>
-    <string name="enroll_place_insert_bar_select_course_time_hint">소요 시간</string>
+    <string name="enroll_button_text">다음 (%d/%d)</string>
+    <string name="enroll_title_placeholder">데이트 이름을 입력해 주세요 (필수)</string>
+    <string name="enroll_date_placeholder">방문일자를 선택해 주세요 (필수)</string>
+    <string name="enroll_date_start_at">데이트 시작 시간을 선택해 주세요 (필수)</string>
+    <string name="enroll_city_placeholder">데이트 지역을 선택해 주세요 (필수)</string>
+    <string name="enroll_place_insert_bar_enter_place_placeholder">장소명을 입력해주세요</string>
+    <string name="enroll_place_insert_bar_select_course_time_placeholder">소요 시간</string>
 </resources>
