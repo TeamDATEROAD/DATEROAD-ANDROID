@@ -159,6 +159,7 @@
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+    <string name="top_bar_title_my_course_past">지난 데이트</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
@@ -194,7 +195,7 @@
     <string name="home_timeline_month_day">%d월 %d일</string>
     <string name="home_timeline_d_day">D-%s</string>
     <string name="home_timeline_start">%s 시작</string>
-    
+
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
     <string name="enroll_place_insert_bar_enter_place_hint">장소명을 입력해주세요</string>
