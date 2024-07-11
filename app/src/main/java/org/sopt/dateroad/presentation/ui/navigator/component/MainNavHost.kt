@@ -13,6 +13,7 @@ import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
+import org.sopt.dateroad.presentation.ui.pastdate.navigation.pastDateNavGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
@@ -40,7 +41,9 @@ fun MainNavHost(
                 padding = padding
             )
             timelineNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToPastDate = navigator::navigateToPastDate,
+                navigateToEnroll = navigator::navigateToEnroll
             )
             readNavGraph(
                 padding = padding,
@@ -57,6 +60,9 @@ fun MainNavHost(
             myCoursesGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
+            )
+            pastDateNavGraph(
+                padding = padding
             )
         }
     }

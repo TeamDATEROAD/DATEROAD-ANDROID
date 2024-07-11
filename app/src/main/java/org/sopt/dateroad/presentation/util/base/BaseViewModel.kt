@@ -30,7 +30,7 @@ abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event :
     val sideEffect: Flow<SideEffect>
         get() = _sideEffect.asSharedFlow()
 
-    protected fun setState(reduce: State.() -> State) {
+    fun setState(reduce: State.() -> State) {
         _uiState.value = currentState.reduce()
     }
 
