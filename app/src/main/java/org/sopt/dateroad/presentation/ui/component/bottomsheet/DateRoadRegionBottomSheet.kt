@@ -48,13 +48,13 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadRegionBottomSheet(
     isBottomSheetOpen: Boolean,
     isButtonEnabled: Boolean,
-    titleText: String,
-    buttonText: String,
+    titleText: String = stringResource(id = R.string.region_bottom_sheet_title),
+    buttonText: String = stringResource(id = R.string.region_bottom_sheet_button_text),
     selectedRegion: RegionType? = null,
     onSelectedRegionChanged: (RegionType) -> Unit = {},
     selectedArea: Any? = null,
     onSelectedAreaChanged: (Any) -> Unit = {},
-    onButtonClick: () -> Unit = {},
+    onButtonClick: (RegionType?, Any?) -> Unit = { _, _ -> },
     onDismissRequest: () -> Unit = {}
 ) {
     var contentHeight by remember { mutableStateOf(0) }
@@ -66,7 +66,7 @@ fun DateRoadRegionBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = isButtonEnabled,
         buttonText = buttonText,
-        onButtonClick = onButtonClick,
+        onButtonClick = { onButtonClick(selectedRegion, selectedArea) },
         onDismissRequest = onDismissRequest
     ) {
         Column {
@@ -188,8 +188,6 @@ fun DateRoadRegionBottomSheetPreview() {
     DateRoadRegionBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = selectedRegion != null && selectedArea != null,
-        titleText = stringResource(id = R.string.region_bottom_sheet_title),
-        buttonText = stringResource(id = R.string.region_bottom_sheet_button_text),
         selectedRegion = selectedRegion,
         selectedArea = selectedArea,
         onSelectedRegionChanged = { newSelectedRegion ->

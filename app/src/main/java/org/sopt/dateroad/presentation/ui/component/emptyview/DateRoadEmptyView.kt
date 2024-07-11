@@ -39,6 +39,6 @@ fun DateRoadEmptyView(
 @Composable
 fun DateRoadEmptyViewPreview() {
     DATEROADTheme {
-        DateRoadEmptyView(emptyViewType = EmptyViewType.POINT_HISTORY_GAINED_HISTORY)
+        DateRoadEmptyView(emptyViewType = EmptyViewType.LOOK)
     }
 }
