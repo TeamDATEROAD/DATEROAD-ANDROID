@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
-import org.sopt.dateroad.presentation.ui.home.navigation.lookNavGraph
+import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
+import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 
@@ -31,7 +33,8 @@ fun MainNavHost(
             startDestination = navigator.startDestination::class.simpleName.orEmpty()
         ) {
             homeNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToPointHistory = navigator::navigatePointHistory
             )
             lookNavGraph(
                 padding = padding
@@ -40,10 +43,20 @@ fun MainNavHost(
                 padding = padding
             )
             readNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToMyCourse = navigator::navigateMyCourse
             )
             myPageNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToMyCourse = navigator::navigateMyCourse
+            )
+            pointHistoryGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
+            myCoursesGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
             )
         }
     }

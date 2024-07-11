@@ -47,7 +47,7 @@ fun DateRoadCourseCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data("https://avatars.githubusercontent.com/u/103172971?v=4")
+                    .data(course.url)
                     .crossfade(true)
                     .build(),
                 placeholder = null,
@@ -57,7 +57,7 @@ fun DateRoadCourseCard(
                     .clip(RoundedCornerShape(14.dp))
             )
             DateRoadImageTag(
-                textContent = course.like.toString(),
+                textContent = course.like,
                 imageContent = R.drawable.ic_tag_heart,
                 tagContentType = TagType.HEART,
                 modifier = Modifier
@@ -93,13 +93,13 @@ fun DateRoadCourseCard(
                     .padding(bottom = 4.dp, start = 14.dp)
             ) {
                 DateRoadImageTag(
-                    textContent = "${course.cost}만원 초과",
+                    textContent = course.cost,
                     imageContent = R.drawable.ic_all_money_12,
                     tagContentType = TagType.MONEY
                 )
                 Spacer(modifier = Modifier.size(6.dp))
                 DateRoadImageTag(
-                    textContent = "${course.duration}시간",
+                    textContent = course.duration,
                     imageContent = R.drawable.ic_all_clock_12,
                     tagContentType = TagType.TIME
                 )
@@ -116,12 +116,11 @@ fun DateRoadCourseCardPreview() {
             course = Course(
                 id = 1,
                 url = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                openedAt = "2023-01-01",
                 city = "건대/성수/왕십리",
                 title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                cost = 10,
-                duration = 10,
-                like = 999
+                cost = "10만원 초과",
+                duration = "10시간",
+                like = "999"
             )
         )
     }

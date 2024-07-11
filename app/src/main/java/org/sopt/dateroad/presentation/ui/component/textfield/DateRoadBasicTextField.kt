@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
@@ -91,7 +92,9 @@ fun DateRoadBasicTextField(
                         Text(
                             text = placeholder,
                             color = DateRoadTheme.colors.gray300,
-                            style = DateRoadTheme.typography.bodySemi13
+                            style = DateRoadTheme.typography.bodySemi13,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 }
@@ -103,19 +106,21 @@ fun DateRoadBasicTextField(
                 Icon(painter = painterResource(id = it), contentDescription = iconContentDescription)
             }
         }
-        Spacer(modifier = Modifier.height(1.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 9.dp),
-            text = when (validateState) {
-                is TextFieldValidateResult.Success -> successDescription
-                is TextFieldValidateResult.ValidationError -> errorDescription
-                else -> ""
-            },
-            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
-            style = DateRoadTheme.typography.capReg11
-        )
+        if (errorDescription.isNotEmpty() || successDescription.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 9.dp),
+                text = when (validateState) {
+                    is TextFieldValidateResult.Success -> successDescription
+                    is TextFieldValidateResult.ValidationError -> errorDescription
+                    else -> ""
+                },
+                color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
+                style = DateRoadTheme.typography.capReg11
+            )
+        }
     }
 }
 
