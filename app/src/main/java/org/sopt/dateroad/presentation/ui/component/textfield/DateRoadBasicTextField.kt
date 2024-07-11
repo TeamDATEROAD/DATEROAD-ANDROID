@@ -103,7 +103,7 @@ fun DateRoadBasicTextField(
                 Spacer(
                     modifier = Modifier.padding(start = 14.dp)
                 )
-                Icon(painter = painterResource(id = it), contentDescription = iconContentDescription)
+                Icon(painter = painterResource(id = it), contentDescription = iconContentDescription, tint = DateRoadTheme.colors.gray200)
             }
         }
         if (errorDescription.isNotEmpty() || successDescription.isNotEmpty()) {
