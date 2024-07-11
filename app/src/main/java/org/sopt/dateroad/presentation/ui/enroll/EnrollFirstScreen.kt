@@ -2,7 +2,11 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,9 +32,15 @@ fun EnrollFirstScreen(
     onTimePickerBottomSheetButtonClicked: (String) -> Unit,
     onDateChipClicked: (DateTagType) -> Unit,
     onRegionBottomSheetRegionChipClicked: (RegionType) -> Unit,
-    onRegionBottomSheetAreaChipClicked: (Any?) -> Unit,
+    onRegionBottomSheetAreaChipClicked: (Any?) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
+        Spacer(modifier = Modifier.height(14.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_title_placeholder),
             value = enrollUiState.title,
@@ -41,7 +51,7 @@ fun EnrollFirstScreen(
             placeholder = stringResource(id = R.string.enroll_date_placeholder),
             value = enrollUiState.date,
             readOnly = true,
-            iconResourceId = R.drawable.ic_enroll_calendar,
+            iconResourceId = R.drawable.ic_enroll_calendar
         )
         Spacer(modifier = Modifier.height(18.dp))
         DateRoadBasicTextField(
@@ -66,6 +76,7 @@ fun EnrollFirstScreen(
                 else -> ""
             }
         )
+        Spacer(modifier = Modifier.height(23.dp))
     }
 }
 
@@ -82,7 +93,7 @@ fun EnrollFirstScreenPreview() {
             onTimePickerBottomSheetButtonClicked = {},
             onDateChipClicked = {},
             onRegionBottomSheetRegionChipClicked = {},
-            onRegionBottomSheetAreaChipClicked = {},
+            onRegionBottomSheetAreaChipClicked = {}
         )
     }
 }

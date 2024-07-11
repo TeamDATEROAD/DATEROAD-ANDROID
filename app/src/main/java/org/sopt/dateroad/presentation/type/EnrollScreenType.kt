@@ -1,8 +1,6 @@
 package org.sopt.dateroad.presentation.type
 
 import androidx.compose.runtime.Composable
-import org.sopt.dateroad.presentation.ui.enroll.EnrollFirstScreen
-import org.sopt.dateroad.presentation.ui.enroll.EnrollSecondScreen
 import org.sopt.dateroad.presentation.ui.enroll.EnrollThirdScreen
 import org.sopt.dateroad.presentation.util.EnrollScreenPosition
 
@@ -16,10 +14,10 @@ enum class EnrollScreenType(
     ),
     SECOND(
         position = EnrollScreenPosition.SECOND,
-        screen = { EnrollSecondScreen() }
+        screen = { }
     ),
     THIRD(
         position = EnrollScreenPosition.THIRD,
-        screen = { EnrollThirdScreen() }
+        screen = {  }
     )
 }
