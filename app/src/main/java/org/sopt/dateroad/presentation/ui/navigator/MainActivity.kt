@@ -45,4 +45,3 @@ class MainActivity : ComponentActivity() {
         const val SPLASH_SCREEN_DELAY = 2000L
     }
 }
-
