@@ -189,7 +189,7 @@ fun DateRoadRegionBottomSheetPreview() {
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = selectedRegion != null && selectedArea != null,
         titleText = stringResource(id = R.string.region_bottom_sheet_title),
-        buttonText = stringResource(id = R.string.region_bottom_sheet_button_text),
+        buttonText = stringResource(id = R.string.apply),
         selectedRegion = selectedRegion,
         selectedArea = selectedArea,
         onSelectedRegionChanged = { newSelectedRegion ->

@@ -17,22 +17,21 @@ import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.GyeonggiAreaType
 import org.sopt.dateroad.presentation.type.IncheonAreaType
-import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.type.SeoulAreaType
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadBasicTextField
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
 fun EnrollFirstScreen(
     enrollUiState: EnrollContract.EnrollUiState = EnrollContract.EnrollUiState(),
+    onDateTextFieldClick: () -> Unit,
+    onTimeTextFieldClick: () -> Unit,
+    onRegionTextFieldClick: () -> Unit,
     onTitleValueChange: (String) -> Unit,
-    onDatePickerBottomSheetButtonClicked: (String) -> Unit,
-    onTimePickerBottomSheetButtonClicked: (String) -> Unit,
-    onDateChipClicked: (DateTagType) -> Unit,
-    onRegionBottomSheetRegionChipClicked: (RegionType) -> Unit,
-    onRegionBottomSheetAreaChipClicked: (Any?) -> Unit
+    onDateChipClicked: (DateTagType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -48,8 +47,9 @@ fun EnrollFirstScreen(
             value = enrollUiState.title,
             onValueChange = onTitleValueChange
         )
-        Spacer(modifier = Modifier.height(18.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         DateRoadBasicTextField(
+            modifier = Modifier.noRippleClickable(onClick = onDateTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_date_placeholder),
             value = enrollUiState.date,
             readOnly = true,
@@ -57,6 +57,7 @@ fun EnrollFirstScreen(
         )
         Spacer(modifier = Modifier.height(18.dp))
         DateRoadBasicTextField(
+            modifier = Modifier.noRippleClickable(onClick = onTimeTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_date_start_at),
             value = enrollUiState.startAt,
             readOnly = true,
@@ -70,6 +71,7 @@ fun EnrollFirstScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
         DateRoadBasicTextField(
+            modifier = Modifier.noRippleClickable(onClick = onRegionTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_city_placeholder),
             value = when (enrollUiState.city) {
                 is SeoulAreaType -> stringResource(id = enrollUiState.city.nameRes)
@@ -91,12 +93,11 @@ fun EnrollFirstScreenPreview() {
             enrollUiState = EnrollContract.EnrollUiState(
                 loadState = LoadState.Success
             ),
+            onDateTextFieldClick = {},
+            onTimeTextFieldClick = {},
+            onRegionTextFieldClick = {},
             onTitleValueChange = {},
-            onDatePickerBottomSheetButtonClicked = {},
-            onTimePickerBottomSheetButtonClicked = {},
-            onDateChipClicked = {},
-            onRegionBottomSheetRegionChipClicked = {},
-            onRegionBottomSheetAreaChipClicked = {}
+            onDateChipClicked = {}
         )
     }
 }

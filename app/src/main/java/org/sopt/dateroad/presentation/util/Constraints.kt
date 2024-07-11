@@ -16,3 +16,8 @@ object EnrollScreen {
     const val MAX_ITEMS = 10
     const val TITLE_MIN_LENGTH = 5
 }
+
+object TimePicker {
+    const val AM = "오전"
+    const val PM = "오후"
+}
