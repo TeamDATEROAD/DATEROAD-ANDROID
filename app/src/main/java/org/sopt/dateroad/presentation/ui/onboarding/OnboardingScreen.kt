@@ -65,9 +65,9 @@ fun OnboardingRoute(
         onboardingUiState = uiState,
         onPageChanged = { page ->
             when (page) {
-                0 -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.FIRST))
-                1 -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.SECOND))
-                2 -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.THIRD))
+                OnboardingType.FIRST -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.FIRST))
+                OnboardingType.SECOND -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.SECOND))
+                OnboardingType.THIRD -> viewModel.setEvent(OnboardingContract.OnboardingEvent.SetOnboardingType(onboardingType = OnboardingType.THIRD))
             }
         },
         onFinish = { /*TODO: 프로필 등록으로 */ }
@@ -78,14 +78,14 @@ fun OnboardingRoute(
 @Composable
 fun OnboardingScreen(
     onboardingUiState: OnboardingContract.OnboardingUiState,
-    onPageChanged: (Int) -> Unit,
+    onPageChanged: (OnboardingType) -> Unit,
     onFinish: () -> Unit
 ) {
     val pagerState = rememberPagerState(initialPage = 0)
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(pagerState.currentPage) {
-        onPageChanged(pagerState.currentPage)
+        onPageChanged(onboardingUiState.onboardingType)
     }
 
     Column(
