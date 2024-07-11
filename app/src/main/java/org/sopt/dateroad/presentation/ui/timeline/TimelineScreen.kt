@@ -100,9 +100,6 @@ fun TimelineScreen(
     navigateToPastDate: () -> Unit,
     onAddDateCardClicked: () -> Unit
 ) {
-    val configuration = LocalConfiguration.current
-    val screenHeightDp = configuration.screenHeightDp.dp
-
     if (uiState.showMaxDateCardModal) {
         DateRoadOneButtonDialogWithDescription(
             oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
