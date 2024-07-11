@@ -5,6 +5,9 @@
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
     <string name="fraction_format">%1$d/%2$d</string>
+    <string name="edit">편집</string>
+    <string name="delete">삭제
+    </string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
@@ -198,11 +201,20 @@
     
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
-    <string name="enroll_button_text">다음 (%d/%d)</string>
+    <string name="enroll_button_text_next">다음 (%d/%d)</string>
     <string name="enroll_title_placeholder">데이트 이름을 입력해 주세요 (필수)</string>
     <string name="enroll_date_placeholder">방문일자를 선택해 주세요 (필수)</string>
     <string name="enroll_date_start_at">데이트 시작 시간을 선택해 주세요 (필수)</string>
     <string name="enroll_city_placeholder">데이트 지역을 선택해 주세요 (필수)</string>
     <string name="enroll_place_insert_bar_enter_place_placeholder">장소명을 입력해주세요</string>
     <string name="enroll_place_insert_bar_select_course_time_placeholder">소요 시간</string>
+    <string name="enroll_place_title">어떤 코스로 이동하셨나요?</string>
+    <string name="enroll_place_description">장소와 소요시간을 입력하여 코스를 추가해 주세요</string>
+    <string name="enroll_place_guide">최소 2개의 장소를 추가해 주세요</string>
+    <string name="enroll_description_title">코스에 대한 설명을 적어 주세요</string>
+    <string name="enroll_description_placeholder">데이트 내용을 입력해 주세요\n예약 정보, 웨이팅 정보, 꿀팁 등을 작성해 주세요\n(최소 200자)</string>
+    <string name="enroll_cost_title">총 비용을 입력해 주세요</string>
+    <string name="enroll_cost_placeholder">데이트 예상 총 비용을 숫자로만 입력해 주세요</string>
+    <string name="enroll_button_text_completion">완료</string>
+    
 </resources>
