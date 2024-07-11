@@ -107,6 +107,11 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
+
+    // View Pager
+    implementation (libs.accompanist.pager)
+    implementation (libs.accompanist.pager.indicators)
+
 }
 
 ktlint {

@@ -1,4 +1,5 @@
 [versions]
+accompanistPager = "0.25.0"
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
@@ -68,6 +69,8 @@ androidx-security = { group = "androidx.security", name = "security-crypto-ktx",
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 # Google
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
