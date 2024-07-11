@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.mycourse.MyCourseRoute
-import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCoursesRoute.BASE_TYPE
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCoursesRoute.ROUTE_WITH_ARGUMENT
 
 fun NavController.navigateToMyCourses(myCourseType: MyCourseType) {
     this.navigate(route = MyCoursesRoute.route(myCourseType = myCourseType))
@@ -19,14 +19,14 @@ fun NavGraphBuilder.myCoursesGraph(
     popBackStack: () -> Unit
 ) {
     composable(
-        route = MyCoursesRoute.ROUTE_WITH_ARGUMENT,
+        route = MyCoursesRoute.ARGUMENT,
         arguments = listOf(
-            navArgument(BASE_TYPE) {
+            navArgument(ROUTE_WITH_ARGUMENT) {
                 type = NavType.StringType
             }
         )
     ) { backStackEntry ->
-        val myCourseType = backStackEntry.arguments?.getString(BASE_TYPE)?.let {
+        val myCourseType = backStackEntry.arguments?.getString(ROUTE_WITH_ARGUMENT)?.let {
             MyCourseType.valueOf(it)
         } ?: MyCourseType.ENROLL
 
@@ -35,8 +35,8 @@ fun NavGraphBuilder.myCoursesGraph(
 }
 
 object MyCoursesRoute {
-    const val BASE_ROUTE = "myCourses"
-    const val ROUTE_WITH_ARGUMENT = "$BASE_ROUTE/{myCourseType}"
-    const val BASE_TYPE = "myCourseType"
-    fun route(myCourseType: MyCourseType) = "$BASE_ROUTE/${myCourseType.name}"
+    private const val ROUTE = "myCourses"
+    const val ARGUMENT = "myCourseType"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{myCourseType}"
+    fun route(myCourseType: MyCourseType) = "$ROUTE/${myCourseType.name}"
 }
