@@ -9,8 +9,9 @@ object PointHistoryTab {
     const val USED_HISTORY_POSITION = 1
 }
 
-object EnrollScreenPosition {
+object EnrollScreen {
     const val FIRST = 1
     const val SECOND = 2
     const val THIRD = 3
+    const val MAX_ITEMS = 10
 }

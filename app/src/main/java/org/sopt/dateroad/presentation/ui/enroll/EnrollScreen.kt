@@ -1,5 +1,10 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +31,7 @@ import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
+import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -38,6 +44,14 @@ fun EnrollRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        viewModel.setEvent(EnrollContract.EnrollEvent.SetImage(images = listOf(uri.toString())))
+    }
+
+    val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_ITEMS)) { uris: List<Uri> ->
+        viewModel.setEvent(EnrollContract.EnrollEvent.SetImage(images = uris.map { it.toString() }))
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -56,7 +70,15 @@ fun EnrollRoute(
                 onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClicked) },
                 onPlaceDurationClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceDurationClick) },
                 onPageChange = { enrollScreenType -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPageChange(page = enrollScreenType)) },
-                onPhotoButtonClick = { images -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPhotoButtonClick(images = images)) },
+                onPhotoButtonClick = {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                        getGalleryLauncher.launch("image/*")
+                    } else {
+                        getPhotoPickerLauncher.launch(
+                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        )
+                    }
+                },
                 onDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDeleteButtonClick(index = index)) },
                 onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
                 onDatePickerBottomSheetButtonClicked = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClicked(date = date)) },
@@ -82,7 +104,7 @@ fun EnrollScreen(
     enrollUiState: EnrollContract.EnrollUiState = EnrollContract.EnrollUiState(),
     onEnrollButtonClick: () -> Unit,
     onPageChange: (EnrollScreenType) -> Unit,
-    onPhotoButtonClick: (List<String>) -> Unit,
+    onPhotoButtonClick: () -> Unit,
     onDeleteButtonClick: (Int) -> Unit,
     onTitleValueChange: (String) -> Unit,
     onDatePickerBottomSheetButtonClicked: (String) -> Unit,
@@ -111,7 +133,9 @@ fun EnrollScreen(
         Spacer(modifier = Modifier.height(8.dp))
         EnrollPhotos(
             isDeletable = enrollUiState.page == EnrollScreenType.FIRST,
-            images = enrollUiState.images
+            images = enrollUiState.images,
+            onPhotoButtonClick = onPhotoButtonClick,
+            onDeleteButtonClick = onDeleteButtonClick
         )
         Column(
             modifier = Modifier.weight(1f)

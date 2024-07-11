@@ -54,7 +54,7 @@ class EnrollContract {
         data object OnEnrollButtonClicked : EnrollEvent()
         data object OnPlaceDurationClick : EnrollEvent()
         data class OnPageChange(val page: EnrollScreenType) : EnrollEvent()
-        data class OnPhotoButtonClick(val images: List<String>) : EnrollEvent()
+        data class SetImage(val images: List<String>) : EnrollEvent()
         data class OnDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnTitleValueChange(val title: String) : EnrollEvent()
         data class OnDatePickerBottomSheetButtonClicked(val date: String) : EnrollEvent()

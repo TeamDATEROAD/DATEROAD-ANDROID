@@ -1,18 +1,17 @@
 package org.sopt.dateroad.presentation.type
 
-import androidx.compose.runtime.Composable
-import org.sopt.dateroad.presentation.util.EnrollScreenPosition
+import org.sopt.dateroad.presentation.util.EnrollScreen
 
 enum class EnrollScreenType(
     val position: Int
 ) {
     FIRST(
-        position = EnrollScreenPosition.FIRST,
+        position = EnrollScreen.FIRST
     ),
     SECOND(
-        position = EnrollScreenPosition.SECOND,
+        position = EnrollScreen.SECOND
     ),
     THIRD(
-        position = EnrollScreenPosition.THIRD,
+        position = EnrollScreen.THIRD
     )
 }

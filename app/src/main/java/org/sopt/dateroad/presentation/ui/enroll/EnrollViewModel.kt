@@ -14,7 +14,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnEnrollButtonClicked -> postCourse()
             is EnrollContract.EnrollEvent.OnPlaceDurationClick -> setState { copy(isDurationBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnPageChange -> setState { copy(page = event.page) }
-            is EnrollContract.EnrollEvent.OnPhotoButtonClick -> setState { copy(images = event.images) }
+            is EnrollContract.EnrollEvent.SetImage -> setState { copy(images = event.images) }
             is EnrollContract.EnrollEvent.OnDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
             is EnrollContract.EnrollEvent.OnTitleValueChange -> setState { copy(title = event.title) }
             is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClicked -> setState { copy(date = event.date) }
@@ -40,6 +40,8 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(cost = event.cost) }
         }
     }
+
+    fun setImages(images: List<String>) = setState { copy(images = images) }
 
     private fun postCourse() {
         setState { copy(loadState = LoadState.Success) }
