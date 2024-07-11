@@ -59,10 +59,20 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagType>, isMyCourse: Boolean, isAccess: Boolean) {
+fun CourseDetailScreen(
+    course: Course,
+    places: List<Place>,
+    tags: List<DateTagType>,
+    isMyCourse: Boolean,
+    isAccess: Boolean,
+    hasFreeRead: Boolean
+) {
     var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
     var readCourseDialog by rememberSaveable { mutableStateOf(false) }
     var pointLackDialog by rememberSaveable { mutableStateOf(false) }
+    var freeReadDialog by rememberSaveable { mutableStateOf(false) }
+
+    val buttonText = if (hasFreeRead) "무료 열람 기회 쓰기" else "포인트로 코스 열람하기"
 
     var contentOffsetY by remember { mutableStateOf(0f) }
     val density = LocalDensity.current.density
@@ -79,7 +89,7 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                 .fillMaxWidth()
                 .background(DateRoadTheme.colors.white),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            userScrollEnabled = isAccess // Disable scrolling if isAccess is false
+            userScrollEnabled = true
         ) {
             item {
                 Box(modifier = Modifier.fillMaxWidth()) {
@@ -171,91 +181,155 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                         )
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
-                        style = DateRoadTheme.typography.bodyMed13Context,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Text(
-                        text = "코스 타임라인",
-                        style = DateRoadTheme.typography.titleBold18,
-                        color = DateRoadTheme.colors.black
-                    )
-                }
-            }
+                    if (isAccess) {
+                        Text(
+                            text = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
+                            style = DateRoadTheme.typography.bodyMed13Context,
+                            color = DateRoadTheme.colors.black
+                        )
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                        ) {
+                            GradientBoxWithText(text = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?")
 
-            items(places) { place ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    DateRoadPlaceCard(
-                        placeCardType = PlaceCardType.COURSE_NORMAL,
-                        place = place
-                    )
-                }
-            }
-
-            item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "총 비용",
-                        style = DateRoadTheme.typography.titleBold18,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        text = "90,000원",
-                        style = DateRoadTheme.typography.titleBold18,
-                        color = DateRoadTheme.colors.black,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(DateRoadTheme.colors.gray100)
-                            .padding(start = 20.dp, top = 15.dp, end = 5.dp, bottom = 17.dp)
-                    )
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Text(
-                        text = "태그",
-                        style = DateRoadTheme.typography.titleBold18,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                }
-            }
-            item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                ) {
-                    Row {
-                        tags.forEach { tag ->
-                            DateRoadImageChip(
-                                textId = tag.titleRes,
-                                imageRes = tag.imageRes,
-                                chipType = ChipType.DATE,
-                                isSelected = false
-                            )
-                            Spacer(modifier = Modifier.width(7.dp))
+                            Column {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .align(Alignment.CenterHorizontally)
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = "코스 정보가 궁금하신가요?",
+                                    style = DateRoadTheme.typography.bodyBold17,
+                                    color = DateRoadTheme.colors.black,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "50P로 코스를 확인해보세요",
+                                    style = DateRoadTheme.typography.bodyBold17,
+                                    color = DateRoadTheme.colors.black,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                                )
+                                Spacer(modifier = Modifier.height(24.dp))
+                                DateRoadFilledButton(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 52.dp)
+                                        .align(Alignment.CenterHorizontally),
+                                    isEnabled = true,
+                                    textContent = buttonText,
+                                    onClick = {
+                                        if (hasFreeRead) {
+                                            freeReadDialog = true
+                                        } else {
+                                            readCourseDialog = true
+                                        }
+                                    },
+                                    textStyle = DateRoadTheme.typography.bodyBold15,
+                                    enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                                    enabledTextColor = DateRoadTheme.colors.white,
+                                    disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                                    disabledTextColor = DateRoadTheme.colors.gray400,
+                                    cornerRadius = 14.dp,
+                                    paddingHorizontal = 0.dp,
+                                    paddingVertical = 16.dp
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
                         }
                     }
-                    Spacer(modifier = Modifier.height(38.dp))
-                    if (!isMyCourse) {
-                        Spacer(modifier = Modifier.height(80.dp))
+                }
+            }
+            if (isAccess) {
+                item {
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Text(
+                            text = "코스 타임라인",
+                            style = DateRoadTheme.typography.titleBold18,
+                            color = DateRoadTheme.colors.black
+                        )
+                    }
+                }
+
+                items(places) { place ->
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        DateRoadPlaceCard(
+                            placeCardType = PlaceCardType.COURSE_NORMAL,
+                            place = place
+                        )
+                    }
+                }
+
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "총 비용",
+                            style = DateRoadTheme.typography.titleBold18,
+                            color = DateRoadTheme.colors.black
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text(
+                            text = "90,000원",
+                            style = DateRoadTheme.typography.titleBold18,
+                            color = DateRoadTheme.colors.black,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(DateRoadTheme.colors.gray100)
+                                .padding(start = 20.dp, top = 15.dp, end = 5.dp, bottom = 17.dp)
+                        )
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Text(
+                            text = "태그",
+                            style = DateRoadTheme.typography.titleBold18,
+                            color = DateRoadTheme.colors.black
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+                }
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Row {
+                            tags.forEach { tag ->
+                                DateRoadImageChip(
+                                    textId = tag.titleRes,
+                                    imageRes = tag.imageRes,
+                                    chipType = ChipType.DATE,
+                                    isSelected = false
+                                )
+                                Spacer(modifier = Modifier.width(7.dp))
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(38.dp))
+                        if (!isMyCourse) {
+                            Spacer(modifier = Modifier.height(80.dp))
+                        }
                     }
                 }
             }
         }
 
-        if (!isMyCourse) {
+        if (!isMyCourse && isAccess) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -293,89 +367,37 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                 }
             }
         }
-
-        if (!isAccess) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                DateRoadTheme.colors.white.copy(alpha = 1f)
-                            ),
-                            startY = contentOffsetY,
-                            endY = contentOffsetY + 220.dp.toPx(density)
-                        )
-                    )
-            ) {
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                ) {
-                    Spacer(modifier = Modifier.height(600.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "코스 정보가 궁금하신가요?",
-                        style = DateRoadTheme.typography.bodyBold17,
-                        color = DateRoadTheme.colors.black,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "50P로 코스를 확인해보세요",
-                        style = DateRoadTheme.typography.bodyBold17,
-                        color = DateRoadTheme.colors.black,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                    Spacer(modifier = Modifier.height(24.dp))
-                    DateRoadFilledButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 52.dp)
-                            .align(Alignment.CenterHorizontally),
-                        isEnabled = true,
-                        textContent = "포인트로 코스 열람하기",
-                        onClick = { readCourseDialog = true },
-                        textStyle = DateRoadTheme.typography.bodyBold15,
-                        enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
-                        enabledTextColor = DateRoadTheme.colors.white,
-                        disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                        disabledTextColor = DateRoadTheme.colors.gray400,
-                        cornerRadius = 14.dp,
-                        paddingHorizontal = 0.dp,
-                        paddingVertical = 16.dp
-                    )
-                }
-            }
-        }
     }
 
     if (readCourseDialog) {
         DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE ,
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
             onDismissRequest = { readCourseDialog = false },
-            onClickConfirm = { readCourseDialog = false
-                             if (true){ //TODO: 포인트 부족 로직
-                                 pointLackDialog=true
-                             }},
+            onClickConfirm = {
+                readCourseDialog = false
+                if (true) { // TODO: 포인트 부족 로직
+                    pointLackDialog = true
+                }
+            },
             onClickDismiss = { readCourseDialog = false }
         )
     }
 
     if (pointLackDialog) {
         DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK ,
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
             onDismissRequest = { pointLackDialog = false },
-            onClickConfirm = { pointLackDialog = false
-                },
+            onClickConfirm = { pointLackDialog = false },
             onClickDismiss = { pointLackDialog = false }
+        )
+    }
+
+    if (freeReadDialog) {
+        DateRoadTwoButtonDialogWithDescription(
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.FREE_READ,
+            onDismissRequest = { freeReadDialog = false },
+            onClickConfirm = { freeReadDialog = false },
+            onClickDismiss = { freeReadDialog = false }
         )
     }
 
@@ -421,7 +443,8 @@ fun CourseDetailScreenPreview() {
         places = places,
         tags = tags,
         isMyCourse = false,
-        isAccess = false
+        isAccess = false,
+        hasFreeRead = false
     )
 
     DateRoadBasicBottomSheet(
@@ -438,4 +461,35 @@ fun CourseDetailScreenPreview() {
 
 private fun androidx.compose.ui.unit.Dp.toPx(density: Float): Float {
     return this.value * density
+}
+
+@Composable
+fun GradientBoxWithText(text: String) {
+    Box(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = text,
+            style = DateRoadTheme.typography.bodyMed13Context,
+            color = DateRoadTheme.colors.black,
+            maxLines = 3,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.White.copy(alpha = 0.6f),
+                            Color.White.copy(alpha = 1f)
+
+                        )
+                    )
+                )
+                .matchParentSize()
+        )
+    }
 }
