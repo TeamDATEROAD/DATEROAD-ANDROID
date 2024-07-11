@@ -11,18 +11,25 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
 fun MyPageRoute(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
-    MyPageScreen(padding)
+    MyPageScreen(
+        padding = padding,
+        navigateToMyCourse = navigateToMyCourse
+    )
 }
 
 @Composable
 fun MyPageScreen(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -30,6 +37,7 @@ fun MyPageScreen(
             .fillMaxSize()
     ) {
         Text(
+            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourse(MyCourseType.ENROLL) }),
             text = "MyPageScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -41,6 +49,6 @@ fun MyPageScreen(
 @Composable
 fun MyPageScreenPreview() {
     DATEROADTheme {
-        MyPageScreen(padding = PaddingValues(0.dp))
+        MyPageScreen(padding = PaddingValues(0.dp), navigateToMyCourse = {})
     }
 }
