@@ -164,6 +164,7 @@
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
     <string name="top_bar_title_look">코스 둘러보기</string>
     <string name="top_bar_title_my_course_past">지난 데이트</string>
+    <string name="top_bar_title_timeline">데이트 일정</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>

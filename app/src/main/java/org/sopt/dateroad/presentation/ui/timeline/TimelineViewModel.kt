@@ -16,15 +16,16 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
             is TimelineContract.TimelineEvent.FetchTimeline -> fetchTimeline()
             is TimelineContract.TimelineEvent.PageChanged -> setPage(event.page)
             is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
+            is TimelineContract.TimelineEvent.ShowMaxItemsModal -> showMaxItemsModal()
         }
     }
 
     private fun setPage(page: Int) {
-        updateState { copy(currentPage = page) }
+        setState { copy(currentPage = page) }
     }
 
     private fun fetchTimeline() {
-        updateState {
+        setState {
             copy(
                 loadState = LoadState.Success,
                 dates = listOf(
@@ -75,13 +76,13 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
 
     private fun handleAddDateCardClicked() {
         if (currentState.dates.size >= 5) {
-            setSideEffect(TimelineContract.TimelineSideEffect.ShowMaxItemsModal)
+            setState { copy(showMaxDateCardModal = true) }
         } else {
-            setSideEffect(TimelineContract.TimelineSideEffect.MoveToEnroll)
+            setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll)
         }
     }
 
-    fun updateState(update: TimelineContract.TimelineUiState.() -> TimelineContract.TimelineUiState) {
-        setState(update)
+    private fun showMaxItemsModal() {
+        setState { copy(showMaxDateCardModal = true) }
     }
 }
