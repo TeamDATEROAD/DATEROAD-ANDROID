@@ -111,7 +111,7 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DateRoadBasicTopBar(
-            title = "내 프로필",
+            title = stringResource(id = R.string.profile_top_bar_title),
             backGroundColor = DateRoadTheme.colors.white
         )
         Spacer(modifier = Modifier.height(40.dp))
