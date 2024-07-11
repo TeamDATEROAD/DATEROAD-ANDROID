@@ -12,7 +12,7 @@ fun NavController.navigateToPastDate(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.pastDateNavGraph(
-    padding: PaddingValues,
+    padding: PaddingValues
 ) {
     composable(route = "past_date") {
         PastDateRoute(padding = padding)
