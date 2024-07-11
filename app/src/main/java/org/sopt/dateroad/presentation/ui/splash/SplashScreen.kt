@@ -22,7 +22,7 @@ fun SplashScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(226f / (226f + 284f)))
-        Image(painter = painterResource(id = R.drawable.ic_splash_logo), contentDescription = "")
+        Image(painter = painterResource(id = R.drawable.ic_splash_logo), contentDescription = null)
         Spacer(modifier = Modifier.weight(284f / (226f + 284f)))
     }
 }

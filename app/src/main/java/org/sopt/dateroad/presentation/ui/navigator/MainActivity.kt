@@ -17,12 +17,12 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val splashScreen = installSplashScreen()
-        splashScreen.setOnExitAnimationListener { splashScreenView ->
+        installSplashScreen().setOnExitAnimationListener { splashScreenView ->
             splashScreenView.remove()
         }
         setContent {
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 
             DATEROADTheme {
                 LaunchedEffect(Unit) {
-                    delay(2000)
+                    delay(SPLASH_SCREEN_DELAY)
                     showSplash = false
                 }
                 if (showSplash) {
@@ -44,4 +44,8 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    companion object {
+        const val SPLASH_SCREEN_DELAY = 2000L
+    }
 }
+
