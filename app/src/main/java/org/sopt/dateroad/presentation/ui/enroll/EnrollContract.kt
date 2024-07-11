@@ -39,10 +39,11 @@ class EnrollContract {
         val place: List<Place> = listOf(),
         val placeTitle: String = "",
         val placeDuration: String = "",
+        val isPlaceEditable: Boolean = false,
         val isDurationBottomSheetOpen: Boolean = false,
         val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() })),
-        val cost: String = "",
-        val description: String = ""
+        val description: String = "",
+        val cost: String = ""
     ) : UiState
 
     sealed interface EnrollSideEffect : UiSideEffect {
@@ -50,7 +51,7 @@ class EnrollContract {
     }
 
     sealed class EnrollEvent : UiEvent {
-        data object OnEnrollButtonClicked: EnrollEvent()
+        data object OnEnrollButtonClicked : EnrollEvent()
         data class OnPageChange(val page: EnrollScreenType) : EnrollEvent()
         data class OnPhotoButtonClick(val images: List<String>) : EnrollEvent()
         data class OnDeleteButtonClick(val index: Int) : EnrollEvent()
@@ -63,6 +64,7 @@ class EnrollContract {
         data class OnAddPlaceButtonClick(val place: Place) : EnrollEvent()
         data class OnPlaceTitleValueChange(val title: String) : EnrollEvent()
         data class OnPlaceDurationClick(val placeDuration: String) : EnrollEvent()
+        data class OnPlaceEditButtonClick(val editable: Boolean) : EnrollEvent()
         data class OnDescriptionValueChange(val description: String) : EnrollEvent()
         data class OnCostValueChange(val cost: String) : EnrollEvent()
     }

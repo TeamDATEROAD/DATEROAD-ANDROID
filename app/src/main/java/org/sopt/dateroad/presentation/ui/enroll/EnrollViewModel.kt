@@ -1,9 +1,9 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.EnrollUiState, EnrollContract.EnrollSideEffect, EnrollContract.EnrollEvent>() {
@@ -19,13 +19,15 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClicked -> setState { copy(date = event.date) }
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClicked -> setState { copy(startAt = event.startAt) }
             is EnrollContract.EnrollEvent.OnDateChipClicked -> setState {
-                copy(tags = currentState.tags.toMutableList().apply {
-                    if (contains(event.tag)) {
-                        remove(event.tag)
-                    } else if (size < 3) {
-                        add(event.tag)
+                copy(
+                    tags = currentState.tags.toMutableList().apply {
+                        if (contains(event.tag)) {
+                            remove(event.tag)
+                        } else if (size < 3) {
+                            add(event.tag)
+                        }
                     }
-                })
+                )
             }
 
             is EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClicked -> setState { copy(country = event.country) }
@@ -33,6 +35,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnAddPlaceButtonClick -> setState { copy(place = currentState.place.toMutableList().apply { add(event.place) }) }
             is EnrollContract.EnrollEvent.OnPlaceTitleValueChange -> setState { copy(title = event.title) }
             is EnrollContract.EnrollEvent.OnPlaceDurationClick -> setState { copy(placeDuration = event.placeDuration) }
+            is EnrollContract.EnrollEvent.OnPlaceEditButtonClick -> setState { copy(isPlaceEditable = event.editable) }
             is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(description = event.description) }
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(cost = event.cost) }
         }
