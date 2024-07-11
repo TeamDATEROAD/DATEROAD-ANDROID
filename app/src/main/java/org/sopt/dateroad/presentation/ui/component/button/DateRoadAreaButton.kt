@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadAreaButton(
     modifier: Modifier = Modifier,
+    isSelected: Boolean,
     textContent: String,
     onClick: () -> Unit = {}
 ) {
@@ -25,6 +27,8 @@ fun DateRoadAreaButton(
         modifier = modifier
             .fillMaxWidth(),
         backgroundColor = DateRoadTheme.colors.gray100,
+        borderColor = if (isSelected) DateRoadTheme.colors.deepPurple else Color.Unspecified,
+        borderWidth = 1.dp,
         cornerRadius = 10.dp,
         paddingVertical = 6.dp,
         paddingHorizontal = 12.dp,
@@ -35,11 +39,11 @@ fun DateRoadAreaButton(
         ) {
             Text(
                 text = textContent,
-                color = DateRoadTheme.colors.gray400,
+                color = if (isSelected) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray400,
                 style = DateRoadTheme.typography.bodyMed13
             )
             Spacer(modifier = Modifier.weight(1f))
-            Icon(painter = painterResource(id = R.drawable.ic_area_dropdown), contentDescription = null, tint = DateRoadTheme.colors.gray400)
+            Icon(painter = painterResource(id = R.drawable.ic_area_dropdown), contentDescription = null, tint = if (isSelected) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray400)
         }
     }
 }
@@ -49,7 +53,8 @@ fun DateRoadAreaButton(
 fun DateRoadAreaButtonPreview() {
     DATEROADTheme {
         DateRoadAreaButton(
-            textContent = "건대/성수/왕십리"
+            textContent = "건대/성수/왕십리",
+            isSelected = true
         )
     }
 }
