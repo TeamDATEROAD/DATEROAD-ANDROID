@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
+import org.sopt.dateroad.presentation.util.view.LoadState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -10,6 +11,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
 
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
         when (event) {
+            is EnrollContract.EnrollEvent.OnEnrollButtonClicked -> postCourse()
             is EnrollContract.EnrollEvent.OnPageChange -> setState { copy(page = event.page) }
             is EnrollContract.EnrollEvent.OnPhotoButtonClick -> setState { copy(images = event.images) }
             is EnrollContract.EnrollEvent.OnDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
@@ -34,5 +36,9 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(description = event.description) }
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(cost = event.cost) }
         }
+    }
+
+    private fun postCourse() {
+        setState { copy(loadState = LoadState.Success) }
     }
 }

@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.util.base.UiEvent
@@ -12,7 +13,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
-        val page: Int = 1,
+        val page: EnrollScreenType = EnrollScreenType.FIRST,
         val images: List<String> = listOf(),
         val title: String = "",
         val date: String = "",
@@ -49,7 +50,8 @@ class EnrollContract {
     }
 
     sealed class EnrollEvent : UiEvent {
-        data class OnPageChange(val page: Int) : EnrollEvent()
+        data object OnEnrollButtonClicked: EnrollEvent()
+        data class OnPageChange(val page: EnrollScreenType) : EnrollEvent()
         data class OnPhotoButtonClick(val images: List<String>) : EnrollEvent()
         data class OnDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnTitleValueChange(val title: String) : EnrollEvent()
