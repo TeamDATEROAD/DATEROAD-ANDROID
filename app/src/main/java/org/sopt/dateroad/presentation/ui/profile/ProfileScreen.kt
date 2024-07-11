@@ -42,7 +42,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun ProfileRoute(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigationToHome:()->Unit
+    navigationToHome: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current

@@ -60,7 +60,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
                 nicknameValidateResult = when {
                     name.isEmpty() -> TextFieldValidateResult.Basic
                     isNicknameChecked -> TextFieldValidateResult.Success
-                    else -> TextFieldValidateResult.Success// TODO: 나중에 서버 로직 에러처리
+                    else -> TextFieldValidateResult.Success // TODO: 나중에 서버 로직 에러처리
                 }
 
             )

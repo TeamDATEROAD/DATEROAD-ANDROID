@@ -54,7 +54,7 @@ fun MainNavHost(
             )
             profileNavGraph(
                 navigateToHome = navigator::navigateProfile
-                //TODO: 추후 navigateHome 으로 변경
+                // TODO: 추후 navigateHome 으로 변경
             )
         }
     }

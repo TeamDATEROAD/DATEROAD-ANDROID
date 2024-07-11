@@ -11,7 +11,6 @@ fun NavController.navigationProfile() {
     )
 }
 
-
 fun NavGraphBuilder.profileNavGraph(
     navigateToHome: () -> Unit
 ) {
