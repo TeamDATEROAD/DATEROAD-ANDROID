@@ -18,18 +18,18 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 @Composable
 fun ReadRoute(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     ReadScreen(
         padding,
-        navigateToMyCourseHistory = navigateToMyCourseHistory
+        navigateToMyCourse = navigateToMyCourse
     )
 }
 
 @Composable
 fun ReadScreen(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +37,7 @@ fun ReadScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourseHistory(MyCourseType.READ) }),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourse(MyCourseType.READ) }),
             text = "ReadScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -49,6 +49,6 @@ fun ReadScreen(
 @Composable
 fun ReadScreenPreview() {
     DATEROADTheme {
-        ReadScreen(padding = PaddingValues(0.dp), navigateToMyCourseHistory = {})
+        ReadScreen(padding = PaddingValues(0.dp), navigateToMyCourse = {})
     }
 }
