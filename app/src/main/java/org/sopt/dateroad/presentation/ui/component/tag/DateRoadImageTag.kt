@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.component.tag
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +19,6 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.ui.theme.DATEROADTheme
-import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadImageTag(
@@ -74,7 +72,7 @@ fun DateRoadImageTagPreview() {
             DateRoadImageTag(
                 textContent = stringResource(id = DateTagType.DRIVE.titleRes),
                 imageContent = DateTagType.DRIVE.imageRes,
-                tagContentType = TagType.MY_PAGE_DATE,
+                tagContentType = TagType.MY_PAGE_DATE
             )
             DateRoadImageTag(
                 textContent = stringResource(id = DateTagType.DRIVE.titleRes),

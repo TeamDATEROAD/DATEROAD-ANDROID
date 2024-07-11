@@ -1,16 +1,31 @@
+package org.sopt.dateroad.presentation.ui.coursedetail
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -19,7 +34,6 @@ import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -47,7 +61,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagType>, isMyCourse: Boolean, isAccess: Boolean) {
     var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
-    var showTwoButtonDialogWithDescription = remember { mutableStateOf(false) }
+    var readCourseDialog by rememberSaveable { mutableStateOf(false) }
+    var pointLackDialog by rememberSaveable { mutableStateOf(false) }
 
     var contentOffsetY by remember { mutableStateOf(0f) }
     val density = LocalDensity.current.density
@@ -63,7 +78,8 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
             modifier = Modifier
                 .fillMaxWidth()
                 .background(DateRoadTheme.colors.white),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            userScrollEnabled = isAccess // Disable scrolling if isAccess is false
         ) {
             item {
                 Box(modifier = Modifier.fillMaxWidth()) {
@@ -72,7 +88,8 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                         state = pagerState,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1f)
+                            .aspectRatio(1f),
+                        userScrollEnabled = isAccess // Disable scrolling in pager if isAccess is false
                     ) { page ->
                         Image(
                             painter = painterResource(id = imageList[page]),
@@ -263,7 +280,7 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                         modifier = Modifier.weight(1f),
                         isEnabled = true,
                         textContent = "코스 가져오기",
-                        onClick = {showTwoButtonDialogWithDescription.value =true },
+                        onClick = { readCourseDialog = true },
                         textStyle = DateRoadTheme.typography.bodyBold15,
                         enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
                         enabledTextColor = DateRoadTheme.colors.white,
@@ -325,7 +342,7 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
                             .align(Alignment.CenterHorizontally),
                         isEnabled = true,
                         textContent = "포인트로 코스 열람하기",
-                        onClick = {},
+                        onClick = { readCourseDialog = true },
                         textStyle = DateRoadTheme.typography.bodyBold15,
                         enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
                         enabledTextColor = DateRoadTheme.colors.white,
@@ -339,12 +356,26 @@ fun CourseDetailScreen(course: Course, places: List<Place>, tags: List<DateTagTy
             }
         }
     }
-    if (showTwoButtonDialogWithDescription.value) {
+
+    if (readCourseDialog) {
         DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-            onDismissRequest = { showTwoButtonDialogWithDescription.value = false },
-            onClickConfirm = { showTwoButtonDialogWithDescription.value = false },
-            onClickDismiss = { showTwoButtonDialogWithDescription.value = false }
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE ,
+            onDismissRequest = { readCourseDialog = false },
+            onClickConfirm = { readCourseDialog = false
+                             if (true){ //TODO: 포인트 부족 로직
+                                 pointLackDialog=true
+                             }},
+            onClickDismiss = { readCourseDialog = false }
+        )
+    }
+
+    if (pointLackDialog) {
+        DateRoadTwoButtonDialogWithDescription(
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK ,
+            onDismissRequest = { pointLackDialog = false },
+            onClickConfirm = { pointLackDialog = false
+                },
+            onClickDismiss = { pointLackDialog = false }
         )
     }
 
@@ -390,7 +421,7 @@ fun CourseDetailScreenPreview() {
         places = places,
         tags = tags,
         isMyCourse = false,
-        isAccess = true
+        isAccess = false
     )
 
     DateRoadBasicBottomSheet(
