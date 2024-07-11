@@ -43,6 +43,8 @@ fun EnrollFirstScreen(
         Spacer(modifier = Modifier.height(14.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_title_placeholder),
+            validateState = enrollUiState.titleValidateState,
+            errorDescription = stringResource(id = R.string.enroll_title_error_description),
             value = enrollUiState.title,
             onValueChange = onTitleValueChange
         )

@@ -5,6 +5,7 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
+import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -16,6 +17,7 @@ class EnrollContract {
         val page: EnrollScreenType = EnrollScreenType.FIRST,
         val images: List<String> = listOf(),
         val title: String = "",
+        val titleValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val date: String = "",
         val isDatePickerBottomSheetOpen: Boolean = false,
         val datePickers: List<Picker> = listOf(

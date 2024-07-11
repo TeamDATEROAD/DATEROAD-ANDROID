@@ -14,4 +14,5 @@ object EnrollScreen {
     const val SECOND = 2
     const val THIRD = 3
     const val MAX_ITEMS = 10
+    const val TITLE_MIN_LENGTH = 5
 }

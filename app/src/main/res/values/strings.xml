@@ -203,6 +203,7 @@
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
     <string name="enroll_button_text_next">다음 (%d/%d)</string>
     <string name="enroll_title_placeholder">데이트 이름을 입력해 주세요 (필수)</string>
+    <string name="enroll_title_error_description">최소 5글자 이상 입력해주세요</string>
     <string name="enroll_date_placeholder">방문일자를 선택해 주세요 (필수)</string>
     <string name="enroll_date_start_at">데이트 시작 시간을 선택해 주세요 (필수)</string>
     <string name="enroll_city_placeholder">데이트 지역을 선택해 주세요 (필수)</string>
