@@ -116,6 +116,7 @@ fun LookScreen(
             Spacer(modifier = Modifier.width(16.dp))
             DateRoadAreaButton(
                 modifier = Modifier.weight(1f),
+                isSelected = lookUiState.area != null,
                 textContent = stringResource(
                     id = when (lookUiState.area) {
                         is SeoulAreaType -> lookUiState.area.nameRes
