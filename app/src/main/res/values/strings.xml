@@ -5,6 +5,7 @@
     <string name="logout">로그아웃</string>
     <string name="withdrawal">탈퇴</string>
     <string name="fraction_format">%1$d/%2$d</string>
+    <string name="region">지역</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
@@ -159,6 +160,7 @@
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
+    <string name="top_bar_title_look">코스 둘러보기</string>
     <string name="top_bar_title_my_course_past">지난 데이트</string>
 
     <!-- Kakao -->
