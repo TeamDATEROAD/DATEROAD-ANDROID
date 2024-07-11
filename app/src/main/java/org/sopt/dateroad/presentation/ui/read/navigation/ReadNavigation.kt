@@ -18,9 +18,9 @@ fun NavController.navigationRead(navOptions: NavOptions) {
 
 fun NavGraphBuilder.readNavGraph(
     padding: PaddingValues,
-    navigateToMyCourseHistory: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Read::class.simpleName.orEmpty()) {
-        ReadRoute(padding = padding, navigateToMyCourseHistory = navigateToMyCourseHistory)
+        ReadRoute(padding = padding, navigateToMyCourse = navigateToMyCourse)
     }
 }

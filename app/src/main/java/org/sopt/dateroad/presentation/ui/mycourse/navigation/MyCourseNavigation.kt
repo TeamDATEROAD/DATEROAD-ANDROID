@@ -19,14 +19,14 @@ fun NavGraphBuilder.myCoursesGraph(
     popBackStack: () -> Unit
 ) {
     composable(
-        route = MyCoursesRoute.ARGUMENT,
+        route = ROUTE_WITH_ARGUMENT,
         arguments = listOf(
-            navArgument(ROUTE_WITH_ARGUMENT) {
+            navArgument(MyCoursesRoute.ARGUMENT) {
                 type = NavType.StringType
             }
         )
     ) { backStackEntry ->
-        val myCourseType = backStackEntry.arguments?.getString(ROUTE_WITH_ARGUMENT)?.let {
+        val myCourseType = backStackEntry.arguments?.getString(MyCoursesRoute.ARGUMENT)?.let {
             MyCourseType.valueOf(it)
         } ?: MyCourseType.ENROLL
 
@@ -37,6 +37,6 @@ fun NavGraphBuilder.myCoursesGraph(
 object MyCoursesRoute {
     private const val ROUTE = "myCourses"
     const val ARGUMENT = "myCourseType"
-    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{myCourseType}"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT}"
     fun route(myCourseType: MyCourseType) = "$ROUTE/${myCourseType.name}"
 }

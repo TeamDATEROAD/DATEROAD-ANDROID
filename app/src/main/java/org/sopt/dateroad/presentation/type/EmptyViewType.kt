@@ -30,11 +30,11 @@ enum class EmptyViewType(
     ),
     PAST(
         titleRes = R.string.empty_view_past,
-        imageRes = R.drawable.ic_empty_past
+        imageRes = R.drawable.ic_empty_default
     ),
     MY_COURSE_READ(
         titleRes = R.string.empty_view_my_course_read,
-        imageRes = R.drawable.ic_empty_past
+        imageRes = R.drawable.ic_empty_default
     ),
     MY_COURSE_ENROLL(
         titleRes = R.string.empty_view_my_course_enroll,
