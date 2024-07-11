@@ -12,6 +12,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
         when (event) {
             is EnrollContract.EnrollEvent.OnEnrollButtonClicked -> postCourse()
+            is EnrollContract.EnrollEvent.OnPlaceDurationClick -> setState { copy(isDurationBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnPageChange -> setState { copy(page = event.page) }
             is EnrollContract.EnrollEvent.OnPhotoButtonClick -> setState { copy(images = event.images) }
             is EnrollContract.EnrollEvent.OnDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
@@ -34,7 +35,6 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClicked -> setState { copy(city = event.city) }
             is EnrollContract.EnrollEvent.OnAddPlaceButtonClick -> setState { copy(place = currentState.place.toMutableList().apply { add(event.place) }) }
             is EnrollContract.EnrollEvent.OnPlaceTitleValueChange -> setState { copy(title = event.title) }
-            is EnrollContract.EnrollEvent.OnPlaceDurationClick -> setState { copy(placeDuration = event.placeDuration) }
             is EnrollContract.EnrollEvent.OnPlaceEditButtonClick -> setState { copy(isPlaceEditable = event.editable) }
             is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(description = event.description) }
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(cost = event.cost) }

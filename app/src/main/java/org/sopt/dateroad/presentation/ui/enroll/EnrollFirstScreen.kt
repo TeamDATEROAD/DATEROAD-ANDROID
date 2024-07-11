@@ -74,7 +74,8 @@ fun EnrollFirstScreen(
                 is GyeonggiAreaType -> stringResource(id = enrollUiState.city.nameRes)
                 is IncheonAreaType -> stringResource(id = enrollUiState.city.nameRes)
                 else -> ""
-            }
+            },
+            readOnly = true
         )
         Spacer(modifier = Modifier.height(23.dp))
     }

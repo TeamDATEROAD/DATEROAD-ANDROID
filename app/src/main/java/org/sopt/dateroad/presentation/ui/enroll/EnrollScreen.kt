@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -48,26 +49,26 @@ fun EnrollRoute(
     }
 
     when (uiState.loadState) {
-        LoadState.Success -> {
+        LoadState.Idle -> {
             EnrollScreen(
                 padding = padding,
                 enrollUiState = uiState,
-                onEnrollButtonClick = {},
-                onPageChange = {},
-                onPhotoButtonClick = {},
-                onDeleteButtonClick = {},
-                onTitleValueChange = {},
-                onDatePickerBottomSheetButtonClicked = {},
-                onTimePickerBottomSheetButtonClicked = {},
-                onDateChipClicked = {},
-                onRegionBottomSheetRegionChipClicked = {},
-                onRegionBottomSheetAreaChipClicked = {},
-                onAddPlaceButtonClick = {},
-                onPlaceTitleValueChange = {},
-                onPlaceDurationClick = {},
-                onPlaceEditButtonClick = {},
-                onDescriptionValueChange = {},
-                onCostValueChange = {}
+                onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClicked) },
+                onPlaceDurationClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceDurationClick) },
+                onPageChange = { enrollScreenType -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPageChange(page = enrollScreenType)) },
+                onPhotoButtonClick = { images -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPhotoButtonClick(images = images)) },
+                onDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDeleteButtonClick(index = index)) },
+                onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
+                onDatePickerBottomSheetButtonClicked = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClicked(date = date)) },
+                onTimePickerBottomSheetButtonClicked = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClicked(startAt = startAt)) },
+                onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag)) },
+                onRegionBottomSheetRegionChipClicked = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClicked(country = country)) },
+                onRegionBottomSheetAreaChipClicked = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClicked(city = city)) },
+                onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
+                onPlaceTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(title = title)) },
+                onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceEditButtonClick(editable = editable)) },
+                onDescriptionValueChange = { description -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)) },
+                onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) }
             )
         }
 
@@ -91,7 +92,7 @@ fun EnrollScreen(
     onRegionBottomSheetAreaChipClicked: (Any?) -> Unit,
     onAddPlaceButtonClick: (Place) -> Unit,
     onPlaceTitleValueChange: (String) -> Unit,
-    onPlaceDurationClick: (String) -> Unit,
+    onPlaceDurationClick: () -> Unit,
     onPlaceEditButtonClick: (Boolean) -> Unit,
     onDescriptionValueChange: (String) -> Unit,
     onCostValueChange: (String) -> Unit
@@ -99,6 +100,7 @@ fun EnrollScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = DateRoadTheme.colors.white)
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_enroll),
@@ -114,7 +116,31 @@ fun EnrollScreen(
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            enrollUiState.page.screen()
+            when (enrollUiState.page) {
+                EnrollScreenType.FIRST -> EnrollFirstScreen(
+                    enrollUiState = enrollUiState,
+                    onTitleValueChange = onTitleValueChange,
+                    onDatePickerBottomSheetButtonClicked = onDatePickerBottomSheetButtonClicked,
+                    onTimePickerBottomSheetButtonClicked = onTimePickerBottomSheetButtonClicked,
+                    onDateChipClicked = onDateChipClicked,
+                    onRegionBottomSheetRegionChipClicked = onRegionBottomSheetRegionChipClicked,
+                    onRegionBottomSheetAreaChipClicked = onRegionBottomSheetAreaChipClicked
+                )
+
+                EnrollScreenType.SECOND -> EnrollSecondScreen(
+                    enrollUiState = enrollUiState,
+                    onAddPlaceButtonClick = onAddPlaceButtonClick,
+                    onPlaceTitleValueChange = onPlaceTitleValueChange,
+                    onPlaceDurationClick = onPlaceDurationClick,
+                    onPlaceEditButtonClick = onPlaceEditButtonClick
+                )
+
+                EnrollScreenType.THIRD -> EnrollThirdScreen(
+                    enrollUiState = enrollUiState,
+                    onDescriptionValueChange = onDescriptionValueChange,
+                    onCostValueChange = onCostValueChange
+                )
+            }
         }
         Spacer(
             modifier = Modifier
@@ -123,7 +149,7 @@ fun EnrollScreen(
         )
         DateRoadBasicButton(
             modifier = Modifier.padding(horizontal = 16.dp),
-            textContent = stringResource(id = R.string.enroll_button_text_next, enrollUiState.page, 3)
+            textContent = stringResource(id = R.string.enroll_button_text_next, enrollUiState.page.position, 3)
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
