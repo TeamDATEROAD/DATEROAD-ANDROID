@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
+import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.read.ReadRoute
 
 fun NavController.navigationRead(navOptions: NavOptions) {
@@ -16,9 +17,10 @@ fun NavController.navigationRead(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.readNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToMyCourse: (MyCourseType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Read::class.simpleName.orEmpty()) {
-        ReadRoute(padding = padding)
+        ReadRoute(padding = padding, navigateToMyCourse = navigateToMyCourse)
     }
 }
