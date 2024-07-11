@@ -202,4 +202,7 @@
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
     <string name="enroll_place_insert_bar_enter_place_hint">장소명을 입력해주세요</string>
     <string name="enroll_place_insert_bar_select_course_time_hint">소요 시간</string>
+
+    <!-- Button -->
+    <string name="button_past_date">지난 데이트 보기</string>
 </resources>
