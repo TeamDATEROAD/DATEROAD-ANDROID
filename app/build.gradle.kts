@@ -73,6 +73,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.paging.common.android)
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

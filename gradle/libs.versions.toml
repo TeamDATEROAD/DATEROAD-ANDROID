@@ -43,6 +43,7 @@ timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.15.0"
 lifecycleRuntimeComposeAndroid = "2.8.2"
+pagingCommonAndroid = "3.3.0"
 
 [libraries]
 # Test
@@ -90,6 +91,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
