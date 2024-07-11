@@ -52,7 +52,10 @@ fun MainNavHost(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            profileNavGraph()
+            profileNavGraph(
+                navigateToHome = navigator::navigateProfile
+                //TODO: 추후 navigateHome 으로 변경
+            )
         }
     }
 }

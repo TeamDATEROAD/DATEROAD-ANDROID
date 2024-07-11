@@ -17,8 +17,8 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
 
     override suspend fun handleEvent(event: ProfileContract.ProfileEvent) {
         when (event) {
-            is ProfileContract.ProfileEvent.ImageChanged -> setState { copy(image = event.image) }
-            is ProfileContract.ProfileEvent.PostSignUp -> postSignUp(event.editProfile)
+            is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(image = event.image) }
+            is ProfileContract.ProfileEvent.OnEnrollButtonClicked -> postSignUp(event.editProfile)
             is ProfileContract.ProfileEvent.OnDateChipClicked -> handleDateChipClicked(event.tag)
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
             is ProfileContract.ProfileEvent.FetchNicknameCheck -> fetchNicknameCheck(event.name)
@@ -47,7 +47,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
             copy(
                 name = name,
                 isNicknameButtonEnabled = when {
-                    name.length in 2..5 -> true
+                    name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH -> true
                     else -> false
                 }
             )
@@ -60,7 +60,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
                 nicknameValidateResult = when {
                     name.isEmpty() -> TextFieldValidateResult.Basic
                     isNicknameChecked -> TextFieldValidateResult.Success
-                    else -> TextFieldValidateResult.Success
+                    else -> TextFieldValidateResult.Success// TODO: 나중에 서버 로직 에러처리
                 }
 
             )
@@ -87,5 +87,10 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
                 setState { copy(loadState = LoadState.Error) }
             }
         }
+    }
+
+    companion object {
+        const val MIN_NICKNAME_LENGTH = 2
+        const val MAX_NICKNAME_LENGTH = 5
     }
 }

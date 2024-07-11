@@ -11,9 +11,12 @@ fun NavController.navigationProfile() {
     )
 }
 
-fun NavGraphBuilder.profileNavGraph() {
+
+fun NavGraphBuilder.profileNavGraph(
+    navigateToHome: () -> Unit
+) {
     composable(route = ProfileRoute.ROUTE) {
-        ProfileRoute()
+        ProfileRoute(navigationToHome = navigateToHome)
     }
 }
 

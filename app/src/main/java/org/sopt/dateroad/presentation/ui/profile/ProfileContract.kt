@@ -27,11 +27,11 @@ class ProfileContract {
 
     sealed class ProfileEvent : UiEvent {
         data class FetchNicknameCheck(val name: String) : ProfileEvent()
-        data class PostSignUp(val editProfile: EditProfile) : ProfileEvent()
+        data class OnEnrollButtonClicked(val editProfile: EditProfile) : ProfileEvent()
         data class OnDateChipClicked(val tag: DateTagType) : ProfileEvent()
         data class OnNicknameValueChanged(val name: String) : ProfileEvent()
         data object OnImageButtonClicked : ProfileEvent()
-        data class ImageChanged(val image: String) : ProfileEvent()
+        data class OnImageValueChanged(val image: String) : ProfileEvent()
         data object OnBottomSheetDismissRequest : ProfileEvent()
         data object OnNicknameButtonClicked : ProfileEvent()
         data class CheckEnrollButtonEnable(val isEnrollButtonEnabled: Boolean) : ProfileEvent()

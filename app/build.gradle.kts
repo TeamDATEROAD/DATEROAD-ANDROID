@@ -107,12 +107,6 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
-
-    implementation(libs.ui)
-    implementation(libs.androidx.material.v100)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v231)
-    implementation(libs.material3)
 }
 
 ktlint {
