@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mycourse
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
@@ -43,7 +41,6 @@ fun MyCourseRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType))
-        Log.e("mycourse", myCourseType.toString())
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -120,18 +117,6 @@ fun MyCourseScreen(
 @Preview
 @Composable
 fun MyCourseScreenPreview() {
-    val sampleCourses = listOf(
-        Course(
-            id = 1,
-            url = "https://avatars.githubusercontent.com/u/103172971?v=4",
-            city = "건대/성수/왕십리",
-            title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-            cost = "10만원 초과",
-            duration = "10시간",
-            like = "999"
-        )
-    )
-
     DATEROADTheme {
         MyCourseScreen(
             padding = PaddingValues(0.dp),
