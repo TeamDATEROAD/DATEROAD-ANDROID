@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
-import org.sopt.dateroad.presentation.ui.home.MyPageRoute
+import org.sopt.dateroad.presentation.ui.mypage.MyPageRoute
 
 fun NavController.navigationMyPage(navOptions: NavOptions) {
     navigate(
