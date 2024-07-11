@@ -14,11 +14,17 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
     override suspend fun handleEvent(event: TimelineContract.TimelineEvent) {
         when (event) {
             is TimelineContract.TimelineEvent.FetchTimeline -> fetchTimeline()
+            is TimelineContract.TimelineEvent.PageChanged -> setPage(event.page)
+            is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
         }
     }
 
+    private fun setPage(page: Int) {
+        updateState { copy(currentPage = page) }
+    }
+
     private fun fetchTimeline() {
-        setState {
+        updateState {
             copy(
                 loadState = LoadState.Success,
                 dates = listOf(
@@ -61,17 +67,21 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                         date = "JUNE.23",
                         city = "부산",
                         tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POP_UP)
-                    ),
-                    Date(
-                        dateId = 6,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.ACTIVITY, DateTagType.PERFORMANCE_MUSIC)
-                    ),
+                    )
                 )
             )
         }
+    }
+
+    private fun handleAddDateCardClicked() {
+        if (currentState.dates.size >= 5) {
+            setSideEffect(TimelineContract.TimelineSideEffect.ShowMaxItemsModal)
+        } else {
+            setSideEffect(TimelineContract.TimelineSideEffect.MoveToEnroll)
+        }
+    }
+
+    fun updateState(update: TimelineContract.TimelineUiState.() -> TimelineContract.TimelineUiState) {
+        setState(update)
     }
 }

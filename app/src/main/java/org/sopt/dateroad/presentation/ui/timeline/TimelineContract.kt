@@ -7,19 +7,23 @@ import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
 import org.sopt.dateroad.presentation.util.view.LoadState
 
-
 class TimelineContract {
     data class TimelineUiState(
         val loadState: LoadState = LoadState.Idle,
         val timelineDetailType: TimelineDetailType = TimelineDetailType.TIMELINE,
         val dates: List<Date> = listOf(),
+        val currentPage: Int = 0,
+        val showModal: Boolean = false
     ) : UiState
 
     sealed interface TimelineSideEffect : UiSideEffect {
-        data object PopBackStack : TimelineSideEffect
+        object MoveToEnroll : TimelineSideEffect
+        object ShowMaxItemsModal : TimelineSideEffect
     }
 
     sealed class TimelineEvent : UiEvent {
-        data object FetchTimeline : TimelineEvent()
+        object FetchTimeline : TimelineEvent()
+        data class PageChanged(val page: Int) : TimelineEvent()
+        object AddDateCardClicked : TimelineEvent()
     }
 }

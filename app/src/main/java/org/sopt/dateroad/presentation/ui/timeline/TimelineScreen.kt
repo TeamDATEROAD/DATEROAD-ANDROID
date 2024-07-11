@@ -34,8 +34,10 @@ import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
@@ -47,6 +49,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
+    navigateToPastDate: () -> Unit,
+    navigateToEnroll: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -57,8 +61,21 @@ fun TimelineRoute(
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.collect { sideEffect ->
-
+            when (sideEffect) {
+                is TimelineContract.TimelineSideEffect.MoveToEnroll -> navigateToPastDate()
+                is TimelineContract.TimelineSideEffect.ShowMaxItemsModal -> {
+                    viewModel.updateState { copy(showModal = true) }
+                }
+            }
         }
+    }
+
+    if (uiState.showModal) {
+        DateRoadOneButtonDialogWithDescription(
+            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
+            onDismissRequest = { viewModel.updateState { copy(showModal = false) } },
+            onClickConfirm = { viewModel.updateState { copy(showModal = false) } }
+        )
     }
 
     when (uiState.loadState) {
@@ -66,6 +83,9 @@ fun TimelineRoute(
             TimelineScreen(
                 padding = padding,
                 uiState = uiState,
+                navigateToPastDate = navigateToPastDate,
+                viewModel = viewModel,
+                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) }
             )
         }
 
@@ -78,22 +98,30 @@ fun TimelineRoute(
 fun TimelineScreen(
     padding: PaddingValues,
     uiState: TimelineContract.TimelineUiState,
+    navigateToPastDate: () -> Unit,
+    viewModel: TimelineViewModel,
+    onAddDateCardClicked: () -> Unit
 ) {
     val pagerState = rememberPagerState()
     val configuration = LocalConfiguration.current
     val screenHeightDp = configuration.screenHeightDp.dp
 
+    LaunchedEffect(pagerState.currentPage) {
+        viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
+    }
+
     Column(
         modifier = Modifier
             .padding(padding)
             .fillMaxSize()
+            .background(color = DateRoadTheme.colors.white)
     ) {
         DateRoadLeftTitleTopBar(
             title = "데이트 일정",
             buttonContent = {
                 DateRoadImageButton(
                     isEnabled = true,
-                    onClick = {},
+                    onClick = { onAddDateCardClicked() },
                     cornerRadius = 14.dp,
                     paddingHorizontal = 16.dp,
                     paddingVertical = 8.dp
@@ -156,7 +184,7 @@ fun TimelineScreen(
             DateRoadFilledButton(
                 isEnabled = false,
                 textContent = stringResource(id = R.string.button_past_date),
-                onClick = {},
+                onClick = { navigateToPastDate() },
                 textStyle = DateRoadTheme.typography.bodyBold15,
                 enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
                 enabledTextColor = DateRoadTheme.colors.white,
@@ -195,6 +223,7 @@ fun TimelineScreenPreview() {
     DATEROADTheme {
         TimelineScreen(
             padding = PaddingValues(0.dp),
+            viewModel = TimelineViewModel(),
             uiState = TimelineContract.TimelineUiState(
                 loadState = LoadState.Success,
                 dates = listOf(
@@ -221,9 +250,11 @@ fun TimelineScreenPreview() {
                         date = "JUNE.23",
                         city = "부산",
                         tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP)
-                    ),
+                    )
                 )
             ),
+            navigateToPastDate = {},
+            onAddDateCardClicked = {}
         )
     }
 }

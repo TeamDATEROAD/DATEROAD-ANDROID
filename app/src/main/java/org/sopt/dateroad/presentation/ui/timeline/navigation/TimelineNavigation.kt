@@ -17,10 +17,14 @@ fun NavController.navigationTimeline(navOptions: NavOptions) {
 
 fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
+    navigateToPastDate: () -> Unit,
+    navigateToEnroll: () -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
         TimelineRoute(
-            padding = padding
+            padding = padding,
+            navigateToPastDate = navigateToPastDate,
+            navigateToEnroll = navigateToEnroll
         )
     }
 }
