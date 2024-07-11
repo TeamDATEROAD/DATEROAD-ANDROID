@@ -87,7 +87,6 @@ fun TimelineScreen(
         modifier = Modifier
             .padding(padding)
             .fillMaxSize()
-            .background(color = DateRoadTheme.colors.white)
     ) {
         DateRoadLeftTitleTopBar(
             title = "데이트 일정",

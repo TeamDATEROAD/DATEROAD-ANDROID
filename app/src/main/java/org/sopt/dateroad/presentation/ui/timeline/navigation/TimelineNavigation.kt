@@ -19,6 +19,8 @@ fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
-        TimelineRoute(padding = padding)
+        TimelineRoute(
+            padding = padding
+        )
     }
 }
