@@ -105,8 +105,8 @@
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
 
     <!-- PointHistoryTabType -->
-    <string name="point_history_tab_earn_history">획득 내역</string>
-    <string name="point_history_tab_usage_history">사용 내역</string>
+    <string name="point_history_tab_gained_history">획득 내역</string>
+    <string name="point_history_tab_used_history">사용 내역</string>
 
     <!-- PointSystemType -->
     <string name="point_system_first_title">데이트 코스를 등록하면\n포인트를 얻을 수 있어요</string>
