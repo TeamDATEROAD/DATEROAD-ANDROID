@@ -7,8 +7,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import kotlin.reflect.KFunction1
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.timeline.TimelineRoute
 import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailRoute
 
@@ -22,7 +24,7 @@ fun NavController.navigationTimeline(navOptions: NavOptions) {
 fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
     navigateToTimelineDetail: (DateType, Int) -> Unit,
-    navigateToEnroll: () -> Unit,
+    navigateToEnroll: KFunction1<EnrollType, Unit>,
     popBackStack: () -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
