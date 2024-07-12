@@ -44,7 +44,7 @@ abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event :
 
     protected abstract suspend fun handleEvent(event: Event)
 
-    protected fun setSideEffect(sideEffect: () -> SideEffect) {
-        viewModelScope.launch { _sideEffect.emit(sideEffect()) }
+    protected fun setSideEffect(sideEffect: SideEffect) {
+        viewModelScope.launch { _sideEffect.emit(sideEffect) }
     }
 }
