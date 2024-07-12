@@ -118,23 +118,18 @@ fun ProfileScreen(
         Box(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            if (profileUiState.image.isEmpty()) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_enroll_profile_default),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(128.dp)
-                        .aspectRatio(1f)
-                )
-            } else {
-                Image(
-                    painter = rememberAsyncImagePainter(model = profileUiState.image),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .height(128.dp)
-                        .aspectRatio(1f)
-                )
-            }
+            Image(
+                painter = if (profileUiState.image.isEmpty()) {
+                    painterResource(id = R.drawable.ic_enroll_profile_default)
+                } else {
+                    rememberAsyncImagePainter(model = profileUiState.image)
+                },
+                contentDescription = null,
+                modifier = Modifier
+                    .height(128.dp)
+                    .aspectRatio(1f)
+            )
+
             Image(
                 painter = painterResource(id = R.drawable.btn_my_profile_plus),
                 contentDescription = null,
