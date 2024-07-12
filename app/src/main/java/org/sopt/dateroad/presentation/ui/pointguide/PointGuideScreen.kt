@@ -9,17 +9,29 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.MyPagePointInfoType
+import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.ui.component.mypage.DateRoadMyPagePointInfo
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun PointGuideScreen() {
+fun ProfileGuideRoute(
+    popBackStack: () -> Unit,
+    onboardingType: OnboardingType
+) {
+    PointGuideScreen(onIconClick = popBackStack)
+}
+
+@Composable
+fun PointGuideScreen(
+    onIconClick: () -> Unit
+
+) {
     Column(
         Modifier
             .fillMaxSize()
@@ -30,9 +42,13 @@ fun PointGuideScreen() {
             title = "포인트 제도 소개",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = {}
+            onIconClick = onIconClick
         )
-        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
             Spacer(modifier = Modifier.height(17.dp))
 
             Text(text = "데이트로드는 포인트로\n 데이트 코스 열람할 수 있어도.")
@@ -54,10 +70,4 @@ fun PointGuideScreen() {
             DateRoadMyPagePointInfo(myPagePointInfoType = MyPagePointInfoType.FOURTH)
         }
     }
-}
-
-@Preview
-@Composable
-fun PointGuideScreenPreview() {
-    PointGuideScreen()
 }
