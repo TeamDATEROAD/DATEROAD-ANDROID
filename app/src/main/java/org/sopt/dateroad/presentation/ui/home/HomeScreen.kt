@@ -17,18 +17,18 @@ import org.sopt.dateroad.ui.theme.DATEROADTheme
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToOnBoarding: () -> Unit
 ) {
     HomeScreen(
         padding = padding,
-        navigateToPointHistory
+        navigateToOnBoarding
     )
 }
 
 @Composable
 fun HomeScreen(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToOnBoarding: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -36,7 +36,7 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory() }),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToOnBoarding() }),
             text = "HomeScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -48,6 +48,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     DATEROADTheme {
-        HomeScreen(padding = PaddingValues(0.dp), navigateToPointHistory = {})
+        HomeScreen(padding = PaddingValues(0.dp), navigateToOnBoarding = {})
     }
 }
