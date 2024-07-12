@@ -7,7 +7,7 @@ import org.sopt.dateroad.R
 enum class MyPagePointInfoType(
     @StringRes val titleRes: Int,
     @StringRes val descriptionRes: Int,
-    @DrawableRes val imageRes: Int = R.drawable.img_my_page_point_info
+    @DrawableRes val imageRes: Int = R.drawable.img_my_page_point_info_first
 
 ) {
     FIRST(
@@ -16,14 +16,17 @@ enum class MyPagePointInfoType(
     ),
     SECOND(
         titleRes = R.string.point_system_second_title,
-        descriptionRes = R.string.point_system_second_description
+        descriptionRes = R.string.point_system_second_description,
+        imageRes = R.drawable.img_my_page_point_info_second
     ),
     THIRD(
         titleRes = R.string.point_system_third_title,
-        descriptionRes = R.string.point_system_third_description
+        descriptionRes = R.string.point_system_third_description,
+        imageRes = R.drawable.img_my_page_point_info_third
     ),
     FOURTH(
         titleRes = R.string.point_system_fourth_title,
-        descriptionRes = R.string.point_system_fourth_description
+        descriptionRes = R.string.point_system_fourth_description,
+        imageRes = R.drawable.img_my_page_point_info_fourth
     )
 }
