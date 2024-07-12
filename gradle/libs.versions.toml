@@ -6,6 +6,7 @@ versionCode = "1"
 versionName = "1.0.0"
 jvmTarget = "1.8"
 kotlinCompilerExtensionVersion = "1.5.13"
+accompanistPager = "0.23.1"
 
 # Kotlin
 agp = "8.5.0"
@@ -46,6 +47,8 @@ lifecycleRuntimeComposeAndroid = "2.8.2"
 
 [libraries]
 # Test
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
