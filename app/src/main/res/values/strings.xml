@@ -175,6 +175,7 @@
     <string name="top_bar_title_timeline">데이트 일정</string>
     <string name="top_bar_point_guide">포인트 제도 소개</string>
     <string name="top_bar_button_text_load">불러오기</string>
+    <string name="top_bar_title_my_page">마이페이지</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
@@ -195,6 +196,7 @@
     <string name="my_page_menu_point_guide">포인트 제도 소개</string>
     <string name="my_page_menu_question">문의하기</string>
     <string name="my_page_menu_logout">로그아웃</string>
+    <string name="my_page_menu_withdrawal">탈퇴하기</string>
 
     <!-- Date Chip Group -->
     <string name="date_chip_group_profile">나의 데이트 성향 (%1$d/%2$d)</string>

@@ -72,7 +72,7 @@ class MainNavigator(
         navHostController.navigationProfile()
     }
 
-    fun navigateMyCourse(myCourseType: MyCourseType) {
+    fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
