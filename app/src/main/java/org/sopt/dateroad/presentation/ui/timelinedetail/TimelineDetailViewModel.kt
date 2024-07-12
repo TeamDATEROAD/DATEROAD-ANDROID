@@ -14,7 +14,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
 
     override suspend fun handleEvent(event: TimelineDetailContract.TimelineDetailEvent) {
         when (event) {
-            is TimelineDetailContract.TimelineDetailEvent.FetchDateDetail -> fetchDateDetail(event.dateId)
+            is TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail -> fetchDateDetail(event.dateId)
             is TimelineDetailContract.TimelineDetailEvent.ShowDeleteBottomSheet -> showDeleteBottomSheet()
             is TimelineDetailContract.TimelineDetailEvent.ShowKaKaoModal -> showKaKaoModal()
             is TimelineDetailContract.TimelineDetailEvent.ShowDeleteDialog -> showDeleteDialog()
@@ -31,23 +31,23 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP),
             date = "2023.12.31",
             places = listOf(
-                Place(sequence = "1", title = "현진이집", duration = "2.5"),
-                Place(sequence = "2", title = "지현이집", duration = "2.0"),
-                Place(sequence = "3", title = "민석이집", duration = "2.0"),
-                Place(sequence = "4", title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
-                Place(sequence = "5", title = "지현이집", duration = "2.0"),
-                Place(sequence = "6", title = "민석이집", duration = "2.0"),
-                Place(sequence = "7", title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
-                Place(sequence = "8", title = "지현이집", duration = "2.0"),
-                Place(sequence = "9", title = "민석이집", duration = "2.0"),
-                Place(sequence = "10", title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0")
+                Place(sequence = 1, title = "현진이집", duration = "2.5"),
+                Place(sequence = 2, title = "지현이집", duration = "2.0"),
+                Place(sequence = 3, title = "민석이집", duration = "2.0"),
+                Place(sequence = 4, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
+                Place(sequence = 5, title = "지현이집", duration = "2.0"),
+                Place(sequence = 6, title = "민석이집", duration = "2.0"),
+                Place(sequence = 7, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
+                Place(sequence = 8, title = "지현이집", duration = "2.0"),
+                Place(sequence = 9, title = "민석이집", duration = "2.0"),
+                Place(sequence = 10, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0")
             )
         )
         setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }
     }
 
     private fun showKaKaoModal() {
-        setState { copy(showKakaoModal = true) }
+        setState { copy(showKakaoDialog = true) }
     }
 
     private fun showDeleteBottomSheet() {

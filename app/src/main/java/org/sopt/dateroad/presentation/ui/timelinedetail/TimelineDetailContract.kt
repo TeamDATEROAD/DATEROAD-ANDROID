@@ -9,27 +9,18 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class TimelineDetailContract {
     data class TimelineDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val showKakaoModal: Boolean = false,
+        val showKakaoDialog: Boolean = false,
         val showDeleteBottomSheet: Boolean = false,
         val showDeleteDialog: Boolean = false,
-        val dateDetail: DateDetail = DateDetail(
-            dateId = 0,
-            title = "",
-            startAt = "",
-            city = "",
-            dday = "",
-            tags = emptyList(),
-            date = "",
-            places = emptyList()
-        )
+        val dateDetail: DateDetail = DateDetail()
     ) : UiState
 
     sealed interface TimelineDetailSideEffect : UiSideEffect {
-        object PopBackStack : TimelineDetailSideEffect
+        data object PopBackStack : TimelineDetailSideEffect
     }
 
     sealed class TimelineDetailEvent : UiEvent {
-        data class FetchDateDetail(val dateId: Int) : TimelineDetailEvent()
+        data class FetchTimelineDetail(val dateId: Int) : TimelineDetailEvent()
         data object ShowDeleteBottomSheet : TimelineDetailEvent()
         data object ShowDeleteDialog : TimelineDetailEvent()
         data object ShowKaKaoModal : TimelineDetailEvent()

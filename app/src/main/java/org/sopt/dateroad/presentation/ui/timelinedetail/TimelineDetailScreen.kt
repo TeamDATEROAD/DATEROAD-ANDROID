@@ -66,8 +66,8 @@ fun TimelineDetailRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(dateId) {
-        viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.FetchDateDetail(dateId))
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail(dateId))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -79,46 +79,19 @@ fun TimelineDetailRoute(
             }
     }
 
-    if (uiState.loadState == LoadState.Success) {
-        TimelineDetailScreen(
-            padding = padding,
-            uiState = uiState,
-            dateType = dateType,
-            onTopBarItemClick = popBackStack,
-            onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowDeleteBottomSheet) },
-            showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowKaKaoModal) }
-        )
-    }
-
-    if (uiState.showKakaoModal) {
-        DateRoadTwoButtonDialog(
-            twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
-            onClickDismiss = { viewModel.setState { copy(showKakaoModal = false) } },
-            onClickConfirm = { viewModel.setState { copy(showKakaoModal = true) } },
-            textStyle = DateRoadTheme.typography.bodyBold17
-        )
-    }
-
-    if (uiState.showDeleteBottomSheet) {
-        DateRoadBasicBottomSheet(
-            isBottomSheetOpen = true,
-            title = "데이트 일정 설정",
-            isButtonEnabled = false,
-            buttonText = "취소",
-            itemList = listOf(
-                "글 삭제" to { viewModel.setState { copy(showDeleteDialog = true) } }
-            ),
-            onDismissRequest = { viewModel.setState { copy(showDeleteBottomSheet = false) } }
-        )
-    }
-
-    if (uiState.showDeleteDialog) {
-        DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_TIMELINE,
-            onClickDismiss = { viewModel.setState { copy(showDeleteDialog = false) } },
-            onClickConfirm = { viewModel.setState { copy(showDeleteDialog = true) } }
-        )
-    }
+    TimelineDetailScreen(
+        padding = padding,
+        uiState = uiState,
+        dateType = dateType,
+        onTopBarItemClick = popBackStack,
+        onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowDeleteBottomSheet) },
+        showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowKaKaoModal) },
+        onDismissKakaoDialog = { viewModel.setState { copy(showKakaoDialog = false) } },
+        onConfirmKakaoDialog = { viewModel.setState { copy(showKakaoDialog = true) } },
+        onDismissDeleteBottomSheet = { viewModel.setState { copy(showDeleteBottomSheet = false) } },
+        onConfirmDeleteDialog = { viewModel.setState { copy(showDeleteDialog = true) } },
+        onDismissDialog = { viewModel.setState { copy(showDeleteDialog = false) } }
+    )
 }
 
 @Composable
@@ -128,7 +101,12 @@ fun TimelineDetailScreen(
     dateType: DateType,
     onTopBarItemClick: () -> Unit = {},
     onButtonClick: () -> Unit = {},
-    showKakaoClicked: () -> Unit = {}
+    showKakaoClicked: () -> Unit = {},
+    onDismissKakaoDialog: () -> Unit = {},
+    onConfirmKakaoDialog: () -> Unit = {},
+    onDismissDeleteBottomSheet: () -> Unit = {},
+    onConfirmDeleteDialog: () -> Unit = {},
+    onDismissDialog: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -141,11 +119,11 @@ fun TimelineDetailScreen(
             buttonContent = {
                 Icon(
                     painterResource(id = R.drawable.btn_course_detail_more_black),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.noRippleClickable(onClick = onButtonClick)
                 )
             },
-            onIconClick = onTopBarItemClick,
-            onButtonContentClick = onButtonClick
+            onIconClick = onTopBarItemClick
         )
         Box(
             modifier = Modifier
@@ -269,6 +247,37 @@ fun TimelineDetailScreen(
             }
         }
     }
+
+    if (uiState.showKakaoDialog) {
+        DateRoadTwoButtonDialog(
+            twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
+            onClickDismiss = onDismissKakaoDialog,
+            onDismissRequest = onDismissKakaoDialog,
+            onClickConfirm = onConfirmKakaoDialog
+        )
+    }
+
+    if (uiState.showDeleteBottomSheet) {
+        DateRoadBasicBottomSheet(
+            isBottomSheetOpen = true,
+            title = stringResource(id = R.string.region_bottom_sheet_set_timeline),
+            isButtonEnabled = false,
+            buttonText = "취소",
+            itemList = listOf(
+                stringResource(id = R.string.region_bottom_sheet_delete) to onConfirmDeleteDialog
+            ),
+            onDismissRequest = onDismissDeleteBottomSheet
+        )
+    }
+
+    if (uiState.showDeleteDialog) {
+        DateRoadTwoButtonDialogWithDescription(
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_TIMELINE,
+            onClickDismiss = onDismissDialog,
+            onClickConfirm = onConfirmDeleteDialog,
+            onDismissRequest = onDismissDialog
+        )
+    }
 }
 
 @Preview
@@ -290,7 +299,15 @@ fun TimelineDetailScreenPreview() {
                     date = "",
                     places = emptyList()
                 )
-            )
+            ),
+            onTopBarItemClick = {},
+            onButtonClick = {},
+            showKakaoClicked = {},
+            onDismissKakaoDialog = {},
+            onConfirmKakaoDialog = {},
+            onDismissDeleteBottomSheet = {},
+            onConfirmDeleteDialog = {},
+            onDismissDialog = {}
         )
     }
 }
