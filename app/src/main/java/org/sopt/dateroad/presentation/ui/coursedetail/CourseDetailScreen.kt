@@ -74,8 +74,6 @@ fun CourseDetailScreen(
         } else {
             stringResource(id = R.string.course_detail_point_read_button)
         }
-
-    var contentOffsetY by remember { mutableStateOf(0f) }
     val pagerState = rememberPagerState()
 
     val mappedTags = context.mapTagsToDateTagType(courseDetail.tags)
@@ -150,9 +148,7 @@ fun CourseDetailScreen(
                         .background(DateRoadTheme.colors.white)
                         .padding(horizontal = 16.dp)
                         .padding(top = 18.dp)
-                        .onGloballyPositioned { coordinates ->
-                            contentOffsetY = coordinates.positionInParent().y
-                        }
+
                 ) {
                     Text(
                         text = courseDetail.date,
@@ -200,8 +196,8 @@ fun CourseDetailScreen(
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = "50P로 코스를 확인해보세요",
-                                    style = DateRoadTheme.typography.bodyBold17,
-                                    color = DateRoadTheme.colors.black,
+                                    style = DateRoadTheme.typography.bodySemi15,
+                                    color = DateRoadTheme.colors.deepPurple,
                                     modifier = Modifier.align(Alignment.CenterHorizontally)
                                 )
                                 Spacer(modifier = Modifier.height(24.dp))
@@ -428,7 +424,7 @@ fun CourseDetailScreenPreview() {
         ),
         totalCost = "120,000 원",
         tags = listOf("드라이브", "쇼핑", "실내"),
-        isAccess = true,
+        isAccess = false,
         free = 1,
         isMine = false,
         totalPoint = 95
