@@ -8,7 +8,9 @@
     <string name="region">지역</string>
     <string name="edit">편집</string>
     <string name="delete">삭제</string>
+    <string name="complete">완료</string>
     <string name="apply">적용하기</string>
+    <string name="duration">%s시간</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>

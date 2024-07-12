@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -84,9 +83,9 @@ fun EnrollSecondScreen(
                 style = DateRoadTheme.typography.bodyMed13
             )
             DateRoadTextButton(
-                textContent = stringResource(id = if (enrollUiState.isPlaceEditable) R.string.delete else R.string.edit),
+                textContent = stringResource(id = if (enrollUiState.isPlaceEditable) R.string.edit else R.string.complete),
                 textStyle = DateRoadTheme.typography.bodyMed13,
-                textColor = DateRoadTheme.colors.gray400,
+                textColor = if (enrollUiState.isPlaceEditable) DateRoadTheme.colors.gray400 else DateRoadTheme.colors.deepPurple,
                 paddingHorizontal = 18.dp,
                 paddingVertical = 6.dp,
                 onClick = {
@@ -96,7 +95,8 @@ fun EnrollSecondScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
         LazyColumn(
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier
+                .fillMaxHeight()
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
