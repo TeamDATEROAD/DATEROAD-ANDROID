@@ -1,10 +1,10 @@
 package org.sopt.dateroad.presentation.ui.read
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiState, ReadContract.ReadSideEffect, ReadContract.ReadEvent>() {
@@ -21,7 +21,8 @@ class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiSta
     fun fetchMyCourseRead() {
         setEvent(
             ReadContract.ReadEvent.FetchMyCourseRead(
-                loadState = LoadState.Success, courses = listOf(
+                loadState = LoadState.Success,
+                courses = listOf(
                     Course(
                         id = 1,
                         url = "https://avatars.githubusercontent.com/u/103172971?v=4",
@@ -57,7 +58,8 @@ class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiSta
                         cost = "10만원 초과",
                         duration = "10시간",
                         like = "999"
-                    ), Course(
+                    ),
+                    Course(
                         id = 5,
                         url = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",

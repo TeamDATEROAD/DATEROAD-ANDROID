@@ -42,8 +42,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun ReadRoute(
     padding: PaddingValues,
     viewModel: ReadViewModel = hiltViewModel(),
-    navigateToEnroll: (EnrollType) -> Unit,
-    //navigateToCourseDetail: (Int) -> Unit
+    navigateToEnroll: (EnrollType) -> Unit
+    // navigateToCourseDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -58,7 +58,7 @@ fun ReadRoute(
             when (readSideEffect) {
                 is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE)
                 is ReadContract.ReadSideEffect.NavigateToCourseDetail -> {}
-                //navigateToCourseDetail(readSideEffect.courseId)
+                // navigateToCourseDetail(readSideEffect.courseId)
             }
         }
     }

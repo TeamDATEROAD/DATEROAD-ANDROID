@@ -1,7 +1,6 @@
 package org.sopt.dateroad.presentation.ui.read
 
 import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -21,6 +20,6 @@ class ReadContract {
 
     sealed class ReadEvent : UiEvent {
         data class FetchMyCourseRead(val loadState: LoadState, val courses: List<Course>) : ReadEvent()
-        data class FetchName(val name: String): ReadEvent()
+        data class FetchName(val name: String) : ReadEvent()
     }
 }
