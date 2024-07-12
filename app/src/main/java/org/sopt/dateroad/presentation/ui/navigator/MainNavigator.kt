@@ -67,12 +67,11 @@ class MainNavigator(
         // navHostController.navigateToEnroll()
     }
 
-    fun navigateToMyCourse(myCourseType: MyCourseType) {
     fun navigateProfile() {
         navHostController.navigationProfile()
     }
 
-    fun navigateMyCourse(myCourseType: MyCourseType) {
+    fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
