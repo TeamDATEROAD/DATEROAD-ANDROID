@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
@@ -25,10 +24,9 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadTwoButtonDialog(
     twoButtonDialogType: TwoButtonDialogType,
-    onDismissRequest: () -> Unit = {},
+    onDismissRequest: () -> Unit,
     onClickConfirm: () -> Unit,
-    onClickDismiss: () -> Unit = {},
-    textStyle: TextStyle = DateRoadTheme.typography.bodyMed15
+    onClickDismiss: () -> Unit
 ) {
     DateRoadDialog(
         onDismissRequest = onDismissRequest
@@ -48,7 +46,7 @@ fun DateRoadTwoButtonDialog(
                 color = DateRoadTheme.colors.black,
                 textAlign = TextAlign.Center,
                 text = stringResource(id = twoButtonDialogType.titleRes),
-                style = textStyle
+                style = DateRoadTheme.typography.bodyMed15
             )
             Spacer(modifier = Modifier.height(29.dp))
             Row(
