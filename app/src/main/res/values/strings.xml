@@ -201,6 +201,10 @@
     <string name="home_timeline_d_day">D-%s</string>
     <string name="home_timeline_start">%s 시작</string>
 
+
+    <!-- Enroll Button -->
+    <string name="enroll_profile_button">프로필 등록하기</string>
+
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
     <string name="enroll_place_insert_bar_enter_place_hint">장소명을 입력해주세요</string>
@@ -208,4 +212,17 @@
 
     <!-- Button -->
     <string name="button_past_date">지난 데이트 보기</string>
+
+    <!-- Profile -->
+    <string name="profile_top_bar_title">내 프로필</string>
+    <string name="profile_text_field_title">닉네임</string>
+    <string name="profile_text_field_placeholder">닉네임을 입력해 주세요</string>
+    <string name="profile_text_field_success_description">사용가능한 닉네임입니다.</string>
+    <string name="profile_text_field_conflict_error_description">이미 사용중인 닉네임입니다.</string>
+    <string name="profile_text_field_button_text">중복확인</string>
+    <string name="profile_bottom_sheet_title">프로필 사진 설정</string>
+    <string name="profile_bottom_sheet_button_text">취소</string>
+    <string name="profile_bottom_sheet_button_enroll">사진 등록</string>
+    <string name="profile_bottom_sheet_button_delete">사진 삭제</string>
+
 </resources>
