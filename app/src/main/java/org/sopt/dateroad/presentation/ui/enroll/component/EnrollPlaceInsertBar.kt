@@ -23,7 +23,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -35,7 +34,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun EnrollPlaceInsertBar(
     modifier: Modifier = Modifier,
-    place: Place,
+    title: String = "",
+    duration: String = "",
     onSelectedCourseTimeClick: () -> Unit = {},
     onTitleChange: (String) -> Unit = {},
     onAddCourseButtonClick: () -> Unit = {}
@@ -54,8 +54,8 @@ fun EnrollPlaceInsertBar(
                 .onGloballyPositioned { coordinates ->
                     textFieldHeight = maxOf(textFieldHeight, coordinates.size.height)
                 },
-            placeholder = stringResource(id = R.string.enroll_place_insert_bar_enter_place_hint),
-            value = place.title,
+            placeholder = stringResource(id = R.string.enroll_place_insert_bar_enter_place_placeholder),
+            value = title,
             onValueChange = onTitleChange
         )
         Text(
@@ -68,8 +68,8 @@ fun EnrollPlaceInsertBar(
                 }
                 .padding(horizontal = 15.dp)
                 .noRippleClickable(onClick = onSelectedCourseTimeClick),
-            text = place.duration.ifEmpty { stringResource(id = R.string.enroll_place_insert_bar_select_course_time_hint) },
-            color = if (place.duration.isEmpty()) DateRoadTheme.colors.gray300 else DateRoadTheme.colors.black,
+            text = duration.ifEmpty { stringResource(id = R.string.enroll_place_insert_bar_select_course_time_placeholder) },
+            color = if (duration.isEmpty()) DateRoadTheme.colors.gray300 else DateRoadTheme.colors.black,
             style = DateRoadTheme.typography.bodySemi13,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -78,7 +78,7 @@ fun EnrollPlaceInsertBar(
         DateRoadImageButton(
             modifier = Modifier
                 .size(with(density) { textFieldHeight.toDp() }),
-            isEnabled = place.duration.isNotEmpty() && place.title.isNotEmpty(),
+            isEnabled = duration.isNotEmpty() && title.isNotEmpty(),
             cornerRadius = 14.dp,
             paddingHorizontal = 15.dp,
             paddingVertical = 15.dp,
@@ -93,20 +93,22 @@ fun EnrollPlaceInsertBar(
 @Composable
 fun EnrollPlaceInsertBarPreview() {
     DATEROADTheme {
-        var place by remember { mutableStateOf(Place()) }
+        var title by remember { mutableStateOf("") }
+        var duration by remember { mutableStateOf("") }
         var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
         var pickerItems by remember {
             mutableStateOf(listOf(Picker(items = (1..12).map { (it * 0.5).toString() })))
         }
 
         EnrollPlaceInsertBar(
-            place = place,
-            onTitleChange = { title ->
-                place = place.copy(title = title)
+            title = title,
+            duration = duration,
+            onTitleChange = { titleValue ->
+                title = titleValue
             },
             onSelectedCourseTimeClick = {
                 isBottomSheetOpen = true
-                place = place.copy(duration = "시간")
+                duration = duration
             }
         )
 
@@ -116,7 +118,7 @@ fun EnrollPlaceInsertBarPreview() {
             buttonText = "적용하기",
             pickers = pickerItems,
             onButtonClick = {
-                place = place.copy(duration = pickerItems[0].pickerState.selectedItem + " 시간")
+                duration = pickerItems[0].pickerState.selectedItem
                 isBottomSheetOpen = false
             }
         )
