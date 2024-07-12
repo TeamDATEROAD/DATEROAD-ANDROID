@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
-import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.home.HomeRoute
 
 fun NavController.navigationHome(navOptions: NavOptions) {
