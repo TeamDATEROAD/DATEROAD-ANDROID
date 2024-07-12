@@ -1,8 +1,8 @@
 package org.sopt.dateroad.presentation.ui.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import javax.inject.Inject
+import org.sopt.dateroad.presentation.util.base.BaseViewModel
 
 @HiltViewModel
 class LoginViewModel @Inject constructor() : BaseViewModel<LoginContract.LoginUiState, LoginContract.LoginSideEffect, LoginContract.LoginEvent>() {
@@ -15,5 +15,4 @@ class LoginViewModel @Inject constructor() : BaseViewModel<LoginContract.LoginUi
             is LoginContract.LoginEvent.WebViewClick -> setState { copy(isWebViewOpened = true) }
         }
     }
-
 }

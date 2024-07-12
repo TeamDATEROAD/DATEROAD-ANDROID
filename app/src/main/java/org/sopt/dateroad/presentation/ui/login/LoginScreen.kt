@@ -31,17 +31,19 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun LoginRoute(
     viewModel: LoginViewModel,
-    onLogin: () -> Unit) {
+    onLogin: () -> Unit
+) {
     LoginScreen(
         loginUiState = LoginContract.LoginUiState(),
-        onLogin = onLogin)
-
+        onLogin = onLogin
+    )
 }
 
 @Composable
 fun LoginScreen(
     loginUiState: LoginContract.LoginUiState = LoginContract.LoginUiState(),
-    onLogin: () -> Unit) {
+    onLogin: () -> Unit
+) {
     var showWebView by remember { mutableStateOf(false) }
 
     if (showWebView) {
