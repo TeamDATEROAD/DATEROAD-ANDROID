@@ -40,8 +40,14 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.type.MyPageMenuType
+import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.type.TagType
+import org.sopt.dateroad.presentation.type.TwoButtonDialogType
+import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialog
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
@@ -81,6 +87,8 @@ fun MyPageRoute(
             MyPageScreen(
                 padding = padding,
                 myPageUiState = uiState,
+                deleteLogout = { viewModel.deleteLogout() },
+                deleteWithdrawal = { viewModel.deleteWithdrawal() },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
@@ -97,6 +105,8 @@ fun MyPageRoute(
 fun MyPageScreen(
     padding: PaddingValues,
     myPageUiState: MyPageContract.MyPageUiState = MyPageContract.MyPageUiState(),
+    deleteLogout: () -> Unit,
+    deleteWithdrawal: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: () -> Unit,
     setSoonDialog: (Boolean) -> Unit,
@@ -208,6 +218,32 @@ fun MyPageScreen(
         )
         Spacer(modifier = Modifier.height(30.dp))
     }
+
+    if (myPageUiState.showSoonDialog) {
+        DateRoadOneButtonDialogWithDescription(
+            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.SOON,
+            onDismissRequest = { setSoonDialog(false) },
+            onClickConfirm = { setSoonDialog(false) }
+        )
+    }
+
+    if (myPageUiState.showLogoutDialog) {
+        DateRoadTwoButtonDialog(
+            twoButtonDialogType = TwoButtonDialogType.LOGOUT,
+            onDismissRequest = { setLogoutDialog(false) },
+            onClickConfirm = deleteLogout,
+            onClickDismiss = { setLogoutDialog(false) }
+        )
+    }
+
+    if (myPageUiState.showWithdrawalDialog) {
+        DateRoadTwoButtonDialogWithDescription(
+            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
+            onDismissRequest = { setWithdrawalDialog(false) },
+            onClickConfirm = { setWithdrawalDialog(false) },
+            onClickDismiss = deleteWithdrawal
+        )
+    }
 }
 
 @Preview
@@ -219,6 +255,8 @@ fun MyPageScreenPreview() {
             myPageUiState = MyPageContract.MyPageUiState(
                 profile = Profile("지현", listOf("드라이브", "쇼핑", "실내"), 200)
             ),
+            deleteLogout = {},
+            deleteWithdrawal = {},
             navigateToPointHistory = {},
             navigateToMyCourse = {},
             setSoonDialog = {},
