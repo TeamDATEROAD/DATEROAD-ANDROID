@@ -30,10 +30,11 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun EnrollSecondScreen(
     enrollUiState: EnrollContract.EnrollUiState = EnrollContract.EnrollUiState(),
+    onSelectedPlaceCourseTimeClick: () -> Unit,
     onAddPlaceButtonClick: (Place) -> Unit,
     onPlaceTitleValueChange: (String) -> Unit,
-    onPlaceDurationClick: () -> Unit,
-    onPlaceEditButtonClick: (Boolean) -> Unit
+    onPlaceEditButtonClick: (Boolean) -> Unit,
+    onPlaceCardDeleteButtonClick: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -58,7 +59,7 @@ fun EnrollSecondScreen(
             title = enrollUiState.placeTitle,
             duration = enrollUiState.placeDuration,
             onTitleChange = onPlaceTitleValueChange,
-            onSelectedCourseTimeClick = onPlaceDurationClick,
+            onSelectedCourseTimeClick = onSelectedPlaceCourseTimeClick,
             onAddCourseButtonClick = {
                 onAddPlaceButtonClick(Place(sequence = enrollUiState.place.size, title = enrollUiState.placeTitle, duration = enrollUiState.placeDuration))
             }
@@ -95,11 +96,16 @@ fun EnrollSecondScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
         LazyColumn(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxHeight()
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(enrollUiState.place) { place ->
-                DateRoadPlaceCard(placeCardType = if (enrollUiState.isPlaceEditable) PlaceCardType.COURSE_EDIT else PlaceCardType.COURSE_DELETE, place = place)
+            items(enrollUiState.place.size) { index ->
+                DateRoadPlaceCard(
+                    placeCardType = if (enrollUiState.isPlaceEditable) PlaceCardType.COURSE_EDIT else PlaceCardType.COURSE_DELETE,
+                    place = enrollUiState.place[index],
+                    onIconClick = {onPlaceCardDeleteButtonClick(index)}
+                )
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -112,9 +118,10 @@ fun EnrollSecondScreenPreview() {
     DATEROADTheme {
         EnrollSecondScreen(
             onAddPlaceButtonClick = {},
+            onSelectedPlaceCourseTimeClick = {},
             onPlaceTitleValueChange = {},
-            onPlaceDurationClick = {},
-            onPlaceEditButtonClick = {}
+            onPlaceEditButtonClick = {},
+            onPlaceCardDeleteButtonClick = {}
         )
     }
 }

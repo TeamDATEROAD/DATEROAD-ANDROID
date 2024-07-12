@@ -15,7 +15,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
-        val page: EnrollScreenType = EnrollScreenType.FIRST,
+        val page: EnrollScreenType = EnrollScreenType.SECOND,
         val isEnrollButtonEnabled: Boolean = false,
         val images: List<String> = listOf(),
         val title: String = "",
@@ -43,7 +43,7 @@ class EnrollContract {
         val place: List<Place> = listOf(),
         val placeTitle: String = "",
         val placeDuration: String = "",
-        val isPlaceEditable: Boolean = false,
+        val isPlaceEditable: Boolean = true,
         val isDurationBottomSheetOpen: Boolean = false,
         val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() })),
         val description: String = "",
@@ -56,16 +56,17 @@ class EnrollContract {
 
     sealed class EnrollEvent : UiEvent {
         data object OnEnrollButtonClick : EnrollEvent()
-        data object OnPlaceDurationClick : EnrollEvent()
         data object OnDateTextFieldClick : EnrollEvent()
+        data object OnSelectedPlaceCourseTimeClick : EnrollEvent()
         data object OnDatePickerBottomSheetDismissRequest : EnrollEvent()
         data object OnTimePickerBottomSheetDismissRequest : EnrollEvent()
         data object OnRegionBottomSheetDismissRequest : EnrollEvent()
+        data object OnDurationBottomSheetDismissRequest : EnrollEvent()
         data object OnTimeTextFieldClick : EnrollEvent()
         data object OnRegionTextFieldClick : EnrollEvent()
         data class SetEnrollButtonEnabled(val isEnrollButtonEnabled: Boolean) : EnrollEvent()
         data class SetImage(val images: List<String>) : EnrollEvent()
-        data class OnDeleteButtonClick(val index: Int) : EnrollEvent()
+        data class OnImageDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnTitleValueChange(val title: String) : EnrollEvent()
         data class OnDatePickerBottomSheetButtonClick(val date: String) : EnrollEvent()
         data class OnTimePickerBottomSheetButtonClick(val startAt: String) : EnrollEvent()
@@ -74,8 +75,10 @@ class EnrollContract {
         data class OnRegionBottomSheetAreaChipClick(val city: Any?) : EnrollEvent()
         data class OnRegionBottomSheetButtonClick(val region: RegionType?, val area: Any?) : EnrollEvent()
         data class OnAddPlaceButtonClick(val place: Place) : EnrollEvent()
-        data class OnPlaceTitleValueChange(val title: String) : EnrollEvent()
-        data class OnPlaceEditButtonClick(val editable: Boolean) : EnrollEvent()
+        data class OnPlaceTitleValueChange(val placeTitle: String) : EnrollEvent()
+        data class OnDurationBottomSheetButtonClick(val placeDuration: String): EnrollEvent()
+        data class OnEditableValueChange(val editable: Boolean) : EnrollEvent()
+        data class OnPlaceCardDeleteButtonClick(val index: Int): EnrollEvent()
         data class OnDescriptionValueChange(val description: String) : EnrollEvent()
         data class OnCostValueChange(val cost: String) : EnrollEvent()
     }

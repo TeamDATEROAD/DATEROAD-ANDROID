@@ -75,10 +75,11 @@ fun EnrollRoute(
                 onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
                 onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
                 onRegionTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionTextFieldClick) },
+                onSelectedPlaceCourseTimeClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnSelectedPlaceCourseTimeClick) },
                 onDatePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetDismissRequest) },
                 onTimePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest) },
                 onRegionBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest) },
-                onPlaceDurationClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceDurationClick) },
+                onDurationBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest) },
                 onPhotoButtonClick = {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                         getGalleryLauncher.launch("image/*")
@@ -88,7 +89,7 @@ fun EnrollRoute(
                         )
                     }
                 },
-                onDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDeleteButtonClick(index = index)) },
+                onImageDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index)) },
                 onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
                 onDatePickerBottomSheetButtonClicked = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
                 onTimePickerBottomSheetButtonClicked = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
@@ -97,8 +98,10 @@ fun EnrollRoute(
                 onRegionBottomSheetAreaChipClicked = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
                 onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
-                onPlaceTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(title = title)) },
-                onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceEditButtonClick(editable = editable)) },
+                onPlaceTitleValueChange = { placeTitle -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)) },
+                onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration))},
+                onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)) },
+                onPlaceCardDeleteButtonClick = {index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index))},
                 onDescriptionValueChange = { description -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)) },
                 onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) }
             )
@@ -117,6 +120,8 @@ fun EnrollRoute(
                 }
             )
         )
+
+        if (place.isEmpty()) viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = true))
     }
 }
 
@@ -128,11 +133,13 @@ fun EnrollScreen(
     onDateTextFieldClick: () -> Unit,
     onTimeTextFieldClick: () -> Unit,
     onRegionTextFieldClick: () -> Unit,
+    onSelectedPlaceCourseTimeClick: () -> Unit,
     onDatePickerBottomSheetDismissRequest: () -> Unit,
     onTimePickerBottomSheetDismissRequest: () -> Unit,
     onRegionBottomSheetDismissRequest: () -> Unit,
+    onDurationBottomSheetDismissRequest: () -> Unit,
     onPhotoButtonClick: () -> Unit,
-    onDeleteButtonClick: (Int) -> Unit,
+    onImageDeleteButtonClick: (Int) -> Unit,
     onTitleValueChange: (String) -> Unit,
     onDatePickerBottomSheetButtonClicked: (String) -> Unit,
     onTimePickerBottomSheetButtonClicked: (String) -> Unit,
@@ -142,8 +149,9 @@ fun EnrollScreen(
     onRegionBottomSheetButtonClick: (RegionType?, Any?) -> Unit,
     onAddPlaceButtonClick: (Place) -> Unit,
     onPlaceTitleValueChange: (String) -> Unit,
-    onPlaceDurationClick: () -> Unit,
+    onDurationBottomSheetButtonClick: (String) -> Unit,
     onPlaceEditButtonClick: (Boolean) -> Unit,
+    onPlaceCardDeleteButtonClick: (Int) -> Unit,
     onDescriptionValueChange: (String) -> Unit,
     onCostValueChange: (String) -> Unit
 ) {
@@ -164,7 +172,7 @@ fun EnrollScreen(
             isDeletable = enrollUiState.page == EnrollScreenType.FIRST,
             images = enrollUiState.images,
             onPhotoButtonClick = onPhotoButtonClick,
-            onDeleteButtonClick = onDeleteButtonClick
+            onDeleteButtonClick = onImageDeleteButtonClick
         )
         Column(
             modifier = Modifier.weight(1f)
@@ -181,10 +189,11 @@ fun EnrollScreen(
 
                 EnrollScreenType.SECOND -> EnrollSecondScreen(
                     enrollUiState = enrollUiState,
+                    onSelectedPlaceCourseTimeClick = onSelectedPlaceCourseTimeClick,
                     onAddPlaceButtonClick = onAddPlaceButtonClick,
                     onPlaceTitleValueChange = onPlaceTitleValueChange,
-                    onPlaceDurationClick = onPlaceDurationClick,
-                    onPlaceEditButtonClick = onPlaceEditButtonClick
+                    onPlaceEditButtonClick = onPlaceEditButtonClick,
+                    onPlaceCardDeleteButtonClick = onPlaceCardDeleteButtonClick
                 )
 
                 EnrollScreenType.THIRD -> EnrollThirdScreen(
@@ -229,8 +238,8 @@ fun EnrollScreen(
             onTimePickerBottomSheetButtonClicked(
                 formatTime(enrollUiState.timePickers.map { it.pickerState.selectedItem })
             )
-            onTimePickerBottomSheetDismissRequest()
         },
+        onDismissRequest = onTimePickerBottomSheetDismissRequest,
         pickers = enrollUiState.timePickers
     )
 
@@ -249,6 +258,17 @@ fun EnrollScreen(
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = { onRegionBottomSheetButtonClick(enrollUiState.onRegionBottomSheetRegionSelected, enrollUiState.onRegionBottomSheetAreaSelected) },
         onDismissRequest = onRegionBottomSheetDismissRequest
+    )
+    
+    DateRoadPickerBottomSheet(
+        isBottomSheetOpen = enrollUiState.isDurationBottomSheetOpen,
+        isButtonEnabled = true,
+        buttonText = stringResource(id = R.string.apply),
+        onButtonClick = {
+            onDurationBottomSheetButtonClick(enrollUiState.durationPicker.first().pickerState.selectedItem )
+        },
+        onDismissRequest = onDurationBottomSheetDismissRequest,
+        pickers = enrollUiState.durationPicker
     )
 }
 
@@ -272,11 +292,13 @@ fun EnrollScreenPreview() {
             onDateTextFieldClick = {},
             onTimeTextFieldClick = {},
             onRegionTextFieldClick = {},
+            onSelectedPlaceCourseTimeClick = {},
             onDatePickerBottomSheetDismissRequest = {},
             onTimePickerBottomSheetDismissRequest = {},
             onRegionBottomSheetDismissRequest = {},
+            onDurationBottomSheetDismissRequest = {},
             onPhotoButtonClick = {},
-            onDeleteButtonClick = {},
+            onImageDeleteButtonClick = {},
             onTitleValueChange = {},
             onDatePickerBottomSheetButtonClicked = {},
             onTimePickerBottomSheetButtonClicked = {},
@@ -286,8 +308,9 @@ fun EnrollScreenPreview() {
             onRegionBottomSheetButtonClick = { _, _ -> },
             onAddPlaceButtonClick = {},
             onPlaceTitleValueChange = {},
-            onPlaceDurationClick = {},
+            onDurationBottomSheetButtonClick = {},
             onPlaceEditButtonClick = {},
+            onPlaceCardDeleteButtonClick = {},
             onDescriptionValueChange = {},
             onCostValueChange = {}
         )
