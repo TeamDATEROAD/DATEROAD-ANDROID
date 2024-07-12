@@ -33,6 +33,7 @@ import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -66,6 +67,9 @@ fun ReadRoute(
         LoadState.Success -> {
             ReadScreen(
                 padding = padding,
+                readUiState = uiState,
+                navigateToEnroll = { viewModel.setSideEffect(ReadContract.ReadSideEffect.NavigateToEnroll) },
+                navigateToCourseDetail = { courseId -> viewModel.setSideEffect(ReadContract.ReadSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )
         }
 
@@ -76,7 +80,9 @@ fun ReadRoute(
 @Composable
 fun ReadScreen(
     padding: PaddingValues,
-    readUiState: ReadContract.ReadUiState = ReadContract.ReadUiState()
+    readUiState: ReadContract.ReadUiState = ReadContract.ReadUiState(),
+    navigateToEnroll: () -> Unit,
+    navigateToCourseDetail: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -106,7 +112,7 @@ fun ReadScreen(
             Spacer(modifier = Modifier.height(4.dp))
             Row(
                 modifier = Modifier
-                    .padding(vertical = 7.dp, horizontal = 16.dp),
+                    .padding(vertical = 7.dp, horizontal = 16.dp).noRippleClickable(onClick = navigateToEnroll),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -134,6 +140,6 @@ fun ReadScreen(
 @Composable
 fun ReadScreenPreview() {
     DATEROADTheme {
-        ReadScreen(padding = PaddingValues(0.dp))
+        ReadScreen(padding = PaddingValues(0.dp), navigateToCourseDetail = {}, navigateToEnroll = {})
     }
 }

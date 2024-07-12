@@ -13,7 +13,7 @@ class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiSta
 
     override suspend fun handleEvent(event: ReadContract.ReadEvent) {
         when (event) {
-            is ReadContract.ReadEvent.FetchMyCourseRead -> setState { copy(loadState = event.loadState, courses = courses) }
+            is ReadContract.ReadEvent.FetchMyCourseRead -> setState { copy(loadState = event.loadState, courses = event.courses) }
             is ReadContract.ReadEvent.FetchName -> setState { copy(name = event.name) }
         }
     }
