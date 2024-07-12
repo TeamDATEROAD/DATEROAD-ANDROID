@@ -1,5 +1,4 @@
 [versions]
-accompanistWebview = "0.24.13-rc"
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
@@ -7,7 +6,6 @@ versionCode = "1"
 versionName = "1.0.0"
 jvmTarget = "1.8"
 kotlinCompilerExtensionVersion = "1.5.13"
-accompanistPager = "0.23.1"
 
 # Kotlin
 agp = "8.5.0"
@@ -32,6 +30,10 @@ pagingCommonAndroid = "3.3.0"
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
 firebaseBom = "33.1.1"
+
+# Accompanist
+accompanistPager = "0.23.1"
+accompanistWebview = "0.24.13-rc"
 
 # Third Party
 okhttp = "4.11.0"
@@ -82,6 +84,7 @@ google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-
 # Accompanist
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
+accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanistWebview" }
 
 # Third Party
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
