@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,11 +27,12 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeAdvertisement(
+    modifier: Modifier,
     advertisement: Advertisement,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .aspectRatio(328f / 132f)
@@ -42,16 +44,17 @@ fun HomeAdvertisement(
                 .crossfade(true)
                 .build(),
             placeholder = null,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
         Column(
-            modifier = Modifier.padding(13.dp)
+            modifier = modifier.padding(13.dp)
         ) {
             DateRoadTextTag(
                 textContent = advertisement.tag,
                 tagContentType = TagType.ADVERTISEMENT_TITLE
             )
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = modifier.size(10.dp))
             Text(
                 text = advertisement.title,
                 style = DateRoadTheme.typography.bodyBold15,
@@ -68,6 +71,7 @@ fun HomeAdvertisement(
 fun HomeAdvertisementPreview() {
     Column {
         HomeAdvertisement(
+            modifier = Modifier,
             advertisement = Advertisement(
                 advertismentId = 0,
                 imageUrl = "www.naver.jpg",

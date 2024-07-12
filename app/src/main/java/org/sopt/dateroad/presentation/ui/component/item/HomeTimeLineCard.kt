@@ -30,11 +30,13 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeTimeLineCard(
-    mainDate: MainDate? = null
+    mainDate: MainDate? = null,
+    onButtonClick: () -> Unit = {}
 ) {
     val deepPurple = DateRoadTheme.colors.deepPurple
 
@@ -139,6 +141,7 @@ fun HomeTimeLineCard(
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .align(Alignment.CenterHorizontally)
+                    .noRippleClickable { onButtonClick() }
             )
             Spacer(modifier = Modifier.height(30.dp))
         }
