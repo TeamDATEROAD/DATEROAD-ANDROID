@@ -233,6 +233,7 @@
     <string name="profile_bottom_sheet_button_delete">사진 삭제</string>
 
     <!-- Point Guide -->
+    <string name="point_guide_top_bar">포인트 제도 소개</string>
     <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
 
