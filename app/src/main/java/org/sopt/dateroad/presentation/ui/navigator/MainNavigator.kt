@@ -54,15 +54,22 @@ class MainNavigator(
         }
     }
 
+    fun navigateToEnroll(enrollType: EnrollType) {
+        navHostController.navigationEnroll(enrollType = enrollType)
+    }
+
     fun navigatePointHistory() {
         navHostController.navigationPointHistory()
     }
-
-    fun navigateToEnroll() {
-        // navHostController.navigateToEnroll()
+    fun navigateOnboarding() {
+        navHostController.navigationOnboarding()
     }
 
-    fun navigateMyCourse(myCourseType: MyCourseType) {
+    fun navigateProfile() {
+        navHostController.navigationProfile()
+    }
+
+    fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 

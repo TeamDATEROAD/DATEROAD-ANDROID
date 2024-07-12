@@ -1,3 +1,4 @@
+
 package org.sopt.dateroad.presentation.type
 
 import androidx.annotation.DrawableRes
@@ -7,21 +8,25 @@ import org.sopt.dateroad.R
 enum class OnboardingType(
     @StringRes val titleRes: Int,
     @StringRes val descriptionRes: Int,
-    @DrawableRes val imageRes: Int
+    @DrawableRes val imageRes: Int,
+    @StringRes val subDescriptionRes: Int
 ) {
     FIRST(
         titleRes = R.string.onboarding_first_title,
         descriptionRes = R.string.onboarding_first_description,
-        imageRes = R.drawable.ic_launcher_foreground
+        imageRes = R.drawable.img_onboarding_background1,
+        subDescriptionRes = R.string.onboarding_first_sub_description
     ),
     SECOND(
         titleRes = R.string.onboarding_second_title,
         descriptionRes = R.string.onboarding_second_description,
-        imageRes = R.drawable.ic_launcher_foreground
+        imageRes = R.drawable.img_onboarding_background2,
+        subDescriptionRes = R.string.onboarding_second_sub_description
     ),
     THIRD(
         titleRes = R.string.onboarding_third_title,
         descriptionRes = R.string.onboarding_third_description,
-        imageRes = R.drawable.ic_launcher_foreground
+        imageRes = R.drawable.img_onboarding_background3,
+        subDescriptionRes = R.string.onboarding_third_sub_description
     )
 }
