@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
@@ -14,7 +15,13 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
 
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
         when (event) {
-            is EnrollContract.EnrollEvent.OnEnrollButtonClick -> postCourse()
+            is EnrollContract.EnrollEvent.OnEnrollButtonClick -> {
+                when (currentState.page) {
+                    EnrollScreenType.FIRST -> setState { copy(page = EnrollScreenType.SECOND) }
+                    EnrollScreenType.SECOND -> setState { copy(page = EnrollScreenType.THIRD) }
+                    EnrollScreenType.THIRD -> postCourse()
+                }
+            }
             is EnrollContract.EnrollEvent.OnDateTextFieldClick -> setState { copy(isDatePickerBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnTimeTextFieldClick -> setState { copy(isTimePickerBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnRegionTextFieldClick -> setState { copy(isRegionBottomSheetOpen = true, onRegionBottomSheetRegionSelected = RegionType.SEOUL, onRegionBottomSheetAreaSelected = null) }
@@ -22,15 +29,16 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest -> setState { copy(isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest -> setState { copy(isRegionBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnPlaceDurationClick -> setState { copy(isDurationBottomSheetOpen = true) }
-            is EnrollContract.EnrollEvent.OnPageChange -> setState { copy(page = event.page) }
+            is EnrollContract.EnrollEvent.SetEnrollButtonEnabled -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is EnrollContract.EnrollEvent.SetImage -> setState { copy(images = event.images) }
             is EnrollContract.EnrollEvent.OnDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
             is EnrollContract.EnrollEvent.OnTitleValueChange -> setState {
                 copy(
                     title = event.title,
                     titleValidateState = when {
-                        event.title.length < TITLE_MIN_LENGTH -> TextFieldValidateResult.ValidationError
-                        else -> TextFieldValidateResult.Basic
+                        event.title.isEmpty() -> TextFieldValidateResult.Basic
+                        event.title.length >= TITLE_MIN_LENGTH -> TextFieldValidateResult.Success
+                        else -> TextFieldValidateResult.ValidationError
                     }
                 )
             }

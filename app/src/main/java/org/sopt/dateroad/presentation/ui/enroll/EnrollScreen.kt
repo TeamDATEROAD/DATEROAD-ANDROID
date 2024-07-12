@@ -31,6 +31,7 @@ import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
+import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
@@ -78,7 +79,6 @@ fun EnrollRoute(
                 onTimePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest) },
                 onRegionBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest) },
                 onPlaceDurationClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceDurationClick) },
-                onPageChange = { enrollScreenType -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPageChange(page = enrollScreenType)) },
                 onPhotoButtonClick = {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                         getGalleryLauncher.launch("image/*")
@@ -106,6 +106,18 @@ fun EnrollRoute(
 
         else -> Unit
     }
+
+    with(uiState) {
+        viewModel.setEvent(
+            EnrollContract.EnrollEvent.SetEnrollButtonEnabled(
+                when (page) {
+                    EnrollScreenType.FIRST -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && date.isNotEmpty() && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                    EnrollScreenType.SECOND -> place.size >= 2
+                    EnrollScreenType.THIRD -> placeDuration.length >= 200 && cost.isNotEmpty()
+                }
+            )
+        )
+    }
 }
 
 @Composable
@@ -119,7 +131,6 @@ fun EnrollScreen(
     onDatePickerBottomSheetDismissRequest: () -> Unit,
     onTimePickerBottomSheetDismissRequest: () -> Unit,
     onRegionBottomSheetDismissRequest: () -> Unit,
-    onPageChange: (EnrollScreenType) -> Unit,
     onPhotoButtonClick: () -> Unit,
     onDeleteButtonClick: (Int) -> Unit,
     onTitleValueChange: (String) -> Unit,
@@ -190,7 +201,9 @@ fun EnrollScreen(
         )
         DateRoadBasicButton(
             modifier = Modifier.padding(horizontal = 16.dp),
-            textContent = stringResource(id = R.string.enroll_button_text_next, enrollUiState.page.position, 3)
+            isEnabled = enrollUiState.isEnrollButtonEnabled,
+            textContent = if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next, enrollUiState.page.position, 3) else stringResource(id = R.string.apply),
+            onClick = onEnrollButtonClick
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -262,7 +275,6 @@ fun EnrollScreenPreview() {
             onDatePickerBottomSheetDismissRequest = {},
             onTimePickerBottomSheetDismissRequest = {},
             onRegionBottomSheetDismissRequest = {},
-            onPageChange = {},
             onPhotoButtonClick = {},
             onDeleteButtonClick = {},
             onTitleValueChange = {},

@@ -16,6 +16,7 @@ class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
         val page: EnrollScreenType = EnrollScreenType.FIRST,
+        val isEnrollButtonEnabled: Boolean = false,
         val images: List<String> = listOf(),
         val title: String = "",
         val titleValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
@@ -62,7 +63,7 @@ class EnrollContract {
         data object OnRegionBottomSheetDismissRequest : EnrollEvent()
         data object OnTimeTextFieldClick : EnrollEvent()
         data object OnRegionTextFieldClick : EnrollEvent()
-        data class OnPageChange(val page: EnrollScreenType) : EnrollEvent()
+        data class SetEnrollButtonEnabled(val isEnrollButtonEnabled: Boolean) : EnrollEvent()
         data class SetImage(val images: List<String>) : EnrollEvent()
         data class OnDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnTitleValueChange(val title: String) : EnrollEvent()
