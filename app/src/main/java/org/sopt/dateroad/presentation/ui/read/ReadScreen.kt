@@ -56,7 +56,7 @@ fun ReadRoute(
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { readSideEffect ->
             when (readSideEffect) {
-                is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE)
+                is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE)
                 is ReadContract.ReadSideEffect.NavigateToCourseDetail -> {}
                 // navigateToCourseDetail(readSideEffect.courseId)
             }
