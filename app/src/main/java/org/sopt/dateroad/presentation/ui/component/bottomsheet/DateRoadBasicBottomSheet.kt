@@ -40,7 +40,10 @@ fun DateRoadBasicBottomSheet(
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = isButtonEnabled,
         buttonText = buttonText,
-        onButtonClick = onButtonClick,
+        onButtonClick = {
+            onButtonClick()
+            onDismissRequest()
+        },
         onDismissRequest = onDismissRequest
     ) {
         Column(
