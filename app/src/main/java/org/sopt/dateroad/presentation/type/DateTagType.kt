@@ -51,5 +51,5 @@ enum class DateTagType(
     EXHIBITION_POP_UP(
         titleRes = R.string.date_tag_exhibition_pop_up,
         imageRes = R.drawable.ic_all_exhibition_pop_up
-    )
+    );
 }

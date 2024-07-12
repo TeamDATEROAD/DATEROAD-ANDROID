@@ -13,11 +13,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Course
+import org.sopt.dateroad.domain.model.CourseDetail
+import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun CourseDetailInfoBar(course: Course) {
+fun CourseDetailInfoBar(courseDetail: CourseDetail) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -28,7 +29,7 @@ fun CourseDetailInfoBar(course: Course) {
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = course.cost,
+            text = courseDetail.totalCost.toString(),
             color = DateRoadTheme.colors.gray400,
             style = DateRoadTheme.typography.bodySemi15
         )
@@ -39,7 +40,7 @@ fun CourseDetailInfoBar(course: Course) {
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = course.duration,
+            text = courseDetail.totalTime.toString(),
             color = DateRoadTheme.colors.gray400,
             style = DateRoadTheme.typography.bodySemi15
         )
@@ -50,7 +51,7 @@ fun CourseDetailInfoBar(course: Course) {
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = course.city,
+            text = courseDetail.city,
             color = DateRoadTheme.colors.gray400,
             style = DateRoadTheme.typography.bodySemi15
         )
@@ -61,14 +62,30 @@ fun CourseDetailInfoBar(course: Course) {
 @Composable
 fun CourseDetailInfoBarPreview() {
     CourseDetailInfoBar(
-        course = Course(
-            id = 1,
-            url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+        courseDetail = CourseDetail(
+            courseId = 1,
+            imageList = listOf(
+                R.drawable.img_course_detail_dummy,
+                R.drawable.img_course_detail_dummy,
+                R.drawable.img_course_detail_dummy
+            ),
+            like = 999,
+            totalTime = 10,
+            date = "2023-07-12",
             city = "건대/성수/왕십리",
             title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-            cost = "5만원 이하",
-            duration = "10시간",
-            like = "999"
+            description = "A full day tour around Seongsu-dong, exploring various spots and enjoying local cuisine.",
+            places = listOf(
+                Place(sequence = 1, title = "성수미술관 성수점", duration = "2시간"),
+                Place(sequence = 2, title = "성수미술관 성수점", duration = "2시간"),
+                Place(sequence = 3, title = "성수미술관 성수점", duration = "2시간")
+            ),
+            totalCost = "50,000 원",
+            tags = listOf("Seongsu-dong", "One-day trip", "Dating course"),
+            isAccess = true,
+            free = 1,
+            isMine = false,
+            totalPoint = 95
         )
     )
 }

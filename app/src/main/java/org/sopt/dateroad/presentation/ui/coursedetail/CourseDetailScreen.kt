@@ -31,18 +31,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Course
+import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.ChipType
-import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
@@ -55,33 +55,30 @@ import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
+import org.sopt.dateroad.presentation.util.context.mapTagsToDateTagType
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
-    course: Course,
-    places: List<Place>,
-    tags: List<DateTagType>,
-    isMyCourse: Boolean,
-    isAccess: Boolean,
-    hasFreeRead: Boolean
+    courseDetail: CourseDetail
 ) {
     var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
     var readCourseDialog by rememberSaveable { mutableStateOf(false) }
     var pointLackDialog by rememberSaveable { mutableStateOf(false) }
     var freeReadDialog by rememberSaveable { mutableStateOf(false) }
 
-    val buttonText = if (hasFreeRead) "무료 열람 기회 쓰기" else "포인트로 코스 열람하기"
+    val context = LocalContext.current
+    val buttonText =
+        if (courseDetail.free > 0) {
+            stringResource(id = R.string.course_detail_free_read_button)
+        } else {
+            stringResource(id = R.string.course_detail_point_read_button)
+        }
 
     var contentOffsetY by remember { mutableStateOf(0f) }
-    val density = LocalDensity.current.density
-    val imageList = listOf(
-        R.drawable.img_course_detail_dummy,
-        R.drawable.img_course_detail_dummy,
-        R.drawable.img_course_detail_dummy
-    )
     val pagerState = rememberPagerState()
+
+    val mappedTags = context.mapTagsToDateTagType(courseDetail.tags)
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -94,15 +91,15 @@ fun CourseDetailScreen(
             item {
                 Box(modifier = Modifier.fillMaxWidth()) {
                     HorizontalPager(
-                        count = imageList.size,
+                        count = courseDetail.imageList.size,
                         state = pagerState,
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f),
-                        userScrollEnabled = isAccess // Disable scrolling in pager if isAccess is false
+                        userScrollEnabled = courseDetail.isAccess // Disable scrolling in pager if isAccess is false
                     ) { page ->
                         Image(
-                            painter = painterResource(id = imageList[page]),
+                            painter = painterResource(id = courseDetail.imageList[page]),
                             contentDescription = null,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -117,7 +114,7 @@ fun CourseDetailScreen(
                             .padding(top = 5.dp)
                     )
 
-                    if (isMyCourse) {
+                    if (courseDetail.isMine) {
                         Image(
                             painter = painterResource(id = R.drawable.btn_course_detail_more_white),
                             contentDescription = null,
@@ -129,7 +126,7 @@ fun CourseDetailScreen(
                     }
 
                     DateRoadImageTag(
-                        textContent = "5",
+                        textContent = courseDetail.like.toString(),
                         imageContent = R.drawable.ic_tag_heart,
                         tagContentType = TagType.HEART,
                         modifier = Modifier
@@ -138,7 +135,7 @@ fun CourseDetailScreen(
                     )
 
                     DateRoadTextTag(
-                        textContent = "${pagerState.currentPage + 1}/${imageList.size}",
+                        textContent = "${pagerState.currentPage + 1}/${courseDetail.imageList.size}",
                         tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                         modifier = Modifier
                             .padding(end = 10.dp, bottom = 10.dp)
@@ -158,7 +155,7 @@ fun CourseDetailScreen(
                         }
                 ) {
                     Text(
-                        text = "2024년 6월 27일 방문",
+                        text = courseDetail.date,
                         style = DateRoadTheme.typography.bodySemi15,
                         color = DateRoadTheme.colors.gray400
                     )
@@ -170,20 +167,12 @@ fun CourseDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CourseDetailInfoBar(
-                        course = Course(
-                            id = 1,
-                            url = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                            city = "건대/성수/왕십리",
-                            title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                            cost = "5만원 이하",
-                            duration = "10시간",
-                            like = "999"
-                        )
+                        courseDetail
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    if (isAccess) {
+                    if (courseDetail.isAccess) {
                         Text(
-                            text = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
+                            text = courseDetail.description,
                             style = DateRoadTheme.typography.bodyMed13Context,
                             color = DateRoadTheme.colors.black
                         )
@@ -192,8 +181,7 @@ fun CourseDetailScreen(
                             modifier = Modifier
                                 .fillMaxSize()
                         ) {
-                            GradientBoxWithText(text = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?")
-
+                            GradientBoxWithText(text = courseDetail.description)
                             Column {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Image(
@@ -225,7 +213,7 @@ fun CourseDetailScreen(
                                     isEnabled = true,
                                     textContent = buttonText,
                                     onClick = {
-                                        if (hasFreeRead) {
+                                        if (courseDetail.free > 0) {
                                             freeReadDialog = true
                                         } else {
                                             readCourseDialog = true
@@ -246,9 +234,12 @@ fun CourseDetailScreen(
                     }
                 }
             }
-            if (isAccess) {
+            if (courseDetail.isAccess) {
                 item {
-                    Column(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
                         Spacer(modifier = Modifier.height(30.dp))
                         Text(
                             text = "코스 타임라인",
@@ -258,7 +249,7 @@ fun CourseDetailScreen(
                     }
                 }
 
-                items(places) { place ->
+                items(courseDetail.places) { place ->
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -285,7 +276,7 @@ fun CourseDetailScreen(
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = "90,000원",
+                            text = courseDetail.totalCost,
                             style = DateRoadTheme.typography.titleBold18,
                             color = DateRoadTheme.colors.black,
                             modifier = Modifier
@@ -310,7 +301,7 @@ fun CourseDetailScreen(
                             .padding(horizontal = 16.dp)
                     ) {
                         Row {
-                            tags.forEach { tag ->
+                            mappedTags.forEach { tag ->
                                 DateRoadImageChip(
                                     textId = tag.titleRes,
                                     imageRes = tag.imageRes,
@@ -321,7 +312,7 @@ fun CourseDetailScreen(
                             }
                         }
                         Spacer(modifier = Modifier.height(38.dp))
-                        if (!isMyCourse) {
+                        if (!courseDetail.isMine) {
                             Spacer(modifier = Modifier.height(80.dp))
                         }
                     }
@@ -329,7 +320,7 @@ fun CourseDetailScreen(
             }
         }
 
-        if (!isMyCourse && isAccess) {
+        if (!courseDetail.isMine && courseDetail.isAccess) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -375,7 +366,7 @@ fun CourseDetailScreen(
             onDismissRequest = { readCourseDialog = false },
             onClickConfirm = {
                 readCourseDialog = false
-                if (true) { // TODO: 포인트 부족 로직
+                if (courseDetail.totalPoint < 50) {
                     pointLackDialog = true
                 }
             },
@@ -417,50 +408,32 @@ fun CourseDetailScreen(
 @Preview
 @Composable
 fun CourseDetailScreenPreview() {
-    var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
-
-    val course = Course(
-        id = 1,
-        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+    val courseDetail = CourseDetail(
+        courseId = 1,
+        imageList = listOf(
+            R.drawable.img_course_detail_dummy,
+            R.drawable.img_course_detail_dummy,
+            R.drawable.img_course_detail_dummy
+        ),
+        like = 999,
+        totalTime = 10,
+        date = "2023-07-12",
         city = "건대/성수/왕십리",
         title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-        cost = "5만원 이하",
-        duration = "10시간",
-        like = "999"
-    )
-    val places = listOf(
-        Place(sequence = 1, title = "성수미술관 성수점", duration = "2시간"),
-        Place(sequence = 2, title = "성수미술관 성수점", duration = "2시간"),
-        Place(sequence = 3, title = "성수미술관 성수점", duration = "2시간")
-    )
-    val tags = listOf(
-        DateTagType.DRIVE,
-        DateTagType.SHOPPING,
-        DateTagType.INDOOR
-    )
-    CourseDetailScreen(
-        course = course,
-        places = places,
-        tags = tags,
-        isMyCourse = false,
-        isAccess = false,
-        hasFreeRead = false
-    )
-
-    DateRoadBasicBottomSheet(
-        isBottomSheetOpen = isBottomSheetOpen,
-        title = "데이트 코스 설정",
-        isButtonEnabled = false,
-        buttonText = "취소",
-        itemList = listOf(
-            "글 삭제" to { isBottomSheetOpen = false }
+        description = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?  나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
+        places = listOf(
+            Place(sequence = 1, title = "성수미술관 성수점", duration = "2시간"),
+            Place(sequence = 2, title = "성수미술관 성수점", duration = "2시간"),
+            Place(sequence = 3, title = "성수미술관 성수점", duration = "2시간")
         ),
-        onDismissRequest = { isBottomSheetOpen = false }
+        totalCost = "120,000 원",
+        tags = listOf("드라이브", "쇼핑", "실내"),
+        isAccess = true,
+        free = 1,
+        isMine = false,
+        totalPoint = 95
     )
-}
-
-private fun androidx.compose.ui.unit.Dp.toPx(density: Float): Float {
-    return this.value * density
+    CourseDetailScreen(courseDetail = courseDetail)
 }
 
 @Composable
