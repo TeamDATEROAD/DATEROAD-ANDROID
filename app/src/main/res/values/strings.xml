@@ -88,12 +88,15 @@
     <string name="my_page_point_info_fourth_description">추후 만들어질 기능을 기대해주세요</string>
 
     <!-- OnboardingType -->
-    <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
+    <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요</string>
     <string name="onboarding_first_description">최초 3회 찬스로 다른 사람의 데이트 코스를 구경해 보세요</string>
+    <string name="onboarding_first_sub_description">(이후에는 50포인트로 코스를 열람할 수 있어요)</string>
     <string name="onboarding_second_title">데이트 코스를 등록하면\n100 포인트를 얻을 수 있어요</string>
     <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고 포인트를 받아보세요</string>
+    <string name="onboarding_second_sub_description"></string>
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
     <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
+    <string name="onboarding_third_sub_description">(추후 제공될 기능이에요)</string>
 
     <!-- OneButtonDialogType -->
     <string name="one_button_dialog_with_description_enroll_timeline_title">데이트 일정이 등록되었어요!</string>
@@ -204,6 +207,10 @@
 
     <!-- Enroll Button -->
     <string name="enroll_profile_button">프로필 등록하기</string>
+
+    <!-- Onboarding Button -->
+    <string name="onboarding_profile_enroll">프로필 등록하기</string>
+    <string name="onboarding_next">다음</string>
 
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>

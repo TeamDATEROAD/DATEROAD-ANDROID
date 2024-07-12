@@ -17,9 +17,9 @@ fun NavController.navigationHome(navOptions: NavOptions) {
 
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
-    navigateToProfile: () -> Unit
+    navigateToOnBoarding: () -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Home::class.simpleName.orEmpty()) {
-        HomeRoute(padding = padding, navigateToProfile = navigateToProfile)
+        HomeRoute(padding = padding, navigateToOnBoarding = navigateToOnBoarding)
     }
 }

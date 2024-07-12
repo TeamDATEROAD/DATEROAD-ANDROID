@@ -16,6 +16,7 @@ import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
+import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
 import org.sopt.dateroad.presentation.ui.pastdate.navigation.navigateToPastDate
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
@@ -56,6 +57,10 @@ class MainNavigator(
 
     fun navigatePointHistory() {
         navHostController.navigationPointHistory()
+    }
+
+    fun navigateOnboarding() {
+        navHostController.navigationOnboarding()
     }
 
     fun navigateToEnroll() {
