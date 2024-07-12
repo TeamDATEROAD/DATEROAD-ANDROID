@@ -6,6 +6,7 @@
     <string name="withdrawal">탈퇴</string>
     <string name="fraction_format">%1$d/%2$d</string>
     <string name="region">지역</string>
+    <string name="start_time">시작시간</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
@@ -105,6 +106,7 @@
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
     <string name="one_button_dialog_with_description_cannot_enroll_course_title">데이트를 더 이상 등록할 수 없어요!</string>
     <string name="one_button_dialog_with_description_cannot_enroll_course_description">데이트는 최대 5개까지만 등록 가능해요</string>
+    <string name="one_button_dialog_with_description_share_kakao">카카오톡으로 공유하기</string>
 
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_gained_history">획득 내역</string>
