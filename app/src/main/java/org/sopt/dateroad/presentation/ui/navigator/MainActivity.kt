@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import org.sopt.dateroad.presentation.ui.login.LoginScreen
+import org.sopt.dateroad.presentation.ui.signin.LoginScreen
 import org.sopt.dateroad.presentation.ui.splash.SplashScreen
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
