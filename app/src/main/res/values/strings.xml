@@ -260,5 +260,10 @@
     <!-- Point Guide -->
     <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
+    
+    <!-- Read -->
+    <string name="read_title_normal">%s님이 지금까지\n열람한 데이트 코스\n%d개</string>
+    <string name="read_title_empty">%s님,\n아직 열람한\n데이트 코스가 없어요</string>
+    <string name="read_suggest_enroll">열람한 코스로 데이트를 짜보세요</string>
 
 </resources>
