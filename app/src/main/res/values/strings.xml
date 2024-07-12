@@ -208,4 +208,12 @@
 
     <!-- Button -->
     <string name="button_past_date">지난 데이트 보기</string>
+    <string name="button_more">더보기</string>
+
+    <!-- Home -->
+    <string name="home_hot_date_course_title">%s, 오늘은\n이런 데이트 코스 어떠세요?</string>
+    <string name="home_hot_date_course_description">후기 보장 HOT 데이트 코스 둘러보기</string>
+    <string name="home_new_date_course_title">새로 올라왔어요</string>
+    <string name="home_new_date_course_description">가장 최근에 올라온 코스 보러가기</string>
+
 </resources>

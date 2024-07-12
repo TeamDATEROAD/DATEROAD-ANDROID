@@ -35,7 +35,9 @@ fun MainNavHost(
         ) {
             homeNavGraph(
                 padding = padding,
-                navigateToPointHistory = navigator::navigatePointHistory
+                navigateToPointHistory = navigator::navigatePointHistory,
+                navigateToLook = navigator::navigateLook,
+                navigateToTimeline = navigator::navigateTimeline
             )
             lookNavGraph(
                 padding = padding
