@@ -50,7 +50,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
-    navigateToPastDate: (DateType) -> Unit,
+    navigateToTimelineDetail: (DateType, Int) -> Unit,
     navigateToEnroll: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -65,7 +65,7 @@ fun TimelineRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll()
-                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToPastDate(sideEffect.dateType)
+                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.dateType, sideEffect.dateId)
             }
         }
     }
@@ -74,27 +74,14 @@ fun TimelineRoute(
         viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
     }
 
-    when (uiState.loadState) {
-        LoadState.Success -> {
-            TimelineScreen(
-                padding = padding,
-                uiState = uiState,
-                pagerState = pagerState,
-                navigateToPastDate = navigateToPastDate,
-                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) }
-            )
-        }
-
-        else -> Unit
-    }
-
-    if (uiState.showMaxDateCardModal) {
-        DateRoadOneButtonDialogWithDescription(
-            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
-            onDismissRequest = { viewModel.setState { copy(showMaxDateCardModal = false) } },
-            onClickConfirm = { viewModel.setState { copy(showMaxDateCardModal = false) } }
-        )
-    }
+    TimelineScreen(
+        padding = padding,
+        uiState = uiState,
+        pagerState = pagerState,
+        onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
+        onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
+        navigateToTimelineDetail = navigateToTimelineDetail
+    )
 }
 
 @OptIn(ExperimentalPagerApi::class)
@@ -103,8 +90,9 @@ fun TimelineScreen(
     padding: PaddingValues,
     uiState: TimelineContract.TimelineUiState,
     pagerState: PagerState,
-    navigateToPastDate: (DateType) -> Unit,
-    onAddDateCardClicked: () -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit,
+    onAddDateCardClicked: () -> Unit,
+    onDismissMaxDateCardDialog: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -153,7 +141,7 @@ fun TimelineScreen(
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
-                        onClick = { navigateToPastDate(dateType) },
+                        onClick = { navigateToTimelineDetail(dateType, date.dateId) },
                         modifier = Modifier
                             .padding(end = 16.dp)
                     )
@@ -189,6 +177,14 @@ fun TimelineScreen(
                 paddingVertical = 11.dp
             )
         }
+    }
+
+    if (uiState.showMaxDateCardModal) {
+        DateRoadOneButtonDialogWithDescription(
+            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
+            onDismissRequest = onDismissMaxDateCardDialog,
+            onClickConfirm = onDismissMaxDateCardDialog
+        )
     }
 }
 
@@ -256,8 +252,9 @@ fun TimelineScreenPreview() {
                 )
             ),
             pagerState = rememberPagerState(),
-            navigateToPastDate = {},
-            onAddDateCardClicked = {}
+            navigateToTimelineDetail = { _, _ -> },
+            onAddDateCardClicked = {},
+            onDismissMaxDateCardDialog = {}
         )
     }
 }
