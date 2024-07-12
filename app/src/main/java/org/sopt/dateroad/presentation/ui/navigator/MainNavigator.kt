@@ -19,6 +19,7 @@ import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
 import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
+import org.sopt.dateroad.presentation.ui.past.navigation.navigationPast
 import org.sopt.dateroad.presentation.ui.pastdate.navigation.navigateToPastDate
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
@@ -61,23 +62,28 @@ class MainNavigator(
         navHostController.navigationEnroll(enrollType = enrollType)
     }
 
-    fun navigatePointHistory() {
-        navHostController.navigationPointHistory()
-    }
-    fun navigateOnboarding() {
-        navHostController.navigationOnboarding()
-    }
-
-    fun navigateProfile() {
-        navHostController.navigationProfile()
-    }
-
     fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
+    fun navigateToOnboarding() {
+        navHostController.navigationOnboarding()
+    }
+
+    fun navigateToPast() {
+        navHostController.navigationPast()
+    }
+
     fun navigateToPastDate() {
         navHostController.navigateToPastDate()
+    }
+
+    fun navigateToPointHistory() {
+        navHostController.navigationPointHistory()
+    }
+
+    fun navigateProfile() {
+        navHostController.navigationProfile()
     }
 
     private fun popBackStack() {

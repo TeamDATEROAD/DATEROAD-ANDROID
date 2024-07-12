@@ -15,7 +15,7 @@ fun NavController.navigationEnroll(enrollType: EnrollType) {
     )
 }
 
-fun NavGraphBuilder.enrollGraph(
+fun NavGraphBuilder.enrollNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit
 ) {
