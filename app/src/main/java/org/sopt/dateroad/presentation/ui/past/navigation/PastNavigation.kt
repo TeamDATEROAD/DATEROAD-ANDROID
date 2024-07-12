@@ -14,13 +14,13 @@ fun NavController.navigationToPast() {
 
 fun NavGraphBuilder.pastNavGraph(
     padding: PaddingValues,
-    popBackStack: () -> Unit,
-    //navigateToTimelineDetail: (Int) -> Unit
+    popBackStack: () -> Unit
+    // navigateToTimelineDetail: (Int) -> Unit
 ) {
     composable(route = PastRoute.ROUTE) {
         PastRoute(
             padding = padding,
-            popBackStack = popBackStack,
+            popBackStack = popBackStack
             // navigateToTimelineDetail = navigateToTimelineDetail
         )
     }

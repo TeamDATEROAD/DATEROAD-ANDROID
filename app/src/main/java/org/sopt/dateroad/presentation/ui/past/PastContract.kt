@@ -10,7 +10,7 @@ class PastContract {
     data class PastUiState(
         val loadState: LoadState = LoadState.Idle,
         val dates: List<Date> = listOf()
-    ): UiState
+    ) : UiState
 
     sealed interface PastSideEffect : UiSideEffect {
         data object PopBackStack : PastSideEffect

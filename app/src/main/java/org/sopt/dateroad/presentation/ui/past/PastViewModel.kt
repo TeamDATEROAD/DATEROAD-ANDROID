@@ -1,11 +1,11 @@
 package org.sopt.dateroad.presentation.ui.past
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class PastViewModel @Inject constructor() : BaseViewModel<PastContract.PastUiState, PastContract.PastSideEffect, PastContract.PastEvent>() {

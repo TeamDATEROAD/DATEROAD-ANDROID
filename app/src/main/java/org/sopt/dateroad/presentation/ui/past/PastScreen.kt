@@ -32,7 +32,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun PastRoute(
     padding: PaddingValues,
     viewModel: PastViewModel = hiltViewModel(),
-    popBackStack: () -> Unit,
+    popBackStack: () -> Unit
     // navigateToTimelineDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -47,7 +47,7 @@ fun PastRoute(
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
                 is PastContract.PastSideEffect.NavigateToTimelineDetail -> {}
-                //navigateToTimelineDetail(pastSideEffect.dateId)
+                // navigateToTimelineDetail(pastSideEffect.dateId)
             }
         }
     }
@@ -102,7 +102,6 @@ fun PastScreen(
             }
         }
     }
-
 }
 
 @Preview

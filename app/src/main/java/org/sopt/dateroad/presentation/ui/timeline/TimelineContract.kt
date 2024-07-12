@@ -14,7 +14,7 @@ class TimelineContract {
     ) : UiState
 
     sealed interface TimelineSideEffect : UiSideEffect {
-        data object NavigationToPast: TimelineSideEffect
+        data object NavigationToPast : TimelineSideEffect
         data object NavigateToEnroll : TimelineSideEffect
     }
 

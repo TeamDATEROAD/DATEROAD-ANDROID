@@ -58,8 +58,8 @@ fun MainNavHost(
             onboardingNavGraph()
             pastNavGraph(
                 padding = padding,
-                popBackStack = navigator::popBackStackIfNotHome,
-                //navigateToTimelineDetail = navigator::navigateToTimeline
+                popBackStack = navigator::popBackStackIfNotHome
+                // navigateToTimelineDetail = navigator::navigateToTimeline
             )
             pointHistoryGraph(
                 padding = padding,
