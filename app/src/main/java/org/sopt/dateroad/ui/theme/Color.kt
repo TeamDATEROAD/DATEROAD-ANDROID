@@ -8,11 +8,19 @@ import androidx.compose.ui.graphics.Color
 val DeepPurple = Color(0xFF4A3CEF)
 val MediumPurple = Color(0xFF6E61FF)
 val LightPurple = Color(0xFFA8A0FF)
+val Purple100 = Color(0xFFD3D0FF)
+val Purple200 = Color(0xFFBDB8FF)
+val Purple300 = Color(0xFFB3ACFF)
 val Lilac = Color(0xFFD5B5EE)
 val LightPink = Color(0xFFEFD6F8)
 val Pink = Color(0xFFE3A3F9)
+val Pink100 = Color(0xFFEFD6F8)
+val Pink200 = Color(0xFFE1C2F9)
+val Pink300 = Color(0xFFE1B7F0)
 val Lime = Color(0xFFDFF37C)
 val LightLime = Color(0xFFE5F3AE)
+val Lime100 = Color(0xFFEFFDB7)
+val Lime300 = Color(0xFFD3EB77)
 
 // GrayScale
 val Black = Color(0xFF090909)
@@ -36,11 +44,19 @@ data class DateRoadColors(
     val deepPurple: Color,
     val mediumPurple: Color,
     val lightPurple: Color,
+    val purple100: Color,
+    val purple200: Color,
+    val purple300: Color,
     val lilac: Color,
     val lightPink: Color,
     val pink: Color,
+    val pink100: Color,
+    val pink200: Color,
+    val pink300: Color,
     val lime: Color,
     val lightLime: Color,
+    val lime100: Color,
+    val lime300: Color,
 
     // GrayScale
     val black: Color,
@@ -64,11 +80,19 @@ val defaultDateRoadColors = DateRoadColors(
     deepPurple = DeepPurple,
     mediumPurple = MediumPurple,
     lightPurple = LightPurple,
+    purple100 = Purple100,
+    purple200 = Purple200,
+    purple300 = Purple300,
     lilac = Lilac,
     lightPink = LightPink,
     pink = Pink,
+    pink100 = Pink100,
+    pink200 = Pink200,
+    pink300 = Pink300,
     lime = Lime,
     lightLime = LightLime,
+    lime100 = Lime100,
+    lime300 = Lime300,
 
     // GrayScale
     black = Black,

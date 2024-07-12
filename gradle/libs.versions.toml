@@ -6,6 +6,7 @@ versionCode = "1"
 versionName = "1.0.0"
 jvmTarget = "1.8"
 kotlinCompilerExtensionVersion = "1.5.13"
+accompanistPager = "0.23.1"
 
 # Kotlin
 agp = "8.5.0"
@@ -17,6 +18,7 @@ junitVersion = "1.2.0"
 espressoCore = "3.6.0"
 
 # AndroidX
+coreSplashscreen = "1.0.1"
 coreKtx = "1.13.1"
 lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
@@ -45,6 +47,8 @@ lifecycleRuntimeComposeAndroid = "2.8.2"
 
 [libraries]
 # Test
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -55,6 +59,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 # AndroidX
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -101,6 +106,7 @@ sentry = { id = "io.sentry.android.gradle", version.ref = "sentry" }
 
 [bundles]
 androidx = [
+    "androidx-core-splashscreen",
     "androidx-core-ktx",
     "androidx-lifecycle-runtime-ktx",
     "androidx-activity-compose",
