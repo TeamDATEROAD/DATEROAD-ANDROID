@@ -106,6 +106,8 @@
     <string name="one_button_dialog_with_description_enroll_course_description">100P가 적립되었어요!</string>
     <string name="one_button_dialog_with_description_soon_title">곧 오픈될 기능이에요!</string>
     <string name="one_button_dialog_with_description_soon_description">조금만 기다려주세요 :)</string>
+    <string name="one_button_dialog_with_description_cannot_enroll_course_title">데이트를 더 이상 등록할 수 없어요!</string>
+    <string name="one_button_dialog_with_description_cannot_enroll_course_description">데이트는 최대 5개까지만 등록 가능해요</string>
 
     <!-- PointHistoryTabType -->
     <string name="point_history_tab_gained_history">획득 내역</string>
@@ -164,6 +166,8 @@
     <string name="top_bar_title_my_course_read">내가 열람한 코스</string>
     <string name="top_bar_title_my_course_enroll">내가 등록한 코스</string>
     <string name="top_bar_title_look">코스 둘러보기</string>
+    <string name="top_bar_title_my_course_past">지난 데이트</string>
+    <string name="top_bar_title_timeline">데이트 일정</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
@@ -200,6 +204,10 @@
     <string name="home_timeline_d_day">D-%s</string>
     <string name="home_timeline_start">%s 시작</string>
 
+
+    <!-- Enroll Button -->
+    <string name="enroll_profile_button">프로필 등록하기</string>
+
     <!-- Onboarding Button -->
     <string name="onboarding_profile_enroll">프로필 등록하기</string>
     <string name="onboarding_next">다음</string>
@@ -208,4 +216,20 @@
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
     <string name="enroll_place_insert_bar_enter_place_hint">장소명을 입력해주세요</string>
     <string name="enroll_place_insert_bar_select_course_time_hint">소요 시간</string>
+
+    <!-- Button -->
+    <string name="button_past_date">지난 데이트 보기</string>
+
+    <!-- Profile -->
+    <string name="profile_top_bar_title">내 프로필</string>
+    <string name="profile_text_field_title">닉네임</string>
+    <string name="profile_text_field_placeholder">닉네임을 입력해 주세요</string>
+    <string name="profile_text_field_success_description">사용가능한 닉네임입니다.</string>
+    <string name="profile_text_field_conflict_error_description">이미 사용중인 닉네임입니다.</string>
+    <string name="profile_text_field_button_text">중복확인</string>
+    <string name="profile_bottom_sheet_title">프로필 사진 설정</string>
+    <string name="profile_bottom_sheet_button_text">취소</string>
+    <string name="profile_bottom_sheet_button_enroll">사진 등록</string>
+    <string name="profile_bottom_sheet_button_delete">사진 삭제</string>
+
 </resources>

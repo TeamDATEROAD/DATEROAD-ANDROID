@@ -73,7 +73,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.paging.common.android)
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -110,7 +109,8 @@ dependencies {
     implementation(libs.bundles.kakao)
 
     // View Pager
-    implementation(libs.bundles.pager)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 }
 
 ktlint {

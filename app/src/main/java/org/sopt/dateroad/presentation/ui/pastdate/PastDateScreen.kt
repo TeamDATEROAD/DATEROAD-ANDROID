@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.mypage
+package org.sopt.dateroad.presentation.ui.read
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,25 +11,18 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.dateroad.presentation.type.MyCourseType
-import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
-fun MyPageRoute(
-    padding: PaddingValues,
-    navigateToMyCourse: (MyCourseType) -> Unit
+fun PastDateRoute(
+    padding: PaddingValues
 ) {
-    MyPageScreen(
-        padding = padding,
-        navigateToMyCourse = navigateToMyCourse
-    )
+    PastDateScreen(padding)
 }
 
 @Composable
-fun MyPageScreen(
-    padding: PaddingValues,
-    navigateToMyCourse: (MyCourseType) -> Unit
+fun PastDateScreen(
+    padding: PaddingValues
 ) {
     Column(
         modifier = Modifier
@@ -37,8 +30,7 @@ fun MyPageScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToMyCourse(MyCourseType.ENROLL) }),
-            text = "MyPageScreen",
+            text = "PastDateScreen",
             fontSize = 30.sp,
             fontWeight = Bold
         )
@@ -47,8 +39,8 @@ fun MyPageScreen(
 
 @Preview()
 @Composable
-fun MyPageScreenPreview() {
+fun PastDateScreenPreview() {
     DATEROADTheme {
-        MyPageScreen(padding = PaddingValues(0.dp), navigateToMyCourse = {})
+        PastDateScreen(padding = PaddingValues(0.dp))
     }
 }
