@@ -42,8 +42,11 @@ fun MainNavHost(
             )
             timelineNavGraph(
                 padding = padding,
-                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToTimelineDetail = { dateType, dateId ->
+                    navigator.navigateToTimelineDetail(dateType, dateId)
+                },
+                navigateToEnroll = navigator::navigateToEnroll,
+                popBackStack = navigator::popBackStackIfNotHome
             )
             readNavGraph(
                 padding = padding,

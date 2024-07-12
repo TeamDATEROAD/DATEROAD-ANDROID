@@ -66,8 +66,8 @@ class MainNavigator(
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
-    fun navigateToTimelineDetail(dateType: DateType) {
-        navHostController.navigateToTimelineDetail(dateType = dateType)
+    fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
+        navHostController.navigateToTimelineDetail(dateType = dateType, dateId = dateId)
     }
 
     private fun popBackStack() {
@@ -78,14 +78,6 @@ class MainNavigator(
         if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
             popBackStack()
         }
-    }
-
-    fun showBottomSheet() {
-        // Implement bottom sheet showing logic
-    }
-
-    fun showDialog() {
-        // Implement dialog showing logic
     }
 
     private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
