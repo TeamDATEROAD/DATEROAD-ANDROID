@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import org.sopt.dateroad.presentation.ui.login.LoginScreen
 import org.sopt.dateroad.presentation.ui.splash.SplashScreen
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navigator: MainNavigator = rememberMainNavigator()
             var showSplash by remember { mutableStateOf(true) }
+            var isLoggedIn by remember { mutableStateOf(checkLoginStatus()) }
 
             DATEROADTheme {
                 LaunchedEffect(Unit) {
@@ -34,13 +36,21 @@ class MainActivity : ComponentActivity() {
                 if (showSplash) {
                     SplashScreen()
                 } else {
-                    MainScreen(
-                        navigator = navigator
-                    )
+                    if (isLoggedIn) {
+                        MainScreen(navigator = navigator)
+                    } else {
+                        LoginScreen(onLogin = {isLoggedIn=true})
+                    }
                 }
             }
         }
     }
+
+    private fun checkLoginStatus(): Boolean {
+        //TODO: 로그인 상태 체크 로직
+        return false
+    }
+
     companion object {
         const val SPLASH_SCREEN_DELAY = 2000L
     }

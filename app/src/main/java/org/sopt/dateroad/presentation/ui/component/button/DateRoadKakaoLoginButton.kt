@@ -48,7 +48,7 @@ fun DateRoadKakaoLoginButton(
             Spacer(modifier = Modifier.size(5.dp))
             Text(
                 text = stringResource(id = R.string.kakao_login),
-                style = DateRoadTheme.typography.bodyBold13,
+                style = DateRoadTheme.typography.bodySemi15,
                 color = contentColor,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
