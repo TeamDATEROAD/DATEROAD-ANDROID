@@ -10,16 +10,17 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
-import org.sopt.dateroad.presentation.ui.pastdate.navigation.navigateToPastDate
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
+import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
 class MainNavigator(
     val navHostController: NavHostController
@@ -65,8 +66,8 @@ class MainNavigator(
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
-    fun navigateToPastDate() {
-        navHostController.navigateToPastDate()
+    fun navigateToTimelineDetail(dateType: DateType) {
+        navHostController.navigateToTimelineDetail(dateType = dateType)
     }
 
     private fun popBackStack() {
@@ -77,6 +78,14 @@ class MainNavigator(
         if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
             popBackStack()
         }
+    }
+
+    fun showBottomSheet() {
+        // Implement bottom sheet showing logic
+    }
+
+    fun showDialog() {
+        // Implement dialog showing logic
     }
 
     private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
