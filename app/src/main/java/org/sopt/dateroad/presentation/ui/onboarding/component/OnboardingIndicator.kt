@@ -10,11 +10,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier) {
+fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier, indicatorSize: Dp) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Bottom,
@@ -24,7 +25,7 @@ fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modif
             val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
             Box(
                 modifier = Modifier
-                    .size(8.dp)
+                    .size(indicatorSize)
                     .background(color, CircleShape)
             )
         }

@@ -125,6 +125,7 @@ fun OnboardingScreen(
         DotsIndicator(
             totalDots = OnboardingType.entries.size,
             selectedIndex = pagerState.currentPage,
+            indicatorSize = 8.dp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 158.dp)
