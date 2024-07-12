@@ -177,7 +177,7 @@ fun EnrollScreen(
         when (enrollUiState.enrollType) {
             EnrollType.COURSE -> {
                 DateRoadBasicTopBar(
-                    title = stringResource(id = R.string.top_bar_title_enroll),
+                    title = stringResource(id = R.string.top_bar_title_enroll_course),
                     iconLeftResource = R.drawable.ic_top_bar_back_white,
                     backGroundColor = DateRoadTheme.colors.white,
                     onIconClick = { }
@@ -299,7 +299,7 @@ fun EnrollScreen(
         },
         titleText = stringResource(id = R.string.region_bottom_sheet_title),
         buttonText = stringResource(id = R.string.apply),
-        onButtonClick = { onRegionBottomSheetButtonClick(enrollUiState.onRegionBottomSheetRegionSelected, enrollUiState.onRegionBottomSheetAreaSelected) },
+        onButtonClick = { regoion, area -> onRegionBottomSheetButtonClick(regoion, area) },
         onDismissRequest = onRegionBottomSheetDismissRequest
     )
 

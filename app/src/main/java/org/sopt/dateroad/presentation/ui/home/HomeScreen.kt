@@ -37,7 +37,7 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory(EnrollType.TIMELINE) }),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory(EnrollType.COURSE) }),
             text = "HomeScreen",
             fontSize = 30.sp,
             fontWeight = Bold

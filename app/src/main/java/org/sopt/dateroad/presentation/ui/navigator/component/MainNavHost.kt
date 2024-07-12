@@ -36,7 +36,7 @@ fun MainNavHost(
         ) {
             homeNavGraph(
                 padding = padding,
-                navigateToEnroll = navigator::navigateEnroll
+                navigateToEnroll = navigator::navigateToEnroll
             )
             lookNavGraph(
                 padding = padding

@@ -49,7 +49,7 @@ fun DateRoadRegionBottomSheet(
     isBottomSheetOpen: Boolean,
     isButtonEnabled: Boolean,
     titleText: String = stringResource(id = R.string.region_bottom_sheet_title),
-    buttonText: String = stringResource(id = R.string.region_bottom_sheet_button_text),
+    buttonText: String = stringResource(id = R.string.apply),
     selectedRegion: RegionType? = null,
     onSelectedRegionChanged: (RegionType) -> Unit = {},
     selectedArea: Any? = null,
