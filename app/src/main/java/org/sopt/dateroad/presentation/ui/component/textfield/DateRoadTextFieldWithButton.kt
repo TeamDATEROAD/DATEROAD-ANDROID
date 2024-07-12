@@ -112,7 +112,7 @@ fun DateRoadTextFieldWithButton(
                 onClick = onButtonClick
             )
         }
-        Spacer(modifier = Modifier.height(1.dp))
+        Spacer(modifier = Modifier.height(7.dp))
         Row {
             Text(
                 modifier = Modifier
