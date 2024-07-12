@@ -29,17 +29,24 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButt
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun LoginRoute(onLogin: () -> Unit) {
-    LoginScreen(onLogin = onLogin)
+fun LoginRoute(
+    viewModel: LoginViewModel,
+    onLogin: () -> Unit) {
+    LoginScreen(
+        loginUiState = LoginContract.LoginUiState(),
+        onLogin = onLogin)
+
 }
 
 @Composable
-fun LoginScreen(onLogin: () -> Unit) {
+fun LoginScreen(
+    loginUiState: LoginContract.LoginUiState = LoginContract.LoginUiState(),
+    onLogin: () -> Unit) {
     var showWebView by remember { mutableStateOf(false) }
 
     if (showWebView) {
         PrivacyPolicyWebView {
-            showWebView = false
+            showWebView = loginUiState.isWebViewOpened
         }
     } else {
         Column(
