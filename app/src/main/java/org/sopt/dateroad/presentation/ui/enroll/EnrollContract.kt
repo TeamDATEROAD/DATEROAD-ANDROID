@@ -15,12 +15,13 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
-        val page: EnrollScreenType = EnrollScreenType.THIRD,
+        val page: EnrollScreenType = EnrollScreenType.FIRST,
         val isEnrollButtonEnabled: Boolean = false,
         val images: List<String> = listOf(),
         val title: String = "",
         val titleValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val date: String = "",
+        val dateValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val isDatePickerBottomSheetOpen: Boolean = false,
         val datePickers: List<Picker> = listOf(
             Picker(items = (2000..2024).map { it.toString() }),

@@ -49,12 +49,14 @@ fun EnrollFirstScreen(
         Spacer(modifier = Modifier.height(2.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_date_placeholder),
+            validateState = enrollUiState.dateValidateState,
+            errorDescription = stringResource(id = R.string.enroll_date_error_description),
             value = enrollUiState.date,
             readOnly = true,
             iconResourceId = R.drawable.ic_enroll_calendar,
             onClick = onDateTextFieldClick
         )
-        Spacer(modifier = Modifier.height(18.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_date_start_at),
             value = enrollUiState.startAt,

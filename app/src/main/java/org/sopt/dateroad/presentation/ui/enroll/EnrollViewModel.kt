@@ -1,10 +1,13 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -43,7 +46,17 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
                     }
                 )
             }
-            is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState { copy(date = event.date, isDatePickerBottomSheetOpen = false) }
+            is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState {
+                copy(
+                    date = event.date,
+                    dateValidateState = when {
+                        event.date.isEmpty() -> TextFieldValidateResult.Basic
+                        LocalDate.parse(event.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
+                        else -> TextFieldValidateResult.Success
+                    },
+                    isDatePickerBottomSheetOpen = false
+                )
+            }
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick -> setState { copy(startAt = event.startAt, isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnDateChipClicked -> setState {
                 copy(

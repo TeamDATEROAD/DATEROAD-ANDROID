@@ -114,7 +114,7 @@ fun EnrollRoute(
         viewModel.setEvent(
             EnrollContract.EnrollEvent.SetEnrollButtonEnabled(
                 when (page) {
-                    EnrollScreenType.FIRST -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && date.isNotEmpty() && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                    EnrollScreenType.FIRST -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
                     EnrollScreenType.SECOND -> place.size >= 2
                     EnrollScreenType.THIRD -> description.length >= 200 && cost.isNotEmpty()
                 }
@@ -223,7 +223,7 @@ fun EnrollScreen(
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = {
             onDatePickerBottomSheetButtonClicked(
-                enrollUiState.datePickers.joinToString(separator = ".") { it.pickerState.selectedItem }
+                enrollUiState.datePickers.joinToString(separator = ".") { it.pickerState.selectedItem.padStart(2, '0') }
             )
         },
         onDismissRequest = onDatePickerBottomSheetDismissRequest,

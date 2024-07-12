@@ -21,3 +21,7 @@ object TimePicker {
     const val AM = "오전"
     const val PM = "오후"
 }
+
+object DatePicker {
+    const val DATE_PATTERN = "yyyy.MM.dd"
+}
