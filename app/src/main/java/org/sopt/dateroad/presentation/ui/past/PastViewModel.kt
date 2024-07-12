@@ -14,7 +14,7 @@ class PastViewModel @Inject constructor() : BaseViewModel<PastContract.PastUiSta
 
     override suspend fun handleEvent(event: PastContract.PastEvent) {
         when (event) {
-            is PastContract.PastEvent.FetchPastDate -> setState { copy(loadState = loadState, dates = dates) }
+            is PastContract.PastEvent.FetchPastDate -> setState { copy(loadState = event.loadState, dates = event.dates) }
         }
     }
 

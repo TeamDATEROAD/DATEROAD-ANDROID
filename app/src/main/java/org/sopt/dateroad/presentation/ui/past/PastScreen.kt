@@ -1,5 +1,7 @@
 package org.sopt.dateroad.presentation.ui.past
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +20,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.past.component.PastCard
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -43,7 +47,7 @@ fun PastRoute(
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
                 is PastContract.PastSideEffect.NavigateToTimelineDetail -> {}
-                    //navigateToTimelineDetail(pastSideEffect.dateId)
+                //navigateToTimelineDetail(pastSideEffect.dateId)
             }
         }
     }
@@ -72,6 +76,7 @@ fun PastScreen(
     Column(
         modifier = Modifier
             .padding(paddingValues = padding)
+            .background(color = DateRoadTheme.colors.white)
             .fillMaxSize()
     ) {
         DateRoadBasicTopBar(
@@ -80,13 +85,20 @@ fun PastScreen(
             backGroundColor = DateRoadTheme.colors.white,
             onIconClick = popBackStack
         )
-        LazyColumn {
-            items(pastUiState.dates.size) { index ->
-                PastCard(
-                    date = pastUiState.dates[index],
-                    dateType = DateType.getDateTypeByIndex(index),
-                    onClick = { navigateToTimelineDetail(index) }
-                )
+        if (pastUiState.dates.isEmpty()) {
+            DateRoadEmptyView(emptyViewType = EmptyViewType.PAST)
+        } else {
+            LazyColumn(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 6.dp, bottom = 11.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(pastUiState.dates.size) { index ->
+                    PastCard(
+                        date = pastUiState.dates[index],
+                        dateType = DateType.getDateTypeByIndex(index),
+                        onClick = { navigateToTimelineDetail(index) }
+                    )
+                }
             }
         }
     }

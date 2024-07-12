@@ -59,14 +59,14 @@ fun MainNavHost(
             pastNavGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome,
-                //navigateToTimelineDetail = navigator::navigatetoTimeline
+                //navigateToTimelineDetail = navigator::navigateToTimeline
             )
             pointHistoryGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
             profileNavGraph(
-                navigateToHome = navigator::navigateProfile
+                navigateToHome = navigator::navigateToProfile
                 // TODO: 추후 navigateHome 으로 변경
             )
             readNavGraph(
@@ -75,7 +75,7 @@ fun MainNavHost(
             )
             timelineNavGraph(
                 padding = padding,
-                navigateToPastDate = navigator::navigateToPastDate,
+                navigateToPast = navigator::navigateToPast,
                 navigateToEnroll = navigator::navigateToEnroll
             )
         }
