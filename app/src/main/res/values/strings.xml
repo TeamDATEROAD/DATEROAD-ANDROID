@@ -182,6 +182,8 @@
     <!-- Region Bottom Sheet -->
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
     <string name="region_bottom_sheet_button_text">적용하기</string>
+    <string name="region_bottom_sheet_delete">글 삭제</string>
+    <string name="region_bottom_sheet_set_timeline">데이트 일정 설정</string>
 
     <!-- My Page Menu -->
     <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
