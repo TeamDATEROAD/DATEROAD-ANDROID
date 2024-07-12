@@ -78,7 +78,7 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
         if (currentState.dates.size >= 5) {
             setState { copy(showMaxDateCardModal = true) }
         } else {
-            setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll)
+            setSideEffect { TimelineContract.TimelineSideEffect.NavigateToEnroll }
         }
     }
 
