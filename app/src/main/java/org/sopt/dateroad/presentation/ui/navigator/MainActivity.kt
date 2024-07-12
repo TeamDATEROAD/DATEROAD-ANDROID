@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import org.sopt.dateroad.presentation.ui.signin.LoginScreen
+import org.sopt.dateroad.presentation.ui.signin.SignInScreen
 import org.sopt.dateroad.presentation.ui.splash.SplashScreen
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     if (isLoggedIn) {
                         MainScreen(navigator = navigator)
                     } else {
-                        LoginScreen(onLogin = { isLoggedIn = true })
+                        SignInScreen(onSignIn = { isLoggedIn = true })
                     }
                 }
             }
