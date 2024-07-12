@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
 import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesGraph
@@ -35,8 +34,7 @@ fun MainNavHost(
             startDestination = navigator.startDestination::class.simpleName.orEmpty()
         ) {
             homeNavGraph(
-                padding = padding,
-                navigateToEnroll = navigator::navigateToEnroll
+                padding = padding
             )
             lookNavGraph(
                 padding = padding
@@ -62,12 +60,14 @@ fun MainNavHost(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
+            onboardingNavGraph()
             myCoursesGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            pastDateNavGraph(
-                padding = padding
+            profileNavGraph(
+                navigateToHome = navigator::navigateProfile
+                // TODO: 추후 navigateHome 으로 변경
             )
         }
     }
