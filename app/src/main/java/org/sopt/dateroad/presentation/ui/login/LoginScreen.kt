@@ -51,10 +51,12 @@ fun LoginScreen(onLogin: () -> Unit) {
             Spacer(modifier = Modifier.weight(226f))
             Image(painter = painterResource(id = R.drawable.ic_splash_logo), contentDescription = null)
             Spacer(modifier = Modifier.weight(167f))
-            DateRoadKakaoLoginButton(modifier = Modifier.padding(horizontal = 30.dp),
+            DateRoadKakaoLoginButton(
+                modifier = Modifier.padding(horizontal = 30.dp),
                 onClick = {
                     onLogin()
-                })
+                }
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "개인정보처리방침",

@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     if (isLoggedIn) {
                         MainScreen(navigator = navigator)
                     } else {
-                        LoginScreen(onLogin = {isLoggedIn=true})
+                        LoginScreen(onLogin = { isLoggedIn = true })
                     }
                 }
             }
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkLoginStatus(): Boolean {
-        //TODO: 로그인 상태 체크 로직
+        // TODO: 로그인 상태 체크 로직
         return false
     }
 
