@@ -62,7 +62,6 @@ fun DateRoadRegionBottomSheet(
 
     DateRoadBottomSheet(
         modifier = Modifier.padding(top = 15.dp, start = 16.dp, end = 6.dp, bottom = 16.dp),
-        sheetState = rememberModalBottomSheetState(),
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = isButtonEnabled,
         buttonText = buttonText,
