@@ -11,24 +11,20 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
 fun HomeRoute(
-    padding: PaddingValues,
-    navigateToOnBoarding: () -> Unit
+    padding: PaddingValues
 ) {
     HomeScreen(
-        padding = padding,
-        navigateToOnBoarding
+        padding = padding
     )
 }
 
 @Composable
 fun HomeScreen(
-    padding: PaddingValues,
-    navigateToOnBoarding: () -> Unit
+    padding: PaddingValues
 ) {
     Column(
         modifier = Modifier
@@ -36,7 +32,6 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToOnBoarding() }),
             text = "HomeScreen",
             fontSize = 30.sp,
             fontWeight = Bold
@@ -48,6 +43,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     DATEROADTheme {
-        HomeScreen(padding = PaddingValues(0.dp), navigateToOnBoarding = {})
+        HomeScreen(padding = PaddingValues(0.dp))
     }
 }

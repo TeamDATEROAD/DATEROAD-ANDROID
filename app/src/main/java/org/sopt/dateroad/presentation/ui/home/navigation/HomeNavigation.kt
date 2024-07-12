@@ -16,10 +16,9 @@ fun NavController.navigationHome(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.homeNavGraph(
-    padding: PaddingValues,
-    navigateToOnBoarding: () -> Unit
+    padding: PaddingValues
 ) {
     composable(route = MainNavigationBarRoute.Home::class.simpleName.orEmpty()) {
-        HomeRoute(padding = padding, navigateToOnBoarding = navigateToOnBoarding)
+        HomeRoute(padding = padding)
     }
 }

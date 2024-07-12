@@ -15,7 +15,7 @@ enum class DateChipGroupType(
         titleTextStyle = defaultDateRoadTypography.bodyBold15,
         maxSize = 3
     ),
-    ENROLL_PROFILE(
+    ENROLL(
         titleRes = R.string.date_chip_group_enroll_course,
         titleTextStyle = defaultDateRoadTypography.bodySemi15,
         maxSize = 3

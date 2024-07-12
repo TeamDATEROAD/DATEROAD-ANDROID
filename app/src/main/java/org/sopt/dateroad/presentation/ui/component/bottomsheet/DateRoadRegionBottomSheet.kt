@@ -19,7 +19,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,7 +48,7 @@ fun DateRoadRegionBottomSheet(
     isBottomSheetOpen: Boolean,
     isButtonEnabled: Boolean,
     titleText: String = stringResource(id = R.string.region_bottom_sheet_title),
-    buttonText: String = stringResource(id = R.string.region_bottom_sheet_button_text),
+    buttonText: String = stringResource(id = R.string.apply),
     selectedRegion: RegionType? = null,
     onSelectedRegionChanged: (RegionType) -> Unit = {},
     selectedArea: Any? = null,
@@ -62,7 +61,6 @@ fun DateRoadRegionBottomSheet(
 
     DateRoadBottomSheet(
         modifier = Modifier.padding(top = 15.dp, start = 16.dp, end = 6.dp, bottom = 16.dp),
-        sheetState = rememberModalBottomSheetState(),
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = isButtonEnabled,
         buttonText = buttonText,

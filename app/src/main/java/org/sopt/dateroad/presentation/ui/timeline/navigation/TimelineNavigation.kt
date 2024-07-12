@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.timeline.TimelineRoute
 
 fun NavController.navigationTimeline(navOptions: NavOptions) {
@@ -18,7 +19,7 @@ fun NavController.navigationTimeline(navOptions: NavOptions) {
 fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
     navigateToPastDate: () -> Unit,
-    navigateToEnroll: () -> Unit
+    navigateToEnroll: (EnrollType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
         TimelineRoute(

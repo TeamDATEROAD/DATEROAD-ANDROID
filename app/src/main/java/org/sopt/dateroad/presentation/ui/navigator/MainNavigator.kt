@@ -10,8 +10,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
@@ -55,16 +57,15 @@ class MainNavigator(
         }
     }
 
+    fun navigateToEnroll(enrollType: EnrollType) {
+        navHostController.navigationEnroll(enrollType = enrollType)
+    }
+
     fun navigatePointHistory() {
         navHostController.navigationPointHistory()
     }
-
     fun navigateOnboarding() {
         navHostController.navigationOnboarding()
-    }
-
-    fun navigateToEnroll() {
-        // navHostController.navigateToEnroll()
     }
 
     fun navigateProfile() {
