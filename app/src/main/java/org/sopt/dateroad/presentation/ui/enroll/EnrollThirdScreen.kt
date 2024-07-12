@@ -42,7 +42,9 @@ fun EnrollThirdScreen(
             title = stringResource(id = R.string.enroll_cost_title),
             placeholder = stringResource(id = R.string.enroll_cost_placeholder),
             value = enrollUiState.cost,
-            onValueChange = onCostValueChange,
+            onValueChange = { newValue ->
+                if (newValue.all { it.isDigit() }) onCostValueChange(newValue)
+            },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
         )
         Spacer(modifier = Modifier.height(6.dp))

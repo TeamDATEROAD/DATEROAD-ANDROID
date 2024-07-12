@@ -99,9 +99,9 @@ fun EnrollRoute(
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
                 onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
                 onPlaceTitleValueChange = { placeTitle -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)) },
-                onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration))},
+                onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration)) },
                 onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)) },
-                onPlaceCardDeleteButtonClick = {index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index))},
+                onPlaceCardDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index)) },
                 onDescriptionValueChange = { description -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)) },
                 onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) }
             )
@@ -116,7 +116,7 @@ fun EnrollRoute(
                 when (page) {
                     EnrollScreenType.FIRST -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && date.isNotEmpty() && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
                     EnrollScreenType.SECOND -> place.size >= 2
-                    EnrollScreenType.THIRD -> placeDuration.length >= 200 && cost.isNotEmpty()
+                    EnrollScreenType.THIRD -> description.length >= 200 && cost.isNotEmpty()
                 }
             )
         )
@@ -259,13 +259,13 @@ fun EnrollScreen(
         onButtonClick = { onRegionBottomSheetButtonClick(enrollUiState.onRegionBottomSheetRegionSelected, enrollUiState.onRegionBottomSheetAreaSelected) },
         onDismissRequest = onRegionBottomSheetDismissRequest
     )
-    
+
     DateRoadPickerBottomSheet(
         isBottomSheetOpen = enrollUiState.isDurationBottomSheetOpen,
         isButtonEnabled = true,
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = {
-            onDurationBottomSheetButtonClick(enrollUiState.durationPicker.first().pickerState.selectedItem )
+            onDurationBottomSheetButtonClick(enrollUiState.durationPicker.first().pickerState.selectedItem)
         },
         onDismissRequest = onDurationBottomSheetDismissRequest,
         pickers = enrollUiState.durationPicker

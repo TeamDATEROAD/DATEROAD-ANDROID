@@ -15,7 +15,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
-        val page: EnrollScreenType = EnrollScreenType.SECOND,
+        val page: EnrollScreenType = EnrollScreenType.THIRD,
         val isEnrollButtonEnabled: Boolean = false,
         val images: List<String> = listOf(),
         val title: String = "",
@@ -76,9 +76,9 @@ class EnrollContract {
         data class OnRegionBottomSheetButtonClick(val region: RegionType?, val area: Any?) : EnrollEvent()
         data class OnAddPlaceButtonClick(val place: Place) : EnrollEvent()
         data class OnPlaceTitleValueChange(val placeTitle: String) : EnrollEvent()
-        data class OnDurationBottomSheetButtonClick(val placeDuration: String): EnrollEvent()
+        data class OnDurationBottomSheetButtonClick(val placeDuration: String) : EnrollEvent()
         data class OnEditableValueChange(val editable: Boolean) : EnrollEvent()
-        data class OnPlaceCardDeleteButtonClick(val index: Int): EnrollEvent()
+        data class OnPlaceCardDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnDescriptionValueChange(val description: String) : EnrollEvent()
         data class OnCostValueChange(val cost: String) : EnrollEvent()
     }
