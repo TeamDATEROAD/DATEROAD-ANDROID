@@ -48,7 +48,8 @@ fun MainNavHost(
             )
             readNavGraph(
                 padding = padding,
-                navigateToMyCourse = navigator::navigateToMyCourse
+                navigateToEnroll = navigator::navigateToEnroll
+                //navigateToCourseDetail = navigator::
             )
             myPageNavGraph(
                 padding = padding,

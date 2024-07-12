@@ -64,6 +64,7 @@ class MainNavigator(
     fun navigatePointHistory() {
         navHostController.navigationPointHistory()
     }
+
     fun navigateOnboarding() {
         navHostController.navigationOnboarding()
     }
