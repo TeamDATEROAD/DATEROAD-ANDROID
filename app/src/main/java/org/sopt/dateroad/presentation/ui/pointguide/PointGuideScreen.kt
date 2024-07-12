@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.pointguide
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.MyPagePointInfoType
-import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.ui.component.mypage.DateRoadMyPagePointInfo
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
@@ -23,8 +23,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun ProfileGuideRoute(
-    popBackStack: () -> Unit,
-    onboardingType: OnboardingType
+    popBackStack: () -> Unit
 ) {
     PointGuideScreen(onIconClick = popBackStack)
 }
@@ -39,7 +38,7 @@ fun PointGuideScreen(
             .background(DateRoadTheme.colors.white)
     ) {
         DateRoadBasicTopBar(
-            title = stringResource(id = R.string.point_guide_top_bar),
+            title = stringResource(id = R.string.top_bar_point_guide),
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
             onIconClick = onIconClick
@@ -65,13 +64,12 @@ fun PointGuideScreen(
                 color = DateRoadTheme.colors.gray500
             )
             Spacer(modifier = Modifier.height(24.dp))
-            DateRoadMyPagePointInfo(myPagePointInfoType = MyPagePointInfoType.FIRST)
-            Spacer(modifier = Modifier.height(16.dp))
-            DateRoadMyPagePointInfo(myPagePointInfoType = MyPagePointInfoType.SECOND)
-            Spacer(modifier = Modifier.height(16.dp))
-            DateRoadMyPagePointInfo(myPagePointInfoType = MyPagePointInfoType.THIRD)
-            Spacer(modifier = Modifier.height(16.dp))
-            DateRoadMyPagePointInfo(myPagePointInfoType = MyPagePointInfoType.FOURTH)
+
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                MyPagePointInfoType.entries.forEach { myPagePointInfoType ->
+                    DateRoadMyPagePointInfo(myPagePointInfoType = myPagePointInfoType)
+                }
+            }
         }
     }
 }
