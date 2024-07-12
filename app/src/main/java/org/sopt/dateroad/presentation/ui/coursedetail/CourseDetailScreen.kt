@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -29,8 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,8 +52,10 @@ import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
+import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
 import org.sopt.dateroad.presentation.util.context.mapTagsToDateTagType
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
@@ -432,33 +431,4 @@ fun CourseDetailScreenPreview() {
     CourseDetailScreen(courseDetail = courseDetail)
 }
 
-@Composable
-fun GradientBoxWithText(text: String) {
-    Box(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = text,
-            style = DateRoadTheme.typography.bodyMed13Context,
-            color = DateRoadTheme.colors.black,
-            maxLines = 3,
-            modifier = Modifier.fillMaxWidth()
-        )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.White.copy(alpha = 0.6f),
-                            Color.White.copy(alpha = 1f)
-
-                        )
-                    )
-                )
-                .matchParentSize()
-        )
-    }
-}
