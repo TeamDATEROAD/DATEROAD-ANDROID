@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
@@ -15,6 +16,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class EnrollContract {
     data class EnrollUiState(
         val loadState: LoadState = LoadState.Idle,
+        val enrollType: EnrollType = EnrollType.COURSE,
         val page: EnrollScreenType = EnrollScreenType.FIRST,
         val isEnrollButtonEnabled: Boolean = false,
         val images: List<String> = listOf(),
@@ -65,6 +67,7 @@ class EnrollContract {
         data object OnDurationBottomSheetDismissRequest : EnrollEvent()
         data object OnTimeTextFieldClick : EnrollEvent()
         data object OnRegionTextFieldClick : EnrollEvent()
+        data class FetchEnrollCourseType(val enrollType: EnrollType) : EnrollEvent()
         data class SetEnrollButtonEnabled(val isEnrollButtonEnabled: Boolean) : EnrollEvent()
         data class SetImage(val images: List<String>) : EnrollEvent()
         data class OnImageDeleteButtonClick(val index: Int) : EnrollEvent()

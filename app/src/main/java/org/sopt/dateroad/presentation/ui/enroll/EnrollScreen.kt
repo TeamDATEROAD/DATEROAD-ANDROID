@@ -27,10 +27,12 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
+import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
@@ -44,7 +46,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun EnrollRoute(
     padding: PaddingValues,
     viewModel: EnrollViewModel = hiltViewModel(),
-    popBackStack: () -> Unit
+    popBackStack: () -> Unit,
+    enrollType: EnrollType
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -55,6 +58,10 @@ fun EnrollRoute(
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_ITEMS)) { uris: List<Uri> ->
         viewModel.setEvent(EnrollContract.EnrollEvent.SetImage(images = uris.map { it.toString() }))
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -114,7 +121,13 @@ fun EnrollRoute(
         viewModel.setEvent(
             EnrollContract.EnrollEvent.SetEnrollButtonEnabled(
                 when (page) {
-                    EnrollScreenType.FIRST -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                    EnrollScreenType.FIRST -> {
+                        when (enrollType) {
+                            EnrollType.COURSE -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                            EnrollType.TIMELINE -> titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                        }
+                    }
+
                     EnrollScreenType.SECOND -> place.size >= 2
                     EnrollScreenType.THIRD -> description.length >= 200 && cost.isNotEmpty()
                 }
@@ -161,19 +174,46 @@ fun EnrollScreen(
             .fillMaxSize()
             .background(color = DateRoadTheme.colors.white)
     ) {
-        DateRoadBasicTopBar(
-            title = stringResource(id = R.string.top_bar_title_enroll),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
-            backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = { }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        EnrollPhotos(
-            isDeletable = enrollUiState.page == EnrollScreenType.FIRST,
-            images = enrollUiState.images,
-            onPhotoButtonClick = onPhotoButtonClick,
-            onDeleteButtonClick = onImageDeleteButtonClick
-        )
+        when (enrollUiState.enrollType) {
+            EnrollType.COURSE -> {
+                DateRoadBasicTopBar(
+                    title = stringResource(id = R.string.top_bar_title_enroll),
+                    iconLeftResource = R.drawable.ic_top_bar_back_white,
+                    backGroundColor = DateRoadTheme.colors.white,
+                    onIconClick = { }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                EnrollPhotos(
+                    isDeletable = enrollUiState.page == EnrollScreenType.FIRST,
+                    images = enrollUiState.images,
+                    onPhotoButtonClick = onPhotoButtonClick,
+                    onDeleteButtonClick = onImageDeleteButtonClick
+                )
+            }
+
+            EnrollType.TIMELINE -> {
+                DateRoadBasicTopBar(
+                    title = stringResource(id = R.string.top_bar_title_enroll_timeline),
+                    iconLeftResource = R.drawable.ic_top_bar_back_white,
+                    buttonContent = {
+                        DateRoadFilledButton(
+                            isEnabled = true,
+                            textContent = stringResource(id = R.string.top_bar_button_text_load),
+                            onClick = {},
+                            textStyle = DateRoadTheme.typography.bodyMed13,
+                            enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                            enabledTextColor = DateRoadTheme.colors.white,
+                            disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                            disabledTextColor = DateRoadTheme.colors.gray400,
+                            cornerRadius = 20.dp,
+                            paddingHorizontal = 10.dp,
+                            paddingVertical = 5.dp
+                        )
+                    }
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+            }
+        }
         Column(
             modifier = Modifier.weight(1f)
         ) {
@@ -211,7 +251,10 @@ fun EnrollScreen(
         DateRoadBasicButton(
             modifier = Modifier.padding(horizontal = 16.dp),
             isEnabled = enrollUiState.isEnrollButtonEnabled,
-            textContent = if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next, enrollUiState.page.position, 3) else stringResource(id = R.string.apply),
+            textContent = when (enrollUiState.enrollType) {
+                EnrollType.COURSE -> if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next_with_page, enrollUiState.page.position, 3) else stringResource(id = R.string.apply)
+                EnrollType.TIMELINE -> if (enrollUiState.page == EnrollScreenType.FIRST) stringResource(id = R.string.enroll_button_text_next) else stringResource(id = R.string.apply)
+            },
             onClick = onEnrollButtonClick
         )
         Spacer(modifier = Modifier.height(16.dp))

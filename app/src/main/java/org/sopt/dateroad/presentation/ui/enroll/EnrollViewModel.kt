@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import org.sopt.dateroad.presentation.type.EnrollScreenType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.DatePicker
@@ -19,12 +20,25 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
         when (event) {
             is EnrollContract.EnrollEvent.OnEnrollButtonClick -> {
-                when (currentState.page) {
-                    EnrollScreenType.FIRST -> setState { copy(page = EnrollScreenType.SECOND) }
-                    EnrollScreenType.SECOND -> setState { copy(page = EnrollScreenType.THIRD) }
-                    EnrollScreenType.THIRD -> postCourse()
+                when (currentState.enrollType) {
+                    EnrollType.COURSE -> {
+                        when (currentState.page) {
+                            EnrollScreenType.FIRST -> setState { copy(page = EnrollScreenType.SECOND) }
+                            EnrollScreenType.SECOND -> setState { copy(page = EnrollScreenType.THIRD) }
+                            EnrollScreenType.THIRD -> postCourse()
+                        }
+                    }
+
+                    EnrollType.TIMELINE -> {
+                        when (currentState.page) {
+                            EnrollScreenType.FIRST -> setState { copy(page = EnrollScreenType.SECOND) }
+                            EnrollScreenType.SECOND -> postTimeline()
+                            EnrollScreenType.THIRD -> Unit
+                        }
+                    }
                 }
             }
+
             is EnrollContract.EnrollEvent.OnDateTextFieldClick -> setState { copy(isDatePickerBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnTimeTextFieldClick -> setState { copy(isTimePickerBottomSheetOpen = true) }
             is EnrollContract.EnrollEvent.OnRegionTextFieldClick -> setState { copy(isRegionBottomSheetOpen = true, onRegionBottomSheetRegionSelected = RegionType.SEOUL, onRegionBottomSheetAreaSelected = null) }
@@ -33,6 +47,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest -> setState { copy(isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest -> setState { copy(isRegionBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest -> setState { copy(isDurationBottomSheetOpen = false) }
+            is EnrollContract.EnrollEvent.FetchEnrollCourseType -> setState { copy(enrollType = event.enrollType) }
             is EnrollContract.EnrollEvent.SetEnrollButtonEnabled -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is EnrollContract.EnrollEvent.SetImage -> setState { copy(images = event.images) }
             is EnrollContract.EnrollEvent.OnImageDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
@@ -46,6 +61,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
                     }
                 )
             }
+
             is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState {
                 copy(
                     date = event.date,
@@ -57,6 +73,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
                     isDatePickerBottomSheetOpen = false
                 )
             }
+
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick -> setState { copy(startAt = event.startAt, isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnDateChipClicked -> setState {
                 copy(
@@ -69,6 +86,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
                     }
                 )
             }
+
             is EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick -> setState { copy(onRegionBottomSheetRegionSelected = event.country) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick -> setState { copy(onRegionBottomSheetAreaSelected = event.city) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick -> setState { copy(isRegionBottomSheetOpen = false, country = event.region, city = event.area) }
@@ -83,6 +101,10 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
     }
 
     private fun postCourse() {
+        setState { copy(loadState = LoadState.Success) }
+    }
+
+    private fun postTimeline() {
         setState { copy(loadState = LoadState.Success) }
     }
 }

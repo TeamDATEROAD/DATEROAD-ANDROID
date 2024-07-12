@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.home.HomeRoute
 
 fun NavController.navigationHome(navOptions: NavOptions) {
@@ -17,9 +18,9 @@ fun NavController.navigationHome(navOptions: NavOptions) {
 
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToEnroll: (EnrollType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Home::class.simpleName.orEmpty()) {
-        HomeRoute(padding = padding, navigateToPointHistory = navigateToPointHistory)
+        HomeRoute(padding = padding, navigateToEnroll = navigateToEnroll)
     }
 }

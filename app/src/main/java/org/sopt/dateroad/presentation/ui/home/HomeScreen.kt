@@ -11,24 +11,25 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToEnroll: (EnrollType) -> Unit
 ) {
     HomeScreen(
         padding = padding,
-        navigateToPointHistory
+        navigateToEnroll
     )
 }
 
 @Composable
 fun HomeScreen(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToPointHistory: (EnrollType) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -36,7 +37,7 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Text(
-            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory() }),
+            modifier = Modifier.noRippleClickable(onClick = { navigateToPointHistory(EnrollType.TIMELINE) }),
             text = "HomeScreen",
             fontSize = 30.sp,
             fontWeight = Bold

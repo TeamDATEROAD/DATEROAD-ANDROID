@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
@@ -51,8 +52,8 @@ class MainNavigator(
         }
     }
 
-    fun navigateEnroll() {
-        navHostController.navigationEnroll()
+    fun navigateEnroll(enrollType: EnrollType) {
+        navHostController.navigationEnroll(enrollType = enrollType)
     }
 
     fun navigatePointHistory() {
