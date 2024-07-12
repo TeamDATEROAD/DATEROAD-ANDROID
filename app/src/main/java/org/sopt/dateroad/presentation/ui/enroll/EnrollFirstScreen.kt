@@ -20,7 +20,6 @@ import org.sopt.dateroad.presentation.type.IncheonAreaType
 import org.sopt.dateroad.presentation.type.SeoulAreaType
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadBasicTextField
-import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
@@ -49,19 +48,19 @@ fun EnrollFirstScreen(
         )
         Spacer(modifier = Modifier.height(2.dp))
         DateRoadBasicTextField(
-            modifier = Modifier.noRippleClickable(onClick = onDateTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_date_placeholder),
             value = enrollUiState.date,
             readOnly = true,
-            iconResourceId = R.drawable.ic_enroll_calendar
+            iconResourceId = R.drawable.ic_enroll_calendar,
+            onClick = onDateTextFieldClick
         )
         Spacer(modifier = Modifier.height(18.dp))
         DateRoadBasicTextField(
-            modifier = Modifier.noRippleClickable(onClick = onTimeTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_date_start_at),
             value = enrollUiState.startAt,
             readOnly = true,
-            iconResourceId = R.drawable.ic_enroll_time
+            iconResourceId = R.drawable.ic_enroll_time,
+            onClick = onTimeTextFieldClick
         )
         Spacer(modifier = Modifier.height(20.dp))
         DateRoadDateChipGroup(
@@ -71,7 +70,6 @@ fun EnrollFirstScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
         DateRoadBasicTextField(
-            modifier = Modifier.noRippleClickable(onClick = onRegionTextFieldClick),
             placeholder = stringResource(id = R.string.enroll_city_placeholder),
             value = when (enrollUiState.city) {
                 is SeoulAreaType -> stringResource(id = enrollUiState.city.nameRes)
@@ -79,7 +77,8 @@ fun EnrollFirstScreen(
                 is IncheonAreaType -> stringResource(id = enrollUiState.city.nameRes)
                 else -> ""
             },
-            readOnly = true
+            readOnly = true,
+            onClick = onRegionTextFieldClick
         )
         Spacer(modifier = Modifier.height(23.dp))
     }
