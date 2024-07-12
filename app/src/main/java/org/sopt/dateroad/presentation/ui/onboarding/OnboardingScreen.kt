@@ -110,7 +110,7 @@ fun OnboardingScreen(
             onClick = {
                 scope.launch {
                     if (pagerState.currentPage == OnboardingType.entries.size - 1) {
-                        //TODO: 프로필 등록화면으로 이동
+                        // TODO: 프로필 등록화면으로 이동
                     } else {
                         val nextPage = pagerState.currentPage + 1
                         pagerState.animateScrollToPage(nextPage)
