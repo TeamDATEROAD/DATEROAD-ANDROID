@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.domain.model.Place
@@ -46,7 +47,7 @@ fun DateRoadPlaceCard(
     ) {
         if (placeCardType == PlaceCardType.COURSE_NORMAL) {
             DateRoadTextTag(
-                textContent = place.sequence.toString(),
+                textContent = place.sequence,
                 tagContentType = TagType.PLACE_CARD_NUMBER
             )
             Spacer(modifier = Modifier.width(14.dp))
@@ -54,7 +55,9 @@ fun DateRoadPlaceCard(
         Text(
             text = place.title,
             modifier = Modifier.weight(1f),
-            style = DateRoadTheme.typography.bodyBold15
+            style = DateRoadTheme.typography.bodyBold15,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.width(10.dp))
 
@@ -87,18 +90,18 @@ fun DateRoadPlaceCardPreview() {
     Column {
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_NORMAL,
-            place = Place(sequence = 1, title = "성수미술관 성수점", duration = "2.5시간")
+            place = Place(sequence = "1", title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_EDIT,
-            place = Place(sequence = 2, title = "성수미술관 성수점", duration = "1시간"),
+            place = Place(sequence = "2", title = "성수미술관 성수점", duration = "1시간"),
             onIconClick = { }
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_DELETE,
-            place = Place(sequence = 3, title = "성수미술관 성수점", duration = "0.5시간"),
+            place = Place(sequence = "3", title = "성수미술관 성수점", duration = "0.5시간"),
             onIconClick = { }
         )
     }
