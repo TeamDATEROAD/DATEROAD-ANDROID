@@ -9,13 +9,13 @@ import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.enroll.EnrollRoute
 
-fun NavController.navigationEnroll(enrollType: EnrollType) {
+fun NavController.navigationToEnroll(enrollType: EnrollType) {
     navigate(
         route = EnrollRoute.route(enrollType = enrollType)
     )
 }
 
-fun NavGraphBuilder.enrollGraph(
+fun NavGraphBuilder.enrollNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit
 ) {
