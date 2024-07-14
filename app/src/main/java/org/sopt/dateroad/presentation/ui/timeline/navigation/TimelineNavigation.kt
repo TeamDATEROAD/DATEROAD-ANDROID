@@ -36,40 +36,20 @@ fun NavGraphBuilder.timelineNavGraph(
     }
 
     composable(
-        route = TimelineRoutes.PINK_ROUTE,
-        arguments = listOf(navArgument(TimelineRoutes.ARGUMENT_DATE_ID) { type = NavType.IntType })
-    ) { backStackEntry ->
-        val dateId = backStackEntry.arguments?.getInt(TimelineRoutes.ARGUMENT_DATE_ID) ?: return@composable
-        TimelineDetailRoute(
-            padding = padding,
-            dateId = dateId,
-            dateType = DateType.PINK,
-            popBackStack = popBackStack
+        route = TimelineRoutes.DETAIL_ROUTE,
+        arguments = listOf(
+            navArgument(TimelineRoutes.ARGUMENT_DATE_ID) { type = NavType.IntType },
+            navArgument(TimelineRoutes.ARGUMENT_DATE_TYPE) { type = NavType.StringType }
         )
-    }
-
-    composable(
-        route = TimelineRoutes.PURPLE_ROUTE,
-        arguments = listOf(navArgument(TimelineRoutes.ARGUMENT_DATE_ID) { type = NavType.IntType })
     ) { backStackEntry ->
         val dateId = backStackEntry.arguments?.getInt(TimelineRoutes.ARGUMENT_DATE_ID) ?: return@composable
+        val dateTypeString = backStackEntry.arguments?.getString(TimelineRoutes.ARGUMENT_DATE_TYPE) ?: return@composable
+        val dateType = DateType.valueOf(dateTypeString)
+
         TimelineDetailRoute(
             padding = padding,
             dateId = dateId,
-            dateType = DateType.PURPLE,
-            popBackStack = popBackStack
-        )
-    }
-
-    composable(
-        route = TimelineRoutes.LIME_ROUTE,
-        arguments = listOf(navArgument(TimelineRoutes.ARGUMENT_DATE_ID) { type = NavType.IntType })
-    ) { backStackEntry ->
-        val dateId = backStackEntry.arguments?.getInt(TimelineRoutes.ARGUMENT_DATE_ID) ?: return@composable
-        TimelineDetailRoute(
-            padding = padding,
-            dateId = dateId,
-            dateType = DateType.LIME,
+            dateType = dateType,
             popBackStack = popBackStack
         )
     }
@@ -78,7 +58,8 @@ fun NavGraphBuilder.timelineNavGraph(
 object TimelineRoutes {
     private const val BASE_ROUTE = "timeline"
     const val ARGUMENT_DATE_ID = "dateId"
-    const val PINK_ROUTE = "$BASE_ROUTE/PINK/{$ARGUMENT_DATE_ID}"
-    const val PURPLE_ROUTE = "$BASE_ROUTE/PURPLE/{$ARGUMENT_DATE_ID}"
-    const val LIME_ROUTE = "$BASE_ROUTE/LIME/{$ARGUMENT_DATE_ID}"
+    const val ARGUMENT_DATE_TYPE = "dateType"
+    const val DETAIL_ROUTE = "$BASE_ROUTE/{$ARGUMENT_DATE_TYPE}/{$ARGUMENT_DATE_ID}"
+
+    fun createRoute(dateType: DateType, dateId: Int) = "$BASE_ROUTE/${dateType.name}/$dateId"
 }

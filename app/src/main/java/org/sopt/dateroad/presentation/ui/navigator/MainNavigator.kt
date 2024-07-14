@@ -23,8 +23,8 @@ import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboard
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
+import org.sopt.dateroad.presentation.ui.timeline.navigation.TimelineRoutes
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
-import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
 class MainNavigator(
     val navHostController: NavHostController
@@ -78,7 +78,8 @@ class MainNavigator(
     }
 
     fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
-        navHostController.navigateToTimelineDetail(dateType = dateType, dateId = dateId)
+        val route = TimelineRoutes.createRoute(dateType, dateId)
+        navHostController.navigate(route)
     }
 
     private fun popBackStack() {
