@@ -181,6 +181,7 @@
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
+    <string name="one_button_dialog_with_description_share_kakao">카카오톡으로 공유하기</string>
 
     <!-- DateRoad Text Area -->
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
