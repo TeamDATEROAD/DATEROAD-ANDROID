@@ -12,6 +12,7 @@ import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.ui.coursedetail.navigation.navigationCourseDetail
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
@@ -68,6 +69,10 @@ class MainNavigator(
         if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
             popBackStack()
         }
+    }
+
+    fun navigateCourseDetail() {
+        navHostController.navigationCourseDetail()
     }
 
     private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =

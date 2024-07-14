@@ -17,9 +17,9 @@ fun NavController.navigationHome(navOptions: NavOptions) {
 
 fun NavGraphBuilder.homeNavGraph(
     padding: PaddingValues,
-    navigateToPointHistory: () -> Unit
+    navigateToCourseDetail: () -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Home::class.simpleName.orEmpty()) {
-        HomeRoute(padding = padding, navigateToPointHistory = navigateToPointHistory)
+        HomeRoute(padding = padding, navigateToCourseDetail = navigateToCourseDetail)
     }
 }
