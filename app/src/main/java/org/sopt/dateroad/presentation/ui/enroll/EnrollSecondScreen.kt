@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
@@ -56,7 +57,12 @@ fun EnrollSecondScreen(
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
-    val dragDropListState = rememberDragAndDropListState(onMove = { from, to -> onPlaceCardDragAndDrop(enrollUiState.place.toMutableStateList().move(from = from, to = to)) })
+
+    val placeLists = rememberUpdatedState(enrollUiState.place.toMutableStateList())
+    val dragDropListState = rememberDragAndDropListState(onMove = { from, to ->
+        placeLists.value.move(from, to)
+        onPlaceCardDragAndDrop(placeLists.value.toList())
+    })
 
     Column(
         modifier = Modifier.fillMaxWidth()
