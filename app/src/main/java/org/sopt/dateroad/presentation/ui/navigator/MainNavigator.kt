@@ -20,9 +20,6 @@ import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
-import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
-import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
-import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationToOnboarding
 import org.sopt.dateroad.presentation.ui.past.navigation.navigationToPast
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationToPointHistory
@@ -32,7 +29,7 @@ import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
 class MainNavigator(
-    val navHostController: NavHostController,
+    val navHostController: NavHostController
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navHostController.currentBackStackEntryAsState().value?.destination
@@ -115,33 +112,34 @@ class MainNavigator(
                 }
             )
         }
-        fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
-            navHostController.navigateToTimelineDetail(dateType, dateId)
-        }
+    }
 
-        private fun popBackStack() {
-            navHostController.popBackStack()
-        }
+    fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
+        navHostController.navigateToTimelineDetail(dateType, dateId)
+    }
 
-        fun popBackStackIfNotHome() {
-            if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
-                popBackStack()
-            }
-        }
+    private fun popBackStack() {
+        navHostController.popBackStack()
+    }
 
-        private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
-            navHostController.currentDestination?.route == T::class.simpleName
-
-        @Composable
-        fun showBottomBar(): Boolean = MainNavigationBarItemType.contains {
-            currentDestination?.route == it::class.simpleName
+    fun popBackStackIfNotHome() {
+        if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
+            popBackStack()
         }
+    }
+
+    private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =
+        navHostController.currentDestination?.route == T::class.simpleName
+
+    @Composable
+    fun showBottomBar(): Boolean = MainNavigationBarItemType.contains {
+        currentDestination?.route == it::class.simpleName
     }
 }
 
 @Composable
 fun rememberMainNavigator(
-    navHostController: NavHostController = rememberNavController(),
+    navHostController: NavHostController = rememberNavController()
 ): MainNavigator = remember(navHostController) {
     MainNavigator(navHostController = navHostController)
 }
