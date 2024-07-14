@@ -266,4 +266,7 @@
     <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
 
+    <!-- TimelineDetail -->
+    <string name="timeline_detail_point">데이트 코스 올리고 50P 받기</string>
+
 </resources>
