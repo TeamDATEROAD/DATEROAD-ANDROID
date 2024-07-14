@@ -59,7 +59,7 @@ fun TimelineRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(TimelineContract.TimelineEvent.FetchTimeline)
+        viewModel.fetchTimeline()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
