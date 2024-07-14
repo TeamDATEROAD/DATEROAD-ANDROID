@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -79,19 +78,23 @@ fun TimelineDetailRoute(
             }
     }
 
-    TimelineDetailScreen(
-        padding = padding,
-        uiState = uiState,
-        dateType = dateType,
-        onTopBarItemClick = popBackStack,
-        onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowDeleteBottomSheet) },
-        showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShowKaKaoModal) },
-        onDismissKakaoDialog = { viewModel.setState { copy(showKakaoDialog = false) } },
-        onConfirmKakaoDialog = { viewModel.setState { copy(showKakaoDialog = true) } },
-        onDismissDeleteBottomSheet = { viewModel.setState { copy(showDeleteBottomSheet = false) } },
-        onConfirmDeleteDialog = { viewModel.setState { copy(showDeleteDialog = true) } },
-        onDismissDialog = { viewModel.setState { copy(showDeleteDialog = false) } }
-    )
+    when (uiState.loadState) {
+        LoadState.Success -> {
+            TimelineDetailScreen(
+                padding = padding,
+                uiState = uiState,
+                dateType = dateType,
+                onTopBarItemClick = popBackStack,
+                onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(true)) },
+                showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
+                setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
+                setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
+                setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) }
+            )
+        }
+
+        else -> Unit
+    }
 }
 
 @Composable
@@ -102,11 +105,9 @@ fun TimelineDetailScreen(
     onTopBarItemClick: () -> Unit = {},
     onButtonClick: () -> Unit = {},
     showKakaoClicked: () -> Unit = {},
-    onDismissKakaoDialog: () -> Unit = {},
-    onConfirmKakaoDialog: () -> Unit = {},
-    onDismissDeleteBottomSheet: () -> Unit = {},
-    onConfirmDeleteDialog: () -> Unit = {},
-    onDismissDialog: () -> Unit = {}
+    setShowKakaoDialog: (Boolean) -> Unit,
+    setShowDeleteBottomSheet: (Boolean) -> Unit,
+    setShowDeleteDialog: (Boolean) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -150,11 +151,11 @@ fun TimelineDetailScreen(
                 ) {
                     Text(
                         text = uiState.dateDetail.date,
-                        style = DateRoadTheme.typography.bodySemi15,
+                        style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
                     DateRoadTextTag(
-                        textContent = stringResource(R.string.home_timeline_d_day, uiState.dateDetail.dday),
+                        textContent = stringResource(R.string.home_timeline_d_day, uiState.dateDetail.dDay),
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }
@@ -177,14 +178,15 @@ fun TimelineDetailScreen(
                     color = DateRoadTheme.colors.gray500
                 )
                 LazyRow(
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier
+                        .padding(top = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
-                    itemsIndexed(uiState.dateDetail.tags) { index, tag ->
+                    items(uiState.dateDetail.tags) { tag ->
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
-                            tagContentType = dateType.tagType,
-                            modifier = Modifier.padding(start = if (index > 0) 7.dp else 0.dp)
+                            tagContentType = dateType.tagType
                         )
                     }
                 }
@@ -209,6 +211,7 @@ fun TimelineDetailScreen(
                     )
                 }
             }
+
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -251,9 +254,9 @@ fun TimelineDetailScreen(
     if (uiState.showKakaoDialog) {
         DateRoadTwoButtonDialog(
             twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
-            onClickDismiss = onDismissKakaoDialog,
-            onDismissRequest = onDismissKakaoDialog,
-            onClickConfirm = onConfirmKakaoDialog
+            onDismissRequest = { setShowKakaoDialog(false) },
+            onClickConfirm = { setShowKakaoDialog(false) },
+            onClickDismiss = { setShowKakaoDialog(false) }
         )
     }
 
@@ -262,20 +265,20 @@ fun TimelineDetailScreen(
             isBottomSheetOpen = true,
             title = stringResource(id = R.string.region_bottom_sheet_set_timeline),
             isButtonEnabled = false,
-            buttonText = "취소",
+            buttonText = stringResource(id = R.string.profile_bottom_sheet_button_text),
             itemList = listOf(
-                stringResource(id = R.string.region_bottom_sheet_delete) to onConfirmDeleteDialog
+                stringResource(id = R.string.region_bottom_sheet_delete) to { setShowDeleteDialog(true) }
             ),
-            onDismissRequest = onDismissDeleteBottomSheet
+            onDismissRequest = { setShowDeleteBottomSheet(false) }
         )
     }
 
     if (uiState.showDeleteDialog) {
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_TIMELINE,
-            onClickDismiss = onDismissDialog,
-            onClickConfirm = onConfirmDeleteDialog,
-            onDismissRequest = onDismissDialog
+            onDismissRequest = { setShowDeleteDialog(false) },
+            onClickConfirm = { setShowDeleteDialog(false) },
+            onClickDismiss = { setShowDeleteDialog(false) }
         )
     }
 }
@@ -294,7 +297,7 @@ fun TimelineDetailScreenPreview() {
                     title = "",
                     startAt = "",
                     city = "",
-                    dday = "",
+                    dDay = "",
                     tags = emptyList(),
                     date = "",
                     places = emptyList()
@@ -303,11 +306,9 @@ fun TimelineDetailScreenPreview() {
             onTopBarItemClick = {},
             onButtonClick = {},
             showKakaoClicked = {},
-            onDismissKakaoDialog = {},
-            onConfirmKakaoDialog = {},
-            onDismissDeleteBottomSheet = {},
-            onConfirmDeleteDialog = {},
-            onDismissDialog = {}
+            setShowKakaoDialog = {},
+            setShowDeleteBottomSheet = {},
+            setShowDeleteDialog = {}
         )
     }
 }

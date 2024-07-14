@@ -15,9 +15,9 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
     override suspend fun handleEvent(event: TimelineDetailContract.TimelineDetailEvent) {
         when (event) {
             is TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail -> fetchDateDetail(event.dateId)
-            is TimelineDetailContract.TimelineDetailEvent.ShowDeleteBottomSheet -> showDeleteBottomSheet()
-            is TimelineDetailContract.TimelineDetailEvent.ShowKaKaoModal -> showKaKaoModal()
-            is TimelineDetailContract.TimelineDetailEvent.ShowDeleteDialog -> showDeleteDialog()
+            is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet -> setState { copy(showDeleteBottomSheet = event.showDeleteBottomSheet) }
+            is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog -> setState { copy(showDeleteDialog = event.showDeleteDialog) }
+            is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
         }
     }
 
@@ -27,7 +27,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             title = "5년차 장기연애 커플이 보장하는 성수동 당일치기 데이트 코스",
             startAt = "12:00",
             city = "건대/상수/왕십리",
-            dday = "Day",
+            dDay = "Day",
             tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP),
             date = "2023.12.31",
             places = listOf(
@@ -44,17 +44,5 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             )
         )
         setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }
-    }
-
-    private fun showKaKaoModal() {
-        setState { copy(showKakaoDialog = true) }
-    }
-
-    private fun showDeleteBottomSheet() {
-        setState { copy(showDeleteBottomSheet = true) }
-    }
-
-    private fun showDeleteDialog() {
-        setState { copy(showDeleteDialog = true) }
     }
 }

@@ -75,14 +75,20 @@ fun TimelineRoute(
         viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
     }
 
-    TimelineScreen(
-        padding = padding,
-        uiState = uiState,
-        pagerState = pagerState,
-        onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
-        onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
-        navigateToTimelineDetail = navigateToTimelineDetail
-    )
+    when (uiState.loadState) {
+        LoadState.Success -> {
+            TimelineScreen(
+                padding = padding,
+                uiState = uiState,
+                pagerState = pagerState,
+                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
+                onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
+                navigateToTimelineDetail = navigateToTimelineDetail
+            )
+        }
+
+        else -> {}
+    }
 }
 
 @OptIn(ExperimentalPagerApi::class)

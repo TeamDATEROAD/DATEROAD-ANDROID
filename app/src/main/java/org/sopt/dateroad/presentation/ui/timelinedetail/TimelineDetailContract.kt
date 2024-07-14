@@ -21,8 +21,8 @@ class TimelineDetailContract {
 
     sealed class TimelineDetailEvent : UiEvent {
         data class FetchTimelineDetail(val dateId: Int) : TimelineDetailEvent()
-        data object ShowDeleteBottomSheet : TimelineDetailEvent()
-        data object ShowDeleteDialog : TimelineDetailEvent()
-        data object ShowKaKaoModal : TimelineDetailEvent()
+        data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
+        data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
+        data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
     }
 }
