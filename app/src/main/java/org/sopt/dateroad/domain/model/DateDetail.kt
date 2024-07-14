@@ -9,6 +9,6 @@ data class DateDetail(
     val city: String = "",
     val tags: List<DateTagType> = emptyList(),
     val date: String = "",
-    val dday: String = "",
+    val dDay: String = "",
     val places: List<Place> = emptyList()
 )
