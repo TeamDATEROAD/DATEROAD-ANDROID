@@ -15,40 +15,49 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
         when (event) {
             is HomeContract.HomeEvent.ChangeBannerPage -> setState { copy(currentBannerPage = event.page) }
-            is HomeContract.HomeEvent.FetchAdvertisement -> fetchAdvertisement()
-            is HomeContract.HomeEvent.FetchLatestCourses -> fetchLatestCourses()
-            is HomeContract.HomeEvent.FetchRemainingPoints -> fetchRemainingPoints()
-            is HomeContract.HomeEvent.FetchTopLikedCourses -> fetchTopLikedCourses()
-            is HomeContract.HomeEvent.FetchMainDate -> fetchMainDate()
-            is HomeContract.HomeEvent.FetchUserName -> fetchUserName()
+            is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
+            is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
+            is HomeContract.HomeEvent.FetchRemainingPoints -> setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
+            is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
+            is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
+            is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
         }
     }
 
-    private fun fetchAdvertisement() {
-        setState {
-            copy(
+    fun fetchProfile() {
+        setEvent(
+            HomeContract.HomeEvent.FetchUserName(
                 loadState = LoadState.Success,
-                advertisement = listOf(
+                userName = "이현진"
+            )
+        )
+    }
+
+    fun fetchAdvertisements() {
+        setEvent(
+            HomeContract.HomeEvent.FetchAdvertisements(
+                loadState = LoadState.Success,
+                advertisements = listOf(
                     Advertisement(
-                        advertismentId = 1,
+                        advertisementId = 1,
                         imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                         title = "비오는 장마철,\n실내데이트 어떠세요?",
                         tag = "에디터 픽"
                     ),
                     Advertisement(
-                        advertismentId = 2,
+                        advertisementId = 2,
                         imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                         title = "얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?",
                         tag = "에디터 픽"
                     )
                 )
             )
-        }
+        )
     }
 
-    private fun fetchLatestCourses() {
-        setState {
-            copy(
+    fun fetchLatestCourses() {
+        setEvent(
+            HomeContract.HomeEvent.FetchLatestCourses(
                 loadState = LoadState.Success,
                 latestCourses = listOf(
                     Course(
@@ -71,21 +80,21 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                     )
                 )
             )
-        }
+        )
     }
 
-    private fun fetchRemainingPoints() {
-        setState {
-            copy(
+    fun fetchRemainingPoints() {
+        setEvent(
+            HomeContract.HomeEvent.FetchRemainingPoints(
                 loadState = LoadState.Success,
                 remainingPoints = 100
             )
-        }
+        )
     }
 
-    private fun fetchTopLikedCourses() {
-        setState {
-            copy(
+    fun fetchTopLikedCourses() {
+        setEvent(
+            HomeContract.HomeEvent.FetchTopLikedCourses(
                 loadState = LoadState.Success,
                 topLikedCourses = listOf(
                     Course(
@@ -108,12 +117,12 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                     )
                 )
             )
-        }
+        )
     }
 
-    private fun fetchMainDate() {
-        setState {
-            copy(
+    fun fetchMainDate() {
+        setEvent(
+            HomeContract.HomeEvent.FetchMainDate(
                 loadState = LoadState.Success,
                 mainDate = MainDate(
                     dateId = 1,
@@ -124,15 +133,15 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                     startAt = "14:00 PM"
                 )
             )
-        }
+        )
     }
 
-    private fun fetchUserName() {
-        setState {
-            copy(
+    fun fetchUserName() {
+        setEvent(
+            HomeContract.HomeEvent.FetchUserName(
                 loadState = LoadState.Success,
                 userName = "이현진"
             )
-        }
+        )
     }
 }

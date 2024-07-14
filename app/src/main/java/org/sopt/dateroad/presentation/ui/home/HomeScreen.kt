@@ -25,8 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,6 +45,7 @@ import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.item.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.component.item.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.component.item.HomeTimeLineCard
+import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -65,12 +64,13 @@ fun HomeRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(HomeContract.HomeEvent.FetchAdvertisement)
-        viewModel.setEvent(HomeContract.HomeEvent.FetchLatestCourses)
-        viewModel.setEvent(HomeContract.HomeEvent.FetchRemainingPoints)
-        viewModel.setEvent(HomeContract.HomeEvent.FetchTopLikedCourses)
-        viewModel.setEvent(HomeContract.HomeEvent.FetchMainDate)
-        viewModel.setEvent(HomeContract.HomeEvent.FetchUserName)
+        viewModel.fetchProfile()
+        viewModel.fetchAdvertisements()
+        viewModel.fetchLatestCourses()
+        viewModel.fetchRemainingPoints()
+        viewModel.fetchTopLikedCourses()
+        viewModel.fetchMainDate()
+        viewModel.fetchUserName()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -80,21 +80,25 @@ fun HomeRoute(
                     is HomeContract.HomeSideEffect.NavigateToCourseListPage -> TODO()
                     is HomeContract.HomeSideEffect.NavigateToCourseDetailPage -> TODO()
                     is HomeContract.HomeSideEffect.NavigateToDateDetailPage -> TODO()
-                    is HomeContract.HomeSideEffect.navigateToTimeline -> TODO()
+                    is HomeContract.HomeSideEffect.NavigateToTimeline -> TODO()
                     is HomeContract.HomeSideEffect.NavigateToEditorPickPage -> TODO()
                     is HomeContract.HomeSideEffect.NavigateToPointHistoryPage -> TODO()
                 }
             }
     }
 
-    if (uiState.loadState == LoadState.Success) {
-        HomeScreen(
-            padding = padding,
-            uiState = uiState,
-            navigateToPointHistory = navigateToPointHistory,
-            navigateToLook = navigateToLook,
-            navigateToTimeline = navigateToTimeline
-        )
+    when (uiState.loadState) {
+        LoadState.Success -> {
+            HomeScreen(
+                padding = padding,
+                uiState = uiState,
+                navigateToPointHistory = navigateToPointHistory,
+                navigateToLook = navigateToLook,
+                navigateToTimeline = navigateToTimeline
+            )
+        }
+
+        else -> Unit
     }
 }
 
@@ -112,6 +116,9 @@ fun HomeScreen(
     navigateToTimeline: () -> Unit,
     onFabClick: () -> Unit = {}
 ) {
+    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .padding(padding)
@@ -121,22 +128,19 @@ fun HomeScreen(
     ) {
         DateRoadHomeTopBar(
             title = stringResource(id = R.string.home_main_date_point, uiState.remainingPoints),
-            onButtonClick = navigateToPointHistory
+            onClick = navigateToPointHistory
         )
         Row(
             modifier = Modifier.padding(start = 17.dp, end = 17.dp, top = 10.dp, bottom = 15.dp)
         ) {
-            if (uiState.mainDate == null) {
-                HomeTimeLineCard(
-                    mainDate = uiState.mainDate,
-                    onButtonClick = onEnrollClick
-                )
-            } else {
-                HomeTimeLineCard(
-                    mainDate = uiState.mainDate,
-                    onButtonClick = navigateToTimeline
-                )
-            }
+            HomeTimeLineCard(
+                mainDate = uiState.mainDate,
+                onClick = if (uiState.mainDate == null) {
+                    onEnrollClick
+                } else {
+                    navigateToTimeline
+                }
+            )
         }
         Box(
             modifier = Modifier
@@ -146,14 +150,23 @@ fun HomeScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(start = 16.dp)
             ) {
                 Spacer(modifier = Modifier.height(17.dp))
-                GreetingText(uiState.userName)
+                Text(
+                    text = PartialColorText(
+                        stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
+                        keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
+                        color = DateRoadTheme.colors.black
+                    ),
+                    color = DateRoadTheme.colors.deepPurple,
+                    style = DateRoadTheme.typography.titleExtra24
+                )
                 Spacer(modifier = Modifier.height(6.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(id = R.string.home_hot_date_course_description),
@@ -164,7 +177,7 @@ fun HomeScreen(
                         textContent = stringResource(id = R.string.button_more),
                         textStyle = DateRoadTheme.typography.bodyMed13,
                         textColor = DateRoadTheme.colors.deepPurple,
-                        paddingHorizontal = 4.dp,
+                        paddingHorizontal = 20.dp,
                         paddingVertical = 8.dp,
                         onClick = navigateToLook
                     )
@@ -181,26 +194,27 @@ fun HomeScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-                val pagerState = rememberPagerState()
-                val coroutineScope = rememberCoroutineScope()
 
                 Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     HorizontalPager(
-                        count = uiState.advertisement.size,
+                        count = uiState.advertisements.size,
                         state = pagerState,
-                        itemSpacing = 8.dp,
                         modifier = Modifier.fillMaxWidth()
                     ) { page ->
                         HomeAdvertisement(
-                            advertisement = uiState.advertisement[page],
+                            advertisement = uiState.advertisements[page],
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = { onAdvertisementClick(uiState.advertisement[page].advertismentId) }
+                            onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
                         )
                     }
                     DateRoadTextTag(
-                        textContent = "${pagerState.currentPage + 1}/${uiState.advertisement.size}",
+                        textContent = stringResource(
+                            id = R.string.home_advertisement_number,
+                            pagerState.currentPage + 1,
+                            uiState.advertisements.size
+                        ),
                         tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
@@ -211,7 +225,7 @@ fun HomeScreen(
                 Text(
                     text = stringResource(id = R.string.home_new_date_course_title),
                     style = DateRoadTheme.typography.titleExtra20,
-                    color = DateRoadTheme.colors.gray400,
+                    color = DateRoadTheme.colors.black,
                     modifier = Modifier
                         .fillMaxWidth()
                 )
@@ -228,10 +242,10 @@ fun HomeScreen(
                     )
                     DateRoadTextButton(
                         textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyMed13,
+                        textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.deepPurple,
-                        paddingHorizontal = 8.dp,
-                        paddingVertical = 10.dp,
+                        paddingHorizontal = 20.dp,
+                        paddingVertical = 8.dp,
                         onClick = navigateToLook
                     )
                 }
@@ -336,49 +350,24 @@ fun HomeScreenPreview() {
                         like = "300"
                     )
                 ),
-                advertisement = listOf(
+                advertisements = listOf(
                     Advertisement(
-                        advertismentId = 1,
+                        advertisementId = 1,
                         imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                         title = "New Course Available",
                         tag = "Discount"
                     ),
                     Advertisement(
-                        advertismentId = 2,
+                        advertisementId = 2,
                         imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                         title = "New Course Available",
                         tag = "New"
                     )
                 ),
-                userName = "현진님",
+                userName = "현진",
                 remainingPoints = 100,
                 currentBannerPage = 0
             )
         )
     }
-}
-
-@Composable
-fun GreetingText(name: String) {
-    val text = stringResource(id = R.string.home_hot_date_course_title, name)
-
-    val annotatedString = buildAnnotatedString {
-        val startIndex = text.indexOf(name)
-        val endIndex = startIndex + name.length
-
-        append(text)
-        addStyle(
-            style = SpanStyle(color = DateRoadTheme.colors.deepPurple),
-            start = startIndex,
-            end = endIndex
-        )
-    }
-
-    Text(
-        text = annotatedString,
-        style = DateRoadTheme.typography.titleExtra24,
-        color = DateRoadTheme.colors.black,
-        modifier = Modifier
-            .fillMaxWidth()
-    )
 }

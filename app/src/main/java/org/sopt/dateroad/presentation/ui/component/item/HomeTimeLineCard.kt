@@ -36,7 +36,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun HomeTimeLineCard(
     mainDate: MainDate? = null,
-    onButtonClick: () -> Unit = {}
+    onClick: () -> Unit = {}
 ) {
     val deepPurple = DateRoadTheme.colors.deepPurple
 
@@ -141,7 +141,7 @@ fun HomeTimeLineCard(
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .align(Alignment.CenterHorizontally)
-                    .noRippleClickable { onButtonClick() }
+                    .noRippleClickable { onClick() }
             )
             Spacer(modifier = Modifier.height(30.dp))
         }
