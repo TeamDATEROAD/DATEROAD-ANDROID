@@ -42,7 +42,7 @@ fun MainNavHost(
             )
             homeNavGraph(
                 padding = padding,
-                navigateToPointHistory = navigator::navigatePointHistory,
+                navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToLook = navigator::navigateLook,
                 navigateToTimeline = navigator::navigateTimeline
             )
