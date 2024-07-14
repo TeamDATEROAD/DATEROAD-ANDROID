@@ -14,7 +14,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
 
     override suspend fun handleEvent(event: TimelineDetailContract.TimelineDetailEvent) {
         when (event) {
-            is TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail -> fetchDateDetail(event.dateId)
+            is TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail -> setState { copy(loadState = event.loadState) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet -> setState { copy(showDeleteBottomSheet = event.showDeleteBottomSheet) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog -> setState { copy(showDeleteDialog = event.showDeleteDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
@@ -22,7 +22,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
         }
     }
 
-    private suspend fun fetchDateDetail(dateId: Int) {
+    fun fetchTimelineDetail(dateId: Int) {
         val dateDetail = DateDetail(
             dateId = dateId,
             title = "5년차 장기연애 커플이 보장하는 성수동 당일치기 데이트 코스",
@@ -45,5 +45,17 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             )
         )
         setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }
+    }
+
+    fun setShowDeleteDialog(show: Boolean) {
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog = show))
+    }
+
+    fun setShowKakaoDialog(show: Boolean) {
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog = show))
+    }
+
+    fun setSourceScreen(source: Boolean) {
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen = source))
     }
 }

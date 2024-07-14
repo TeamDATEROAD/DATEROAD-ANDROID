@@ -60,15 +60,15 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     dateId: Int,
     dateType: DateType,
-    sourceScreen: Boolean
+    sourceScreen: Boolean,
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail(dateId))
-        viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen))
+        viewModel.fetchTimelineDetail(dateId)
+        viewModel.setSourceScreen(sourceScreen)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -156,10 +156,12 @@ fun TimelineDetailScreen(
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
-                    DateRoadTextTag(
-                        textContent = stringResource(R.string.home_timeline_d_day, uiState.dateDetail.dDay),
-                        tagContentType = TagType.TIMELINE_D_DAY
-                    )
+                    if (uiState.sourceScreen) {
+                        DateRoadTextTag(
+                            textContent = stringResource(R.string.home_timeline_d_day, uiState.dateDetail.dDay),
+                            tagContentType = TagType.TIMELINE_D_DAY
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(5.dp))
 
@@ -257,7 +259,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.deepPurple, CircleShape)
-                        .noRippleClickable(onClick = showKakaoClicked)
+                        // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
