@@ -196,7 +196,12 @@
     <string name="course_detail_point_read_button_description">50P로 코스를 확인해보세요!</string>
     <string name="course_detail_unopened_title">코스 정보가 궁금하신가요?</string>
     <string name="course_detail_timeline_title">코스 타임라인</string>
-    <string name="course_detail_get_course">코스 가져오기</string>
+    <string name="course_detail_get_course">내 일정에 추가하기</string>
+    <string name="course_total_cost_string">총 비용</string>
+    <string name="course_detail_tag">태그</string>
+    <string name="course_detail_bottom_sheet_title">데이트 코스 설정</string>
+    <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
+    <string name="course_detail_bottom_sheet_delete">취소</string>
 
 
 

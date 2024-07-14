@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,7 +20,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -41,6 +38,7 @@ import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
+import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
@@ -60,8 +58,6 @@ fun CourseDetailRoute(
     popBackStack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
-    Log.d("됏냐?", uiState.isAccess.toString())
     when (uiState.loadState) {
         LoadState.Success -> {
             CourseDetailScreen(
@@ -108,13 +104,13 @@ fun CourseDetailScreen(
 ) {
     val context = LocalContext.current
     val buttonText =
-        if (courseDetailUiState.free > 0) {
-            stringResource(id = R.string.course_detail_free_read_button, courseDetailUiState.free)
+        if (courseDetailUiState.courseDetail.free > 0) {
+            stringResource(id = R.string.course_detail_free_read_button, courseDetailUiState.courseDetail.free)
         } else {
             stringResource(id = R.string.course_detail_point_read_button)
         }
     val buttonDescription =
-        if (courseDetailUiState.free > 0) {
+        if (courseDetailUiState.courseDetail.free > 0) {
             stringResource(id = R.string.course_detail_free_read_button_description)
         } else {
             stringResource(id = R.string.course_detail_point_read_button_description)
@@ -122,7 +118,7 @@ fun CourseDetailScreen(
 
     val pagerState = rememberPagerState()
 
-    val mappedTags = context.mapTagsToDateTagType(courseDetailUiState.tags)
+    val mappedTags = context.mapTagsToDateTagType(courseDetailUiState.courseDetail.tags)
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -135,16 +131,17 @@ fun CourseDetailScreen(
             item {
                 Box(modifier = Modifier.fillMaxWidth()) {
                     HorizontalPager(
-                        count = courseDetailUiState.imageList.size,
+                        count = courseDetailUiState.courseDetail.imageList.size,
                         state = pagerState,
                         modifier = Modifier
                             .fillMaxWidth(),
-                        userScrollEnabled = courseDetailUiState.isAccess
+                        userScrollEnabled = courseDetailUiState.courseDetail.isAccess
                     ) { page ->
                         Image(
-                            painter = painterResource(id = courseDetailUiState.imageList[page]),
+                            painter = painterResource(id = courseDetailUiState.courseDetail.imageList[page]),
                             contentDescription = null,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                                 .aspectRatio(1f)
 
                         )
@@ -159,7 +156,7 @@ fun CourseDetailScreen(
                             .padding(top = 5.dp)
                     )
 
-                    if (courseDetailUiState.isMine) {
+                    if (courseDetailUiState.courseDetail.isMine) {
                         Image(
                             painter = painterResource(id = R.drawable.btn_course_detail_more_white),
                             contentDescription = null,
@@ -171,7 +168,7 @@ fun CourseDetailScreen(
                     }
 
                     DateRoadImageTag(
-                        textContent = courseDetailUiState.like.toString(),
+                        textContent = courseDetailUiState.courseDetail.like.toString(),
                         imageContent = R.drawable.ic_tag_heart,
                         tagContentType = TagType.HEART,
                         modifier = Modifier
@@ -180,7 +177,7 @@ fun CourseDetailScreen(
                     )
 
                     DateRoadTextTag(
-                        textContent = "${pagerState.currentPage + 1}/${courseDetailUiState.imageList.size}",
+                        textContent = "${pagerState.currentPage + 1}/${courseDetailUiState.courseDetail.imageList.size}",
                         tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                         modifier = Modifier
                             .padding(end = 10.dp, bottom = 10.dp)
@@ -198,27 +195,27 @@ fun CourseDetailScreen(
 
                 ) {
                     Text(
-                        text = courseDetailUiState.date,
+                        text = courseDetailUiState.courseDetail.date,
                         style = DateRoadTheme.typography.bodySemi15,
                         color = DateRoadTheme.colors.gray400
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = courseDetailUiState.title,
+                        text = courseDetailUiState.courseDetail.title,
                         style = DateRoadTheme.typography.titleExtra24,
                         color = DateRoadTheme.colors.black
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CourseDetailInfoBar(
-                        totalTime = courseDetailUiState.totalTime,
-                        totalCost = courseDetailUiState.totalCost,
-                        city = courseDetailUiState.city
+                        totalTime = courseDetailUiState.courseDetail.totalTime,
+                        totalCost = courseDetailUiState.courseDetail.totalCost,
+                        city = courseDetailUiState.courseDetail.city
 
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    if (courseDetailUiState.isAccess) {
+                    if (courseDetailUiState.courseDetail.isAccess) {
                         Text(
-                            text = courseDetailUiState.description,
+                            text = courseDetailUiState.courseDetail.description,
                             style = DateRoadTheme.typography.bodyMed13Context,
                             color = DateRoadTheme.colors.black
                         )
@@ -227,7 +224,7 @@ fun CourseDetailScreen(
                             modifier = Modifier
                                 .fillMaxSize()
                         ) {
-                            GradientBoxWithText(text = courseDetailUiState.description)
+                            GradientBoxWithText(text = courseDetailUiState.courseDetail.description)
                             Column {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Image(
@@ -259,7 +256,7 @@ fun CourseDetailScreen(
                                     isEnabled = true,
                                     textContent = buttonText,
                                     onClick = {
-                                        if (courseDetailUiState.free > 0) {
+                                        if (courseDetailUiState.courseDetail.free > 0) {
                                             onDialogLookedForFree()
                                         } else {
                                             onDialogLookedByPoint()
@@ -280,7 +277,7 @@ fun CourseDetailScreen(
                     }
                 }
             }
-            if (courseDetailUiState.isAccess) {
+            if (courseDetailUiState.courseDetail.isAccess) {
                 item {
                     Column(
                         modifier = Modifier
@@ -296,7 +293,7 @@ fun CourseDetailScreen(
                     }
                 }
 
-                items(courseDetailUiState.places) { place ->
+                items(courseDetailUiState.courseDetail.places) { place ->
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -317,13 +314,13 @@ fun CourseDetailScreen(
                     ) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "총 비용",
+                            text = stringResource(id = R.string.course_total_cost_string),
                             style = DateRoadTheme.typography.titleBold18,
-                            color = DateRoadTheme.colors.black
+                            color = DateRoadTheme.colors.gray100
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = courseDetailUiState.totalCost,
+                            text = courseDetailUiState.courseDetail.totalCost,
                             style = DateRoadTheme.typography.titleBold18,
                             color = DateRoadTheme.colors.black,
                             modifier = Modifier
@@ -334,7 +331,7 @@ fun CourseDetailScreen(
                         )
                         Spacer(modifier = Modifier.height(30.dp))
                         Text(
-                            text = "태그",
+                            text = stringResource(id = R.string.course_detail_tag),
                             style = DateRoadTheme.typography.titleBold18,
                             color = DateRoadTheme.colors.black
                         )
@@ -347,7 +344,7 @@ fun CourseDetailScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                     ) {
-                        Row {
+                        Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
                             mappedTags.forEach { tag ->
                                 DateRoadImageChip(
                                     textId = tag.titleRes,
@@ -355,11 +352,10 @@ fun CourseDetailScreen(
                                     chipType = ChipType.DATE,
                                     isSelected = false
                                 )
-                                Spacer(modifier = Modifier.width(7.dp))
                             }
                         }
                         Spacer(modifier = Modifier.height(38.dp))
-                        if (!courseDetailUiState.isMine) {
+                        if (!courseDetailUiState.courseDetail.isMine) {
                             Spacer(modifier = Modifier.height(80.dp))
                         }
                     }
@@ -367,7 +363,7 @@ fun CourseDetailScreen(
             }
         }
 
-        if (!courseDetailUiState.isMine && courseDetailUiState.isAccess) {
+        if (!courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetail.isAccess) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -388,19 +384,11 @@ fun CourseDetailScreen(
                         paddingVertical = 18.dp
                     )
                     Spacer(modifier = Modifier.width(12.dp))
-                    DateRoadFilledButton(
+                    DateRoadBasicButton(
                         modifier = Modifier.weight(1f),
                         isEnabled = true,
                         textContent = stringResource(id = R.string.course_detail_get_course),
-                        onClick = { enrollSchedule() },
-                        textStyle = DateRoadTheme.typography.bodyBold15,
-                        enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
-                        enabledTextColor = DateRoadTheme.colors.white,
-                        disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                        disabledTextColor = DateRoadTheme.colors.gray400,
-                        cornerRadius = 10.dp,
-                        paddingHorizontal = 0.dp,
-                        paddingVertical = 17.dp
+                        onClick = { enrollSchedule() }
                     )
                 }
             }
@@ -413,7 +401,7 @@ fun CourseDetailScreen(
             onDismissRequest = { dismissDialogLookedByPoint() },
             onClickConfirm = {
                 onDialogLookedByPoint()
-                if (courseDetailUiState.totalPoint < 50) {
+                if (courseDetailUiState.courseDetail.totalPoint < 50) {
                     onDialogPointLack()
                 } else {
                     openCourseDetail()
@@ -446,11 +434,11 @@ fun CourseDetailScreen(
 
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
-        title = "데이트 코스 설정",
+        title = stringResource(id = R.string.course_detail_bottom_sheet_title),
         isButtonEnabled = false,
-        buttonText = "취소",
+        buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
-            "글 삭제" to { }
+            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to { }
         ),
         onDismissRequest = { dismissEditBottomSheet() },
         onButtonClick = { onDeleteButtonClicked() }
