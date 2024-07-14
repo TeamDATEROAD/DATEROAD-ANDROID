@@ -38,7 +38,8 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
             isMine = true,
             totalPoint = 95
         ),
-        currentImagePage = 0
+        currentImagePage = 0,
+        isAdmin = true
     )
 
     override suspend fun handleEvent(event: CourseDetailContract.CourseDetailEvent) {

@@ -165,14 +165,16 @@ fun CourseDetailScreen(
                             )
                         }
 
-                        DateRoadImageTag(
-                            textContent = courseDetailUiState.courseDetail.like.toString(),
-                            imageContent = R.drawable.ic_tag_heart,
-                            tagContentType = TagType.HEART,
-                            modifier = Modifier
-                                .padding(start = 10.dp, bottom = 10.dp)
-                                .align(Alignment.BottomStart)
-                        )
+                        if (!courseDetailUiState.isAdmin) {
+                            DateRoadImageTag(
+                                textContent = courseDetailUiState.courseDetail.like.toString(),
+                                imageContent = R.drawable.ic_tag_heart,
+                                tagContentType = TagType.HEART,
+                                modifier = Modifier
+                                    .padding(start = 10.dp, bottom = 10.dp)
+                                    .align(Alignment.BottomStart)
+                            )
+                        }
 
                         DateRoadTextTag(
                             textContent = "${pagerState.currentPage + 1}/${courseDetailUiState.courseDetail.imageList.size}",
@@ -191,6 +193,13 @@ fun CourseDetailScreen(
                             .padding(horizontal = 16.dp)
                             .padding(top = 18.dp)
                     ) {
+                        if (courseDetailUiState.isAdmin) {
+                            DateRoadTextTag(
+                                textContent = "에디터 픽",
+                                tagContentType = TagType.ADVERTISEMENT_TITLE
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                         Text(
                             text = courseDetailUiState.courseDetail.date,
                             style = DateRoadTheme.typography.bodySemi15,
@@ -203,18 +212,24 @@ fun CourseDetailScreen(
                             color = DateRoadTheme.colors.black
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        CourseDetailInfoBar(
-                            totalTime = courseDetailUiState.courseDetail.totalTime,
-                            totalCost = courseDetailUiState.courseDetail.totalCost,
-                            city = courseDetailUiState.courseDetail.city
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        if (!courseDetailUiState.isAdmin) {
+                            CourseDetailInfoBar(
+                                totalTime = courseDetailUiState.courseDetail.totalTime,
+                                totalCost = courseDetailUiState.courseDetail.totalCost,
+                                city = courseDetailUiState.courseDetail.city
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                         if (courseDetailUiState.courseDetail.isAccess) {
                             Text(
                                 text = courseDetailUiState.courseDetail.description,
                                 style = DateRoadTheme.typography.bodyMed13Context,
                                 color = DateRoadTheme.colors.black
                             )
+
+                            if (courseDetailUiState.isAdmin) {
+                                Spacer(modifier = Modifier.height(80.dp))
+                            }
                         } else {
                             Column(
                                 modifier = Modifier
@@ -273,7 +288,7 @@ fun CourseDetailScreen(
                         }
                     }
                 }
-                if (courseDetailUiState.courseDetail.isAccess) {
+                if (courseDetailUiState.courseDetail.isAccess && !courseDetailUiState.isAdmin) {
                     item {
                         Column(
                             modifier = Modifier
@@ -366,7 +381,7 @@ fun CourseDetailScreen(
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             onIconClick = { onTopBarIconClicked() },
             buttonContent = {
-                if (courseDetailUiState.courseDetail.isMine) {
+                if (courseDetailUiState.courseDetail.isMine && !courseDetailUiState.isAdmin) {
                     Icon(
                         painterResource(id = R.drawable.btn_course_detail_more_white),
                         contentDescription = null,
