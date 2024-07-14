@@ -8,11 +8,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
 import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
-import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesGraph
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesNavGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
+import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGraph
+import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
@@ -33,6 +36,10 @@ fun MainNavHost(
             navController = navigator.navHostController,
             startDestination = navigator.startDestination::class.simpleName.orEmpty()
         ) {
+            enrollNavGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
             homeNavGraph(
                 padding = padding,
                 navigateToPointHistory = navigator::navigatePointHistory,
@@ -42,30 +49,37 @@ fun MainNavHost(
             lookNavGraph(
                 padding = padding
             )
-            timelineNavGraph(
+            myCoursesNavGraph(
                 padding = padding,
-                navigateToPastDate = navigator::navigateToPastDate,
-                navigateToEnroll = navigator::navigateToEnroll
-            )
-            readNavGraph(
-                padding = padding,
-                navigateToMyCourse = navigator::navigateMyCourse
+                popBackStack = navigator::popBackStackIfNotHome
             )
             myPageNavGraph(
                 padding = padding,
-                navigateToMyCourse = navigator::navigateMyCourse
+                navigateToPointHistory = navigator::navigateToPointHistory,
+                navigateToMyCourse = navigator::navigateToMyCourse
+            )
+            onboardingNavGraph()
+            pastNavGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+                // navigateToTimelineDetail = navigator::navigateToTimeline
             )
             pointHistoryGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            myCoursesGraph(
-                padding = padding,
-                popBackStack = navigator::popBackStackIfNotHome
-            )
             profileNavGraph(
-                navigateToHome = navigator::navigateProfile
+                navigateToHome = navigator::navigateToProfile
                 // TODO: 추후 navigateHome 으로 변경
+            )
+            readNavGraph(
+                padding = padding,
+                navigateToEnroll = navigator::navigateToEnroll
+            )
+            timelineNavGraph(
+                padding = padding,
+                navigateToPast = navigator::navigateToPast,
+                navigateToEnroll = navigator::navigateToEnroll
             )
         }
     }

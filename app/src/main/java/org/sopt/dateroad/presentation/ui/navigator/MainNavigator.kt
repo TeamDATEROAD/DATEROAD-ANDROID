@@ -11,16 +11,18 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationToEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
-import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
-import org.sopt.dateroad.presentation.ui.pastdate.navigation.navigateToPastDate
-import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
-import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
+import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationToOnboarding
+import org.sopt.dateroad.presentation.ui.past.navigation.navigationToPast
+import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationToPointHistory
+import org.sopt.dateroad.presentation.ui.profile.navigation.navigationToProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 
@@ -56,28 +58,28 @@ class MainNavigator(
         }
     }
 
-    fun navigatePointHistory() {
-        navHostController.navigationPointHistory()
+    fun navigateToEnroll(enrollType: EnrollType) {
+        navHostController.navigationToEnroll(enrollType = enrollType)
     }
 
-    fun navigateOnboarding() {
-        navHostController.navigationOnboarding()
-    }
-
-    fun navigateToEnroll() {
-        // navHostController.navigateToEnroll()
-    }
-
-    fun navigateProfile() {
-        navHostController.navigationProfile()
-    }
-
-    fun navigateMyCourse(myCourseType: MyCourseType) {
+    fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
 
-    fun navigateToPastDate() {
-        navHostController.navigateToPastDate()
+    fun navigateToOnboarding() {
+        navHostController.navigationToOnboarding()
+    }
+
+    fun navigateToPast() {
+        navHostController.navigationToPast()
+    }
+
+    fun navigateToPointHistory() {
+        navHostController.navigationToPointHistory()
+    }
+
+    fun navigateToProfile() {
+        navHostController.navigationToProfile()
     }
 
     fun navigateLook(navOptions: NavOptions? = null) {

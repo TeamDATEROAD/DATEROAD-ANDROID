@@ -57,7 +57,7 @@ fun EnrollPhotos(
                 )
             }
         }
-        if (images.isNotEmpty()) {
+        if (images.isNotEmpty() && isDeletable) {
             Image(
                 modifier = Modifier
                     .align(Alignment.BottomStart)

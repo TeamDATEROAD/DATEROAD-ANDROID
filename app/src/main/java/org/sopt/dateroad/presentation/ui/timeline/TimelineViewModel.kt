@@ -14,14 +14,9 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
     override suspend fun handleEvent(event: TimelineContract.TimelineEvent) {
         when (event) {
             is TimelineContract.TimelineEvent.FetchTimeline -> fetchTimeline()
-            is TimelineContract.TimelineEvent.PageChanged -> setPage(event.page)
             is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
             is TimelineContract.TimelineEvent.ShowMaxItemsModal -> showMaxItemsModal()
         }
-    }
-
-    private fun setPage(page: Int) {
-        setState { copy(currentPage = page) }
     }
 
     private fun fetchTimeline() {

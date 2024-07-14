@@ -14,7 +14,7 @@ fun NavController.navigateToMyCourses(myCourseType: MyCourseType) {
     this.navigate(route = MyCoursesRoute.route(myCourseType = myCourseType))
 }
 
-fun NavGraphBuilder.myCoursesGraph(
+fun NavGraphBuilder.myCoursesNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit
 ) {

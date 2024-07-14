@@ -10,17 +10,16 @@ class TimelineContract {
     data class TimelineUiState(
         val loadState: LoadState = LoadState.Idle,
         val dates: List<Date> = listOf(),
-        val currentPage: Int = 0,
         val showMaxDateCardModal: Boolean = false
     ) : UiState
 
     sealed interface TimelineSideEffect : UiSideEffect {
-        object NavigateToEnroll : TimelineSideEffect
+        data object NavigationToPast : TimelineSideEffect
+        data object NavigateToEnroll : TimelineSideEffect
     }
 
     sealed class TimelineEvent : UiEvent {
         data object FetchTimeline : TimelineEvent()
-        data class PageChanged(val page: Int) : TimelineEvent()
         data object AddDateCardClicked : TimelineEvent()
         data object ShowMaxItemsModal : TimelineEvent()
     }
