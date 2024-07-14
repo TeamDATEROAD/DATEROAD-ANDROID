@@ -17,6 +17,7 @@ import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGrap
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
+import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 
 @Composable
@@ -32,7 +33,7 @@ fun MainNavHost(
     ) {
         NavHost(
             navController = navigator.navHostController,
-            startDestination = navigator.startDestination::class.simpleName.orEmpty()
+            startDestination = navigator.startDestination
         ) {
             homeNavGraph(
                 padding = padding,
@@ -66,6 +67,9 @@ fun MainNavHost(
             profileNavGraph(
                 navigateToHome = navigator::navigateProfile
                 // TODO: 추후 navigateHome 으로 변경
+            )
+            signInGraph(
+
             )
         }
     }

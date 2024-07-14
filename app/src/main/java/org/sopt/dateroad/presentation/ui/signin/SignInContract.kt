@@ -19,5 +19,6 @@ class SignInContract {
     sealed class SignInEvent : UiEvent {
         data object PostSignIn : SignInEvent()
         data object WebViewClick : SignInEvent()
+        data object WebViewClose : SignInEvent()
     }
 }
