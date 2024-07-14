@@ -71,7 +71,7 @@ fun MainNavHost(
             )
             readNavGraph(
                 padding = padding,
-                navigateToMyCourse = navigator::navigateToMyCourse
+                navigateToEnroll = navigator::navigateToEnroll
             )
             timelineNavGraph(
                 padding = padding,
