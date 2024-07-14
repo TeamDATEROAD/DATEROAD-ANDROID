@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.coursedetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +39,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import okhttp3.internal.wait
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.PlaceCardType
