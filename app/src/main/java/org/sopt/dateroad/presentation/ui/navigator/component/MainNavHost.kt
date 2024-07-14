@@ -36,13 +36,20 @@ fun MainNavHost(
             navController = navigator.navHostController,
             startDestination = navigator.startDestination::class.simpleName.orEmpty()
         ) {
+            enrollNavGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
             homeNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToPointHistory = navigator::navigateToPointHistory,
+                navigateToLook = navigator::navigateLook,
+                navigateToTimeline = navigator::navigateTimeline
             )
             lookNavGraph(
                 padding = padding
             )
-            timelineNavGraph(
+            myCoursesNavGraph(
                 padding = padding,
                 navigateToTimelineDetail = { dateType, dateId ->
                     navigator.navigateToTimelineDetail(dateType, dateId)
@@ -53,15 +60,18 @@ fun MainNavHost(
             readNavGraph(
                 padding = padding,
                 navigateToMyCourse = navigator::navigateToMyCourse
+                popBackStack = navigator::popBackStackIfNotHome
             )
             myPageNavGraph(
                 padding = padding,
-                navigateToPointHistory = navigator::navigatePointHistory,
+                navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToMyCourse = navigator::navigateToMyCourse
             )
-            enrollGraph(
+            onboardingNavGraph()
+            pastNavGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
+                // navigateToTimelineDetail = navigator::navigateToTimeline
             )
             pointHistoryGraph(
                 padding = padding,
@@ -77,8 +87,17 @@ fun MainNavHost(
                 popBackStack = navigator::popBackStackIfNotHome
             )
             profileNavGraph(
-                navigateToHome = navigator::navigateProfile
+                navigateToHome = navigator::navigateToProfile
                 // TODO: 추후 navigateHome 으로 변경
+            )
+            readNavGraph(
+                padding = padding,
+                navigateToEnroll = navigator::navigateToEnroll
+            )
+            timelineNavGraph(
+                padding = padding,
+                navigateToPast = navigator::navigateToPast,
+                navigateToEnroll = navigator::navigateToEnroll
             )
         }
     }

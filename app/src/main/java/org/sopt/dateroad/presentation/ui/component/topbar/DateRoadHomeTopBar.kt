@@ -20,7 +20,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadHomeTopBar(
-    title: String = "0 P"
+    title: String = "0 P",
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier
@@ -37,7 +38,8 @@ fun DateRoadHomeTopBar(
         Spacer(modifier = Modifier.weight(1f))
         DateRoadPointTag(
             text = title,
-            profileImage = painterResource(id = R.drawable.img_top_bar_profile)
+            profileImage = painterResource(id = R.drawable.img_top_bar_profile),
+            onClick = onClick
         )
     }
 }

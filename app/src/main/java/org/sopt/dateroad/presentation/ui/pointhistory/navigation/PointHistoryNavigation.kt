@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.ui.pointhistory.PointHistoryRoute
 
-fun NavController.navigationPointHistory() {
+fun NavController.navigationToPointHistory() {
     navigate(
         route = PointHistoryRoute.ROUTE
     )
