@@ -397,6 +397,7 @@ fun CourseDetailScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(color = DateRoadTheme.colors.white)
                     .align(Alignment.BottomCenter)
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {

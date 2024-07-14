@@ -17,7 +17,7 @@ class CourseDetailContract {
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail,
         val currentImagePage: Int = 0,
-        val isAdmin: Boolean = true
+        val isAdmin: Boolean = false
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect

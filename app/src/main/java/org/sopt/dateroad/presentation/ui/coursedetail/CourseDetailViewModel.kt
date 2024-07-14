@@ -35,11 +35,11 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
             tags = listOf("드라이브", "쇼핑"),
             isAccess = true,
             free = 1,
-            isMine = true,
+            isMine = false,
             totalPoint = 95
         ),
         currentImagePage = 0,
-        isAdmin = true
+        isAdmin = false
     )
 
     override suspend fun handleEvent(event: CourseDetailContract.CourseDetailEvent) {
