@@ -176,6 +176,7 @@
     <string name="top_bar_point_guide">포인트 제도 소개</string>
     <string name="top_bar_button_text_load">불러오기</string>
     <string name="top_bar_title_my_page">마이페이지</string>
+    <string name="top_bar_title_past">지난 데이트</string>
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>

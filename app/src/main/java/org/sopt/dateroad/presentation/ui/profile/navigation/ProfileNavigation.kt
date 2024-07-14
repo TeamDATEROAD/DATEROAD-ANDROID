@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.ui.profile.ProfileRoute
 
-fun NavController.navigationProfile() {
+fun NavController.navigationToProfile() {
     navigate(
         route = ProfileRoute.ROUTE
     )

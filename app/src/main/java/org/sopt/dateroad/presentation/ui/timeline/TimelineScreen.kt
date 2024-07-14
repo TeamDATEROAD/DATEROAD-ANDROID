@@ -51,7 +51,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
-    navigateToPastDate: () -> Unit,
+    navigateToPast: () -> Unit,
     navigateToEnroll: (EnrollType) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -65,13 +65,10 @@ fun TimelineRoute(
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
+                is TimelineContract.TimelineSideEffect.NavigationToPast -> navigateToPast()
                 is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE)
             }
         }
-    }
-
-    LaunchedEffect(pagerState.currentPage) {
-        viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
     }
 
     when (uiState.loadState) {
@@ -81,7 +78,7 @@ fun TimelineRoute(
                 uiState = uiState,
                 pagerState = pagerState,
                 viewModel = viewModel,
-                navigateToPastDate = navigateToPastDate,
+                navigateToPast = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigationToPast) },
                 onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) }
             )
         }
@@ -97,7 +94,7 @@ fun TimelineScreen(
     uiState: TimelineContract.TimelineUiState,
     pagerState: PagerState,
     viewModel: TimelineViewModel,
-    navigateToPastDate: () -> Unit,
+    navigateToPast: () -> Unit,
     onAddDateCardClicked: () -> Unit
 ) {
     if (uiState.showMaxDateCardModal) {
@@ -151,7 +148,7 @@ fun TimelineScreen(
                     contentPadding = PaddingValues(horizontal = 35.dp)
                 ) { page ->
                     val date = uiState.dates[page]
-                    val dateType = getDateTypeByPosition(page)
+                    val dateType = DateType.getDateTypeByIndex(page)
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
@@ -177,15 +174,15 @@ fun TimelineScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DateRoadFilledButton(
-                isEnabled = false,
+                isEnabled = true,
                 textContent = stringResource(id = R.string.button_past_date),
-                onClick = navigateToPastDate,
+                onClick = navigateToPast,
                 textStyle = DateRoadTheme.typography.bodyBold15,
-                enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
-                enabledTextColor = DateRoadTheme.colors.white,
+                enabledBackgroundColor = DateRoadTheme.colors.gray100,
+                enabledTextColor = DateRoadTheme.colors.black,
                 disabledBackgroundColor = DateRoadTheme.colors.gray100,
                 disabledTextColor = DateRoadTheme.colors.black,
-                cornerRadius = 10.dp,
+                cornerRadius = 14.dp,
                 paddingHorizontal = 29.dp,
                 paddingVertical = 11.dp
             )
@@ -233,17 +230,9 @@ fun TimelineScreenPreview() {
             ),
             viewModel = viewModel,
             pagerState = pagerState,
-            navigateToPastDate = {},
+            navigateToPast = {},
             onAddDateCardClicked = {}
         )
-    }
-}
-
-fun getDateTypeByPosition(position: Int): DateType {
-    return when (position % 3) {
-        0 -> DateType.PINK
-        1 -> DateType.PURPLE
-        else -> DateType.LIME
     }
 }
 
