@@ -120,7 +120,7 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         DateRoadHomeTopBar(
-            title = "${uiState.remainingPoints} P",
+            title = stringResource(id = R.string.home_main_date_point, uiState.remainingPoints),
             onButtonClick = navigateToPointHistory
         )
         Row(
