@@ -34,7 +34,8 @@ fun DateRoadBasicTopBar(
     backGroundColor: Color = Color.Transparent,
     onIconClick: () -> Unit = {},
     @DrawableRes iconLeftResource: Int? = null,
-    buttonContent: (@Composable () -> Unit)? = null
+    buttonContent: (@Composable () -> Unit)? = null,
+    leftTint:Color=DateRoadTheme.colors.black
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
@@ -53,7 +54,7 @@ fun DateRoadBasicTopBar(
             Icon(
                 painter = painterResource(id = iconLeftResource),
                 contentDescription = null,
-                tint = DateRoadTheme.colors.black,
+                tint = leftTint,
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .onGloballyPositioned { coordinates ->

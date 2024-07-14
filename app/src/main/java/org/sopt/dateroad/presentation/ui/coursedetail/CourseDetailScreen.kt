@@ -16,13 +16,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import okhttp3.internal.wait
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.PlaceCardType
@@ -46,9 +55,11 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialo
 import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
 import org.sopt.dateroad.presentation.util.context.mapTagsToDateTagType
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -100,7 +111,6 @@ fun CourseDetailScreen(
     enrollSchedule: () -> Unit,
     onTopBarIconClicked: () -> Unit,
     openCourseDetail: () -> Unit
-
 ) {
     val context = LocalContext.current
     val buttonText =
@@ -115,253 +125,260 @@ fun CourseDetailScreen(
         } else {
             stringResource(id = R.string.course_detail_point_read_button_description)
         }
+    var imageHeight by remember { mutableStateOf(0) }
 
     val pagerState = rememberPagerState()
-
+    val scrollState = rememberLazyListState()
+    val isTopBarTransparent by remember {
+        derivedStateOf {
+            scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset < imageHeight
+        }
+    }
     val mappedTags = context.mapTagsToDateTagType(courseDetailUiState.courseDetail.tags)
 
     Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(DateRoadTheme.colors.white),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            userScrollEnabled = true
-        ) {
-            item {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    HorizontalPager(
-                        count = courseDetailUiState.courseDetail.imageList.size,
-                        state = pagerState,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        userScrollEnabled = courseDetailUiState.courseDetail.isAccess
-                    ) { page ->
-                        Image(
-                            painter = painterResource(id = courseDetailUiState.courseDetail.imageList[page]),
-                            contentDescription = null,
+        Column {
+            LazyColumn(
+                state = scrollState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DateRoadTheme.colors.white),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                userScrollEnabled = true
+            ) {
+                item {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        HorizontalPager(
+                            count = courseDetailUiState.courseDetail.imageList.size,
+                            state = pagerState,
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(1f)
-
-                        )
-                    }
-
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_top_bar_back_white),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 11.dp)
-                            .clickable { onTopBarIconClicked() }
-                            .padding(top = 5.dp)
-                    )
-
-                    if (courseDetailUiState.courseDetail.isMine) {
-                        Image(
-                            painter = painterResource(id = R.drawable.btn_course_detail_more_white),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .clickable { onEditBottomSheet() }
-                                .padding(top = 5.dp)
-                                .align(Alignment.TopEnd)
-                        )
-                    }
-
-                    DateRoadImageTag(
-                        textContent = courseDetailUiState.courseDetail.like.toString(),
-                        imageContent = R.drawable.ic_tag_heart,
-                        tagContentType = TagType.HEART,
-                        modifier = Modifier
-                            .padding(start = 10.dp, bottom = 10.dp)
-                            .align(Alignment.BottomStart)
-                    )
-
-                    DateRoadTextTag(
-                        textContent = "${pagerState.currentPage + 1}/${courseDetailUiState.courseDetail.imageList.size}",
-                        tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
-                        modifier = Modifier
-                            .padding(end = 10.dp, bottom = 10.dp)
-                            .align(Alignment.BottomEnd)
-                    )
-                }
-            }
-
-            item {
-                Column(
-                    modifier = Modifier
-                        .background(DateRoadTheme.colors.white)
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 18.dp)
-
-                ) {
-                    Text(
-                        text = courseDetailUiState.courseDetail.date,
-                        style = DateRoadTheme.typography.bodySemi15,
-                        color = DateRoadTheme.colors.gray400
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = courseDetailUiState.courseDetail.title,
-                        style = DateRoadTheme.typography.titleExtra24,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    CourseDetailInfoBar(
-                        totalTime = courseDetailUiState.courseDetail.totalTime,
-                        totalCost = courseDetailUiState.courseDetail.totalCost,
-                        city = courseDetailUiState.courseDetail.city
-
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    if (courseDetailUiState.courseDetail.isAccess) {
-                        Text(
-                            text = courseDetailUiState.courseDetail.description,
-                            style = DateRoadTheme.typography.bodyMed13Context,
-                            color = DateRoadTheme.colors.black
-                        )
-                    } else {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                        ) {
-                            GradientBoxWithText(text = courseDetailUiState.courseDetail.description)
-                            Column {
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .align(Alignment.CenterHorizontally)
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = stringResource(id = R.string.course_detail_unopened_title),
-                                    style = DateRoadTheme.typography.bodyBold17,
-                                    color = DateRoadTheme.colors.black,
-                                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = buttonDescription,
-                                    style = DateRoadTheme.typography.bodySemi15,
-                                    color = DateRoadTheme.colors.deepPurple,
-                                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                                )
-                                Spacer(modifier = Modifier.height(24.dp))
-                                DateRoadFilledButton(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 52.dp)
-                                        .align(Alignment.CenterHorizontally),
-                                    isEnabled = true,
-                                    textContent = buttonText,
-                                    onClick = {
-                                        if (courseDetailUiState.courseDetail.free > 0) {
-                                            onDialogLookedForFree()
-                                        } else {
-                                            onDialogLookedByPoint()
-                                        }
-                                    },
-                                    textStyle = DateRoadTheme.typography.bodyBold15,
-                                    enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
-                                    enabledTextColor = DateRoadTheme.colors.white,
-                                    disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                                    disabledTextColor = DateRoadTheme.colors.gray400,
-                                    cornerRadius = 14.dp,
-                                    paddingHorizontal = 0.dp,
-                                    paddingVertical = 16.dp
-                                )
-                                Spacer(modifier = Modifier.height(16.dp))
-                            }
+                                .fillMaxWidth(),
+                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
+                        ) { page ->
+                            Image(
+                                painter = painterResource(id = courseDetailUiState.courseDetail.imageList[page]),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .aspectRatio(1f)
+                                    .onGloballyPositioned { coordinates ->
+                                        imageHeight = coordinates.size.height
+                                    }
+                            )
                         }
+
+                        DateRoadImageTag(
+                            textContent = courseDetailUiState.courseDetail.like.toString(),
+                            imageContent = R.drawable.ic_tag_heart,
+                            tagContentType = TagType.HEART,
+                            modifier = Modifier
+                                .padding(start = 10.dp, bottom = 10.dp)
+                                .align(Alignment.BottomStart)
+                        )
+
+                        DateRoadTextTag(
+                            textContent = "${pagerState.currentPage + 1}/${courseDetailUiState.courseDetail.imageList.size}",
+                            tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
+                            modifier = Modifier
+                                .padding(end = 10.dp, bottom = 10.dp)
+                                .align(Alignment.BottomEnd)
+                        )
                     }
                 }
-            }
-            if (courseDetailUiState.courseDetail.isAccess) {
+
                 item {
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .background(DateRoadTheme.colors.white)
                             .padding(horizontal = 16.dp)
+                            .padding(top = 18.dp)
                     ) {
-                        Spacer(modifier = Modifier.height(30.dp))
                         Text(
-                            text = stringResource(id = R.string.course_detail_timeline_title),
-                            style = DateRoadTheme.typography.titleBold18,
-                            color = DateRoadTheme.colors.black
+                            text = courseDetailUiState.courseDetail.date,
+                            style = DateRoadTheme.typography.bodySemi15,
+                            color = DateRoadTheme.colors.gray400
                         )
-                    }
-                }
-
-                items(courseDetailUiState.courseDetail.places) { place ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        DateRoadPlaceCard(
-                            placeCardType = PlaceCardType.COURSE_NORMAL,
-                            place = place
-                        )
-                    }
-                }
-
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    ) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = stringResource(id = R.string.course_total_cost_string),
-                            style = DateRoadTheme.typography.titleBold18,
-                            color = DateRoadTheme.colors.gray100
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Text(
-                            text = courseDetailUiState.courseDetail.totalCost,
-                            style = DateRoadTheme.typography.titleBold18,
-                            color = DateRoadTheme.colors.black,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(DateRoadTheme.colors.gray100)
-                                .padding(start = 20.dp, top = 15.dp, end = 5.dp, bottom = 17.dp)
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-                        Text(
-                            text = stringResource(id = R.string.course_detail_tag),
-                            style = DateRoadTheme.typography.titleBold18,
+                            text = courseDetailUiState.courseDetail.title,
+                            style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black
                         )
-                        Spacer(modifier = Modifier.height(12.dp))
-                    }
-                }
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                            mappedTags.forEach { tag ->
-                                DateRoadImageChip(
-                                    textId = tag.titleRes,
-                                    imageRes = tag.imageRes,
-                                    chipType = ChipType.DATE,
-                                    isSelected = false
-                                )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        CourseDetailInfoBar(
+                            totalTime = courseDetailUiState.courseDetail.totalTime,
+                            totalCost = courseDetailUiState.courseDetail.totalCost,
+                            city = courseDetailUiState.courseDetail.city
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        if (courseDetailUiState.courseDetail.isAccess) {
+                            Text(
+                                text = courseDetailUiState.courseDetail.description,
+                                style = DateRoadTheme.typography.bodyMed13Context,
+                                color = DateRoadTheme.colors.black
+                            )
+                        } else {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                            ) {
+                                GradientBoxWithText(text = courseDetailUiState.courseDetail.description)
+                                Column {
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .align(Alignment.CenterHorizontally)
+                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = stringResource(id = R.string.course_detail_unopened_title),
+                                        style = DateRoadTheme.typography.bodyBold17,
+                                        color = DateRoadTheme.colors.black,
+                                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = buttonDescription,
+                                        style = DateRoadTheme.typography.bodySemi15,
+                                        color = DateRoadTheme.colors.deepPurple,
+                                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                                    )
+                                    Spacer(modifier = Modifier.height(24.dp))
+                                    DateRoadFilledButton(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 52.dp)
+                                            .align(Alignment.CenterHorizontally),
+                                        isEnabled = true,
+                                        textContent = buttonText,
+                                        onClick = {
+                                            if (courseDetailUiState.courseDetail.free > 0) {
+                                                onDialogLookedForFree()
+                                            } else {
+                                                onDialogLookedByPoint()
+                                            }
+                                        },
+                                        textStyle = DateRoadTheme.typography.bodyBold15,
+                                        enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                                        enabledTextColor = DateRoadTheme.colors.white,
+                                        disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                                        disabledTextColor = DateRoadTheme.colors.gray400,
+                                        cornerRadius = 14.dp,
+                                        paddingHorizontal = 0.dp,
+                                        paddingVertical = 16.dp
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                }
                             }
                         }
-                        Spacer(modifier = Modifier.height(38.dp))
-                        if (!courseDetailUiState.courseDetail.isMine) {
-                            Spacer(modifier = Modifier.height(80.dp))
+                    }
+                }
+                if (courseDetailUiState.courseDetail.isAccess) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        ) {
+                            Spacer(modifier = Modifier.height(30.dp))
+                            Text(
+                                text = stringResource(id = R.string.course_detail_timeline_title),
+                                style = DateRoadTheme.typography.titleBold18,
+                                color = DateRoadTheme.colors.black
+                            )
+                        }
+                    }
+
+                    items(courseDetailUiState.courseDetail.places) { place ->
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        ) {
+                            DateRoadPlaceCard(
+                                placeCardType = PlaceCardType.COURSE_NORMAL,
+                                place = place
+                            )
+                        }
+                    }
+
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        ) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = stringResource(id = R.string.course_total_cost_string),
+                                style = DateRoadTheme.typography.titleBold18,
+                                color = DateRoadTheme.colors.black
+                            )
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Text(
+                                text = courseDetailUiState.courseDetail.totalCost,
+                                style = DateRoadTheme.typography.titleBold18,
+                                color = DateRoadTheme.colors.black,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(DateRoadTheme.colors.gray100)
+                                    .padding(start = 20.dp, top = 15.dp, end = 5.dp, bottom = 17.dp)
+                            )
+                            Spacer(modifier = Modifier.height(30.dp))
+                            Text(
+                                text = stringResource(id = R.string.course_detail_tag),
+                                style = DateRoadTheme.typography.titleBold18,
+                                color = DateRoadTheme.colors.black
+                            )
+                            Spacer(modifier = Modifier.height(12.dp))
+                        }
+                    }
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        ) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
+                                mappedTags.forEach { tag ->
+                                    DateRoadImageChip(
+                                        textId = tag.titleRes,
+                                        imageRes = tag.imageRes,
+                                        chipType = ChipType.DATE,
+                                        isSelected = false
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(38.dp))
+                            if (!courseDetailUiState.courseDetail.isMine) {
+                                Spacer(modifier = Modifier.height(80.dp))
+                            }
                         }
                     }
                 }
             }
         }
+
+        DateRoadBasicTopBar(
+            title = "",
+            backGroundColor = if (isTopBarTransparent) Color.Transparent else DateRoadTheme.colors.white,
+            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            onIconClick = { onTopBarIconClicked() },
+            buttonContent = {
+                if (courseDetailUiState.courseDetail.isMine) {
+                    Icon(
+                        painterResource(id = R.drawable.btn_course_detail_more_white),
+                        contentDescription = null,
+                        tint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black,
+                        modifier = Modifier.noRippleClickable { onEditBottomSheet() }
+                    )
+                }
+            },
+            leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
+        )
 
         if (!courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetail.isAccess) {
             Box(

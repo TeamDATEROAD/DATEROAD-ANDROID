@@ -33,9 +33,9 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
             ),
             totalCost = "50,000 원",
             tags = listOf("드라이브", "쇼핑"),
-            isAccess = false,
+            isAccess = true,
             free = 1,
-            isMine = false,
+            isMine = true,
             totalPoint = 95
         ),
         currentImagePage = 0
