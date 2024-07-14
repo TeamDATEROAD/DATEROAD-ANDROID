@@ -59,7 +59,8 @@ fun TimelineDetailRoute(
     padding: PaddingValues,
     popBackStack: () -> Unit,
     dateId: Int,
-    dateType: DateType
+    dateType: DateType,
+    sourceScreen: Boolean
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -67,6 +68,7 @@ fun TimelineDetailRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail(dateId))
+        viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -115,7 +117,7 @@ fun TimelineDetailScreen(
             .background(color = dateType.backgroundColor)
     ) {
         DateRoadBasicTopBar(
-            title = stringResource(id = R.string.top_bar_title_look),
+            title = stringResource(id = R.string.top_bar_title_timeline),
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             buttonContent = {
                 Icon(
@@ -212,45 +214,64 @@ fun TimelineDetailScreen(
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(vertical = 16.dp, horizontal = 70.dp)
-                    .background(DateRoadTheme.colors.deepPurple, CircleShape)
-                    .noRippleClickable(onClick = showKakaoClicked)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+            if (uiState.sourceScreen) {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(vertical = 16.dp, horizontal = 70.dp)
+                        .background(DateRoadTheme.colors.deepPurple, CircleShape)
+                        .noRippleClickable(onClick = showKakaoClicked)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 14.dp, bottom = 14.dp, start = 24.dp)
-                            .background(DateRoadTheme.colors.kakao, CircleShape)
-                            .clip(CircleShape)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_kakao_logo),
-                            contentDescription = null,
+                        Box(
                             modifier = Modifier
-                                .padding(6.dp)
-                                .background(DateRoadTheme.colors.kakao)
+                                .padding(top = 14.dp, bottom = 14.dp, start = 24.dp)
+                                .background(DateRoadTheme.colors.kakao, CircleShape)
                                 .clip(CircleShape)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_kakao_logo),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(6.dp)
+                                    .background(DateRoadTheme.colors.kakao)
+                                    .clip(CircleShape)
+                            )
+                        }
+                        Text(
+                            text = stringResource(id = R.string.one_button_dialog_with_description_share_kakao),
+                            style = DateRoadTheme.typography.bodyBold15,
+                            color = DateRoadTheme.colors.white,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = 24.dp)
                         )
                     }
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(vertical = 16.dp, horizontal = 70.dp)
+                        .background(DateRoadTheme.colors.deepPurple, CircleShape)
+                        .noRippleClickable(onClick = showKakaoClicked)
+                ) {
                     Text(
-                        text = stringResource(id = R.string.one_button_dialog_with_description_share_kakao),
+                        text = stringResource(id = R.string.timeline_detail_point),
                         style = DateRoadTheme.typography.bodyBold15,
                         color = DateRoadTheme.colors.white,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(end = 24.dp)
+                            .padding(vertical = 16.dp, horizontal = 24.dp)
                     )
                 }
             }
         }
     }
-
     if (uiState.showKakaoDialog) {
         DateRoadTwoButtonDialog(
             twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,

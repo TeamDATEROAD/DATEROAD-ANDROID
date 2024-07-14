@@ -9,6 +9,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class TimelineDetailContract {
     data class TimelineDetailUiState(
         val loadState: LoadState = LoadState.Idle,
+        val sourceScreen: Boolean = false,
         val showKakaoDialog: Boolean = false,
         val showDeleteBottomSheet: Boolean = false,
         val showDeleteDialog: Boolean = false,
@@ -24,5 +25,6 @@ class TimelineDetailContract {
         data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
+        data class SetSourceScreen(val sourceScreen: Boolean) : TimelineDetailEvent()
     }
 }
