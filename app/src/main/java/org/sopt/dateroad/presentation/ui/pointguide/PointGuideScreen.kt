@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.pointguide
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,17 +24,23 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun ProfileGuideRoute(
+    padding: PaddingValues,
     popBackStack: () -> Unit
 ) {
-    PointGuideScreen(onIconClick = popBackStack)
+    PointGuideScreen(
+        padding = padding,
+        onIconClick = popBackStack
+    )
 }
 
 @Composable
 fun PointGuideScreen(
+    padding: PaddingValues,
     onIconClick: () -> Unit
 ) {
     Column(
         Modifier
+            .padding(paddingValues = padding)
             .fillMaxSize()
             .background(DateRoadTheme.colors.white)
     ) {
@@ -77,5 +84,8 @@ fun PointGuideScreen(
 @Preview
 @Composable
 fun PointGuideScreenPreview() {
-    PointGuideScreen(onIconClick = {})
+    PointGuideScreen(
+        padding = PaddingValues(0.dp),
+        onIconClick = {}
+    )
 }
