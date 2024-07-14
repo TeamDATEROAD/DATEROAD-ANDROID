@@ -91,6 +91,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick -> setState { copy(onRegionBottomSheetAreaSelected = event.city) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick -> setState { copy(isRegionBottomSheetOpen = false, country = event.region, city = event.area) }
             is EnrollContract.EnrollEvent.OnAddPlaceButtonClick -> setState { copy(place = currentState.place.toMutableList().apply { add(event.place) }, placeTitle = "", placeDuration = "") }
+            is EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop -> setState { copy(place = event.places) }
             is EnrollContract.EnrollEvent.OnPlaceTitleValueChange -> setState { copy(placeTitle = event.placeTitle) }
             is EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick -> setState { copy(isDurationBottomSheetOpen = false, placeDuration = event.placeDuration) }
             is EnrollContract.EnrollEvent.OnEditableValueChange -> setState { copy(isPlaceEditable = event.editable) }
