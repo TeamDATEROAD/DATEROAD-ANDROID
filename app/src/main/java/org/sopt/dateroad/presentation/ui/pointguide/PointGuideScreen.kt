@@ -38,7 +38,7 @@ fun PointGuideScreen(
             .background(DateRoadTheme.colors.white)
     ) {
         DateRoadBasicTopBar(
-            title = stringResource(id = R.string.top_bar_point_guide),
+            title = stringResource(id = R.string.point_guide_top_bar),
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
             onIconClick = onIconClick

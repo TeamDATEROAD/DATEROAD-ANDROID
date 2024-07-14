@@ -1,7 +1,7 @@
 package org.sopt.dateroad.domain.model
 
 data class Advertisement(
-    val advertismentId: Int,
+    val advertisementId: Int,
     val imageUrl: String,
     val title: String,
     val tag: String

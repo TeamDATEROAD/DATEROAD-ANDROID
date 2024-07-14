@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,15 +27,16 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeAdvertisement(
+    modifier: Modifier = Modifier,
     advertisement: Advertisement,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .aspectRatio(328f / 132f)
-            .noRippleClickable(onClick = { onClick(advertisement.advertismentId) })
+            .noRippleClickable(onClick = { onClick(advertisement.advertisementId) })
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
@@ -42,10 +44,11 @@ fun HomeAdvertisement(
                 .crossfade(true)
                 .build(),
             placeholder = null,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
         Column(
-            modifier = Modifier.padding(13.dp)
+            modifier = modifier.padding(13.dp)
         ) {
             DateRoadTextTag(
                 textContent = advertisement.tag,
@@ -68,8 +71,9 @@ fun HomeAdvertisement(
 fun HomeAdvertisementPreview() {
     Column {
         HomeAdvertisement(
+            modifier = Modifier,
             advertisement = Advertisement(
-                advertismentId = 0,
+                advertisementId = 0,
                 imageUrl = "www.naver.jpg",
                 title = "관리자 아카이빙 게시물 이름",
                 tag = "에디터 픽"

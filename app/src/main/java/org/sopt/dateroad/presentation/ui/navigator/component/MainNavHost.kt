@@ -41,7 +41,10 @@ fun MainNavHost(
                 popBackStack = navigator::popBackStackIfNotHome
             )
             homeNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToPointHistory = navigator::navigateToPointHistory,
+                navigateToLook = navigator::navigateLook,
+                navigateToTimeline = navigator::navigateTimeline
             )
             lookNavGraph(
                 padding = padding
