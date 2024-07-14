@@ -32,7 +32,7 @@ fun NavGraphBuilder.timelineDetailGraph(
             popBackStack = popBackStack,
             dateId = dateId,
             dateType = dateType,
-            sourceScreen = false
+            sourceScreen = true
         )
     }
 }

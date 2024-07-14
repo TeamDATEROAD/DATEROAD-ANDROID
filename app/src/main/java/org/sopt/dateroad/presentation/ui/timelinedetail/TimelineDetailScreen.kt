@@ -60,7 +60,7 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     dateId: Int,
     dateType: DateType,
-    sourceScreen: Boolean,
+    sourceScreen: Boolean
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -259,7 +259,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.deepPurple, CircleShape)
-                        // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
+                    // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
