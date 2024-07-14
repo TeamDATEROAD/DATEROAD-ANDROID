@@ -27,7 +27,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeAdvertisement(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     advertisement: Advertisement,
     onClick: (Int) -> Unit = {}
 ) {
@@ -36,7 +36,7 @@ fun HomeAdvertisement(
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .aspectRatio(328f / 132f)
-            .noRippleClickable(onClick = { onClick(advertisement.advertismentId) })
+            .noRippleClickable(onClick = { onClick(advertisement.advertisementId) })
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
@@ -54,7 +54,7 @@ fun HomeAdvertisement(
                 textContent = advertisement.tag,
                 tagContentType = TagType.ADVERTISEMENT_TITLE
             )
-            Spacer(modifier = modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(10.dp))
             Text(
                 text = advertisement.title,
                 style = DateRoadTheme.typography.bodyBold15,
@@ -73,7 +73,7 @@ fun HomeAdvertisementPreview() {
         HomeAdvertisement(
             modifier = Modifier,
             advertisement = Advertisement(
-                advertismentId = 0,
+                advertisementId = 0,
                 imageUrl = "www.naver.jpg",
                 title = "관리자 아카이빙 게시물 이름",
                 tag = "에디터 픽"

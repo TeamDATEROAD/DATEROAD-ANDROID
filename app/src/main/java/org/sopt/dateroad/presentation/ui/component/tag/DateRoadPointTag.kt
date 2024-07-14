@@ -28,13 +28,13 @@ fun DateRoadPointTag(
     profileImage: Painter,
     backgroundColor: Color = DateRoadTheme.colors.mediumPurple,
     contentColor: Color = DateRoadTheme.colors.white,
-    onButtonClick: () -> Unit = {}
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))
             .background(backgroundColor)
-            .noRippleClickable(onButtonClick),
+            .noRippleClickable(onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

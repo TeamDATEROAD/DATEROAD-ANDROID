@@ -14,7 +14,7 @@ class HomeContract {
         val mainDate: MainDate? = null,
         val topLikedCourses: List<Course> = listOf(),
         val latestCourses: List<Course> = listOf(),
-        val advertisement: List<Advertisement> = listOf(),
+        val advertisements: List<Advertisement> = listOf(),
         val userName: String = "",
         val remainingPoints: Int = 0,
         val currentBannerPage: Int = 0
@@ -25,17 +25,17 @@ class HomeContract {
         data class NavigateToCourseDetailPage(val courseId: Int) : HomeSideEffect
         data class NavigateToEditorPickPage(val courseId: Int) : HomeSideEffect
         data class NavigateToDateDetailPage(val dateId: Int) : HomeSideEffect
-        data object navigateToTimeline : HomeSideEffect
+        data object NavigateToTimeline : HomeSideEffect
         data object NavigateToPointHistoryPage : HomeSideEffect
     }
 
     sealed class HomeEvent : UiEvent {
-        data object FetchMainDate : HomeEvent()
-        data object FetchTopLikedCourses : HomeEvent()
-        data object FetchLatestCourses : HomeEvent()
-        data object FetchAdvertisement : HomeEvent()
-        data object FetchUserName : HomeEvent()
-        data object FetchRemainingPoints : HomeEvent()
+        data class FetchMainDate(val loadState: LoadState, val mainDate: MainDate?) : HomeEvent()
+        data class FetchTopLikedCourses(val loadState: LoadState, val topLikedCourses: List<Course>) : HomeEvent()
+        data class FetchLatestCourses(val loadState: LoadState, val latestCourses: List<Course>) : HomeEvent()
+        data class FetchAdvertisements(val loadState: LoadState, val advertisements: List<Advertisement>) : HomeEvent()
+        data class FetchUserName(val loadState: LoadState, val userName: String) : HomeEvent()
+        data class FetchRemainingPoints(val loadState: LoadState, val remainingPoints: Int) : HomeEvent()
         data class ChangeBannerPage(val page: Int) : HomeEvent()
     }
 }
