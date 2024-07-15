@@ -20,6 +20,7 @@ import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGra
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
+import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.timelineDetailGraph
 
 @Composable
 fun MainNavHost(
@@ -92,15 +93,16 @@ fun MainNavHost(
                 navigateToEnroll = navigator::navigateToEnroll
             )
 
-            timelineDetailGraph(
+            timelineNavGraph(
                 padding = padding,
+                navigateToPast = navigator::navigateToPast,
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
                 popBackStack = navigator::popBackStackIfNotHome
             )
 
-            timelineNavGraph(
+            timelineDetailGraph(
                 padding = padding,
-                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
-                navigateToEnroll = navigator::navigateToEnroll,
                 popBackStack = navigator::popBackStackIfNotHome
             )
         }
