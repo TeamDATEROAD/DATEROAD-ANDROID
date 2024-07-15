@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.read
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -130,9 +131,7 @@ fun ReadScreen(
             Spacer(modifier = Modifier.height(10.dp))
             LazyColumn {
                 items(readUiState.courses) { course ->
-                    DateRoadCourseCard(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        course = course)
+                    DateRoadCourseCard(course = course)
                 }
             }
         }

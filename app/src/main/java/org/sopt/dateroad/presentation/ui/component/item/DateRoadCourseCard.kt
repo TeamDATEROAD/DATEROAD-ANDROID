@@ -40,7 +40,8 @@ fun DateRoadCourseCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(130.dp)
+            .padding(vertical = 10.dp, horizontal = 16.dp)
+            .height(110.dp)
             .background(DateRoadTheme.colors.white)
             .noRippleClickable(onClick = { onClick(course.id) })
     ) {
