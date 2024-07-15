@@ -102,8 +102,6 @@ val defaultDateRoadColors = DateRoadColors(
 
     // Notif
     alertRed = AlertRed,
-
-    // Kakao
     kakaoYellow = KakaoYellow
 )
 
