@@ -19,12 +19,11 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 
 @Composable
 fun HomeAdvertisement(
-    modifier: Modifier = Modifier,
     advertisement: Advertisement,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .aspectRatio(328f / 132f)
@@ -37,7 +36,8 @@ fun HomeAdvertisement(
                 .build(),
             placeholder = null,
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -47,7 +47,6 @@ fun HomeAdvertisement(
 fun HomeAdvertisementPreview() {
     Column {
         HomeAdvertisement(
-            modifier = Modifier,
             advertisement = Advertisement(
                 advertisementId = 0,
                 imageUrl = "www.naver.jpg"

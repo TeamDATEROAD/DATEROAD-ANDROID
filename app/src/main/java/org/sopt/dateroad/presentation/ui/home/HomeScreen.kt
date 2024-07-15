@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -209,7 +210,9 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(30.dp))
 
                 Box(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 16.dp)
                 ) {
                     HorizontalPager(
                         count = uiState.advertisements.size,
@@ -218,7 +221,6 @@ fun HomeScreen(
                     ) { page ->
                         HomeAdvertisement(
                             advertisement = uiState.advertisements[page],
-                            modifier = Modifier.fillMaxWidth(),
                             onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
                         )
                     }
