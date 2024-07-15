@@ -19,8 +19,8 @@ class MyCourseContract {
     }
 
     sealed class MyCourseEvent : UiEvent {
-        data object FetchMyCourseRead : MyCourseEvent()
-        data object FetchMyCourseEnroll : MyCourseEvent()
+        data class FetchMyCourseRead(val loadState: LoadState, val courses: List<Course>) : MyCourseEvent()
+        data class FetchMyCourseEnroll(val loadState: LoadState, val courses: List<Course>) : MyCourseEvent()
         data class SetMyCourseType(val myCourseType: MyCourseType) : MyCourseEvent()
     }
 }

@@ -61,8 +61,8 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                 loadState = LoadState.Success,
                 latestCourses = listOf(
                     Course(
-                        id = 3,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "부천",
                         title = "부천에서는 뭐하면서 놀면 좋을까요? 흐음.... 부천에서 놀게 있나?",
                         cost = "10원",
@@ -70,8 +70,8 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                         like = "100"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "제주",
                         title = "제주도에서 한라봉 따먹을 사람?",
                         cost = "120만원",
@@ -98,8 +98,8 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                 loadState = LoadState.Success,
                 topLikedCourses = listOf(
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "데이트할사람~",
                         cost = "100만원",
@@ -107,8 +107,8 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                         like = "150"
                     ),
                     Course(
-                        id = 2,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람",
                         cost = "150만원",

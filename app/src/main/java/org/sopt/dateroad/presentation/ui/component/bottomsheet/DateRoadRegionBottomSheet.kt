@@ -95,7 +95,7 @@ fun DateRoadRegionBottomSheet(
                     val isSelected = selectedRegion == regionType
                     DateRoadTextChip(
                         modifier = Modifier.weight(1f),
-                        textId = regionType.nameRes,
+                        text = stringResource(id = regionType.nameRes),
                         chipType = ChipType.REGION,
                         isSelected = isSelected,
                         onSelectedChange = {
@@ -130,7 +130,7 @@ fun DateRoadRegionBottomSheet(
                     when (selectedRegion) {
                         RegionType.INCHEON -> IncheonAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                textId = areaType.nameRes,
+                                text = stringResource(id = areaType.nameRes),
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {
@@ -141,7 +141,7 @@ fun DateRoadRegionBottomSheet(
 
                         RegionType.GYEONGGI -> GyeonggiAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                textId = areaType.nameRes,
+                                text = stringResource(id = areaType.nameRes),
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {
@@ -152,7 +152,7 @@ fun DateRoadRegionBottomSheet(
 
                         else -> SeoulAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                textId = areaType.nameRes,
+                                text = stringResource(id = areaType.nameRes),
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {

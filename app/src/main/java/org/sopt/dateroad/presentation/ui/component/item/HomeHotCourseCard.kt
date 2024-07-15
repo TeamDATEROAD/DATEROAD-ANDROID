@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +25,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -41,7 +39,7 @@ fun HomeHotCourseCard(
         modifier = Modifier
             .background(DateRoadTheme.colors.white)
             .width(230.dp)
-            .noRippleClickable(onClick = { onClick(course.id) })
+            .noRippleClickable(onClick = { onClick(course.courseId) })
     ) {
         Text(
             text = course.city,
@@ -58,7 +56,7 @@ fun HomeHotCourseCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(course.url)
+                    .data(course.thumbnail)
                     .crossfade(true)
                     .build(),
                 placeholder = null,
@@ -111,11 +109,11 @@ fun HomeHotCourseCardPreview() {
     Column {
         HomeHotCourseCard(
             course = Course(
-                id = 1,
-                url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                courseId = 1,
+                thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                 city = "건대/성수/왕십리",
                 title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다에 있습니다.",
-                cost = stringResource(id = MoneyTagType.EXCESS_100000.titleRes),
+                cost = "10만원 이상",
                 duration = "10시간",
                 like = "999"
             )

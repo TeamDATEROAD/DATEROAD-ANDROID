@@ -191,7 +191,7 @@ fun HomeScreen(
                     items(uiState.topLikedCourses) { topLikedCourses ->
                         HomeHotCourseCard(
                             course = topLikedCourses,
-                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
                         )
                     }
                 }
@@ -258,7 +258,7 @@ fun HomeScreen(
                     uiState.latestCourses.forEach { latestCourses ->
                         DateRoadCourseCard(
                             course = latestCourses,
-                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.courseId) }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                     }
@@ -306,8 +306,8 @@ fun HomeScreenPreview() {
                 ),
                 topLikedCourses = listOf(
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "Seoul",
                         title = "Beautiful Seoul Tour",
                         cost = "$100",
@@ -315,8 +315,8 @@ fun HomeScreenPreview() {
                         like = "150"
                     ),
                     Course(
-                        id = 2,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "Busan",
                         title = "Amazing Busan Trip",
                         cost = "$120",
@@ -326,8 +326,8 @@ fun HomeScreenPreview() {
                 ),
                 latestCourses = listOf(
                     Course(
-                        id = 3,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Incheon",
                         title = "Incheon Day Tour",
                         cost = "$80",
@@ -335,8 +335,8 @@ fun HomeScreenPreview() {
                         like = "100"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Jeju",
                         title = "Jeju Island Adventure",
                         cost = "$150",
@@ -344,8 +344,8 @@ fun HomeScreenPreview() {
                         like = "300"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Jeju",
                         title = "Jeju Island Adventure",
                         cost = "$150",
