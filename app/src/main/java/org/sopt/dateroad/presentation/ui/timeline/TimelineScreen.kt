@@ -32,7 +32,6 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
