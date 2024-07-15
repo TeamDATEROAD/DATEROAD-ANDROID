@@ -11,6 +11,7 @@ object ApiConstraints {
     const val PAGE = "page"
     const val CONTENT = "content"
     const val ADVERTISEMENTS = "advertisements"
+    const val DATES = "dates"
 }
 
 object Cost {

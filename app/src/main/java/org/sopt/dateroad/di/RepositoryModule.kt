@@ -6,9 +6,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.dateroad.data.repositoryimpl.AdvertisementRepositoryImpl
+import org.sopt.dateroad.data.repositoryimpl.DateRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.DummyRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.MyCourseRepositoryImpl
 import org.sopt.dateroad.domain.repository.AdvertisementRepository
+import org.sopt.dateroad.domain.repository.DateRepository
 import org.sopt.dateroad.domain.repository.DummyRepository
 import org.sopt.dateroad.domain.repository.MyCourseRepository
 
@@ -26,4 +28,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsAdvertisementRepository(advertisementRepositoryImpl: AdvertisementRepositoryImpl): AdvertisementRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDateRepository(dateRepositoryImpl: DateRepositoryImpl): DateRepository
 }
