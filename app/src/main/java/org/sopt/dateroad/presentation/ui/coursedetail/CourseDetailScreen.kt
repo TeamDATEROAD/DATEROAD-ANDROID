@@ -150,8 +150,8 @@ fun CourseDetailScreen(
                             count = courseDetailUiState.courseDetail.imageList.size,
                             state = pagerState,
                             modifier = Modifier
-                                .fillMaxWidth(),
-                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
+                                .fillMaxWidth()
+//                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
                         ) { page ->
                             Image(
                                 painter = painterResource(id = courseDetailUiState.courseDetail.imageList[page]),

@@ -1,5 +1,4 @@
 [versions]
-accompanistPager = "0.25.0"
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
@@ -60,10 +59,6 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 # Debug
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-
-# Accompanist
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
-accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 
 # AndroidX
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
