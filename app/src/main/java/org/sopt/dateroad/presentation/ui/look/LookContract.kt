@@ -1,7 +1,7 @@
 package org.sopt.dateroad.presentation.ui.look
 
 import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.presentation.type.MoneyTagType
+import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect

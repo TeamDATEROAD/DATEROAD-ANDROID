@@ -130,7 +130,7 @@ fun ReadScreen(
             Spacer(modifier = Modifier.height(10.dp))
             LazyColumn {
                 items(readUiState.courses) { course ->
-                    DateRoadCourseCard(course = course, onClick = { navigateToCourseDetail(course.id) })
+                    DateRoadCourseCard(course = course, onClick = { navigateToCourseDetail(course.courseId) })
                 }
             }
         }

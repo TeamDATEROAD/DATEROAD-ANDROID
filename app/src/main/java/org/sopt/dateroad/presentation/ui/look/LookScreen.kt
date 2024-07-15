@@ -30,13 +30,13 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.GyeonggiAreaType
 import org.sopt.dateroad.presentation.type.IncheonAreaType
-import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.type.SeoulAreaType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
@@ -164,7 +164,7 @@ fun LookScreen(
         ) {
             items(MoneyTagType.entries.size) { index ->
                 DateRoadTextChip(
-                    textId = MoneyTagType.entries[index].titleRes,
+                    text = MoneyTagType.entries[index].title,
                     chipType = ChipType.MONEY,
                     isSelected = lookUiState.money == MoneyTagType.entries[index],
                     onSelectedChange = {

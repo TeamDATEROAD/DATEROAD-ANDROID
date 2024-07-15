@@ -50,8 +50,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                 loadState = LoadState.Success,
                 courses = listOf(
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
                         cost = "5만원 이하",
@@ -59,8 +59,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "999"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "홍대",
                         title = "데로 파이띵 !",
                         cost = "10만원 이하",
@@ -68,8 +68,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "3"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
                         cost = "5만원 이하",
@@ -77,8 +77,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "999"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "홍대",
                         title = "데로 파이띵 !",
                         cost = "10만원 이하",
@@ -86,8 +86,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "3"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
                         cost = "5만원 이하",
@@ -95,8 +95,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "999"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "홍대",
                         title = "데로 파이띵 !",
                         cost = "10만원 이하",
@@ -104,8 +104,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "3"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
                         cost = "5만원 이하",
@@ -113,8 +113,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
                         like = "999"
                     ),
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "홍대",
                         title = "데로 파이띵 !",
                         cost = "10만원 이하",
