@@ -107,7 +107,9 @@ fun HomeRoute(
                 uiState = uiState,
                 navigateToPointHistory = navigateToPointHistory,
                 navigateToLook = navigateToLook,
-                navigateToTimeline = navigateToTimeline
+                navigateToTimeline = navigateToTimeline,
+                onFabClick = navigateToEnroll,
+                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) }
             )
         }
 
@@ -310,6 +312,7 @@ fun HomeScreenPreview() {
             navigateToPointHistory = {},
             navigateToLook = {},
             navigateToTimeline = {},
+            navigateToCourseDetail = { _, _ -> },
             uiState = HomeContract.HomeUiState(
                 loadState = LoadState.Success,
                 mainDate = MainDate(

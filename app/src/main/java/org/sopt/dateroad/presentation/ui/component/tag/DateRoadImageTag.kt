@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.type.MoneyTagType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
@@ -55,7 +54,7 @@ fun DateRoadImageTagPreview() {
     DATEROADTheme {
         Column {
             DateRoadImageTag(
-                textContent = stringResource(id = MoneyTagType.EXCESS_100000.titleRes),
+                textContent = "10만원 이상",
                 imageContent = R.drawable.ic_all_money_12,
                 tagContentType = TagType.MONEY
             )

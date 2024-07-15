@@ -8,7 +8,9 @@ import javax.inject.Singleton
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
+import org.sopt.dateroad.data.dataremote.datasource.MyCourseRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
+import org.sopt.dateroad.data.dataremote.datasourceimpl.MyCourseRemoteDataSourceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -20,4 +22,8 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsDummyRemoteDataSource(dummyRemoteDataSourceImpl: DummyRemoteDataSourceImpl): DummyRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyCourseRemoteDataSource(myCourseRemoteDataSourceImpl: MyCourseRemoteDataSourceImpl): MyCourseRemoteDataSource
 }

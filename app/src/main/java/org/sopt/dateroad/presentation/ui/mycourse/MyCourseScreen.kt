@@ -53,9 +53,11 @@ fun MyCourseRoute(
             }
     }
 
-    when (uiState.myCourseType) {
-        MyCourseType.ENROLL -> viewModel.setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll)
-        MyCourseType.READ -> viewModel.setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead)
+    LaunchedEffect(uiState.myCourseType) {
+        when (uiState.myCourseType) {
+            MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
+            MyCourseType.READ -> viewModel.fetchMyCourseRead()
+        }
     }
 
     when (uiState.loadState) {
@@ -126,8 +128,8 @@ fun MyCourseScreenPreview() {
                 myCourseType = MyCourseType.READ,
                 courses = listOf(
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
                         cost = "10만원 초과",
@@ -135,8 +137,8 @@ fun MyCourseScreenPreview() {
                         like = "99999"
                     ),
                     Course(
-                        id = 2,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "부천",
                         title = "여기 야키니쿠 꼭 먹으러 가세요.",
                         cost = "10만원 초과",
@@ -144,8 +146,8 @@ fun MyCourseScreenPreview() {
                         like = "999"
                     ),
                     Course(
-                        id = 3,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 3,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.하지만 일본에 있습니다.하지만 일본에 있습니다.하지만 일본에 있습니다.하지만 일본에 있습니다.",
                         cost = "10만원 초과",
@@ -153,8 +155,8 @@ fun MyCourseScreenPreview() {
                         like = "999"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 4,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "건대/성수/왕십리",
                         title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
                         cost = "10만원 초과",

@@ -43,7 +43,7 @@ fun DateRoadCourseCard(
             .padding(vertical = 10.dp, horizontal = 16.dp)
             .height(110.dp)
             .background(DateRoadTheme.colors.white)
-            .noRippleClickable(onClick = { onClick(course.id) })
+            .noRippleClickable(onClick = { onClick(course.courseId) })
     ) {
         Box(
             modifier = Modifier
@@ -52,7 +52,7 @@ fun DateRoadCourseCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data(course.url)
+                    .data(course.thumbnail)
                     .crossfade(true)
                     .build(),
                 placeholder = null,
@@ -120,8 +120,8 @@ fun DateRoadCourseCardPreview() {
     Column {
         DateRoadCourseCard(
             course = Course(
-                id = 1,
-                url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                courseId = 1,
+                thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                 city = "건대/성수/왕십리",
                 title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
                 cost = "10만원 초과",
