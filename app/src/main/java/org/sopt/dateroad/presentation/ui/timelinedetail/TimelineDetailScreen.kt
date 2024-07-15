@@ -21,9 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +34,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Place
@@ -64,7 +60,7 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     dateId: Int,
     dateType: DateType,
-    sourceScreen: Boolean,
+    sourceScreen: Boolean
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
