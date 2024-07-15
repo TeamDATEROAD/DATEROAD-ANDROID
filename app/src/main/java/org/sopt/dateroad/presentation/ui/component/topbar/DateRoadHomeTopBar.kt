@@ -38,7 +38,7 @@ fun DateRoadHomeTopBar(
         Spacer(modifier = Modifier.weight(1f))
         DateRoadPointTag(
             text = title,
-            profileImage = painterResource(id = R.drawable.img_top_bar_profile),
+            profileImage = painterResource(id = R.drawable.img_profile_small),
             onClick = onClick
         )
     }
