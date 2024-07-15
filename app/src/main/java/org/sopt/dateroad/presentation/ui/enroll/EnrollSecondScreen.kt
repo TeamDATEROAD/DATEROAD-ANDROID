@@ -1,5 +1,9 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,20 +16,35 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPlaceInsertBar
+import org.sopt.dateroad.presentation.util.draganddrop.rememberDragAndDropListState
+import org.sopt.dateroad.presentation.util.mutablelist.move
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
+@SuppressLint("UnrememberedMutableState", "UnnecessaryComposedModifier")
 @Composable
 fun EnrollSecondScreen(
     enrollUiState: EnrollContract.EnrollUiState = EnrollContract.EnrollUiState(),
@@ -33,8 +52,18 @@ fun EnrollSecondScreen(
     onAddPlaceButtonClick: (Place) -> Unit,
     onPlaceTitleValueChange: (String) -> Unit,
     onPlaceEditButtonClick: (Boolean) -> Unit,
-    onPlaceCardDeleteButtonClick: (Int) -> Unit
+    onPlaceCardDeleteButtonClick: (Int) -> Unit,
+    onPlaceCardDragAndDrop: (List<Place>) -> Unit
 ) {
+    val scope = rememberCoroutineScope()
+    var overScrollJob by remember { mutableStateOf<Job?>(null) }
+
+    val placeLists = rememberUpdatedState(enrollUiState.place.toMutableStateList())
+    val dragDropListState = rememberDragAndDropListState(onMove = { from, to ->
+        placeLists.value.move(from, to)
+        onPlaceCardDragAndDrop(placeLists.value.toList())
+    })
+
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -95,13 +124,40 @@ fun EnrollSecondScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
         LazyColumn(
+            state = dragDropListState.lazyListState,
             modifier = Modifier
+                .padding(horizontal = 16.dp)
                 .fillMaxHeight()
-                .padding(horizontal = 16.dp),
+                .pointerInput(Unit) {
+                    detectDragGesturesAfterLongPress(
+                        onDrag = { change, offset ->
+                            change.consume()
+                            dragDropListState.onDrag(offset = offset)
+
+                            if (overScrollJob?.isActive == true) return@detectDragGesturesAfterLongPress
+
+                            dragDropListState
+                                .checkForOverScroll()
+                                .takeIf { it != 0f }
+                                ?.let {
+                                    overScrollJob = scope.launch { dragDropListState.lazyListState.scrollBy(it) }
+                                } ?: run { overScrollJob?.cancel() }
+                        },
+                        onDragStart = { offset -> dragDropListState.onDragStart(offset = offset) },
+                        onDragEnd = { dragDropListState.onDragInterrupted() },
+                        onDragCancel = { dragDropListState.onDragInterrupted() }
+                    )
+                },
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(enrollUiState.place.size) { index ->
                 DateRoadPlaceCard(
+                    modifier = Modifier
+                        .zIndex(if (index == dragDropListState.currentIndexOfDraggedItem) 1f else 0f)
+                        .graphicsLayer(
+                            scaleX = animateFloatAsState(if (dragDropListState.currentIndexOfDraggedItem == index) 1.1f else 1.0f, label = "").value,
+                            scaleY = animateFloatAsState(if (dragDropListState.currentIndexOfDraggedItem == index) 1.1f else 1.0f, label = "").value
+                        ),
                     placeCardType = if (enrollUiState.isPlaceEditable) PlaceCardType.COURSE_EDIT else PlaceCardType.COURSE_DELETE,
                     place = enrollUiState.place[index],
                     onIconClick = { onPlaceCardDeleteButtonClick(index) }
@@ -121,7 +177,8 @@ fun EnrollSecondScreenPreview() {
             onSelectedPlaceCourseTimeClick = {},
             onPlaceTitleValueChange = {},
             onPlaceEditButtonClick = {},
-            onPlaceCardDeleteButtonClick = {}
+            onPlaceCardDeleteButtonClick = {},
+            onPlaceCardDragAndDrop = {}
         )
     }
 }

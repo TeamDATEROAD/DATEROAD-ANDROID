@@ -35,7 +35,7 @@ fun MainNavHost(
     ) {
         NavHost(
             navController = navigator.navHostController,
-            startDestination = navigator.startDestination::class.simpleName.orEmpty()
+            startDestination = navigator.startDestination
         ) {
             enrollNavGraph(
                 padding = padding,
@@ -89,6 +89,8 @@ fun MainNavHost(
                 navigateToHome = navigator::navigateToProfile
                 // TODO: 추후 navigateHome 으로 변경
             )
+
+            signInGraph()
 
             readNavGraph(
                 padding = padding,

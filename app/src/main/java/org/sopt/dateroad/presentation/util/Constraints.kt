@@ -25,3 +25,7 @@ object TimePicker {
 object DatePicker {
     const val DATE_PATTERN = "yyyy.MM.dd"
 }
+
+object CourseDetail {
+    const val PRIVACY_POLICY_URL = "http://mammoth-cheese-88e.notion.site"
+}

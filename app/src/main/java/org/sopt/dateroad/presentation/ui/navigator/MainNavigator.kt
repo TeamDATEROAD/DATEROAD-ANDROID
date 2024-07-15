@@ -26,6 +26,8 @@ import org.sopt.dateroad.presentation.ui.pointguide.navigationPointGuide
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
+import org.sopt.dateroad.presentation.ui.signin.navigation.SignInRoute
+import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
@@ -35,7 +37,7 @@ class MainNavigator(
     private val currentDestination: NavDestination?
         @Composable get() = navHostController.currentBackStackEntryAsState().value?.destination
 
-    val startDestination = MainNavigationBarItemType.HOME.route
+    val startDestination = SignInRoute.ROUTE
 
     val currentMainNavigationBarItem: MainNavigationBarItemType?
         @Composable get() = MainNavigationBarItemType.find { mainNavigationBarRoute ->

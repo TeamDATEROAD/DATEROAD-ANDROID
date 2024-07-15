@@ -14,9 +14,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -48,7 +51,9 @@ fun DateRoadKakaoLoginButton(
             Spacer(modifier = Modifier.size(5.dp))
             Text(
                 text = stringResource(id = R.string.kakao_login),
-                style = DateRoadTheme.typography.bodyBold13,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 1.5.em,
                 color = contentColor,
                 textAlign = TextAlign.Center,
                 modifier = Modifier

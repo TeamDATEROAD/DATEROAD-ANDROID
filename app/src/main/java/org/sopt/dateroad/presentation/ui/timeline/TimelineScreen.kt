@@ -163,6 +163,7 @@ fun TimelineScreen(
                 DotsIndicator(
                     totalDots = uiState.dates.size,
                     selectedIndex = pagerState.currentPage,
+                    indicatorSize = 8.dp,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
@@ -197,6 +198,14 @@ fun TimelineScreen(
             onDismissRequest = onDismissMaxDateCardDialog,
             onClickConfirm = onDismissMaxDateCardDialog
         )
+    }
+}
+
+fun getDateTypeByPosition(position: Int): DateType {
+    return when (position % 3) {
+        0 -> DateType.PINK
+        1 -> DateType.PURPLE
+        else -> DateType.LIME
     }
 }
 
@@ -257,9 +266,8 @@ fun TimelineScreenPreview() {
             ),
             pagerState = rememberPagerState(),
             navigateToTimelineDetail = { _, _ -> },
-            onAddDateCardClick = {},
-            onDismissMaxDateCardDialog = {},
-            onPastButtonClick = {}
+            onAddDateCardClicked = {},
+            onDismissMaxDateCardDialog = {}
         )
     }
 }

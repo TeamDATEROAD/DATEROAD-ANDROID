@@ -111,6 +111,7 @@ fun EnrollRoute(
                 onRegionBottomSheetAreaChipClick = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
                 onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
+                onPlaceCardDragAndDrop = { places -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places)) },
                 onPlaceTitleValueChange = { placeTitle -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)) },
                 onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration)) },
                 onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)) },
@@ -169,6 +170,7 @@ fun EnrollScreen(
     onRegionBottomSheetAreaChipClick: (Any?) -> Unit,
     onRegionBottomSheetButtonClick: (RegionType?, Any?) -> Unit,
     onAddPlaceButtonClick: (Place) -> Unit,
+    onPlaceCardDragAndDrop: (List<Place>) -> Unit,
     onPlaceTitleValueChange: (String) -> Unit,
     onDurationBottomSheetButtonClick: (String) -> Unit,
     onPlaceEditButtonClick: (Boolean) -> Unit,
@@ -242,7 +244,8 @@ fun EnrollScreen(
                     onAddPlaceButtonClick = onAddPlaceButtonClick,
                     onPlaceTitleValueChange = onPlaceTitleValueChange,
                     onPlaceEditButtonClick = onPlaceEditButtonClick,
-                    onPlaceCardDeleteButtonClick = onPlaceCardDeleteButtonClick
+                    onPlaceCardDeleteButtonClick = onPlaceCardDeleteButtonClick,
+                    onPlaceCardDragAndDrop = onPlaceCardDragAndDrop
                 )
 
                 EnrollScreenType.THIRD -> EnrollThirdScreen(
@@ -365,6 +368,7 @@ fun EnrollScreenPreview() {
             onDurationBottomSheetButtonClick = {},
             onPlaceEditButtonClick = {},
             onPlaceCardDeleteButtonClick = {},
+            onPlaceCardDragAndDrop = {},
             onDescriptionValueChange = {},
             onCostValueChange = {}
         )

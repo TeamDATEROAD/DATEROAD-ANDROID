@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.onboarding.component
+package org.sopt.dateroad.presentation.ui.component.dotsindicator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
