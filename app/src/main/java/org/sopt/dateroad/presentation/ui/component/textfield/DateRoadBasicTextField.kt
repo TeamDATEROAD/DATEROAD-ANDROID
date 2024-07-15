@@ -96,7 +96,7 @@ fun DateRoadBasicTextField(
                         .noRippleClickable(onClick = onClick),
                     value = value,
                     onValueChange = onValueChange,
-                    cursorBrush = SolidColor(DateRoadTheme.colors.deepPurple),
+                    cursorBrush = SolidColor(DateRoadTheme.colors.purple600),
                     singleLine = true,
                     keyboardActions = keyboardActions,
                     keyboardOptions = keyboardOptions,
@@ -135,7 +135,7 @@ fun DateRoadBasicTextField(
                 is TextFieldValidateResult.ValidationError -> errorDescription
                 else -> ""
             },
-            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
+            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.purple600,
             style = DateRoadTheme.typography.capReg11
         )
     }

@@ -114,7 +114,7 @@ fun EnrollSecondScreen(
             DateRoadTextButton(
                 textContent = stringResource(id = if (enrollUiState.isPlaceEditable) R.string.edit else R.string.complete),
                 textStyle = DateRoadTheme.typography.bodyMed13,
-                textColor = if (enrollUiState.isPlaceEditable) DateRoadTheme.colors.gray400 else DateRoadTheme.colors.deepPurple,
+                textColor = if (enrollUiState.isPlaceEditable) DateRoadTheme.colors.gray400 else DateRoadTheme.colors.purple600,
                 paddingHorizontal = 18.dp,
                 paddingVertical = 6.dp,
                 onClick = {

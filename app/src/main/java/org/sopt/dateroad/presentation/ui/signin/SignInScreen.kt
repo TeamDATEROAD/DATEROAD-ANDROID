@@ -50,7 +50,7 @@ fun SignInScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DateRoadTheme.colors.deepPurple),
+                .background(DateRoadTheme.colors.purple600),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.weight(226f))

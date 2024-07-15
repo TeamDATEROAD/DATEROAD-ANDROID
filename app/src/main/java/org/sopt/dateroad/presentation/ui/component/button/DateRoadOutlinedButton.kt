@@ -54,7 +54,7 @@ fun DateRoadOutlinedButtonPreview() {
             textContent = "다음",
             onClick = {},
             textStyle = DateRoadTheme.typography.bodyBold15,
-            contentColor = DateRoadTheme.colors.deepPurple,
+            contentColor = DateRoadTheme.colors.purple600,
             backgroundColor = DateRoadTheme.colors.white,
             cornerRadius = 29.dp,
             borderWidth = 1.dp,

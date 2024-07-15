@@ -5,9 +5,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.ui.theme.Black
-import org.sopt.dateroad.ui.theme.DeepPurple
 import org.sopt.dateroad.ui.theme.Gray100
 import org.sopt.dateroad.ui.theme.Gray400
+import org.sopt.dateroad.ui.theme.Purple600
 import org.sopt.dateroad.ui.theme.White
 import org.sopt.dateroad.ui.theme.defaultDateRoadTypography
 
@@ -22,7 +22,7 @@ enum class ChipType(
     val textStyle: TextStyle
 ) {
     DATE(
-        selectedBackgroundColor = DeepPurple,
+        selectedBackgroundColor = Purple600,
         unselectedBackgroundColor = Gray100,
         selectedTextColor = White,
         unselectedTextColor = Black,
@@ -32,7 +32,7 @@ enum class ChipType(
         textStyle = defaultDateRoadTypography.bodySemi13
     ),
     MONEY(
-        selectedBackgroundColor = DeepPurple,
+        selectedBackgroundColor = Purple600,
         unselectedBackgroundColor = Gray100,
         selectedTextColor = White,
         unselectedTextColor = Gray400,
@@ -42,7 +42,7 @@ enum class ChipType(
         textStyle = defaultDateRoadTypography.bodyMed13
     ),
     AREA(
-        selectedBackgroundColor = DeepPurple,
+        selectedBackgroundColor = Purple600,
         unselectedBackgroundColor = Gray100,
         selectedTextColor = White,
         unselectedTextColor = Gray400,
@@ -52,7 +52,7 @@ enum class ChipType(
         textStyle = defaultDateRoadTypography.bodyMed13
     ),
     REGION(
-        selectedBackgroundColor = DeepPurple,
+        selectedBackgroundColor = Purple600,
         unselectedBackgroundColor = Gray100,
         selectedTextColor = White,
         unselectedTextColor = Gray400,

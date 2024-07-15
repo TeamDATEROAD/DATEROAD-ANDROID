@@ -27,7 +27,7 @@ fun DateRoadAreaButton(
         modifier = modifier
             .fillMaxWidth(),
         backgroundColor = DateRoadTheme.colors.gray100,
-        borderColor = if (isSelected) DateRoadTheme.colors.deepPurple else Color.Unspecified,
+        borderColor = if (isSelected) DateRoadTheme.colors.purple600 else Color.Unspecified,
         borderWidth = 1.dp,
         cornerRadius = 10.dp,
         paddingVertical = 6.dp,
@@ -39,11 +39,11 @@ fun DateRoadAreaButton(
         ) {
             Text(
                 text = textContent,
-                color = if (isSelected) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray400,
+                color = if (isSelected) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.gray400,
                 style = DateRoadTheme.typography.bodyMed13
             )
             Spacer(modifier = Modifier.weight(1f))
-            Icon(painter = painterResource(id = R.drawable.ic_area_dropdown), contentDescription = null, tint = if (isSelected) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray400)
+            Icon(painter = painterResource(id = R.drawable.ic_area_dropdown), contentDescription = null, tint = if (isSelected) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.gray400)
         }
     }
 }
