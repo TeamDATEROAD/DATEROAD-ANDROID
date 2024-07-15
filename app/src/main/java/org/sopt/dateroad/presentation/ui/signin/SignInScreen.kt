@@ -47,7 +47,7 @@ fun SignInRoute(
 
     SignInScreen(
         signInUiState = uiState,
-        onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToHome) },
+        onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding) },
         onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
         webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
     )

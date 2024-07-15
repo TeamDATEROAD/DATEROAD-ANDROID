@@ -68,7 +68,7 @@ fun MainNavHost(
                 navigateToMyCourse = navigator::navigateToMyCourse
             )
 
-            onboardingNavGraph()
+            onboardingNavGraph(navigateToProfile = navigator::navigateToProfile)
 
             pastNavGraph(
                 padding = padding,
