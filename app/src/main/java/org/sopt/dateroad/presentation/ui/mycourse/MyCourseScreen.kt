@@ -53,9 +53,11 @@ fun MyCourseRoute(
             }
     }
 
-    when (uiState.myCourseType) {
-        MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
-        MyCourseType.READ -> viewModel.fetchMyCourseRead()
+    LaunchedEffect(uiState.myCourseType) {
+        when (uiState.myCourseType) {
+            MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
+            MyCourseType.READ -> viewModel.fetchMyCourseRead()
+        }
     }
 
     when (uiState.loadState) {
