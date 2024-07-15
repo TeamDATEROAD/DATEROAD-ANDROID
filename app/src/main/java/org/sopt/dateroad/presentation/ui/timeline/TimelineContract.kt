@@ -24,7 +24,6 @@ class TimelineContract {
     sealed class TimelineEvent : UiEvent {
         data class FetchTimeline(val loadState: LoadState, val dates: List<Date>) : TimelineEvent()
         data class PageChanged(val page: Int) : TimelineEvent()
-        data object AddDateCardClicked : TimelineEvent()
         data object ShowMaxItemsModal : TimelineEvent()
     }
 }

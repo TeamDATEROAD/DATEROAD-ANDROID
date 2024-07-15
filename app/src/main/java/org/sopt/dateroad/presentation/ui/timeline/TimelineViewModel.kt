@@ -1,11 +1,11 @@
 package org.sopt.dateroad.presentation.ui.timeline
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import javax.inject.Inject
 
 @HiltViewModel
 class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.TimelineUiState, TimelineContract.TimelineSideEffect, TimelineContract.TimelineEvent>() {
@@ -15,7 +15,6 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
         when (event) {
             is TimelineContract.TimelineEvent.FetchTimeline -> setState { copy(loadState = event.loadState, dates = event.dates) }
             is TimelineContract.TimelineEvent.PageChanged -> setState { copy(currentPage = event.page) }
-            is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
             is TimelineContract.TimelineEvent.ShowMaxItemsModal -> setState { copy(showMaxDateCardModal = true) }
         }
     }
@@ -68,13 +67,5 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                 )
             )
         )
-    }
-
-    private fun handleAddDateCardClicked() {
-        if (currentState.dates.size >= 5) {
-            setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal)
-        } else {
-            setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll)
-        }
     }
 }

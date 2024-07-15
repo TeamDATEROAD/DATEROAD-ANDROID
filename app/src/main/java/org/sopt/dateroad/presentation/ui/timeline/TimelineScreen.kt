@@ -84,7 +84,7 @@ fun TimelineRoute(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                onAddDateCardClick = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
+                onAddDateCardClick = { if (uiState.dates.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
                 onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
                 navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) },
                 onPastButtonClick = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToPast) }
