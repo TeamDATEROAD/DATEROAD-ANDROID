@@ -1,15 +1,19 @@
 package org.sopt.dateroad.presentation.ui.home
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Advertisement
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
+class HomeViewModel @Inject constructor(
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase
+) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
@@ -34,25 +38,16 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
     }
 
     fun fetchAdvertisements() {
-        setEvent(
-            HomeContract.HomeEvent.FetchAdvertisements(
-                loadState = LoadState.Success,
-                advertisements = listOf(
-                    Advertisement(
-                        advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "비오는 장마철,\n실내데이트 어떠세요?",
-                        tag = "에디터 픽"
-                    ),
-                    Advertisement(
-                        advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?",
-                        tag = "에디터 픽"
-                    )
-                )
-            )
-        )
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = emptyList()))
+            getAdvertisementsUseCase()
+                .onSuccess { advertisements ->
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Success, advertisements = advertisements))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = emptyList()))
+                }
+        }
     }
 
     fun fetchLatestCourses() {

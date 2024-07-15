@@ -179,8 +179,8 @@ fun CourseDetailScreen(
                             count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList.size else courseDetailUiState.advertisementDetail.images.size,
                             state = pagerState,
                             modifier = Modifier
-                                .fillMaxWidth(),
-                            userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess
+                                .fillMaxWidth()
+                            // userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
@@ -227,7 +227,7 @@ fun CourseDetailScreen(
                     ) {
                         if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
                             DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.tag,
+                                textContent = courseDetailUiState.advertisementDetail.adTagType,
                                 tagContentType = TagType.ADVERTISEMENT_TITLE
                             )
                             Spacer(modifier = Modifier.height(16.dp))
