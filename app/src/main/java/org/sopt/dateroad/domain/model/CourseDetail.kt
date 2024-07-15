@@ -4,7 +4,7 @@ data class CourseDetail(
     val courseId: Int = 0,
     val imageList: List<String> = listOf(), // TODO: 나중에 String으로 변경
     val like: Int = 0,
-    val totalTime: String= "",
+    val totalTime: String = "",
     val date: String = "",
     val city: String = "",
     val title: String = "",

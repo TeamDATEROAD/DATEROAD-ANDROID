@@ -48,5 +48,5 @@ object CourseDetailRoute {
     const val COURSE_DETAIL_TYPE = "enrollType"
     const val ID = "id"
     const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$COURSE_DETAIL_TYPE}/{$ID}"
-    fun route(courseDetailType: CourseDetailType, id: Int) = "$ROUTE/${courseDetailType.name}/${id}"
+    fun route(courseDetailType: CourseDetailType, id: Int) = "$ROUTE/${courseDetailType.name}/$id"
 }

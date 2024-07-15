@@ -1,12 +1,12 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.sopt.dateroad.domain.model.AdvertisementDetail
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
@@ -35,7 +35,8 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
     fun fetchAdvertisementDetail() {
         setEvent(
             CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(
-                loadState = LoadState.Success, advertisementDetail = AdvertisementDetail(
+                loadState = LoadState.Success,
+                advertisementDetail = AdvertisementDetail(
                     images = listOf("https://avatars.githubusercontent.com/u/103172971?v=4", "https://avatars.githubusercontent.com/u/103172971?v=4"),
                     tag = "광고",
                     title = "광고입니당",
@@ -49,7 +50,8 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
     fun fetchCourseDetail() {
         setEvent(
             CourseDetailContract.CourseDetailEvent.FetchCourseDetail(
-                loadState = LoadState.Success, courseDetail = CourseDetail(
+                loadState = LoadState.Success,
+                courseDetail = CourseDetail(
                     courseId = 1,
                     imageList = listOf("https://avatars.githubusercontent.com/u/103172971?v=4", "https://avatars.githubusercontent.com/u/103172971?v=4"),
                     like = 123,
@@ -64,7 +66,7 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
                     ),
                     totalCost = "50,000 원",
                     tags = listOf("드라이브", "쇼핑"),
-                    isAccess = false,
+                    isAccess = true,
                     free = 1,
                     isMine = false,
                     totalPoint = 95

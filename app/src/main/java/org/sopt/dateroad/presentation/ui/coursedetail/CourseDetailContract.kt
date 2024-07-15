@@ -41,8 +41,8 @@ class CourseDetailContract {
         data object DismissEditBottomSheet : CourseDetailEvent()
         data object EnrollSchedule : CourseDetailEvent()
         data object OpenCourse : CourseDetailEvent()
-        data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType): CourseDetailEvent()
-        data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail): CourseDetailEvent()
-        data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail): CourseDetailEvent()
+        data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
+        data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
+        data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
     }
 }

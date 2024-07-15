@@ -99,7 +99,7 @@ fun HomeRoute(
                 navigateToLook = navigateToLook,
                 navigateToTimeline = navigateToTimeline,
                 onFabClick = navigateToEnroll,
-                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) },
+                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) }
             )
         }
 
@@ -293,7 +293,7 @@ fun HomeScreenPreview() {
             navigateToPointHistory = {},
             navigateToLook = {},
             navigateToTimeline = {},
-            navigateToCourseDetail = {_, _ -> },
+            navigateToCourseDetail = { _, _ -> },
             uiState = HomeContract.HomeUiState(
                 loadState = LoadState.Success,
                 mainDate = MainDate(
@@ -371,7 +371,7 @@ fun HomeScreenPreview() {
                 remainingPoints = 100,
                 currentBannerPage = 0
             ),
-            onFabClick = { _, _ -> },
+            onFabClick = { _, _ -> }
         )
     }
 }

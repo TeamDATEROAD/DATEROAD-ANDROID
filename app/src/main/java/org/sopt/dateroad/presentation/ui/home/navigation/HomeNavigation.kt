@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType

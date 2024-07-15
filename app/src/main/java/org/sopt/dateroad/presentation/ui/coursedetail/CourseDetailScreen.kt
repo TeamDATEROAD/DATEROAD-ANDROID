@@ -169,9 +169,8 @@ fun CourseDetailScreen(
             LazyColumn(
                 state = scrollState,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .background(DateRoadTheme.colors.white),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
                 userScrollEnabled = true
             ) {
                 item {
@@ -181,7 +180,7 @@ fun CourseDetailScreen(
                             state = pagerState,
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
+                            userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
@@ -323,9 +322,13 @@ fun CourseDetailScreen(
                                 }
                             }
                             CourseDetailType.ADVERTISEMENT -> {
+                                Text(
+                                    text = courseDetailUiState.advertisementDetail.description,
+                                    style = DateRoadTheme.typography.bodyMed13Context,
+                                    color = DateRoadTheme.colors.black
+                                )
                                 Spacer(modifier = Modifier.height(80.dp))
                             }
-
                         }
                     }
                 }
@@ -342,6 +345,7 @@ fun CourseDetailScreen(
                                 style = DateRoadTheme.typography.titleBold18,
                                 color = DateRoadTheme.colors.black
                             )
+                            Spacer(modifier = Modifier.height(12.dp))
                         }
                     }
 
@@ -355,6 +359,7 @@ fun CourseDetailScreen(
                                 placeCardType = PlaceCardType.COURSE_NORMAL,
                                 place = place
                             )
+                            Spacer(modifier = Modifier.height(16.dp))
                         }
                     }
 
@@ -364,7 +369,7 @@ fun CourseDetailScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
                         ) {
-                            Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.height(14.dp))
                             Text(
                                 text = stringResource(id = R.string.course_total_cost_string),
                                 style = DateRoadTheme.typography.titleBold18,
