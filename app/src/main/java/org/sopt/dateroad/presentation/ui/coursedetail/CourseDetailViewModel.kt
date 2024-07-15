@@ -53,7 +53,7 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
                 loadState = LoadState.Success,
                 courseDetail = CourseDetail(
                     courseId = 1,
-                    imageList = listOf("https://avatars.githubusercontent.com/u/103172971?v=4", "https://avatars.githubusercontent.com/u/103172971?v=4"),
+                    images = listOf("https://avatars.githubusercontent.com/u/103172971?v=4", "https://avatars.githubusercontent.com/u/103172971?v=4"),
                     like = 123,
                     totalTime = "5 시간",
                     date = "24년 6월 27일 방문",
@@ -61,14 +61,14 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
                     title = "5년차 장기연애 커플이 보장하는 성수동 당일치기 데이트 코스",
                     description = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
                     places = listOf(
-                        Place(sequence = 1, title = "성수미술관 성수점", duration = "2 시간"),
-                        Place(sequence = 2, title = "생마차", duration = "3 시간")
+                        Place(title = "성수미술관 성수점", duration = "2 시간"),
+                        Place(title = "생마차", duration = "3 시간")
                     ),
                     totalCost = "50,000 원",
                     tags = listOf("드라이브", "쇼핑"),
                     isAccess = true,
                     free = 1,
-                    isMine = false,
+                    isCourseMine = false,
                     totalPoint = 95
                 )
             )

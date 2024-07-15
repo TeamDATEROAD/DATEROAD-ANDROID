@@ -176,7 +176,7 @@ fun CourseDetailScreen(
                 item {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         HorizontalPager(
-                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList.size else courseDetailUiState.advertisementDetail.images.size,
+                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images.size else courseDetailUiState.advertisementDetail.images.size,
                             state = pagerState,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -184,7 +184,7 @@ fun CourseDetailScreen(
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList[page] else courseDetailUiState.advertisementDetail.images[page])
+                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images[page] else courseDetailUiState.advertisementDetail.images[page])
                                     .crossfade(true)
                                     .build(),
                                 contentDescription = null,
@@ -210,7 +210,7 @@ fun CourseDetailScreen(
                         }
 
                         DateRoadTextTag(
-                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.imageList.size),
+                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.images.size),
                             tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                             modifier = Modifier
                                 .padding(end = 10.dp, bottom = 10.dp)
@@ -349,7 +349,7 @@ fun CourseDetailScreen(
                         }
                     }
 
-                    items(courseDetailUiState.courseDetail.places) { place ->
+                    items(courseDetailUiState.courseDetail.places.size) { index ->
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -357,7 +357,8 @@ fun CourseDetailScreen(
                         ) {
                             DateRoadPlaceCard(
                                 placeCardType = PlaceCardType.COURSE_NORMAL,
-                                place = place
+                                sequence = index,
+                                place = courseDetailUiState.courseDetail.places[index]
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
@@ -412,7 +413,7 @@ fun CourseDetailScreen(
                                 }
                             }
                             Spacer(modifier = Modifier.height(38.dp))
-                            if (!courseDetailUiState.courseDetail.isMine) {
+                            if (!courseDetailUiState.courseDetail.isCourseMine) {
                                 Spacer(modifier = Modifier.height(80.dp))
                             }
                         }
@@ -427,7 +428,7 @@ fun CourseDetailScreen(
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             onIconClick = { onTopBarIconClicked() },
             buttonContent = {
-                if (courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
+                if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
                     Icon(
                         painterResource(id = R.drawable.btn_course_detail_more_white),
                         contentDescription = null,
@@ -439,7 +440,7 @@ fun CourseDetailScreen(
             leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
         )
 
-        if (!courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetail.isAccess) {
+        if (!courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetail.isAccess) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

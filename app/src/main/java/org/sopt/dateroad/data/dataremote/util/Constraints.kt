@@ -10,9 +10,17 @@ object ApiConstraints {
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"
+    const val COURSE_ID = "courseId"
+    const val LIKES = "likes"
+    const val SORT = "sort"
+    const val COUNTRY = "country"
+    const val CITY = "city"
+    const val COST = "cost"
+    const val SORT_BY = "sortBy"
 }
 
 object Cost {
+    const val COST = "원"
     const val EXCESS_100000_TITLE = "10만원 초과"
     const val LESS_THAN_100000_TITLE = "10만원 이하"
     const val LESS_THAN_50000_TITLE = "5만원 이하"
