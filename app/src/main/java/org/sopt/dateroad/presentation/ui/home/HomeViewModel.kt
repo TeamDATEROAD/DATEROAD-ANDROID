@@ -40,15 +40,11 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "비오는 장마철,\n실내데이트 어떠세요?",
-                        tag = "에디터 픽"
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?",
-                        tag = "에디터 픽"
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     )
                 )
             )
