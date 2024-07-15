@@ -20,7 +20,10 @@ class LookContract {
         val courses: List<Course> = listOf()
     ) : UiState
 
-    sealed interface LookSideEffect : UiSideEffect
+    sealed interface LookSideEffect : UiSideEffect {
+        data class NavigateToCourseDetail(val courseId: Int) : LookSideEffect
+        data object NavigateToEnroll : LookSideEffect
+    }
 
     sealed class LookEvent : UiEvent {
         data object FetchCourses : LookEvent()

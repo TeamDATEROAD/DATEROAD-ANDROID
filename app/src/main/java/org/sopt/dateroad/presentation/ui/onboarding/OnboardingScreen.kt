@@ -7,10 +7,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -33,14 +38,34 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingRoute() {
-    OnboardingScreen()
+fun OnboardingRoute(
+    viewModel: OnBoardingViewModel = hiltViewModel(),
+    navigateToProfile: () -> Unit
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { onBoardingSideEffect ->
+                when (onBoardingSideEffect) {
+                    is OnBoardingContract.OnBoardingSideEffect.NavigateToProfile -> navigateToProfile()
+                }
+            }
+    }
+
+    OnboardingScreen(
+        onBoardingUiState = uiState,
+        onEnrollProfileButtonClicked = { viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToProfile) }
+    )
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingScreen(
-    pagerState: PagerState = rememberPagerState()
+    onBoardingUiState: OnBoardingContract.OnBoardingUiState,
+    pagerState: PagerState = rememberPagerState(),
+    onEnrollProfileButtonClicked: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -105,10 +130,10 @@ fun OnboardingScreen(
                 stringResource(id = R.string.onboarding_next)
             },
             onClick = {
-                scope.launch {
-                    if (pagerState.currentPage == OnboardingType.entries.size - 1) {
-                        // TODO: 프로필 등록화면으로 이동
-                    } else {
+                if (pagerState.currentPage == OnboardingType.entries.size - 1) {
+                    onEnrollProfileButtonClicked()
+                } else {
+                    scope.launch {
                         val nextPage = pagerState.currentPage + 1
                         pagerState.animateScrollToPage(nextPage)
                     }
@@ -130,7 +155,6 @@ fun OnboardingScreen(
             indicatorSize = 8.dp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(horizontal = 158.dp)
         )
         Spacer(modifier = Modifier.height(15.dp))
     }

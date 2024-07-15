@@ -33,13 +33,15 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadCourseCard(
+    modifier: Modifier = Modifier,
     course: Course,
     onClick: (Int) -> Unit = {}
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(130.dp)
+            .padding(vertical = 10.dp, horizontal = 16.dp)
+            .height(110.dp)
             .background(DateRoadTheme.colors.white)
             .noRippleClickable(onClick = { onClick(course.id) })
     ) {
@@ -83,7 +85,7 @@ fun DateRoadCourseCard(
             )
             Text(
                 text = course.title,
-                style = DateRoadTheme.typography.bodyMed13,
+                style = DateRoadTheme.typography.bodyBold15,
                 color = DateRoadTheme.colors.black,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -91,7 +93,7 @@ fun DateRoadCourseCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier
                     .padding(bottom = 4.dp, start = 14.dp)

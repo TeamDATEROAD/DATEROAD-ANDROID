@@ -26,7 +26,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
@@ -67,14 +66,7 @@ fun ProfileRoute(
                 onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
                 onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                 onNicknameButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameButtonClicked) },
-                onEnrollButtonClicked = {
-                    val editProfile = EditProfile(
-                        name = uiState.name,
-                        image = uiState.image,
-                        tag = uiState.tag
-                    )
-                    viewModel.setEvent(ProfileContract.ProfileEvent.OnEnrollButtonClicked(editProfile))
-                }
+                onEnrollButtonClicked = { viewModel.setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome) }
             )
         }
 
@@ -166,7 +158,7 @@ fun ProfileScreen(
         DateRoadBasicButton(
             isEnabled = profileUiState.isEnrollButtonEnabled,
             textContent = stringResource(id = R.string.enroll_profile_button),
-            onClick = { onEnrollButtonClicked() }
+            onClick = onEnrollButtonClicked
         )
         Spacer(modifier = Modifier.height(16.dp))
     }

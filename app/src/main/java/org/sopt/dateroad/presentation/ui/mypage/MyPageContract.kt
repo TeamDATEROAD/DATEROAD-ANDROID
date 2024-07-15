@@ -18,6 +18,7 @@ class MyPageContract {
     sealed interface MyPageSideEffect : UiSideEffect {
         data object NavigateToPointHistory : MyPageSideEffect
         data object NavigateToMyCourse : MyPageSideEffect
+        data object NavigateToPointGuide : MyPageSideEffect
     }
 
     sealed class MyPageEvent : UiEvent {

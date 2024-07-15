@@ -28,6 +28,7 @@ import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
@@ -47,7 +48,9 @@ fun EnrollRoute(
     padding: PaddingValues,
     viewModel: EnrollViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    enrollType: EnrollType
+    navigateToMyCourse: (MyCourseType) -> Unit,
+    enrollType: EnrollType,
+    courseId: Int?
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -69,6 +72,7 @@ fun EnrollRoute(
             .collect { enrollSideEffect ->
                 when (enrollSideEffect) {
                     is EnrollContract.EnrollSideEffect.PopBackStack -> popBackStack()
+                    is EnrollContract.EnrollSideEffect.NavigateToMyCourseRead -> navigateToMyCourse(MyCourseType.READ)
                 }
             }
     }
@@ -78,6 +82,8 @@ fun EnrollRoute(
             EnrollScreen(
                 padding = padding,
                 enrollUiState = uiState,
+                onTopBarBackButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack) },
+                onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
                 onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
                 onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
                 onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
@@ -98,11 +104,11 @@ fun EnrollRoute(
                 },
                 onImageDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index)) },
                 onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
-                onDatePickerBottomSheetButtonClicked = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
-                onTimePickerBottomSheetButtonClicked = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
+                onDatePickerBottomSheetButtonClick = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
+                onTimePickerBottomSheetButtonClick = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
                 onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag)) },
-                onRegionBottomSheetRegionChipClicked = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)) },
-                onRegionBottomSheetAreaChipClicked = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
+                onRegionBottomSheetRegionChipClick = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)) },
+                onRegionBottomSheetAreaChipClick = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
                 onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
                 onPlaceCardDragAndDrop = { places -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places)) },
@@ -143,6 +149,8 @@ fun EnrollRoute(
 fun EnrollScreen(
     padding: PaddingValues,
     enrollUiState: EnrollContract.EnrollUiState = EnrollContract.EnrollUiState(),
+    onTopBarBackButtonClick: () -> Unit,
+    onTopBarLoadButtonClick: () -> Unit,
     onEnrollButtonClick: () -> Unit,
     onDateTextFieldClick: () -> Unit,
     onTimeTextFieldClick: () -> Unit,
@@ -155,11 +163,11 @@ fun EnrollScreen(
     onPhotoButtonClick: () -> Unit,
     onImageDeleteButtonClick: (Int) -> Unit,
     onTitleValueChange: (String) -> Unit,
-    onDatePickerBottomSheetButtonClicked: (String) -> Unit,
-    onTimePickerBottomSheetButtonClicked: (String) -> Unit,
+    onDatePickerBottomSheetButtonClick: (String) -> Unit,
+    onTimePickerBottomSheetButtonClick: (String) -> Unit,
     onDateChipClicked: (DateTagType) -> Unit,
-    onRegionBottomSheetRegionChipClicked: (RegionType) -> Unit,
-    onRegionBottomSheetAreaChipClicked: (Any?) -> Unit,
+    onRegionBottomSheetRegionChipClick: (RegionType) -> Unit,
+    onRegionBottomSheetAreaChipClick: (Any?) -> Unit,
     onRegionBottomSheetButtonClick: (RegionType?, Any?) -> Unit,
     onAddPlaceButtonClick: (Place) -> Unit,
     onPlaceCardDragAndDrop: (List<Place>) -> Unit,
@@ -182,7 +190,7 @@ fun EnrollScreen(
                     title = stringResource(id = R.string.top_bar_title_enroll_course),
                     iconLeftResource = R.drawable.ic_top_bar_back_white,
                     backGroundColor = DateRoadTheme.colors.white,
-                    onIconClick = { }
+                    onIconClick = onTopBarBackButtonClick
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 EnrollPhotos(
@@ -197,11 +205,12 @@ fun EnrollScreen(
                 DateRoadBasicTopBar(
                     title = stringResource(id = R.string.top_bar_title_enroll_timeline),
                     iconLeftResource = R.drawable.ic_top_bar_back_white,
+                    onIconClick = onTopBarBackButtonClick,
                     buttonContent = {
                         DateRoadFilledButton(
                             isEnabled = true,
                             textContent = stringResource(id = R.string.top_bar_button_text_load),
-                            onClick = {},
+                            onClick = onTopBarLoadButtonClick,
                             textStyle = DateRoadTheme.typography.bodyMed13,
                             enabledBackgroundColor = DateRoadTheme.colors.purple600,
                             enabledTextColor = DateRoadTheme.colors.white,
@@ -268,7 +277,7 @@ fun EnrollScreen(
         isButtonEnabled = true,
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = {
-            onDatePickerBottomSheetButtonClicked(
+            onDatePickerBottomSheetButtonClick(
                 enrollUiState.datePickers.joinToString(separator = ".") { it.pickerState.selectedItem.padStart(2, '0') }
             )
         },
@@ -281,7 +290,7 @@ fun EnrollScreen(
         isButtonEnabled = true,
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = {
-            onTimePickerBottomSheetButtonClicked(
+            onTimePickerBottomSheetButtonClick(
                 formatTime(enrollUiState.timePickers.map { it.pickerState.selectedItem })
             )
         },
@@ -294,11 +303,11 @@ fun EnrollScreen(
         isButtonEnabled = enrollUiState.onRegionBottomSheetRegionSelected != null && enrollUiState.onRegionBottomSheetAreaSelected != null,
         selectedRegion = enrollUiState.onRegionBottomSheetRegionSelected,
         onSelectedRegionChanged = { regionType ->
-            onRegionBottomSheetRegionChipClicked(regionType)
+            onRegionBottomSheetRegionChipClick(regionType)
         },
         selectedArea = enrollUiState.onRegionBottomSheetAreaSelected,
         onSelectedAreaChanged = { area ->
-            onRegionBottomSheetAreaChipClicked(area)
+            onRegionBottomSheetAreaChipClick(area)
         },
         titleText = stringResource(id = R.string.region_bottom_sheet_title),
         buttonText = stringResource(id = R.string.apply),
@@ -334,6 +343,8 @@ fun EnrollScreenPreview() {
             enrollUiState = EnrollContract.EnrollUiState(
                 loadState = LoadState.Success
             ),
+            onTopBarBackButtonClick = {},
+            onTopBarLoadButtonClick = {},
             onEnrollButtonClick = {},
             onDateTextFieldClick = {},
             onTimeTextFieldClick = {},
@@ -346,11 +357,11 @@ fun EnrollScreenPreview() {
             onPhotoButtonClick = {},
             onImageDeleteButtonClick = {},
             onTitleValueChange = {},
-            onDatePickerBottomSheetButtonClicked = {},
-            onTimePickerBottomSheetButtonClicked = {},
+            onDatePickerBottomSheetButtonClick = {},
+            onTimePickerBottomSheetButtonClick = {},
             onDateChipClicked = {},
-            onRegionBottomSheetRegionChipClicked = {},
-            onRegionBottomSheetAreaChipClicked = {},
+            onRegionBottomSheetRegionChipClick = {},
+            onRegionBottomSheetAreaChipClick = {},
             onRegionBottomSheetButtonClick = { _, _ -> },
             onAddPlaceButtonClick = {},
             onPlaceTitleValueChange = {},

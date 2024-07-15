@@ -12,7 +12,7 @@ class SignInViewModel @Inject constructor() : BaseViewModel<SignInContract.SignI
     override suspend fun handleEvent(event: SignInContract.SignInEvent) {
         when (event) {
             is SignInContract.SignInEvent.PostSignIn -> setState { copy(isSignedIn = true) }
-            is SignInContract.SignInEvent.WebViewClick -> setState { copy(isWebViewOpened = true) }
+            is SignInContract.SignInEvent.OnWebViewClick -> setState { copy(isWebViewOpened = true) }
             is SignInContract.SignInEvent.WebViewClose -> setState { copy(isWebViewOpened = false) }
         }
     }

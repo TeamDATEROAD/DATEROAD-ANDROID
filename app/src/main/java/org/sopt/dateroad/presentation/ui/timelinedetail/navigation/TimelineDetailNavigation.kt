@@ -21,12 +21,12 @@ fun NavGraphBuilder.timelineDetailGraph(
     composable(
         route = TimelineDetailRoutes.ROUTE_WITH_ARGUMENT,
         arguments = listOf(
-            navArgument(TimelineDetailRoutes.ARGUMENT_TYPE) { type = NavType.StringType },
-            navArgument(TimelineDetailRoutes.ARGUMENT_ID) { type = NavType.IntType }
+            navArgument(TimelineDetailRoutes.DATE_TYPE) { type = NavType.StringType },
+            navArgument(TimelineDetailRoutes.DATE_ID) { type = NavType.IntType }
         )
     ) { backStackEntry ->
-        val dateType = DateType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.ARGUMENT_TYPE) ?: DateType.PINK.name)
-        val dateId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.ARGUMENT_ID) ?: 1
+        val dateType = DateType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.DATE_TYPE) ?: DateType.PINK.name)
+        val dateId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.DATE_ID) ?: 1
         TimelineDetailRoute(
             padding = padding,
             popBackStack = popBackStack,
@@ -39,8 +39,8 @@ fun NavGraphBuilder.timelineDetailGraph(
 
 object TimelineDetailRoutes {
     private const val ROUTE = "timeline_detail"
-    const val ARGUMENT_TYPE = "dateType"
-    const val ARGUMENT_ID = "dateId"
-    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT_TYPE}/{$ARGUMENT_ID}"
+    const val DATE_TYPE = "dateType"
+    const val DATE_ID = "dateId"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$DATE_TYPE}/{$DATE_ID}"
     fun route(dateType: DateType, dateId: Int) = "$ROUTE/${dateType.name}/$dateId"
 }

@@ -4,9 +4,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.ui.past.PastRoute
 
-fun NavController.navigationToPast() {
+fun NavController.navigationPast() {
     navigate(
         route = PastRoute.ROUTE
     )
@@ -14,14 +15,14 @@ fun NavController.navigationToPast() {
 
 fun NavGraphBuilder.pastNavGraph(
     padding: PaddingValues,
-    popBackStack: () -> Unit
-    // navigateToTimelineDetail: (Int) -> Unit
+    popBackStack: () -> Unit,
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     composable(route = PastRoute.ROUTE) {
         PastRoute(
             padding = padding,
-            popBackStack = popBackStack
-            // navigateToTimelineDetail = navigateToTimelineDetail
+            popBackStack = popBackStack,
+            navigateToTimelineDetail = navigateToTimelineDetail
         )
     }
 }

@@ -15,7 +15,6 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
         when (event) {
             is TimelineContract.TimelineEvent.FetchTimeline -> setState { copy(loadState = event.loadState, dates = event.dates) }
             is TimelineContract.TimelineEvent.PageChanged -> setState { copy(currentPage = event.page) }
-            is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
             is TimelineContract.TimelineEvent.ShowMaxItemsModal -> setState { copy(showMaxDateCardModal = true) }
         }
     }
@@ -68,13 +67,5 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                 )
             )
         )
-    }
-
-    private fun handleAddDateCardClicked() {
-        if (currentState.dates.size >= 5) {
-            setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal)
-        } else {
-            setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll)
-        }
     }
 }

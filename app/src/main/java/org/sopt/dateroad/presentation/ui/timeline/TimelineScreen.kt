@@ -32,7 +32,6 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -50,8 +49,10 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
+    navigateToPast: () -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
     navigateToTimelineDetail: (DateType, Int) -> Unit,
-    navigateToEnroll: (EnrollType) -> Unit
+    popBackStack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState()
@@ -64,7 +65,8 @@ fun TimelineRoute(
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE)
+                is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
+                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
                 is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.dateType, sideEffect.dateId)
             }
         }
@@ -80,13 +82,14 @@ fun TimelineRoute(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
+                onAddDateCardClick = { if (uiState.dates.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
                 onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
-                navigateToTimelineDetail = navigateToTimelineDetail
+                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) },
+                onPastButtonClick = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToPast) }
             )
         }
 
-        else -> {}
+        else -> Unit
     }
 }
 
@@ -97,8 +100,9 @@ fun TimelineScreen(
     uiState: TimelineContract.TimelineUiState,
     pagerState: PagerState,
     navigateToTimelineDetail: (DateType, Int) -> Unit,
-    onAddDateCardClicked: () -> Unit,
-    onDismissMaxDateCardDialog: () -> Unit
+    onAddDateCardClick: () -> Unit,
+    onDismissMaxDateCardDialog: () -> Unit,
+    onPastButtonClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -111,7 +115,7 @@ fun TimelineScreen(
             buttonContent = {
                 DateRoadImageButton(
                     isEnabled = true,
-                    onClick = onAddDateCardClicked,
+                    onClick = onAddDateCardClick,
                     cornerRadius = 14.dp,
                     paddingHorizontal = 16.dp,
                     paddingVertical = 8.dp
@@ -143,7 +147,7 @@ fun TimelineScreen(
                     contentPadding = PaddingValues(horizontal = 35.dp)
                 ) { page ->
                     val date = uiState.dates[page]
-                    val dateType = getDateTypeByPosition(page)
+                    val dateType = DateType.getDateTypeByIndex(page)
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
@@ -155,12 +159,10 @@ fun TimelineScreen(
 
                 Spacer(modifier = Modifier.height(30.dp))
                 DotsIndicator(
-                    totalDots = OnboardingType.entries.size,
+                    totalDots = uiState.dates.size,
                     selectedIndex = pagerState.currentPage,
                     indicatorSize = 8.dp,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(horizontal = 158.dp)
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
         }
@@ -173,15 +175,15 @@ fun TimelineScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DateRoadFilledButton(
-                isEnabled = false,
+                isEnabled = true,
                 textContent = stringResource(id = R.string.button_past_date),
-                onClick = {},
+                onClick = onPastButtonClick,
                 textStyle = DateRoadTheme.typography.bodyBold15,
-                enabledBackgroundColor = DateRoadTheme.colors.purple600,
-                enabledTextColor = DateRoadTheme.colors.white,
+                enabledBackgroundColor = DateRoadTheme.colors.gray100,
+                enabledTextColor = DateRoadTheme.colors.black,
                 disabledBackgroundColor = DateRoadTheme.colors.gray100,
                 disabledTextColor = DateRoadTheme.colors.black,
-                cornerRadius = 10.dp,
+                cornerRadius = 14.dp,
                 paddingHorizontal = 29.dp,
                 paddingVertical = 11.dp
             )
@@ -194,14 +196,6 @@ fun TimelineScreen(
             onDismissRequest = onDismissMaxDateCardDialog,
             onClickConfirm = onDismissMaxDateCardDialog
         )
-    }
-}
-
-fun getDateTypeByPosition(position: Int): DateType {
-    return when (position % 3) {
-        0 -> DateType.PINK
-        1 -> DateType.PURPLE
-        else -> DateType.LIME
     }
 }
 
@@ -243,8 +237,9 @@ fun TimelineScreenPreview() {
             ),
             pagerState = rememberPagerState(),
             navigateToTimelineDetail = { _, _ -> },
-            onAddDateCardClicked = {},
-            onDismissMaxDateCardDialog = {}
+            onDismissMaxDateCardDialog = {},
+            onPastButtonClick = {},
+            onAddDateCardClick = {}
         )
     }
 }

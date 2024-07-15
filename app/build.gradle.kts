@@ -109,8 +109,7 @@ dependencies {
     implementation(libs.bundles.kakao)
 
     // View Pager
-    implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.bundles.pager)
 
     // Web View
     implementation(libs.accompanist.webview)
