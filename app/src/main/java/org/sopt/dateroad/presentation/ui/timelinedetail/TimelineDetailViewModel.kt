@@ -1,15 +1,20 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
+class TimelineDetailViewModel @Inject constructor(
+    private val deleteDateUseCase: DeleteDateUseCase
+) : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
     override fun createInitialState(): TimelineDetailContract.TimelineDetailUiState = TimelineDetailContract.TimelineDetailUiState()
 
     override suspend fun handleEvent(event: TimelineDetailContract.TimelineDetailEvent) {
@@ -19,6 +24,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog -> setState { copy(showDeleteDialog = event.showDeleteDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetSourceScreen -> setState { copy(sourceScreen = event.sourceScreen) }
+            is TimelineDetailContract.TimelineDetailEvent.DeleteDate -> deleteDate(event.dateId)
         }
     }
 
@@ -57,5 +63,18 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
 
     fun setSourceScreen(source: Boolean) {
         setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen = source))
+    }
+
+    private fun deleteDate(dateId: Long) {
+        viewModelScope.launch {
+            setState { copy(isDeleting = true) }
+            val result = deleteDateUseCase(dateId)
+            result.onSuccess {
+                setState { copy(isDeleting = false) }
+                setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.PopBackStack)
+            }.onFailure {
+                setState { copy(isDeleting = false) }
+            }
+        }
     }
 }

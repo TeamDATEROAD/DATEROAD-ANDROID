@@ -21,6 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Place
@@ -60,7 +64,7 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     dateId: Int,
     dateType: DateType,
-    sourceScreen: Boolean
+    sourceScreen: Boolean,
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,7 +95,10 @@ fun TimelineDetailRoute(
                 showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
-                setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) }
+                setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
+                onDeleteConfirm = {
+                    viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteDate(dateId.toLong()))
+                }
             )
         }
 
@@ -109,7 +116,8 @@ fun TimelineDetailScreen(
     showKakaoClicked: () -> Unit = {},
     setShowKakaoDialog: (Boolean) -> Unit,
     setShowDeleteBottomSheet: (Boolean) -> Unit,
-    setShowDeleteDialog: (Boolean) -> Unit
+    setShowDeleteDialog: (Boolean) -> Unit,
+    onDeleteConfirm: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -300,7 +308,7 @@ fun TimelineDetailScreen(
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_TIMELINE,
             onDismissRequest = { setShowDeleteDialog(false) },
-            onClickConfirm = { setShowDeleteDialog(false) },
+            onClickConfirm = onDeleteConfirm,
             onClickDismiss = { setShowDeleteDialog(false) }
         )
     }
@@ -331,7 +339,8 @@ fun TimelineDetailScreenPreview() {
             showKakaoClicked = {},
             setShowKakaoDialog = {},
             setShowDeleteBottomSheet = {},
-            setShowDeleteDialog = {}
+            setShowDeleteDialog = {},
+            onDeleteConfirm = {}
         )
     }
 }
