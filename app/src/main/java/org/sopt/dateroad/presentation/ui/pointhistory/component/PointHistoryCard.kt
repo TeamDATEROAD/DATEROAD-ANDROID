@@ -43,7 +43,7 @@ fun PointHistoryCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = point.createdAt,
+                text = point.createAt,
                 color = DateRoadTheme.colors.gray500,
                 style = DateRoadTheme.typography.bodyMed15
             )
@@ -59,7 +59,7 @@ fun PointHistoryCardPreview() {
             point = Point(
                 point = "+10P",
                 description = "코스 등록하기",
-                createdAt = "2024.06.23"
+                createAt = "2024.06.23"
             )
         )
     }

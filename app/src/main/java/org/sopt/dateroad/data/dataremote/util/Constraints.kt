@@ -10,6 +10,8 @@ object ApiConstraints {
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"
+    const val POINTS = "point"
+    const val COURSE_ID = "courseId"
 }
 
 object Cost {
@@ -26,4 +28,8 @@ object Duration {
 object Like {
     const val LIKE_MAX = "999+"
     const val THRESHOLD = 999
+}
+
+object Point {
+    const val POINT = " P"
 }

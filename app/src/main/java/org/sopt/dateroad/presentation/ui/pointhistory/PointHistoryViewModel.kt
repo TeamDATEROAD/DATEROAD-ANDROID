@@ -25,9 +25,9 @@ class PointHistoryViewModel @Inject constructor() : BaseViewModel<PointHistoryCo
                 loadState = LoadState.Success,
                 pointHistory = PointHistory(
                     gained = listOf(
-                        Point(point = "+150", description = "서버의 바다여행", createdAt = "2023.12.31"),
-                        Point(point = "+150", description = "서버의 바다여행", createdAt = "2023.12.31"),
-                        Point(point = "+150", description = "서버의 바다여행", createdAt = "2023.12.31")
+                        Point(point = "+150", description = "서버의 바다여행", createAt = "2023.12.31"),
+                        Point(point = "+150", description = "서버의 바다여행", createAt = "2023.12.31"),
+                        Point(point = "+150", description = "서버의 바다여행", createAt = "2023.12.31")
                     ),
                     used = listOf()
                 )
