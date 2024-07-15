@@ -7,7 +7,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.ui.navigator.component.MainBottomBar
 import org.sopt.dateroad.presentation.ui.navigator.component.MainNavHost
-import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 
 @Composable
@@ -24,7 +23,6 @@ private fun MainScreenContent(
     modifier: Modifier = Modifier,
     navigator: MainNavigator
 ) {
-
     Scaffold(
         modifier = modifier,
         content = { padding ->

@@ -66,15 +66,14 @@ class MainNavigator(
         navHostController.navigationToEnroll(enrollType = enrollType)
     }
 
-    fun navigateToSignIn(){
+    fun navigateToSignIn() {
         navHostController.navigationSignIn()
     }
 
     fun navigateProfile() {
-        navHostController.navigationProfile()
+        navHostController.navigationToProfile()
     }
 
-    fun navigateMyCourse(myCourseType: MyCourseType) {
     fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateToMyCourses(myCourseType = myCourseType)
     }
@@ -129,7 +128,7 @@ class MainNavigator(
         navHostController.navigateToTimelineDetail(dateType, dateId)
     }
 
-    private fun popBackStack() {
+    fun popBackStack() {
         navHostController.popBackStack()
     }
 
