@@ -34,6 +34,7 @@ import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -50,21 +51,22 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
-    navigateToPastDate: () -> Unit,
-    navigateToEnroll: () -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit,
+    navigateToEnroll: (EnrollType) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(TimelineContract.TimelineEvent.FetchTimeline)
+        viewModel.fetchTimeline()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll()
+                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE)
+                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.dateType, sideEffect.dateId)
             }
         }
     }
@@ -79,13 +81,13 @@ fun TimelineRoute(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                viewModel = viewModel,
-                navigateToPastDate = navigateToPastDate,
-                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) }
+                onAddDateCardClicked = { viewModel.setEvent(TimelineContract.TimelineEvent.AddDateCardClicked) },
+                onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
+                navigateToTimelineDetail = navigateToTimelineDetail
             )
         }
 
-        else -> Unit
+        else -> {}
     }
 }
 
@@ -95,18 +97,10 @@ fun TimelineScreen(
     padding: PaddingValues,
     uiState: TimelineContract.TimelineUiState,
     pagerState: PagerState,
-    viewModel: TimelineViewModel,
-    navigateToPastDate: () -> Unit,
-    onAddDateCardClicked: () -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit,
+    onAddDateCardClicked: () -> Unit,
+    onDismissMaxDateCardDialog: () -> Unit
 ) {
-    if (uiState.showMaxDateCardModal) {
-        DateRoadOneButtonDialogWithDescription(
-            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
-            onDismissRequest = { viewModel.setState { copy(showMaxDateCardModal = false) } },
-            onClickConfirm = { viewModel.setState { copy(showMaxDateCardModal = false) } }
-        )
-    }
-
     Column(
         modifier = Modifier
             .padding(padding)
@@ -154,6 +148,7 @@ fun TimelineScreen(
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
+                        onClick = { navigateToTimelineDetail(dateType, date.dateId) },
                         modifier = Modifier
                             .padding(end = 16.dp)
                     )
@@ -178,7 +173,7 @@ fun TimelineScreen(
             DateRoadFilledButton(
                 isEnabled = false,
                 textContent = stringResource(id = R.string.button_past_date),
-                onClick = navigateToPastDate,
+                onClick = {},
                 textStyle = DateRoadTheme.typography.bodyBold15,
                 enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
                 enabledTextColor = DateRoadTheme.colors.white,
@@ -190,14 +185,47 @@ fun TimelineScreen(
             )
         }
     }
+
+    if (uiState.showMaxDateCardModal) {
+        DateRoadOneButtonDialogWithDescription(
+            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.CANNOT_ENROLL_COURSE,
+            onDismissRequest = onDismissMaxDateCardDialog,
+            onClickConfirm = onDismissMaxDateCardDialog
+        )
+    }
+}
+
+fun getDateTypeByPosition(position: Int): DateType {
+    return when (position % 3) {
+        0 -> DateType.PINK
+        1 -> DateType.PURPLE
+        else -> DateType.LIME
+    }
+}
+
+@Composable
+fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
+        for (i in 0 until totalDots) {
+            val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
+            Box(
+                modifier = Modifier
+                    .size(if (i == selectedIndex) 8.dp else 8.dp)
+                    .clip(CircleShape)
+                    .background(color)
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Preview
 @Composable
 fun TimelineScreenPreview() {
-    val viewModel = TimelineViewModel()
-    val pagerState = rememberPagerState()
     DATEROADTheme {
         TimelineScreen(
             padding = PaddingValues(0.dp),
@@ -230,37 +258,10 @@ fun TimelineScreenPreview() {
                     )
                 )
             ),
-            viewModel = viewModel,
-            pagerState = pagerState,
-            navigateToPastDate = {},
-            onAddDateCardClicked = {}
+            pagerState = rememberPagerState(),
+            navigateToTimelineDetail = { _, _ -> },
+            onAddDateCardClicked = {},
+            onDismissMaxDateCardDialog = {}
         )
-    }
-}
-
-fun getDateTypeByPosition(position: Int): DateType {
-    return when (position % 3) {
-        0 -> DateType.PINK
-        1 -> DateType.PURPLE
-        else -> DateType.LIME
-    }
-}
-
-@Composable
-fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        for (i in 0 until totalDots) {
-            val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
-            Box(
-                modifier = Modifier
-                    .size(if (i == selectedIndex) 8.dp else 8.dp)
-                    .clip(CircleShape)
-                    .background(color)
-            )
-        }
     }
 }

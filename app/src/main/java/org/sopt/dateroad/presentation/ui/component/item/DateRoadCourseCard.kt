@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,18 +28,20 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadCourseCard(
-    course: Course
+    course: Course,
+    onClick: (Int) -> Unit = {}
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
             .background(DateRoadTheme.colors.white)
-            .padding(vertical = 10.dp, horizontal = 16.dp)
+            .noRippleClickable(onClick = { onClick(course.id) })
     ) {
         Box(
             modifier = Modifier
@@ -52,6 +55,7 @@ fun DateRoadCourseCard(
                     .build(),
                 placeholder = null,
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()
                     .clip(RoundedCornerShape(14.dp))

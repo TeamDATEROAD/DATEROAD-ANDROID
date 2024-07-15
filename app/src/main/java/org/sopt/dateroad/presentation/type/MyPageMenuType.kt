@@ -8,16 +8,16 @@ enum class MyPageMenuType(
     @StringRes val titleRes: Int,
     @DrawableRes val iconRes: Int = R.drawable.ic_my_page_arrow
 ) {
-    FIRST(
+    MY_COURSE_ENROLL(
         titleRes = R.string.my_page_menu_my_enroll_course
     ),
-    SECOND(
+    POINT_SYSTEM(
         titleRes = R.string.my_page_menu_point_guide
     ),
-    THIRD(
+    QUESTION(
         titleRes = R.string.my_page_menu_question
     ),
-    FOURTH(
+    LOGOUT(
         titleRes = R.string.my_page_menu_logout
     )
 }

@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -46,6 +47,7 @@ fun DateRoadBasicTextField(
     errorDescription: String = "",
     readOnly: Boolean = false,
     value: String = "",
+    onClick: () -> Unit = {},
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
@@ -68,59 +70,74 @@ fun DateRoadBasicTextField(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .noRippleClickable(onClick = onClick)
                 .background(color = DateRoadTheme.colors.gray100, shape = RoundedCornerShape(14.dp))
                 .border(width = 1.dp, color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BasicTextField(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 16.dp),
-                value = value,
-                onValueChange = onValueChange,
-                readOnly = readOnly,
-                cursorBrush = SolidColor(DateRoadTheme.colors.deepPurple),
-                singleLine = true,
-                keyboardActions = keyboardActions,
-                keyboardOptions = keyboardOptions,
-                visualTransformation = visualTransformation,
-                textStyle = DateRoadTheme.typography.bodySemi13,
-                decorationBox = { innerTextField ->
-                    innerTextField()
-                    if (value.isEmpty()) {
-                        Text(
-                            text = placeholder,
-                            color = DateRoadTheme.colors.gray300,
-                            style = DateRoadTheme.typography.bodySemi13,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
+            if (readOnly) {
+                Text(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 16.dp)
+                        .noRippleClickable(onClick = onClick),
+                    text = value.ifEmpty { placeholder },
+                    color = if (value.isEmpty()) DateRoadTheme.colors.gray300 else DateRoadTheme.colors.black,
+                    style = DateRoadTheme.typography.bodySemi13,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            } else {
+                BasicTextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 16.dp)
+                        .noRippleClickable(onClick = onClick),
+                    value = value,
+                    onValueChange = onValueChange,
+                    cursorBrush = SolidColor(DateRoadTheme.colors.deepPurple),
+                    singleLine = true,
+                    keyboardActions = keyboardActions,
+                    keyboardOptions = keyboardOptions,
+                    visualTransformation = visualTransformation,
+                    textStyle = DateRoadTheme.typography.bodySemi13,
+                    decorationBox = { innerTextField ->
+                        innerTextField()
+                        if (value.isEmpty()) {
+                            Text(
+                                text = placeholder,
+                                color = DateRoadTheme.colors.gray300,
+                                style = DateRoadTheme.typography.bodySemi13,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
-                }
-            )
+                )
+            }
             iconResourceId?.let {
                 Spacer(
                     modifier = Modifier.padding(start = 14.dp)
                 )
-                Icon(painter = painterResource(id = it), contentDescription = iconContentDescription)
+                Icon(painter = painterResource(id = it), contentDescription = iconContentDescription, tint = DateRoadTheme.colors.gray200)
             }
         }
-        if (errorDescription.isNotEmpty() || successDescription.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(1.dp))
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 9.dp),
-                text = when (validateState) {
-                    is TextFieldValidateResult.Success -> successDescription
-                    is TextFieldValidateResult.ValidationError -> errorDescription
-                    else -> ""
-                },
-                color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
-                style = DateRoadTheme.typography.capReg11
-            )
-        }
+    }
+    if (errorDescription.isNotEmpty() || successDescription.isNotEmpty()) {
+        Spacer(modifier = Modifier.height(1.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 9.dp),
+            text = when (validateState) {
+                is TextFieldValidateResult.Success -> successDescription
+                is TextFieldValidateResult.ValidationError -> errorDescription
+                else -> ""
+            },
+            color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else DateRoadTheme.colors.deepPurple,
+            style = DateRoadTheme.typography.capReg11
+        )
     }
 }
 
