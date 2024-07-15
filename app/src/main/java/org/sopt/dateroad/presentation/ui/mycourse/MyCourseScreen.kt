@@ -54,8 +54,8 @@ fun MyCourseRoute(
     }
 
     when (uiState.myCourseType) {
-        MyCourseType.ENROLL -> viewModel.setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll)
-        MyCourseType.READ -> viewModel.setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead)
+        MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
+        MyCourseType.READ -> viewModel.fetchMyCourseRead()
     }
 
     when (uiState.loadState) {
