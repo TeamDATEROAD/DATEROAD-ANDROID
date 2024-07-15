@@ -91,7 +91,10 @@ fun MainNavHost(
                 // TODO: 추후 navigateHome 으로 변경
             )
 
-            signInGraph()
+            signInGraph(
+                navigateToOnboarding = navigator::navigateToOnboarding,
+                navigateToHome = navigator::navigateToHome
+            )
 
             readNavGraph(
                 padding = padding,

@@ -11,9 +11,15 @@ fun NavController.navigationSignIn() {
     )
 }
 
-fun NavGraphBuilder.signInGraph() {
+fun NavGraphBuilder.signInGraph(
+    navigateToOnboarding: () -> Unit,
+    navigateToHome: () -> Unit
+) {
     composable(route = SignInRoute.ROUTE) {
-        SignInRoute()
+        SignInRoute(
+            navigateToOnboarding = navigateToOnboarding,
+            navigateToHome = navigateToHome
+        )
     }
 }
 

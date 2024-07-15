@@ -66,19 +66,26 @@ class MainNavigator(
         navHostController.navigationEnroll(enrollType = enrollType)
     }
 
-    fun navigateToLook(navOptions: NavOptions? = null) {
-        if (navOptions != null) {
-            navHostController.navigationLook(navOptions)
-        } else {
-            navHostController.navigationLook(
-                navOptions {
-                    popUpTo(navHostController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
+    fun navigateToHome(navOptions: NavOptions? = null) {
+        navHostController.navigationHome(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
                 }
-            )
-        }
+                launchSingleTop = true
+            }
+        )
+    }
+
+    fun navigateToLook(navOptions: NavOptions? = null) {
+        navHostController.navigationLook(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
     }
 
     fun navigateToMyCourse(myCourseType: MyCourseType) {
@@ -106,18 +113,14 @@ class MainNavigator(
     }
 
     fun navigateTimeline(navOptions: NavOptions? = null) {
-        if (navOptions != null) {
-            navHostController.navigationTimeline(navOptions)
-        } else {
-            navHostController.navigationTimeline(
-                navOptions {
-                    popUpTo(navHostController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
+        navHostController.navigationTimeline(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
                 }
-            )
-        }
+                launchSingleTop = true
+            }
+        )
     }
 
     fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {

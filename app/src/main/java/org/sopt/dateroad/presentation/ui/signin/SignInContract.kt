@@ -13,12 +13,13 @@ class SignInContract {
     ) : UiState
 
     sealed interface SignInSideEffect : UiSideEffect {
+        data object NavigateToOnboarding : SignInSideEffect
         data object NavigateToHome : SignInSideEffect
     }
 
     sealed class SignInEvent : UiEvent {
         data object PostSignIn : SignInEvent()
-        data object WebViewClick : SignInEvent()
+        data object OnWebViewClick : SignInEvent()
         data object WebViewClose : SignInEvent()
     }
 }
