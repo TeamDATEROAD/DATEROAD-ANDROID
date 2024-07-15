@@ -2,12 +2,12 @@ package org.sopt.dateroad.presentation.ui.mycourse
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.PostMyCourseEnrollUseCase
 import org.sopt.dateroad.domain.usecase.PostMyCourseReadUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class MyCourseViewModel @Inject constructor(
