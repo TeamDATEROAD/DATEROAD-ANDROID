@@ -149,7 +149,7 @@ fun TimelineScreen(
                     contentPadding = PaddingValues(horizontal = 35.dp)
                 ) { page ->
                     val date = uiState.dates[page]
-                    val dateType = getDateTypeByPosition(page)
+                    val dateType = DateType.getDateTypeByIndex(page)
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
@@ -197,14 +197,6 @@ fun TimelineScreen(
             onDismissRequest = onDismissMaxDateCardDialog,
             onClickConfirm = onDismissMaxDateCardDialog
         )
-    }
-}
-
-fun getDateTypeByPosition(position: Int): DateType {
-    return when (position % 3) {
-        0 -> DateType.PINK
-        1 -> DateType.PURPLE
-        else -> DateType.LIME
     }
 }
 

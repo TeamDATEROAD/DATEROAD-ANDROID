@@ -71,8 +71,8 @@ fun MainNavHost(
 
             pastNavGraph(
                 padding = padding,
-                popBackStack = navigator::popBackStackIfNotHome
-                // navigateToTimelineDetail = navigator::navigateToTimeline
+                popBackStack = navigator::popBackStackIfNotHome,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail
             )
 
             pointHistoryGraph(
