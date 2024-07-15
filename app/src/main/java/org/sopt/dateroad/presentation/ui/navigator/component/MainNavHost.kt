@@ -16,6 +16,7 @@ import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
 import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGraph
 import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
+import org.sopt.dateroad.presentation.ui.pointguide.pointGuideGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
@@ -76,7 +77,7 @@ fun MainNavHost(
                 navigateToTimelineDetail = navigator::navigateToTimelineDetail
             )
 
-            pointHistoryGraph(
+            pointGuideGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
@@ -87,18 +88,17 @@ fun MainNavHost(
             )
 
             profileNavGraph(
-                navigateToHome = navigator::navigateToProfile
-                // TODO: 추후 navigateHome 으로 변경
-            )
-
-            signInGraph(
-                navigateToOnboarding = navigator::navigateToOnboarding,
                 navigateToHome = navigator::navigateToHome
             )
 
             readNavGraph(
                 padding = padding,
                 navigateToEnroll = navigator::navigateToEnroll
+            )
+
+            signInGraph(
+                navigateToOnboarding = navigator::navigateToOnboarding,
+                navigateToHome = navigator::navigateToHome
             )
 
             timelineNavGraph(
