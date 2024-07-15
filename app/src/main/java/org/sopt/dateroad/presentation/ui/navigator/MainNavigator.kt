@@ -27,7 +27,6 @@ import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPoint
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.signin.navigation.SignInRoute
-import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 

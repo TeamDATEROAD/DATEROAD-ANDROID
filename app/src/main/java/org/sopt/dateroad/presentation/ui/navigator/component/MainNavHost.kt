@@ -19,6 +19,7 @@ import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
+import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.timelineDetailGraph
 

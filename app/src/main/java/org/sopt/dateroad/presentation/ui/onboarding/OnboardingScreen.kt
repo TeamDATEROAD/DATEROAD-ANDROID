@@ -27,8 +27,8 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
+import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
-import org.sopt.dateroad.presentation.ui.onboarding.component.DotsIndicator
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
