@@ -17,7 +17,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadImageButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = false,
-    enabledBackgroundColor: Color = DateRoadTheme.colors.deepPurple,
+    enabledBackgroundColor: Color = DateRoadTheme.colors.purple600,
     enabledContentColor: Color = DateRoadTheme.colors.white,
     disabledBackgroundColor: Color = DateRoadTheme.colors.gray200,
     disabledContentColor: Color = DateRoadTheme.colors.gray400,

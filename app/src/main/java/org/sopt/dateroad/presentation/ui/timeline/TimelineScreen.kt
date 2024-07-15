@@ -177,7 +177,7 @@ fun TimelineScreen(
                 textContent = stringResource(id = R.string.button_past_date),
                 onClick = {},
                 textStyle = DateRoadTheme.typography.bodyBold15,
-                enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                enabledBackgroundColor = DateRoadTheme.colors.purple600,
                 enabledTextColor = DateRoadTheme.colors.white,
                 disabledBackgroundColor = DateRoadTheme.colors.gray100,
                 disabledTextColor = DateRoadTheme.colors.black,

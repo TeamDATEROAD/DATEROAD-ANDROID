@@ -125,7 +125,7 @@ fun DateRoadBasicTopBarPreview() {
                     textContent = "불러오기",
                     onClick = {},
                     textStyle = DateRoadTheme.typography.bodyMed13,
-                    enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                    enabledBackgroundColor = DateRoadTheme.colors.purple600,
                     enabledTextColor = DateRoadTheme.colors.white,
                     disabledBackgroundColor = DateRoadTheme.colors.gray200,
                     disabledTextColor = DateRoadTheme.colors.gray400,

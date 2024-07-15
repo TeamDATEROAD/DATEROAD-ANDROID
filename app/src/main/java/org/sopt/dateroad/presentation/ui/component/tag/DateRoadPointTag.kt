@@ -26,7 +26,7 @@ fun DateRoadPointTag(
     modifier: Modifier = Modifier,
     text: String,
     profileImage: Painter,
-    backgroundColor: Color = DateRoadTheme.colors.mediumPurple,
+    backgroundColor: Color = DateRoadTheme.colors.purple500,
     contentColor: Color = DateRoadTheme.colors.white,
     onClick: () -> Unit = {}
 ) {
