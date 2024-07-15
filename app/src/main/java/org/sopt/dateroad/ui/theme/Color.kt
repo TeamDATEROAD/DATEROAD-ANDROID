@@ -70,7 +70,7 @@ data class DateRoadColors(
     val alertRed: Color,
 
     // Kakao
-    val kakaoYellow: Color,
+    val kakaoYellow: Color
 )
 
 val defaultDateRoadColors = DateRoadColors(
@@ -104,7 +104,7 @@ val defaultDateRoadColors = DateRoadColors(
     alertRed = AlertRed,
 
     // Kakao
-    kakaoYellow = KakaoYellow,
+    kakaoYellow = KakaoYellow
 )
 
 val LocalDateRoadColors = staticCompositionLocalOf { defaultDateRoadColors }
