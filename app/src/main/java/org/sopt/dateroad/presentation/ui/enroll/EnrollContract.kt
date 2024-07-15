@@ -79,6 +79,7 @@ class EnrollContract {
         data class OnRegionBottomSheetAreaChipClick(val city: Any?) : EnrollEvent()
         data class OnRegionBottomSheetButtonClick(val region: RegionType?, val area: Any?) : EnrollEvent()
         data class OnAddPlaceButtonClick(val place: Place) : EnrollEvent()
+        data class OnPlaceCardDragAndDrop(val places: List<Place>) : EnrollEvent()
         data class OnPlaceTitleValueChange(val placeTitle: String) : EnrollEvent()
         data class OnDurationBottomSheetButtonClick(val placeDuration: String) : EnrollEvent()
         data class OnEditableValueChange(val editable: Boolean) : EnrollEvent()

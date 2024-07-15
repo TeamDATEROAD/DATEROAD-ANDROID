@@ -5,20 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,10 +32,12 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.type.OnboardingType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
+import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
@@ -156,9 +155,12 @@ fun TimelineScreen(
 
                 Spacer(modifier = Modifier.height(30.dp))
                 DotsIndicator(
-                    totalDots = uiState.dates.size,
+                    totalDots = OnboardingType.entries.size,
                     selectedIndex = pagerState.currentPage,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    indicatorSize = 8.dp,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 158.dp)
                 )
             }
         }
@@ -200,25 +202,6 @@ fun getDateTypeByPosition(position: Int): DateType {
         0 -> DateType.PINK
         1 -> DateType.PURPLE
         else -> DateType.LIME
-    }
-}
-
-@Composable
-fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modifier) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        for (i in 0 until totalDots) {
-            val color = if (i == selectedIndex) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.gray200
-            Box(
-                modifier = Modifier
-                    .size(if (i == selectedIndex) 8.dp else 8.dp)
-                    .clip(CircleShape)
-                    .background(color)
-            )
-        }
     }
 }
 

@@ -29,6 +29,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadPlaceCard(
+    modifier: Modifier = Modifier,
     placeCardType: PlaceCardType,
     place: Place,
     onIconClick: (() -> Unit)? = null
@@ -36,7 +37,7 @@ fun DateRoadPlaceCard(
     val paddingValues = Modifier.padding(start = placeCardType.startPadding, end = placeCardType.endPadding)
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.gray100)
