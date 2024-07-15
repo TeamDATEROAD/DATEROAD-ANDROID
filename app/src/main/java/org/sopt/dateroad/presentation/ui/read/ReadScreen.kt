@@ -130,7 +130,9 @@ fun ReadScreen(
             Spacer(modifier = Modifier.height(10.dp))
             LazyColumn {
                 items(readUiState.courses) { course ->
-                    DateRoadCourseCard(course = course)
+                    DateRoadCourseCard(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        course = course)
                 }
             }
         }
