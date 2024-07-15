@@ -4,9 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponsePointHistoryDto(
-    @SerialName("gained")
-    val gained: ResponsePointsDto,
-    @SerialName("used")
-    val used: ResponsePointsDto
+data class ResponsePointsDto(
+    @SerialName("points")
+    val points: List<ResponsePointDto>
 )

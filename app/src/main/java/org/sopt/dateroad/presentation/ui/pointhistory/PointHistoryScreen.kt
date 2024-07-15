@@ -46,7 +46,7 @@ fun PointHistoryRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory)
+        viewModel.fetchPointHistory()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

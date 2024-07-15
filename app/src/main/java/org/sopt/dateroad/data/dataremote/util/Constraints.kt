@@ -10,7 +10,7 @@ object ApiConstraints {
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"
-    const val POINTS = "point"
+    const val POINTS = "points"
     const val COURSE_ID = "courseId"
 }
 

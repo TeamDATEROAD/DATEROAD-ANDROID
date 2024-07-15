@@ -4,6 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponsePointHistoryDto
 import org.sopt.dateroad.domain.model.PointHistory
 
 fun ResponsePointHistoryDto.toDomain(): PointHistory = PointHistory(
-    gained = this.gained.map { responsePointDto -> responsePointDto.toDomain() },
-    used = this.used.map { responsePointDto -> responsePointDto.toDomain() }
+    gained = this.gained.toDomain(),
+    used = this.used.toDomain()
 )
