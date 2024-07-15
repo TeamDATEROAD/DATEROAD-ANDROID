@@ -6,7 +6,7 @@ object ApiConstraints {
     const val API = "api"
     const val VERSION = "v1"
     const val COURSES = "courses"
-    const val DATA_ACCESS = "data-access"
+    const val DATE_ACCESS = "date-access"
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"

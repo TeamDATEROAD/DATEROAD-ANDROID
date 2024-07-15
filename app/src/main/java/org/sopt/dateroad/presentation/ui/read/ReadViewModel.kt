@@ -1,13 +1,17 @@
 package org.sopt.dateroad.presentation.ui.read
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Course
+import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.usecase.PostMyCourseReadUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiState, ReadContract.ReadSideEffect, ReadContract.ReadEvent>() {
+class ReadViewModel @Inject constructor(
+    private val postMyCourseReadUseCase: PostMyCourseReadUseCase
+) : BaseViewModel<ReadContract.ReadUiState, ReadContract.ReadSideEffect, ReadContract.ReadEvent>() {
     override fun createInitialState(): ReadContract.ReadUiState =
         ReadContract.ReadUiState()
 
@@ -19,67 +23,14 @@ class ReadViewModel @Inject constructor() : BaseViewModel<ReadContract.ReadUiSta
     }
 
     fun fetchMyCourseRead() {
-        setEvent(
-            ReadContract.ReadEvent.FetchMyCourseRead(
-                loadState = LoadState.Success,
-                courses = listOf(
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 2,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 3,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 4,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 5,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 6,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "여기 야키니쿠 꼭 먹으러 가세요\n하지만 일본에 있습니다.",
-                        cost = "10만원 초과",
-                        duration = "10시간",
-                        like = "999"
-                    )
-                )
-            )
-        )
+        viewModelScope.launch {
+            setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
+            postMyCourseReadUseCase().onSuccess { courses ->
+                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
+            }.onFailure {
+                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
+            }
+        }
     }
 
     fun fetchName() {
