@@ -11,6 +11,7 @@
     <string name="complete">완료</string>
     <string name="apply">적용하기</string>
     <string name="duration">%s시간</string>
+    <string name="start_time">시작시간</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
@@ -180,6 +181,7 @@
 
     <!-- Kakao -->
     <string name="kakao_login">카카오 로그인</string>
+    <string name="one_button_dialog_with_description_share_kakao">카카오톡으로 공유하기</string>
 
     <!-- DateRoad Text Area -->
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
@@ -191,6 +193,9 @@
 
     <!-- Region Bottom Sheet -->
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
+    <string name="region_bottom_sheet_button_text">적용하기</string>
+    <string name="region_bottom_sheet_delete">글 삭제</string>
+    <string name="region_bottom_sheet_set_timeline">데이트 일정 설정</string>
 
     <!-- My Page Menu -->
     <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
@@ -262,6 +267,9 @@
     <string name="point_guide_top_bar">포인트 제도 소개</string>
     <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
     <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
+
+    <!-- TimelineDetail -->
+    <string name="timeline_detail_point">데이트 코스 올리고 50P 받기</string>
 
     <!-- Read -->
     <string name="read_title_normal">%s님이 지금까지\n열람한 데이트 코스\n%d개</string>

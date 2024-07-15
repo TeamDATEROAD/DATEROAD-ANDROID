@@ -24,7 +24,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadTwoButtonDialogWithDescription(
     twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType,
-    onDismissRequest: () -> Unit,
+    onDismissRequest: () -> Unit = {},
     onClickConfirm: () -> Unit,
     onClickDismiss: () -> Unit = {}
 ) {

@@ -92,10 +92,16 @@ fun MainNavHost(
                 navigateToEnroll = navigator::navigateToEnroll
             )
 
+            timelineDetailGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
+
             timelineNavGraph(
                 padding = padding,
-                navigateToPast = navigator::navigateToPast,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
+                navigateToEnroll = navigator::navigateToEnroll,
+                popBackStack = navigator::popBackStackIfNotHome
             )
         }
     }
