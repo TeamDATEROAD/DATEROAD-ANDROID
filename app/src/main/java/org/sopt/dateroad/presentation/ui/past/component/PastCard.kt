@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.timeline.component
+package org.sopt.dateroad.presentation.ui.past.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -36,7 +36,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
 fun PastCard(
-    dateCard: Date,
+    date: Date,
     dateType: DateType,
     onClick: (Int) -> Unit = {}
 ) {
@@ -46,7 +46,7 @@ fun PastCard(
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(328 / 203f)
             .background(dateType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(dateCard.dateId) })
+            .noRippleClickable(onClick = { onClick(date.dateId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_past_card),
@@ -66,7 +66,7 @@ fun PastCard(
                     .padding(top = 14.dp, start = 16.dp, end = 16.dp)
             ) {
                 Text(
-                    text = dateCard.date,
+                    text = date.date,
                     style = DateRoadTheme.typography.bodySemi13,
                     color = DateRoadTheme.colors.black,
                     modifier = Modifier
@@ -75,7 +75,7 @@ fun PastCard(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = dateCard.title,
+                    text = date.title,
                     style = DateRoadTheme.typography.titleExtra20,
                     color = DateRoadTheme.colors.black,
                     minLines = 2,
@@ -126,14 +126,14 @@ fun PastCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = dateCard.city,
+                    text = date.city,
                     style = DateRoadTheme.typography.bodyMed13,
                     color = DateRoadTheme.colors.black
                 )
                 LazyRow(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    itemsIndexed(dateCard.tags) { index, tag ->
+                    itemsIndexed(date.tags) { index, tag ->
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
@@ -154,7 +154,7 @@ fun PastCardPreview() {
     Column {
         PastCard(
             dateType = DateType.PINK,
-            dateCard = Date(
+            date = Date(
                 dateId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",

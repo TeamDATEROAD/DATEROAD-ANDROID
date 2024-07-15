@@ -26,7 +26,7 @@ fun DateRoadTwoButtonDialog(
     twoButtonDialogType: TwoButtonDialogType,
     onDismissRequest: () -> Unit,
     onClickConfirm: () -> Unit,
-    onClickDismiss: () -> Unit = {}
+    onClickDismiss: () -> Unit
 ) {
     DateRoadDialog(
         onDismissRequest = onDismissRequest

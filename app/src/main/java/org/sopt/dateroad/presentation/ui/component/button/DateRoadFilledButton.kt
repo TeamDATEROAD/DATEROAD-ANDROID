@@ -34,7 +34,7 @@ fun DateRoadFilledButton(
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = onClick
+        onClick = { onClick() }
     ) {
         Text(
             modifier = modifier,

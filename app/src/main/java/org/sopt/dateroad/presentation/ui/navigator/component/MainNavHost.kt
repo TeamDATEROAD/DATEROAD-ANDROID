@@ -8,14 +8,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.sopt.dateroad.presentation.ui.coursedetail.navigation.courseDetailGraph
+import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
 import org.sopt.dateroad.presentation.ui.look.navigation.lookNavGraph
-import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesGraph
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.myCoursesNavGraph
 import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
+import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGraph
+import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
+import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
+import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 
 @Composable
@@ -31,35 +35,80 @@ fun MainNavHost(
     ) {
         NavHost(
             navController = navigator.navHostController,
-            startDestination = navigator.startDestination::class.simpleName.orEmpty()
+            startDestination = navigator.startDestination
         ) {
+            enrollNavGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
+
             homeNavGraph(
                 padding = padding,
-                navigateToCourseDetail = navigator::navigateCourseDetail
+                navigateToPointHistory = navigator::navigateToPointHistory,
+                navigateToLook = navigator::navigateLook,
+                navigateToTimeline = navigator::navigateTimeline
             )
+
             lookNavGraph(
                 padding = padding
             )
+
             timelineNavGraph(
-                padding = padding
+                padding = padding,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
+                navigateToEnroll = navigator::navigateToEnroll,
+                popBackStack = navigator::popBackStackIfNotHome
             )
+
             readNavGraph(
                 padding = padding,
-                navigateToMyCourse = navigator::navigateMyCourse
+                navigateToEnroll = navigator::navigateToEnroll
             )
+
             myPageNavGraph(
                 padding = padding,
-                navigateToMyCourse = navigator::navigateMyCourse
+                navigateToPointHistory = navigator::navigateToPointHistory,
+                navigateToMyCourse = navigator::navigateToMyCourse
             )
+
+            onboardingNavGraph()
+
+            pastNavGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+                // navigateToTimelineDetail = navigator::navigateToTimeline
+            )
+
             pointHistoryGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            myCoursesGraph(
+
+            onboardingNavGraph()
+
+            myCoursesNavGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
-            courseDetailGraph(popBackStack = navigator::popBackStackIfNotHome)
+
+            profileNavGraph(
+                navigateToHome = navigator::navigateProfile
+                // TODO: 추후 navigateHome 으로 변경
+            )
+
+            signInGraph()
+
+            readNavGraph(
+                padding = padding,
+                navigateToEnroll = navigator::navigateToEnroll
+            )
+
+            timelineNavGraph(
+                padding = padding,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
+                navigateToEnroll = navigator::navigateToEnroll,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
         }
     }
 }

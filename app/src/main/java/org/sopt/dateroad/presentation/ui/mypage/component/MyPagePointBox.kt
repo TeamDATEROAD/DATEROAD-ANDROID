@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.pointbox
+package org.sopt.dateroad.presentation.ui.mypage.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,12 +21,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadMyPagePointBox(nickname: String, point: Int) {
+fun MyPagePointBox(
+    modifier: Modifier = Modifier,
+    nickname: String,
+    point: Int,
+    onClick: () -> Unit = {}
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.white)
@@ -53,7 +59,9 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
         }
         Spacer(modifier = Modifier.width(25.dp))
         Row(
-            modifier = Modifier.padding(start = 14.dp, end = 5.dp, top = 5.dp, bottom = 5.dp),
+            modifier = Modifier
+                .padding(start = 14.dp, end = 5.dp, top = 5.dp, bottom = 5.dp)
+                .noRippleClickable(onClick = onClick),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -74,5 +82,5 @@ fun DateRoadMyPagePointBox(nickname: String, point: Int) {
 @Preview
 @Composable
 fun DateRoadMyPagePointBoxPreview() {
-    DateRoadMyPagePointBox("호은", 200)
+    MyPagePointBox(nickname = "호은", point = 200)
 }

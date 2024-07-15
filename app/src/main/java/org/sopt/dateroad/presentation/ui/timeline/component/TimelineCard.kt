@@ -42,13 +42,13 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
 fun TimelineCard(
+    modifier: Modifier,
     dateCard: Date,
     dateType: DateType,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(291 / 406f)
             .background(dateType.backgroundColor)
@@ -130,12 +130,14 @@ fun TimelineCard(
                                 .padding(start = 60.dp, bottom = 10.dp)
                         )
                     }
-                    DateRoadImageTag(
-                        textContent = stringResource(id = dateCard.tags[0].titleRes),
-                        imageContent = dateCard.tags[0].imageRes,
-                        tagContentType = dateType.tagType,
-                        spaceValue = 2
-                    )
+                    if (dateCard.tags.isNotEmpty()) {
+                        DateRoadImageTag(
+                            textContent = stringResource(id = dateCard.tags[0].titleRes),
+                            imageContent = dateCard.tags[0].imageRes,
+                            tagContentType = dateType.tagType,
+                            spaceValue = 2
+                        )
+                    }
                 }
             }
             Canvas(
@@ -203,6 +205,7 @@ fun TimelineCard(
 fun TimelineCardPreview() {
     Column {
         TimelineCard(
+            modifier = Modifier,
             dateType = DateType.PURPLE,
             dateCard = Date(
                 dateId = 0,

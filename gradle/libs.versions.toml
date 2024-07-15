@@ -18,17 +18,23 @@ junitVersion = "1.2.0"
 espressoCore = "3.6.0"
 
 # AndroidX
+coreSplashscreen = "1.0.1"
 coreKtx = "1.13.1"
 lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 navigation = "2.7.7"
 security = "1.1.0-alpha06"
+pagingCommonAndroid = "3.3.0"
 
 # Google
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
 firebaseBom = "33.1.1"
+
+# Accompanist
+accompanistPager = "0.23.1"
+accompanistWebview = "0.24.13-rc"
 
 # Third Party
 okhttp = "4.11.0"
@@ -60,6 +66,7 @@ accompanist-pager = { module = "com.google.accompanist:accompanist-pager", versi
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
 
 # AndroidX
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -71,12 +78,18 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-security = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security" }
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 
 # Google
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+
+# Accompanist
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPager" }
+accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanistWebview" }
 
 # Third Party
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
@@ -106,6 +119,7 @@ sentry = { id = "io.sentry.android.gradle", version.ref = "sentry" }
 
 [bundles]
 androidx = [
+    "androidx-core-splashscreen",
     "androidx-core-ktx",
     "androidx-lifecycle-runtime-ktx",
     "androidx-activity-compose",
@@ -146,4 +160,10 @@ hilt = [
 
 kakao = [
     "kakao-v2-user"
+]
+
+pager = [
+    "androidx-paging-common-android",
+    "accompanist-pager",
+    "accompanist-pager-indicators"
 ]
