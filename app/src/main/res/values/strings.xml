@@ -209,7 +209,20 @@
     <string name="date_chip_group_enroll_course">데이트코스와 어울리는 태그를 선택해 주세요 (%1$d/%2$d)</string>
 
     <!-- Course Detail -->
-    <string name="course_detail_duration">%1$d 시간</string>
+    <string name="course_detail_duration">%1$.1f 시간</string>
+    <string name="course_detail_total_cost">%1f 원</string>
+    <string name="course_detail_free_read_button">무료 열람 기회 쓰기 (%1$d/3)</string>
+    <string name="course_detail_point_read_button">포인트로 코스 열람하기</string>
+    <string name="course_detail_free_read_button_description">무료 열람 기회로 코스를 확인해보세요!</string>
+    <string name="course_detail_point_read_button_description">50P로 코스를 확인해보세요!</string>
+    <string name="course_detail_unopened_title">코스 정보가 궁금하신가요?</string>
+    <string name="course_detail_timeline_title">코스 타임라인</string>
+    <string name="course_detail_get_course">내 일정에 추가하기</string>
+    <string name="course_total_cost_string">총 비용</string>
+    <string name="course_detail_tag">태그</string>
+    <string name="course_detail_bottom_sheet_title">데이트 코스 설정</string>
+    <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
+    <string name="course_detail_bottom_sheet_delete">취소</string>
 
     <!-- DateSchedule -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>
