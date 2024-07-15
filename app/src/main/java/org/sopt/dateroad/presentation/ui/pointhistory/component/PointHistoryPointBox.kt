@@ -28,7 +28,7 @@ fun PointHistoryPointBox(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
-            .background(DateRoadTheme.colors.deepPurple)
+            .background(DateRoadTheme.colors.purple600)
             .padding(start = 16.dp, top = 16.dp, bottom = 14.dp)
     ) {
         Text(

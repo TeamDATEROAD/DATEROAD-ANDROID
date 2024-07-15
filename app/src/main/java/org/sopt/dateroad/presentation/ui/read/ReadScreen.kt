@@ -106,7 +106,7 @@ fun ReadScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .fillMaxWidth(),
-                text = PartialColorText(text = stringResource(id = R.string.read_title_normal, readUiState.name, readUiState.courses.size), keywords = listOf(readUiState.courses.size.toString()), color = DateRoadTheme.colors.deepPurple),
+                text = PartialColorText(text = stringResource(id = R.string.read_title_normal, readUiState.name, readUiState.courses.size), keywords = listOf(readUiState.courses.size.toString()), color = DateRoadTheme.colors.purple600),
                 style = DateRoadTheme.typography.titleExtra24
             )
             Spacer(modifier = Modifier.height(4.dp))

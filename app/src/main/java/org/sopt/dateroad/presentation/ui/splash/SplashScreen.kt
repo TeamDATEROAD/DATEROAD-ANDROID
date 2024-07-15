@@ -18,7 +18,7 @@ fun SplashScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DateRoadTheme.colors.deepPurple),
+            .background(DateRoadTheme.colors.purple600),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(226f / (226f + 284f)))

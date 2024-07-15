@@ -38,14 +38,14 @@ fun HomeTimeLineCard(
     mainDate: MainDate? = null,
     onClick: () -> Unit = {}
 ) {
-    val deepPurple = DateRoadTheme.colors.deepPurple
+    val purple600 = DateRoadTheme.colors.purple600
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Max)
             .clip(RoundedCornerShape(20.dp))
-            .background(DateRoadTheme.colors.mediumPurple),
+            .background(DateRoadTheme.colors.purple500),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -78,7 +78,7 @@ fun HomeTimeLineCard(
                         stringResource(id = R.string.home_timeline_enroll)
                     },
                     style = DateRoadTheme.typography.bodyMed15,
-                    color = DateRoadTheme.colors.lightPurple,
+                    color = DateRoadTheme.colors.purple300,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -87,7 +87,7 @@ fun HomeTimeLineCard(
                     Text(
                         text = stringResource(id = R.string.home_timeline_start, mainDate.startAt),
                         style = DateRoadTheme.typography.bodyMed15,
-                        color = DateRoadTheme.colors.lightPurple,
+                        color = DateRoadTheme.colors.purple300,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
@@ -108,14 +108,14 @@ fun HomeTimeLineCard(
             val strokeWidth = 2.dp.toPx()
 
             drawCircle(
-                color = deepPurple,
+                color = purple600,
                 radius = strokeWidth * 4,
                 center = Offset(x = 0f, y = strokeWidth / 2 - 5)
             )
 
             while (yOffset < canvasHeight) {
                 drawLine(
-                    color = deepPurple,
+                    color = purple600,
                     start = Offset(0f, yOffset),
                     end = Offset(0f, yOffset + dotLength),
                     strokeWidth = 2.dp.toPx(),
@@ -124,7 +124,7 @@ fun HomeTimeLineCard(
                 yOffset += dotLength + dotSpacing
             }
             drawCircle(
-                color = deepPurple,
+                color = purple600,
                 radius = strokeWidth * 4,
                 center = Offset(x = 0f, y = canvasHeight - strokeWidth / 2 + 5)
             )

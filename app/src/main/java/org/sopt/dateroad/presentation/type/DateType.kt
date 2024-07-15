@@ -24,7 +24,7 @@ enum class DateType(
     ),
     LIME(
         index = 2,
-        backgroundColor = defaultDateRoadColors.lime,
+        backgroundColor = defaultDateRoadColors.lime200,
         lineColor = defaultDateRoadColors.lime300,
         tagType = TagType.TIMELINE_DATE_LIME
     );

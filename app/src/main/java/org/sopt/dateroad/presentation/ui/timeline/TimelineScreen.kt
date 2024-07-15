@@ -175,7 +175,7 @@ fun TimelineScreen(
                 textContent = stringResource(id = R.string.button_past_date),
                 onClick = {},
                 textStyle = DateRoadTheme.typography.bodyBold15,
-                enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                enabledBackgroundColor = DateRoadTheme.colors.purple600,
                 enabledTextColor = DateRoadTheme.colors.white,
                 disabledBackgroundColor = DateRoadTheme.colors.gray100,
                 disabledTextColor = DateRoadTheme.colors.black,
@@ -211,7 +211,7 @@ fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modif
         modifier = modifier
     ) {
         for (i in 0 until totalDots) {
-            val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
+            val color = if (i == selectedIndex) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.gray200
             Box(
                 modifier = Modifier
                     .size(if (i == selectedIndex) 8.dp else 8.dp)

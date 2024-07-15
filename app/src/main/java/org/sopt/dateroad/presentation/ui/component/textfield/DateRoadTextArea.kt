@@ -62,7 +62,7 @@ fun DateRoadTextArea(
                 .padding(vertical = 16.dp, horizontal = 14.dp),
             value = value,
             onValueChange = onValueChange,
-            cursorBrush = SolidColor(DateRoadTheme.colors.deepPurple),
+            cursorBrush = SolidColor(DateRoadTheme.colors.purple500),
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
