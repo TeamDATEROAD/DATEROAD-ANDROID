@@ -55,6 +55,7 @@ class EnrollContract {
 
     sealed interface EnrollSideEffect : UiSideEffect {
         data object PopBackStack : EnrollSideEffect
+        data object NavigateToMyCourseRead: EnrollSideEffect
     }
 
     sealed class EnrollEvent : UiEvent {
