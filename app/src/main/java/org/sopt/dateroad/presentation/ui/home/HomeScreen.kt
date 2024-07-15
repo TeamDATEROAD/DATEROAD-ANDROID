@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +37,8 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
@@ -57,7 +58,9 @@ fun HomeRoute(
     padding: PaddingValues,
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
-    navigateToTimeline: () -> Unit
+    navigateToTimeline: () -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -94,7 +97,9 @@ fun HomeRoute(
                 uiState = uiState,
                 navigateToPointHistory = navigateToPointHistory,
                 navigateToLook = navigateToLook,
-                navigateToTimeline = navigateToTimeline
+                navigateToTimeline = navigateToTimeline,
+                onFabClick = navigateToEnroll,
+                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) }
             )
         }
 
@@ -107,17 +112,14 @@ fun HomeRoute(
 fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
-    onMainDateClick: () -> Unit = {},
     onEnrollClick: () -> Unit = {},
-    onDateCourseClick: (Int) -> Unit = {},
-    onAdvertisementClick: (Int) -> Unit = {},
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
-    onFabClick: () -> Unit = {}
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    onFabClick: (EnrollType, Int?) -> Unit
 ) {
     val pagerState = rememberPagerState()
-    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -189,7 +191,7 @@ fun HomeScreen(
                     items(uiState.topLikedCourses) { topLikedCourses ->
                         HomeHotCourseCard(
                             course = topLikedCourses,
-                            onClick = { onDateCourseClick(topLikedCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.id) }
                         )
                     }
                 }
@@ -206,7 +208,7 @@ fun HomeScreen(
                         HomeAdvertisement(
                             advertisement = uiState.advertisements[page],
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
                         )
                     }
                     DateRoadTextTag(
@@ -256,7 +258,7 @@ fun HomeScreen(
                     uiState.latestCourses.forEach { latestCourses ->
                         DateRoadCourseCard(
                             course = latestCourses,
-                            onClick = { onDateCourseClick(latestCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.id) }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                     }
@@ -272,7 +274,7 @@ fun HomeScreen(
     ) {
         DateRoadImageButton(
             isEnabled = true,
-            onClick = onFabClick,
+            onClick = { onFabClick(EnrollType.COURSE, null) },
             cornerRadius = 44.dp,
             paddingHorizontal = 16.dp,
             paddingVertical = 16.dp,
@@ -291,6 +293,7 @@ fun HomeScreenPreview() {
             navigateToPointHistory = {},
             navigateToLook = {},
             navigateToTimeline = {},
+            navigateToCourseDetail = { _, _ -> },
             uiState = HomeContract.HomeUiState(
                 loadState = LoadState.Success,
                 mainDate = MainDate(
@@ -367,7 +370,8 @@ fun HomeScreenPreview() {
                 userName = "현진",
                 remainingPoints = 100,
                 currentBannerPage = 0
-            )
+            ),
+            onFabClick = { _, _ -> }
         )
     }
 }

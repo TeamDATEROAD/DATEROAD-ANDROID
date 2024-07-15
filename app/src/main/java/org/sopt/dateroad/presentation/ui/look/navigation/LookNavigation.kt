@@ -6,6 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
+import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.look.LookRoute
 
 fun NavController.navigationLook(navOptions: NavOptions) {
@@ -16,9 +18,11 @@ fun NavController.navigationLook(navOptions: NavOptions) {
 }
 
 fun NavGraphBuilder.lookNavGraph(
-    padding: PaddingValues
+    padding: PaddingValues,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Look::class.simpleName.orEmpty()) {
-        LookRoute(padding = padding)
+        LookRoute(padding = padding, navigateToEnroll = navigateToEnroll, navigateToCourseDetail = navigateToCourseDetail)
     }
 }

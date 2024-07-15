@@ -11,23 +11,24 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
-import org.sopt.dateroad.presentation.ui.coursedetail.navigation.CourseDetailRoute
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.navigationCourseDetail
-import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationToEnroll
+import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
-import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateToMyCourses
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
-import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationToOnboarding
-import org.sopt.dateroad.presentation.ui.past.navigation.navigationToPast
-import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationToPointHistory
-import org.sopt.dateroad.presentation.ui.profile.navigation.navigationToProfile
+import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
+import org.sopt.dateroad.presentation.ui.past.navigation.navigationPast
+import org.sopt.dateroad.presentation.ui.pointguide.navigationPointGuide
+import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
+import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
-import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
+import org.sopt.dateroad.presentation.ui.signin.navigation.SignInRoute
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
@@ -37,7 +38,7 @@ class MainNavigator(
     private val currentDestination: NavDestination?
         @Composable get() = navHostController.currentBackStackEntryAsState().value?.destination
 
-    val startDestination = CourseDetailRoute.ROUTE
+    val startDestination = SignInRoute.ROUTE
 
     val currentMainNavigationBarItem: MainNavigationBarItemType?
         @Composable get() = MainNavigationBarItemType.find { mainNavigationBarRoute ->
@@ -63,73 +64,76 @@ class MainNavigator(
         }
     }
 
-    fun navigateToEnroll(enrollType: EnrollType) {
-        navHostController.navigationToEnroll(enrollType = enrollType)
+    fun navigateToCourseDetail(courseDetailType: CourseDetailType, id: Int) {
+        navHostController.navigationCourseDetail(courseDetailType = courseDetailType, id = id)
     }
 
-    fun navigateToSignIn() {
-        navHostController.navigationSignIn()
+    fun navigateToEnroll(enrollType: EnrollType, courseId: Int?) {
+        navHostController.navigationEnroll(enrollType = enrollType)
     }
 
-    fun navigateProfile() {
-        navHostController.navigationToProfile()
+    fun navigateToHome(navOptions: NavOptions? = null) {
+        navHostController.navigationHome(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
+    }
+
+    fun navigateToLook(navOptions: NavOptions? = null) {
+        navHostController.navigationLook(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
     }
 
     fun navigateToMyCourse(myCourseType: MyCourseType) {
-        navHostController.navigateToMyCourses(myCourseType = myCourseType)
+        navHostController.navigateMyCourses(myCourseType = myCourseType)
     }
 
     fun navigateToOnboarding() {
-        navHostController.navigationToOnboarding()
+        navHostController.navigationOnboarding()
     }
 
     fun navigateToPast() {
-        navHostController.navigationToPast()
+        navHostController.navigationPast()
+    }
+
+    fun navigateToPointGuide() {
+        navHostController.navigationPointGuide()
     }
 
     fun navigateToPointHistory() {
-        navHostController.navigationToPointHistory()
+        navHostController.navigationPointHistory()
     }
 
     fun navigateToProfile() {
-        navHostController.navigationToProfile()
-    }
-
-    fun navigateLook(navOptions: NavOptions? = null) {
-        if (navOptions != null) {
-            navHostController.navigationLook(navOptions)
-        } else {
-            navHostController.navigationLook(
-                navOptions {
-                    popUpTo(navHostController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-            )
-        }
+        navHostController.navigationProfile()
     }
 
     fun navigateTimeline(navOptions: NavOptions? = null) {
-        if (navOptions != null) {
-            navHostController.navigationTimeline(navOptions)
-        } else {
-            navHostController.navigationTimeline(
-                navOptions {
-                    popUpTo(navHostController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
+        navHostController.navigationTimeline(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
                 }
-            )
-        }
+                launchSingleTop = true
+            }
+        )
     }
 
     fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
         navHostController.navigateToTimelineDetail(dateType, dateId)
     }
 
-    fun popBackStack() {
+    private fun popBackStack() {
         navHostController.popBackStack()
     }
 
@@ -137,10 +141,6 @@ class MainNavigator(
         if (!isSameCurrentDestination<MainNavigationBarRoute.Dummy>()) {
             popBackStack()
         }
-    }
-
-    fun navigateCourseDetail() {
-        navHostController.navigationCourseDetail()
     }
 
     private inline fun <reified T : Route> isSameCurrentDestination(): Boolean =

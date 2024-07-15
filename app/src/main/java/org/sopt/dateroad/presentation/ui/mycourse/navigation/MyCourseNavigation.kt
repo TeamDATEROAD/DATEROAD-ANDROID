@@ -10,7 +10,7 @@ import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.mycourse.MyCourseRoute
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCoursesRoute.ROUTE_WITH_ARGUMENT
 
-fun NavController.navigateToMyCourses(myCourseType: MyCourseType) {
+fun NavController.navigateMyCourses(myCourseType: MyCourseType) {
     this.navigate(route = MyCoursesRoute.route(myCourseType = myCourseType))
 }
 

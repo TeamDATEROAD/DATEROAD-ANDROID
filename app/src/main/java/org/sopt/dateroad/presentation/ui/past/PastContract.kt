@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.past
 
 import org.sopt.dateroad.domain.model.Date
+import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -14,7 +15,7 @@ class PastContract {
 
     sealed interface PastSideEffect : UiSideEffect {
         data object PopBackStack : PastSideEffect
-        data class NavigateToTimelineDetail(val dateId: Int) : PastSideEffect
+        data class NavigateToTimelineDetail(val dateType: DateType, val dateId: Int) : PastSideEffect
     }
 
     sealed class PastEvent : UiEvent {

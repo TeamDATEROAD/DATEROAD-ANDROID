@@ -32,8 +32,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun PastRoute(
     padding: PaddingValues,
     viewModel: PastViewModel = hiltViewModel(),
-    popBackStack: () -> Unit
-    // navigateToTimelineDetail: (Int) -> Unit
+    popBackStack: () -> Unit,
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -46,8 +46,7 @@ fun PastRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { pastSideEffect ->
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
-                is PastContract.PastSideEffect.NavigateToTimelineDetail -> {}
-                // navigateToTimelineDetail(pastSideEffect.dateId)
+                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.dateType, pastSideEffect.dateId)
             }
         }
     }
@@ -58,7 +57,7 @@ fun PastRoute(
                 padding = padding,
                 pastUiState = uiState,
                 popBackStack = { viewModel.setSideEffect(PastContract.PastSideEffect.PopBackStack) },
-                navigateToTimelineDetail = { dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(dateId = dateId)) }
+                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) }
             )
         }
 
@@ -71,7 +70,7 @@ fun PastScreen(
     padding: PaddingValues,
     pastUiState: PastContract.PastUiState = PastContract.PastUiState(),
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (Int) -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -96,7 +95,7 @@ fun PastScreen(
                     PastCard(
                         date = pastUiState.dates[index],
                         dateType = DateType.getDateTypeByIndex(index),
-                        onClick = { navigateToTimelineDetail(index) }
+                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), index) }
                     )
                 }
             }
@@ -111,7 +110,7 @@ fun PastScreenPreview() {
         PastScreen(
             padding = PaddingValues(0.dp),
             popBackStack = { },
-            navigateToTimelineDetail = {}
+            navigateToTimelineDetail = { _, _ -> }
         )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
 import org.sopt.dateroad.presentation.ui.component.webview.PrivacyPolicyWebView
@@ -25,14 +28,27 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun SignInRoute(
-    viewModel: SignInViewModel = hiltViewModel()
+    viewModel: SignInViewModel = hiltViewModel(),
+    navigateToOnboarding: () -> Unit,
+    navigateToHome: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { signInSideEffect ->
+                when (signInSideEffect) {
+                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                    is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
+                }
+            }
+    }
 
     SignInScreen(
         signInUiState = uiState,
-        onSignIn = { viewModel.setEvent(SignInContract.SignInEvent.PostSignIn) },
-        webViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClick) },
+        onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding) },
+        onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
         webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
     )
 }
@@ -40,8 +56,8 @@ fun SignInRoute(
 @Composable
 fun SignInScreen(
     signInUiState: SignInContract.SignInUiState = SignInContract.SignInUiState(),
-    onSignIn: () -> Unit,
-    webViewClicked: () -> Unit,
+    onSignInClicked: () -> Unit,
+    onWebViewClicked: () -> Unit,
     webViewClose: () -> Unit
 ) {
     if (signInUiState.isWebViewOpened) {
@@ -58,9 +74,7 @@ fun SignInScreen(
             Spacer(modifier = Modifier.weight(167f))
             DateRoadKakaoLoginButton(
                 modifier = Modifier.padding(horizontal = 30.dp),
-                onClick = {
-                    onSignIn()
-                }
+                onClick = onSignInClicked
             )
             Spacer(modifier = Modifier.weight(16f))
             Text(
@@ -68,9 +82,7 @@ fun SignInScreen(
                 color = DateRoadTheme.colors.gray200,
                 style = DateRoadTheme.typography.bodyMed15,
                 textDecoration = TextDecoration.Underline,
-                modifier = Modifier.noRippleClickable {
-                    webViewClicked()
-                }
+                modifier = Modifier.noRippleClickable(onClick = onWebViewClicked)
             )
             Spacer(modifier = Modifier.weight(37f))
         }

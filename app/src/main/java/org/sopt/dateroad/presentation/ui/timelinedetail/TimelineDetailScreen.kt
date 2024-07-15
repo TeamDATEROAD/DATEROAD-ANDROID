@@ -286,11 +286,11 @@ fun TimelineDetailScreen(
     if (uiState.showDeleteBottomSheet) {
         DateRoadBasicBottomSheet(
             isBottomSheetOpen = true,
-            title = stringResource(id = R.string.region_bottom_sheet_set_timeline),
+            title = stringResource(id = R.string.timeline_detail_bottom_sheet_title),
             isButtonEnabled = false,
-            buttonText = stringResource(id = R.string.profile_bottom_sheet_button_text),
+            buttonText = stringResource(id = R.string.dialog_cancel),
             itemList = listOf(
-                stringResource(id = R.string.region_bottom_sheet_delete) to { setShowDeleteDialog(true) }
+                stringResource(id = R.string.timeline_detail_delete) to { setShowDeleteDialog(true) }
             ),
             onDismissRequest = { setShowDeleteBottomSheet(false) }
         )

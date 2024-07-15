@@ -299,4 +299,8 @@
     <string name="home_main_date_point">%d P</string>
     <string name="home_advertisement_number">%d/%d</string>
 
+    <!-- TimelineDetail -->
+    <string name="timeline_detail_bottom_sheet_title">데이트 일정 설정</string>
+    <string name="timeline_detail_delete">글 삭제</string>
+
 </resources>
