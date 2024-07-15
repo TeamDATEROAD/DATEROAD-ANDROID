@@ -21,7 +21,7 @@ fun DateRoadBasicButton(
         isEnabled = isEnabled,
         textContent = textContent,
         textStyle = DateRoadTheme.typography.bodyBold15,
-        enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+        enabledBackgroundColor = DateRoadTheme.colors.purple600,
         enabledTextColor = DateRoadTheme.colors.white,
         disabledBackgroundColor = DateRoadTheme.colors.gray200,
         disabledTextColor = DateRoadTheme.colors.gray400,

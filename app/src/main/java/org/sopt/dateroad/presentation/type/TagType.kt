@@ -14,7 +14,7 @@ enum class TagType(
     val roundedCornerShape: Int
 ) {
     ADVERTISEMENT_TITLE(
-        backgroundColor = defaultDateRoadColors.mediumPurple,
+        backgroundColor = defaultDateRoadColors.purple500,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 10,
         paddingVertical = 2,
@@ -30,7 +30,7 @@ enum class TagType(
         roundedCornerShape = 12
     ),
     TIMELINE_D_DAY(
-        backgroundColor = defaultDateRoadColors.deepPurple,
+        backgroundColor = defaultDateRoadColors.purple600,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 10,
         paddingVertical = 2,
@@ -46,7 +46,7 @@ enum class TagType(
         roundedCornerShape = 20
     ),
     HEART(
-        backgroundColor = defaultDateRoadColors.deepPurple,
+        backgroundColor = defaultDateRoadColors.purple600,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 10,
         paddingVertical = 2,
@@ -86,7 +86,7 @@ enum class TagType(
         roundedCornerShape = 20
     ),
     PAST_DATE(
-        backgroundColor = defaultDateRoadColors.lightPink,
+        backgroundColor = defaultDateRoadColors.pink100,
         contentColor = defaultDateRoadColors.black,
         paddingHorizontal = 14,
         paddingVertical = 6,
@@ -94,7 +94,7 @@ enum class TagType(
         roundedCornerShape = 20
     ),
     PLACE_CARD_NUMBER(
-        backgroundColor = defaultDateRoadColors.deepPurple,
+        backgroundColor = defaultDateRoadColors.purple600,
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 9,
         paddingVertical = 4,

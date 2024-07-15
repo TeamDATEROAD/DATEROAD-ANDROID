@@ -27,7 +27,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadKakaoLoginButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = DateRoadTheme.colors.kakao,
+    backgroundColor: Color = DateRoadTheme.colors.kakaoYellow,
     contentColor: Color = DateRoadTheme.colors.black,
     onClick: () -> Unit = {}
 ) {

@@ -81,7 +81,7 @@ fun DateRoadBasicBottomSheetContent(
             modifier = Modifier.fillMaxWidth(),
             text = text,
             textAlign = TextAlign.Center,
-            color = DateRoadTheme.colors.deepPurple,
+            color = DateRoadTheme.colors.purple500,
             style = DateRoadTheme.typography.bodySemi15
         )
     }

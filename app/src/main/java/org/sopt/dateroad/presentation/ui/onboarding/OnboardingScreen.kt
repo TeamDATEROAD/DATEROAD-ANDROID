@@ -96,7 +96,7 @@ fun OnboardingScreen(
                     text = PartialColorText(
                         stringResource(id = onboardingType.titleRes),
                         keywords = listOf("포인트", "데이트코스", "100", "다양한"),
-                        color = DateRoadTheme.colors.deepPurple
+                        color = DateRoadTheme.colors.purple600
                     ),
                     style = DateRoadTheme.typography.titleExtra24,
                     textAlign = TextAlign.Center
@@ -119,7 +119,9 @@ fun OnboardingScreen(
         }
         Spacer(modifier = Modifier.height(14.dp))
         DateRoadFilledButton(
-            modifier = Modifier.align(Alignment.CenterHorizontally).width(242.dp),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .width(242.dp),
             isEnabled = true,
             textContent =
             if (pagerState.currentPage == OnboardingType.entries.size - 1) {
@@ -138,7 +140,7 @@ fun OnboardingScreen(
                 }
             },
             textStyle = DateRoadTheme.typography.bodyBold15,
-            enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+            enabledBackgroundColor = DateRoadTheme.colors.purple600,
             enabledTextColor = DateRoadTheme.colors.white,
             disabledBackgroundColor = DateRoadTheme.colors.gray200,
             disabledTextColor = DateRoadTheme.colors.gray400,

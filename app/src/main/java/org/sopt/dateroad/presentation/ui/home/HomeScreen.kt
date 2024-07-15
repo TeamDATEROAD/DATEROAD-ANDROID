@@ -124,7 +124,7 @@ fun HomeScreen(
         modifier = Modifier
             .padding(padding)
             .fillMaxSize()
-            .background(DateRoadTheme.colors.deepPurple)
+            .background(DateRoadTheme.colors.purple600)
             .verticalScroll(rememberScrollState())
     ) {
         DateRoadHomeTopBar(
@@ -160,7 +160,7 @@ fun HomeScreen(
                         keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
                         color = DateRoadTheme.colors.black
                     ),
-                    color = DateRoadTheme.colors.deepPurple,
+                    color = DateRoadTheme.colors.purple600,
                     style = DateRoadTheme.typography.titleExtra24
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -177,7 +177,7 @@ fun HomeScreen(
                     DateRoadTextButton(
                         textContent = stringResource(id = R.string.button_more),
                         textStyle = DateRoadTheme.typography.bodyMed13,
-                        textColor = DateRoadTheme.colors.deepPurple,
+                        textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
                         paddingVertical = 8.dp,
                         onClick = navigateToLook
@@ -244,7 +244,7 @@ fun HomeScreen(
                     DateRoadTextButton(
                         textContent = stringResource(id = R.string.button_more),
                         textStyle = DateRoadTheme.typography.bodyBold13,
-                        textColor = DateRoadTheme.colors.deepPurple,
+                        textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
                         paddingVertical = 8.dp,
                         onClick = navigateToLook

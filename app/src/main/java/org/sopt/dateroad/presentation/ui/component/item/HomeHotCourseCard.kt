@@ -49,7 +49,7 @@ fun HomeHotCourseCard(
             color = DateRoadTheme.colors.white,
             modifier = Modifier
                 .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-                .background(DateRoadTheme.colors.mediumPurple)
+                .background(DateRoadTheme.colors.purple500)
                 .padding(vertical = 4.dp, horizontal = 13.dp)
         )
         Box(

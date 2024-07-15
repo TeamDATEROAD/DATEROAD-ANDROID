@@ -80,7 +80,7 @@ fun DateRoadTextFieldWithButton(
                 onValueChange = {
                     if (it.length <= maxLength) onValueChange(it)
                 },
-                cursorBrush = SolidColor(DateRoadTheme.colors.deepPurple),
+                cursorBrush = SolidColor(DateRoadTheme.colors.purple600),
                 singleLine = true,
                 keyboardActions = keyboardActions,
                 keyboardOptions = keyboardOptions,
@@ -102,7 +102,7 @@ fun DateRoadTextFieldWithButton(
                 isEnabled = isButtonEnabled,
                 textContent = buttonText,
                 textStyle = DateRoadTheme.typography.bodyMed13,
-                enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                enabledBackgroundColor = DateRoadTheme.colors.purple600,
                 enabledTextColor = DateRoadTheme.colors.white,
                 disabledBackgroundColor = DateRoadTheme.colors.gray200,
                 disabledTextColor = DateRoadTheme.colors.gray400,
@@ -123,7 +123,7 @@ fun DateRoadTextFieldWithButton(
                     is TextFieldValidateResult.ConflictError -> conflictErrorDescription
                     else -> ""
                 },
-                color = if (validateState == TextFieldValidateResult.Success) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.alertRed,
+                color = if (validateState == TextFieldValidateResult.Success) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.alertRed,
                 style = DateRoadTheme.typography.capReg11
             )
             Text(

@@ -53,7 +53,7 @@ fun DateRoadTextButtonPreview() {
             DateRoadTextButton(
                 textContent = "완료",
                 textStyle = DateRoadTheme.typography.bodyMed13,
-                textColor = DateRoadTheme.colors.deepPurple,
+                textColor = DateRoadTheme.colors.purple600,
                 paddingHorizontal = 18.dp,
                 paddingVertical = 6.dp,
                 onClick = {}
@@ -61,7 +61,7 @@ fun DateRoadTextButtonPreview() {
             DateRoadTextButton(
                 textContent = "더보기",
                 textStyle = DateRoadTheme.typography.bodyMed13,
-                textColor = DateRoadTheme.colors.deepPurple,
+                textColor = DateRoadTheme.colors.purple600,
                 paddingHorizontal = 20.dp,
                 paddingVertical = 8.dp,
                 onClick = {}

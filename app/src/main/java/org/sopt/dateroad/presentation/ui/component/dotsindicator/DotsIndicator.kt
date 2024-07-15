@@ -21,7 +21,7 @@ fun DotsIndicator(totalDots: Int, selectedIndex: Int, modifier: Modifier = Modif
         verticalAlignment = Alignment.Bottom
     ) {
         for (i in 0 until totalDots) {
-            val color = if (i == selectedIndex) DateRoadTheme.colors.deepPurple else DateRoadTheme.colors.gray200
+            val color = if (i == selectedIndex) DateRoadTheme.colors.purple600 else DateRoadTheme.colors.gray200
             Box(
                 modifier = Modifier
                     .size(indicatorSize)

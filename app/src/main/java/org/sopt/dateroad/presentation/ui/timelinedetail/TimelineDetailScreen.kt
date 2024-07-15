@@ -221,7 +221,7 @@ fun TimelineDetailScreen(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
-                        .background(DateRoadTheme.colors.deepPurple, CircleShape)
+                        .background(DateRoadTheme.colors.purple600, CircleShape)
                         .noRippleClickable(onClick = showKakaoClicked)
                 ) {
                     Row(
@@ -230,7 +230,7 @@ fun TimelineDetailScreen(
                         Box(
                             modifier = Modifier
                                 .padding(top = 14.dp, bottom = 14.dp, start = 24.dp)
-                                .background(DateRoadTheme.colors.kakao, CircleShape)
+                                .background(DateRoadTheme.colors.kakaoYellow, CircleShape)
                                 .clip(CircleShape)
                         ) {
                             Image(
@@ -238,7 +238,7 @@ fun TimelineDetailScreen(
                                 contentDescription = null,
                                 modifier = Modifier
                                     .padding(6.dp)
-                                    .background(DateRoadTheme.colors.kakao)
+                                    .background(DateRoadTheme.colors.kakaoYellow)
                                     .clip(CircleShape)
                             )
                         }
@@ -258,7 +258,7 @@ fun TimelineDetailScreen(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
-                        .background(DateRoadTheme.colors.deepPurple, CircleShape)
+                        .background(DateRoadTheme.colors.purple600, CircleShape)
                     // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
                 ) {
                     Text(

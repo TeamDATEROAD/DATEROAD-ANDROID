@@ -60,7 +60,7 @@ fun PointGuideScreen(
                 text = PartialColorText(
                     text = stringResource(id = R.string.point_guide_title),
                     keywords = listOf("포인트", "데이트 코스"),
-                    color = DateRoadTheme.colors.deepPurple
+                    color = DateRoadTheme.colors.purple600
                 ),
                 style = DateRoadTheme.typography.titleExtra20
             )
