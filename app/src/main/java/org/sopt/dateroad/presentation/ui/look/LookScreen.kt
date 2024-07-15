@@ -28,9 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.GyeonggiAreaType
 import org.sopt.dateroad.presentation.type.IncheonAreaType
 import org.sopt.dateroad.presentation.type.MoneyTagType
@@ -51,13 +53,23 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun LookRoute(
     padding: PaddingValues,
-    viewModel: LookViewModel = hiltViewModel()
+    viewModel: LookViewModel = hiltViewModel(),
+    navigateToEnroll: (EnrollType, Int?) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(LookContract.LookEvent.FetchCourses)
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect{ lookSideEffect ->
+                when (lookSideEffect) {
+                    is LookContract.LookSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, null)
+                }
+            }
     }
 
     when (uiState.loadState) {
@@ -71,7 +83,8 @@ fun LookRoute(
                 onMoneyChipClicked = { moneyTagType -> viewModel.setEvent(LookContract.LookEvent.OnMoneyChipClicked(money = moneyTagType)) },
                 onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area)) },
                 onRegionBottomSheetRegionClicked = { region: RegionType? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region)) },
-                onRegionBottomSheetAreaClicked = { area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)) }
+                onRegionBottomSheetAreaClicked = { area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)) },
+                onEnrollButtonClicked = { viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToEnroll)}
             )
         }
 
@@ -89,7 +102,8 @@ fun LookScreen(
     onMoneyChipClicked: (MoneyTagType?) -> Unit = {},
     onRegionBottomSheetButtonClicked: (RegionType?, Any?) -> Unit = { _, _ -> },
     onRegionBottomSheetRegionClicked: (RegionType?) -> Unit = {},
-    onRegionBottomSheetAreaClicked: (Any?) -> Unit = {}
+    onRegionBottomSheetAreaClicked: (Any?) -> Unit = {},
+    onEnrollButtonClicked: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +116,7 @@ fun LookScreen(
             buttonContent = {
                 DateRoadImageButton(
                     isEnabled = true,
-                    onClick = {},
+                    onClick = onEnrollButtonClicked,
                     cornerRadius = 14.dp,
                     paddingHorizontal = 16.dp,
                     paddingVertical = 9.dp
