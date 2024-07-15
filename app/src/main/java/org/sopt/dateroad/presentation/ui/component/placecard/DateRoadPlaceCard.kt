@@ -18,10 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
@@ -56,12 +55,14 @@ fun DateRoadPlaceCard(
         Text(
             text = place.title,
             modifier = Modifier.weight(1f),
-            style = DateRoadTheme.typography.bodyBold15
+            style = DateRoadTheme.typography.bodyBold15,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.width(10.dp))
 
         DateRoadTextTag(
-            textContent = stringResource(id = R.string.duration, place.duration),
+            textContent = place.duration,
             tagContentType = TagType.PLACE_CARD_TIME
         )
         placeCardType.iconRes?.let {
@@ -89,7 +90,7 @@ fun DateRoadPlaceCardPreview() {
     Column {
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_NORMAL,
-            place = Place(sequence = 1, title = "성수미술관 성수점", duration = "2.5시간")
+            place = Place(sequence = 1, title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(

@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
@@ -25,6 +26,7 @@ import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationToPoi
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationToProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
+import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
 class MainNavigator(
     val navHostController: NavHostController
@@ -110,6 +112,10 @@ class MainNavigator(
                 }
             )
         }
+    }
+
+    fun navigateToTimelineDetail(dateType: DateType, dateId: Int) {
+        navHostController.navigateToTimelineDetail(dateType, dateId)
     }
 
     private fun popBackStack() {

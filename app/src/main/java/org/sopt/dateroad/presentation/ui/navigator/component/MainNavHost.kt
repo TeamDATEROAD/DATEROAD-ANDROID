@@ -20,6 +20,7 @@ import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGra
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
+import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.timelineDetailGraph
 
 @Composable
 fun MainNavHost(
@@ -53,6 +54,10 @@ fun MainNavHost(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
+            readNavGraph(
+                padding = padding,
+                navigateToEnroll = navigator::navigateToEnroll
+            )
             myPageNavGraph(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
@@ -68,6 +73,11 @@ fun MainNavHost(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome
             )
+            onboardingNavGraph()
+            timelineDetailGraph(
+                padding = padding,
+                popBackStack = navigator::popBackStackIfNotHome
+            )
             profileNavGraph(
                 navigateToHome = navigator::navigateToProfile
                 // TODO: 추후 navigateHome 으로 변경
@@ -78,8 +88,9 @@ fun MainNavHost(
             )
             timelineNavGraph(
                 padding = padding,
-                navigateToPast = navigator::navigateToPast,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
+                navigateToEnroll = navigator::navigateToEnroll,
+                popBackStack = navigator::popBackStackIfNotHome
             )
         }
     }

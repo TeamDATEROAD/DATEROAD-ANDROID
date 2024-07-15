@@ -13,15 +13,16 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
 
     override suspend fun handleEvent(event: TimelineContract.TimelineEvent) {
         when (event) {
-            is TimelineContract.TimelineEvent.FetchTimeline -> fetchTimeline()
+            is TimelineContract.TimelineEvent.FetchTimeline -> setState { copy(loadState = event.loadState, dates = event.dates) }
+            is TimelineContract.TimelineEvent.PageChanged -> setState { copy(currentPage = event.page) }
             is TimelineContract.TimelineEvent.AddDateCardClicked -> handleAddDateCardClicked()
-            is TimelineContract.TimelineEvent.ShowMaxItemsModal -> showMaxItemsModal()
+            is TimelineContract.TimelineEvent.ShowMaxItemsModal -> setState { copy(showMaxDateCardModal = true) }
         }
     }
 
-    private fun fetchTimeline() {
-        setState {
-            copy(
+    fun fetchTimeline() {
+        setEvent(
+            TimelineContract.TimelineEvent.FetchTimeline(
                 loadState = LoadState.Success,
                 dates = listOf(
                     Date(
@@ -66,18 +67,14 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                     )
                 )
             )
-        }
+        )
     }
 
     private fun handleAddDateCardClicked() {
         if (currentState.dates.size >= 5) {
-            setState { copy(showMaxDateCardModal = true) }
+            setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal)
         } else {
             setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll)
         }
-    }
-
-    private fun showMaxItemsModal() {
-        setState { copy(showMaxDateCardModal = true) }
     }
 }
