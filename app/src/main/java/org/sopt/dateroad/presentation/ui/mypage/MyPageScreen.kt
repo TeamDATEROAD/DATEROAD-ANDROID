@@ -63,7 +63,8 @@ fun MyPageRoute(
     padding: PaddingValues,
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
-    navigateToMyCourse: (MyCourseType) -> Unit
+    navigateToMyCourse: (MyCourseType) -> Unit,
+    navigateToPointGuide: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -78,6 +79,7 @@ fun MyPageRoute(
                 when (myPageSideEffect) {
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
+                    is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
                 }
             }
     }
@@ -91,6 +93,7 @@ fun MyPageRoute(
                 deleteWithdrawal = { viewModel.deleteWithdrawal() },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
+                navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
                 setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
                 setLogoutDialog = { showLogoutDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)) },
                 setWithdrawalDialog = { showWithdrawalDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)) }
@@ -109,6 +112,7 @@ fun MyPageScreen(
     deleteWithdrawal: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: () -> Unit,
+    navigateToPointGuide: () -> Unit,
     setSoonDialog: (Boolean) -> Unit,
     setLogoutDialog: (Boolean) -> Unit,
     setWithdrawalDialog: (Boolean) -> Unit
@@ -201,6 +205,7 @@ fun MyPageScreen(
                 onClick = {
                     when (myPageMenuType) {
                         MyPageMenuType.MY_COURSE_ENROLL -> navigateToMyCourse()
+                        MyPageMenuType.POINT_SYSTEM -> navigateToPointHistory()
                         MyPageMenuType.LOGOUT -> setLogoutDialog(true)
                         else -> Unit
                     }
@@ -259,6 +264,7 @@ fun MyPageScreenPreview() {
             deleteWithdrawal = {},
             navigateToPointHistory = {},
             navigateToMyCourse = {},
+            navigateToPointGuide = {},
             setSoonDialog = {},
             setLogoutDialog = {},
             setWithdrawalDialog = {}

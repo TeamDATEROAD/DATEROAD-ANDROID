@@ -66,7 +66,8 @@ fun MainNavHost(
             myPageNavGraph(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
-                navigateToMyCourse = navigator::navigateToMyCourse
+                navigateToMyCourse = navigator::navigateToMyCourse,
+                navigateToPointGuide = navigator::navigateToPointGuide
             )
 
             onboardingNavGraph(navigateToProfile = navigator::navigateToProfile)
