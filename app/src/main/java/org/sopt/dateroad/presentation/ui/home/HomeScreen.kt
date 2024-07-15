@@ -62,7 +62,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -122,14 +122,12 @@ fun HomeRoute(
 fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
-    onMainDateClick: () -> Unit = {},
     onEnrollClick: () -> Unit = {},
-    onDateCourseClick: (Int) -> Unit = {},
-    onAdvertisementClick: (Int) -> Unit = {},
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
-    onFabClick: () -> Unit = {}
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    onFabClick: (EnrollType, Int?) -> Unit,
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -213,7 +211,7 @@ fun HomeScreen(
                         items(uiState.topLikedCourses) { topLikedCourses ->
                             HomeHotCourseCard(
                                 course = topLikedCourses,
-                                onClick = { onDateCourseClick(topLikedCourses.id) }
+                                onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
                             )
                         }
                     }
@@ -231,7 +229,7 @@ fun HomeScreen(
                         ) { page ->
                             HomeAdvertisement(
                                 advertisement = uiState.advertisements[page],
-                                onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
+                                onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
                             )
                         }
                         DateRoadTextTag(
@@ -278,7 +276,7 @@ fun HomeScreen(
                 uiState.latestCourses.forEach { latestCourses ->
                     DateRoadCourseCard(
                         course = latestCourses,
-                        onClick = { onDateCourseClick(latestCourses.id) }
+                        onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.courseId) }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -292,7 +290,7 @@ fun HomeScreen(
         ) {
             DateRoadImageButton(
                 isEnabled = true,
-                onClick = onFabClick,
+                onClick = {onFabClick(EnrollType.COURSE, null)},
                 cornerRadius = 44.dp,
                 paddingHorizontal = 16.dp,
                 paddingVertical = 16.dp,
@@ -325,8 +323,8 @@ fun HomeScreenPreview() {
                 ),
                 topLikedCourses = listOf(
                     Course(
-                        id = 1,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "Seoul",
                         title = "Beautiful Seoul Tour",
                         cost = "$100",
@@ -334,8 +332,8 @@ fun HomeScreenPreview() {
                         like = "150"
                     ),
                     Course(
-                        id = 2,
-                        url = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
                         city = "Busan",
                         title = "Amazing Busan Trip",
                         cost = "$120",
@@ -345,8 +343,8 @@ fun HomeScreenPreview() {
                 ),
                 latestCourses = listOf(
                     Course(
-                        id = 3,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Incheon",
                         title = "Incheon Day Tour",
                         cost = "$80",
@@ -354,8 +352,8 @@ fun HomeScreenPreview() {
                         like = "100"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Jeju",
                         title = "Jeju Island Adventure",
                         cost = "$150",
@@ -363,8 +361,8 @@ fun HomeScreenPreview() {
                         like = "300"
                     ),
                     Course(
-                        id = 4,
-                        url = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
                         city = "Jeju",
                         title = "Jeju Island Adventure",
                         cost = "$150",
@@ -375,17 +373,18 @@ fun HomeScreenPreview() {
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
                     )
                 ),
                 userName = "현진",
                 remainingPoints = 100,
                 currentBannerPage = 0
-            )
+            ),
+            onFabClick = { _, _ -> }
         )
     }
 }
