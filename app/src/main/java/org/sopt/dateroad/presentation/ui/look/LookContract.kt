@@ -21,6 +21,7 @@ class LookContract {
     ) : UiState
 
     sealed interface LookSideEffect : UiSideEffect {
+        data class NavigateToCourseDetail(val courseId: Int): LookSideEffect
         data object NavigateToEnroll : LookSideEffect
     }
 

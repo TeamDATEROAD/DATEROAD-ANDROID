@@ -31,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
+import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.GyeonggiAreaType
@@ -54,7 +55,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun LookRoute(
     padding: PaddingValues,
     viewModel: LookViewModel = hiltViewModel(),
-    navigateToEnroll: (EnrollType, Int?) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -67,6 +69,7 @@ fun LookRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { lookSideEffect ->
                 when (lookSideEffect) {
+                    is LookContract.LookSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(CourseDetailType.COURSE, lookSideEffect.courseId)
                     is LookContract.LookSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, null)
                 }
             }
@@ -84,7 +87,8 @@ fun LookRoute(
                 onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area)) },
                 onRegionBottomSheetRegionClicked = { region: RegionType? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region)) },
                 onRegionBottomSheetAreaClicked = { area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)) },
-                onEnrollButtonClicked = { viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToEnroll) }
+                onEnrollButtonClicked = { viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToEnroll) },
+                onCourseCardClicked = { courseId -> viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )
         }
 
@@ -103,7 +107,8 @@ fun LookScreen(
     onRegionBottomSheetButtonClicked: (RegionType?, Any?) -> Unit = { _, _ -> },
     onRegionBottomSheetRegionClicked: (RegionType?) -> Unit = {},
     onRegionBottomSheetAreaClicked: (Any?) -> Unit = {},
-    onEnrollButtonClicked: () -> Unit = {}
+    onEnrollButtonClicked: () -> Unit = {},
+    onCourseCardClicked: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -185,7 +190,7 @@ fun LookScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(lookUiState.courses.size) { index ->
-                LookCourseCard(course = lookUiState.courses[index])
+                LookCourseCard(course = lookUiState.courses[index], onClick = { onCourseCardClicked(index) })
             }
         }
     }

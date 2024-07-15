@@ -62,7 +62,8 @@ fun MainNavHost(
 
             lookNavGraph(
                 padding = padding,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 
             myCoursesNavGraph(
