@@ -255,7 +255,7 @@ fun CourseDetailScreen(
                                     Text(
                                         text = buttonDescription,
                                         style = DateRoadTheme.typography.bodySemi15,
-                                        color = DateRoadTheme.colors.deepPurple,
+                                        color = DateRoadTheme.colors.purple600,
                                         modifier = Modifier.align(Alignment.CenterHorizontally)
                                     )
                                     Spacer(modifier = Modifier.height(24.dp))
@@ -274,7 +274,7 @@ fun CourseDetailScreen(
                                             }
                                         },
                                         textStyle = DateRoadTheme.typography.bodyBold15,
-                                        enabledBackgroundColor = DateRoadTheme.colors.deepPurple,
+                                        enabledBackgroundColor = DateRoadTheme.colors.purple600,
                                         enabledTextColor = DateRoadTheme.colors.white,
                                         disabledBackgroundColor = DateRoadTheme.colors.gray200,
                                         disabledTextColor = DateRoadTheme.colors.gray400,
@@ -404,7 +404,7 @@ fun CourseDetailScreen(
                 Row {
                     DateRoadImageButton(
                         iconResId = R.drawable.ic_coures_detail_heart_default,
-                        enabledContentColor = DateRoadTheme.colors.deepPurple,
+                        enabledContentColor = DateRoadTheme.colors.purple600,
                         disabledContentColor = DateRoadTheme.colors.gray200,
                         enabledBackgroundColor = DateRoadTheme.colors.gray100,
                         disabledBackgroundColor = DateRoadTheme.colors.gray100,
