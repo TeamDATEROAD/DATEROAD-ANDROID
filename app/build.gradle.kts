@@ -111,6 +111,9 @@ dependencies {
     // View Pager
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+
+    // Web View
+    implementation(libs.accompanist.webview)
 }
 
 ktlint {

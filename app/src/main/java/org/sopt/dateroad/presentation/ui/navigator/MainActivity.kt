@@ -34,13 +34,12 @@ class MainActivity : ComponentActivity() {
                 if (showSplash) {
                     SplashScreen()
                 } else {
-                    MainScreen(
-                        navigator = navigator
-                    )
+                    MainScreen(navigator = navigator)
                 }
             }
         }
     }
+
     companion object {
         const val SPLASH_SCREEN_DELAY = 2000L
     }
