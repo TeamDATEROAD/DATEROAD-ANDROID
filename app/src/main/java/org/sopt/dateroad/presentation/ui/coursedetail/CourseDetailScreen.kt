@@ -23,7 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -153,7 +153,7 @@ fun CourseDetailScreen(
         } else {
             stringResource(id = R.string.course_detail_point_read_button_description)
         }
-    var imageHeight by remember { mutableStateOf(0) }
+    var imageHeight by remember { mutableIntStateOf(0) }
 
     val pagerState = rememberPagerState()
     val scrollState = rememberLazyListState()
@@ -180,8 +180,8 @@ fun CourseDetailScreen(
                             count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList.size else courseDetailUiState.advertisementDetail.images.size,
                             state = pagerState,
                             modifier = Modifier
-                                .fillMaxWidth()
-//                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
+                                .fillMaxWidth(),
+                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)

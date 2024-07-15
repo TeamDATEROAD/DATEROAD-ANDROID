@@ -32,7 +32,7 @@ firebaseCrashlytics = "3.0.2"
 firebaseBom = "33.1.1"
 
 # Accompanist
-accompanistPager = "0.23.1"
+accompanistPager = "0.25.0"
 accompanistWebview = "0.24.13-rc"
 
 # Third Party
