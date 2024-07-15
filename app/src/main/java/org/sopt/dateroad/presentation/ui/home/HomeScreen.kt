@@ -37,6 +37,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -58,7 +59,8 @@ fun HomeRoute(
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -96,7 +98,8 @@ fun HomeRoute(
                 navigateToPointHistory = navigateToPointHistory,
                 navigateToLook = navigateToLook,
                 navigateToTimeline = navigateToTimeline,
-                onFabClick = navigateToEnroll
+                onFabClick = navigateToEnroll,
+                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) },
             )
         }
 
@@ -109,13 +112,11 @@ fun HomeRoute(
 fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
-    onMainDateClick: () -> Unit = {},
     onEnrollClick: () -> Unit = {},
-    onDateCourseClick: (Int) -> Unit = {},
-    onAdvertisementClick: (Int) -> Unit = {},
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
     onFabClick: (EnrollType, Int?) -> Unit
 ) {
     val pagerState = rememberPagerState()
@@ -190,7 +191,7 @@ fun HomeScreen(
                     items(uiState.topLikedCourses) { topLikedCourses ->
                         HomeHotCourseCard(
                             course = topLikedCourses,
-                            onClick = { onDateCourseClick(topLikedCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.id) }
                         )
                     }
                 }
@@ -207,7 +208,7 @@ fun HomeScreen(
                         HomeAdvertisement(
                             advertisement = uiState.advertisements[page],
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
                         )
                     }
                     DateRoadTextTag(
@@ -257,7 +258,7 @@ fun HomeScreen(
                     uiState.latestCourses.forEach { latestCourses ->
                         DateRoadCourseCard(
                             course = latestCourses,
-                            onClick = { onDateCourseClick(latestCourses.id) }
+                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.id) }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                     }
@@ -292,6 +293,7 @@ fun HomeScreenPreview() {
             navigateToPointHistory = {},
             navigateToLook = {},
             navigateToTimeline = {},
+            navigateToCourseDetail = {_, _ -> },
             uiState = HomeContract.HomeUiState(
                 loadState = LoadState.Success,
                 mainDate = MainDate(
@@ -369,7 +371,7 @@ fun HomeScreenPreview() {
                 remainingPoints = 100,
                 currentBannerPage = 0
             ),
-            onFabClick = { _, _ -> }
+            onFabClick = { _, _ -> },
         )
     }
 }

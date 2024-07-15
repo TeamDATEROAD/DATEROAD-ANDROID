@@ -11,14 +11,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.model.Route
+import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
-import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
-import org.sopt.dateroad.presentation.ui.coursedetail.navigation.CourseDetailRoute
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.navigationCourseDetail
-import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationToEnroll
+import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
 import org.sopt.dateroad.presentation.ui.look.navigation.navigationLook
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateMyCourses
@@ -30,7 +29,6 @@ import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPoint
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.signin.navigation.SignInRoute
-import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
 import org.sopt.dateroad.presentation.ui.timeline.navigation.navigationTimeline
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.navigateToTimelineDetail
 
@@ -66,8 +64,8 @@ class MainNavigator(
         }
     }
 
-    fun navigateCourseDetail() {
-        navHostController.navigationCourseDetail()
+    fun navigateToCourseDetail(courseDetailType: CourseDetailType, id: Int) {
+        navHostController.navigationCourseDetail(courseDetailType = courseDetailType, id = id)
     }
 
     fun navigateToEnroll(enrollType: EnrollType, courseId: Int?) {

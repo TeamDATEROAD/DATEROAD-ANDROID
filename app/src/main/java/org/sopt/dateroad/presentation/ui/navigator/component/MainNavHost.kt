@@ -41,7 +41,8 @@ fun MainNavHost(
             startDestination = navigator.startDestination
         ) {
             courseDetailGraph(
-                popBackStack = navigator::popBackStackIfNotHome
+                popBackStack = navigator::popBackStackIfNotHome,
+                navigateToEnroll = navigator::navigateToEnroll
             )
 
             enrollNavGraph(
@@ -55,7 +56,8 @@ fun MainNavHost(
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToLook = navigator::navigateToLook,
                 navigateToTimeline = navigator::navigateTimeline,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 
             lookNavGraph(
