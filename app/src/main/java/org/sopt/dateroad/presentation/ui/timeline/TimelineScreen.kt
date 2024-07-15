@@ -52,7 +52,7 @@ fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
     navigateToPast: () -> Unit,
-    navigateToEnroll: (EnrollType) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState()
@@ -66,7 +66,7 @@ fun TimelineRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigationToPast -> navigateToPast()
-                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE)
+                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
             }
         }
     }

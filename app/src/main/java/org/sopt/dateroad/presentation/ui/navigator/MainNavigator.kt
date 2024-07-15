@@ -59,7 +59,7 @@ class MainNavigator(
         }
     }
 
-    fun navigateToEnroll(enrollType: EnrollType) {
+    fun navigateToEnroll(enrollType: EnrollType, courseId: Int?) {
         navHostController.navigationEnroll(enrollType = enrollType)
     }
 

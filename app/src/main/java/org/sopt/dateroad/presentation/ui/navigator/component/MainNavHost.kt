@@ -45,7 +45,8 @@ fun MainNavHost(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToLook = navigator::navigateToLook,
-                navigateToTimeline = navigator::navigateTimeline
+                navigateToTimeline = navigator::navigateTimeline,
+                navigateToEnroll = navigator::navigateToEnroll
             )
 
             lookNavGraph(

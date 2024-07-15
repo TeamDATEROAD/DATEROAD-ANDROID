@@ -19,7 +19,7 @@ fun NavController.navigationTimeline(navOptions: NavOptions) {
 fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
     navigateToPast: () -> Unit,
-    navigateToEnroll: (EnrollType) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
         TimelineRoute(

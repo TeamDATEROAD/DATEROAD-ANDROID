@@ -47,7 +47,8 @@ fun EnrollRoute(
     padding: PaddingValues,
     viewModel: EnrollViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    enrollType: EnrollType
+    enrollType: EnrollType,
+    courseId: Int?
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
