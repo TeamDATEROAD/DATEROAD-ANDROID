@@ -62,7 +62,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -127,7 +127,7 @@ fun HomeScreen(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit,
+    onFabClick: (EnrollType, Int?) -> Unit
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -290,7 +290,7 @@ fun HomeScreen(
         ) {
             DateRoadImageButton(
                 isEnabled = true,
-                onClick = {onFabClick(EnrollType.COURSE, null)},
+                onClick = { onFabClick(EnrollType.COURSE, null) },
                 cornerRadius = 44.dp,
                 paddingHorizontal = 16.dp,
                 paddingVertical = 16.dp,
@@ -373,11 +373,11 @@ fun HomeScreenPreview() {
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     )
                 ),
                 userName = "현진",
