@@ -24,6 +24,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         }
     }
 
+    fun changeBannerPage(page: Int){
+        setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
+    }
+
     fun fetchProfile() {
         setEvent(
             HomeContract.HomeEvent.FetchUserName(

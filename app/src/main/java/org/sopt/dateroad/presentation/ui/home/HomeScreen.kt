@@ -34,6 +34,7 @@ import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.delay
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
@@ -87,6 +88,14 @@ fun HomeRoute(
             }
     }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(4000)
+            val nextPage = (uiState.currentBannerPage + 1) % uiState.advertisements.size
+            viewModel.changeBannerPage(nextPage)
+        }
+    }
+
     when (uiState.loadState) {
         LoadState.Success -> {
             HomeScreen(
@@ -118,6 +127,10 @@ fun HomeScreen(
 ) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(uiState.currentBannerPage) {
+        pagerState.scrollToPage(uiState.currentBannerPage)
+    }
 
     Column(
         modifier = Modifier
