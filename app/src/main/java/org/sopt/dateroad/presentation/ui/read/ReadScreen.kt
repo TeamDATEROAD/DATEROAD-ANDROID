@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
@@ -42,8 +43,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun ReadRoute(
     padding: PaddingValues,
     viewModel: ReadViewModel = hiltViewModel(),
-    navigateToEnroll: (EnrollType, Int?) -> Unit
-    // navigateToCourseDetail: (Int) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -57,8 +58,7 @@ fun ReadRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { readSideEffect ->
             when (readSideEffect) {
                 is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
-                is ReadContract.ReadSideEffect.NavigateToCourseDetail -> {}
-                // navigateToCourseDetail(readSideEffect.courseId)
+                is ReadContract.ReadSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(CourseDetailType.COURSE, readSideEffect.courseId)
             }
         }
     }
@@ -130,7 +130,7 @@ fun ReadScreen(
             Spacer(modifier = Modifier.height(10.dp))
             LazyColumn {
                 items(readUiState.courses) { course ->
-                    DateRoadCourseCard(course = course)
+                    DateRoadCourseCard(course = course, onClick = { navigateToCourseDetail(course.id)})
                 }
             }
         }

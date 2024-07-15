@@ -102,7 +102,8 @@ fun MainNavHost(
 
             readNavGraph(
                 padding = padding,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 
             signInGraph(
