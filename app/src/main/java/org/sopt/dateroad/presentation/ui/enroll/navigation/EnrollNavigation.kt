@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.enroll.EnrollRoute
 
 fun NavController.navigationEnroll(enrollType: EnrollType, courseId: Int? = null) {
@@ -17,7 +18,8 @@ fun NavController.navigationEnroll(enrollType: EnrollType, courseId: Int? = null
 
 fun NavGraphBuilder.enrollNavGraph(
     padding: PaddingValues,
-    popBackStack: () -> Unit
+    popBackStack: () -> Unit,
+    navigationToMyCourse: (MyCourseType) -> Unit
 ) {
     composable(
         route = EnrollRoute.ROUTE_WITH_ARGUMENT,
@@ -35,7 +37,7 @@ fun NavGraphBuilder.enrollNavGraph(
             EnrollType.valueOf(it)
         } ?: EnrollType.COURSE
         val courseId = backStackEntry.arguments?.getString(EnrollRoute.COURSE_ID)?.toIntOrNull()
-        EnrollRoute(padding = padding, popBackStack = popBackStack, enrollType = enrollType, courseId = courseId)
+        EnrollRoute(padding = padding, popBackStack = popBackStack, navigateToMyCourse = navigationToMyCourse, enrollType = enrollType, courseId = courseId)
     }
 }
 

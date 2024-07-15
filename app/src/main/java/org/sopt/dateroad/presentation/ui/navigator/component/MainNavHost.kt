@@ -39,7 +39,8 @@ fun MainNavHost(
         ) {
             enrollNavGraph(
                 padding = padding,
-                popBackStack = navigator::popBackStackIfNotHome
+                popBackStack = navigator::popBackStackIfNotHome,
+                navigationToMyCourse = navigator::navigateToMyCourse
             )
 
             homeNavGraph(
