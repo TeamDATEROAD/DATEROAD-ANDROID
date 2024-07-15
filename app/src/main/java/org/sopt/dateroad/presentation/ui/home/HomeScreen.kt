@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +39,8 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
@@ -59,7 +60,9 @@ fun HomeRoute(
     padding: PaddingValues,
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
-    navigateToTimeline: () -> Unit
+    navigateToTimeline: () -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -164,136 +167,137 @@ fun HomeScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp)
+                    .fillMaxWidth()
             ) {
-                Spacer(modifier = Modifier.height(17.dp))
-                Text(
-                    text = PartialColorText(
-                        stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
-                        keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
-                        color = DateRoadTheme.colors.black
-                    ),
-                    color = DateRoadTheme.colors.purple600,
-                    style = DateRoadTheme.typography.titleExtra24
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.home_hot_date_course_description),
-                        style = DateRoadTheme.typography.bodyMed13,
-                        color = DateRoadTheme.colors.gray400
-                    )
-                    DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyMed13,
-                        textColor = DateRoadTheme.colors.purple600,
-                        paddingHorizontal = 20.dp,
-                        paddingVertical = 8.dp,
-                        onClick = navigateToLook
-                    )
-                }
-                Spacer(modifier = Modifier.height(13.dp))
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(uiState.topLikedCourses) { topLikedCourses ->
-                        HomeHotCourseCard(
-                            course = topLikedCourses,
-                            onClick = { onDateCourseClick(topLikedCourses.id) }
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 16.dp)
-                ) {
-                    HorizontalPager(
-                        count = uiState.advertisements.size,
-                        state = pagerState,
-                        modifier = Modifier.fillMaxWidth()
-                    ) { page ->
-                        HomeAdvertisement(
-                            advertisement = uiState.advertisements[page],
-                            onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
-                        )
-                    }
-                    DateRoadTextTag(
-                        textContent = stringResource(
-                            id = R.string.home_advertisement_number,
-                            pagerState.currentPage + 1,
-                            uiState.advertisements.size
-                        ),
-                        tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(6.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.height(32.dp))
-                Text(
-                    text = stringResource(id = R.string.home_new_date_course_title),
-                    style = DateRoadTheme.typography.titleExtra20,
-                    color = DateRoadTheme.colors.black,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(3.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.home_new_date_course_description),
-                        style = DateRoadTheme.typography.bodyMed13,
-                        color = DateRoadTheme.colors.gray400
-                    )
-                    DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyBold13,
-                        textColor = DateRoadTheme.colors.purple600,
-                        paddingHorizontal = 20.dp,
-                        paddingVertical = 8.dp,
-                        onClick = navigateToLook
-                    )
-                }
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .padding(start = 16.dp)
+
                 ) {
-                    uiState.latestCourses.forEach { latestCourses ->
-                        DateRoadCourseCard(
-                            course = latestCourses,
-                            onClick = { onDateCourseClick(latestCourses.id) }
+                    Spacer(modifier = Modifier.height(17.dp))
+                    Text(
+                        text = PartialColorText(
+                            stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
+                            keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
+                            color = DateRoadTheme.colors.black
+                        ),
+                        color = DateRoadTheme.colors.purple600,
+                        style = DateRoadTheme.typography.titleExtra24
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.home_hot_date_course_description),
+                            style = DateRoadTheme.typography.bodyMed13,
+                            color = DateRoadTheme.colors.gray400
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        DateRoadTextButton(
+                            textContent = stringResource(id = R.string.button_more),
+                            textStyle = DateRoadTheme.typography.bodyMed13,
+                            textColor = DateRoadTheme.colors.purple600,
+                            paddingHorizontal = 20.dp,
+                            paddingVertical = 8.dp,
+                            onClick = navigateToLook
+                        )
                     }
+                    Spacer(modifier = Modifier.height(13.dp))
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(uiState.topLikedCourses) { topLikedCourses ->
+                            HomeHotCourseCard(
+                                course = topLikedCourses,
+                                onClick = { onDateCourseClick(topLikedCourses.id) }
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp)
+                    ) {
+                        HorizontalPager(
+                            count = uiState.advertisements.size,
+                            state = pagerState,
+                            modifier = Modifier.fillMaxWidth()
+                        ) { page ->
+                            HomeAdvertisement(
+                                advertisement = uiState.advertisements[page],
+                                onClick = { onAdvertisementClick(uiState.advertisements[page].advertisementId) }
+                            )
+                        }
+                        DateRoadTextTag(
+                            textContent = stringResource(
+                                id = R.string.home_advertisement_number,
+                                pagerState.currentPage + 1,
+                                uiState.advertisements.size
+                            ),
+                            tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(6.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = stringResource(id = R.string.home_new_date_course_title),
+                        style = DateRoadTheme.typography.titleExtra20,
+                        color = DateRoadTheme.colors.black,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.home_new_date_course_description),
+                            style = DateRoadTheme.typography.bodyMed13,
+                            color = DateRoadTheme.colors.gray400
+                        )
+                        DateRoadTextButton(
+                            textContent = stringResource(id = R.string.button_more),
+                            textStyle = DateRoadTheme.typography.bodyBold13,
+                            textColor = DateRoadTheme.colors.purple600,
+                            paddingHorizontal = 20.dp,
+                            paddingVertical = 8.dp,
+                            onClick = navigateToLook
+                        )
+                    }
+                }
+                uiState.latestCourses.forEach { latestCourses ->
+                    DateRoadCourseCard(
+                        course = latestCourses,
+                        onClick = { onDateCourseClick(latestCourses.id) }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-        Alignment.BottomEnd
-    ) {
-        DateRoadImageButton(
-            isEnabled = true,
-            onClick = onFabClick,
-            cornerRadius = 44.dp,
-            paddingHorizontal = 16.dp,
-            paddingVertical = 16.dp,
+        Box(
             modifier = Modifier
-                .padding(16.dp)
-        )
+                .fillMaxSize()
+                .padding(padding),
+            Alignment.BottomEnd
+        ) {
+            DateRoadImageButton(
+                isEnabled = true,
+                onClick = onFabClick,
+                cornerRadius = 44.dp,
+                paddingHorizontal = 16.dp,
+                paddingVertical = 16.dp,
+                modifier = Modifier
+                    .padding(16.dp)
+            )
+        }
     }
 }
 
