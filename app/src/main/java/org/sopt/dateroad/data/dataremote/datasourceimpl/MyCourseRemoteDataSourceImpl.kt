@@ -8,7 +8,7 @@ import org.sopt.dateroad.data.dataremote.service.MyCourseService
 class MyCourseRemoteDataSourceImpl @Inject constructor(
     private val myCourseService: MyCourseService
 ) : MyCourseRemoteDataSource {
-    override suspend fun postMyCourseEnroll(): ResponseCoursesDto = myCourseService.postMyCourseEnroll()
+    override suspend fun getMyCourseEnroll(): ResponseCoursesDto = myCourseService.getMyCourseEnroll()
 
-    override suspend fun postMyCourseRead(): ResponseCoursesDto = myCourseService.postMyCourseRead()
+    override suspend fun getMyCourseRead(): ResponseCoursesDto = myCourseService.getMyCourseRead()
 }
