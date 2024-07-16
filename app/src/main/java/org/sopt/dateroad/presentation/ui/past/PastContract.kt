@@ -15,7 +15,7 @@ class PastContract {
 
     sealed interface PastSideEffect : UiSideEffect {
         data object PopBackStack : PastSideEffect
-        data class NavigateToTimelineDetail(val dateType: DateType, val dateId: Int) : PastSideEffect
+        data class NavigateToTimelineDetail(val sourceScreen: Boolean, val dateType: DateType, val dateId: Int) : PastSideEffect
     }
 
     sealed class PastEvent : UiEvent {

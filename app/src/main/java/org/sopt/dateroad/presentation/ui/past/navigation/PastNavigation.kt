@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.ui.past.PastRoute
+import kotlin.reflect.KFunction2
 
 fun NavController.navigationPast() {
     navigate(
@@ -16,7 +17,7 @@ fun NavController.navigationPast() {
 fun NavGraphBuilder.pastNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit
+    navigateToTimelineDetail: (Boolean, DateType, Int) -> Unit
 ) {
     composable(route = PastRoute.ROUTE) {
         PastRoute(

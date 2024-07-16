@@ -34,7 +34,7 @@ fun PastRoute(
     padding: PaddingValues,
     viewModel: PastViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit
+    navigateToTimelineDetail: (Boolean, DateType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -47,7 +47,7 @@ fun PastRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { pastSideEffect ->
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
-                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.dateType, pastSideEffect.dateId)
+                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(false, pastSideEffect.dateType, pastSideEffect.dateId)
             }
         }
     }
@@ -58,7 +58,7 @@ fun PastRoute(
                 padding = padding,
                 pastUiState = uiState,
                 popBackStack = { viewModel.setSideEffect(PastContract.PastSideEffect.PopBackStack) },
-                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) }
+                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(sourceScreen = false, dateType = dateType, dateId = dateId)) }
             )
         }
 
@@ -96,7 +96,7 @@ fun PastScreen(
                     PastCard(
                         date = pastUiState.dates[index],
                         dateType = DateType.getDateTypeByIndex(index),
-                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), index) }
+                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), pastUiState.dates[index].dateId.toInt()) }
                     )
                 }
             }

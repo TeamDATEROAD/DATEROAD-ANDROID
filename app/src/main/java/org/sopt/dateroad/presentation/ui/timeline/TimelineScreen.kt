@@ -52,7 +52,7 @@ fun TimelineRoute(
     viewModel: TimelineViewModel = hiltViewModel(),
     navigateToPast: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit,
+    navigateToTimelineDetail: (Boolean, DateType, Int) -> Unit,
     popBackStack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,7 +68,7 @@ fun TimelineRoute(
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
                 is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
-                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.dateType, sideEffect.dateId)
+                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(true, sideEffect.dateType, sideEffect.dateId)
             }
         }
     }
