@@ -108,7 +108,6 @@ fun EnrollPlaceInsertBarPreview() {
             },
             onSelectedCourseTimeClick = {
                 isBottomSheetOpen = true
-                duration = duration
             }
         )
 

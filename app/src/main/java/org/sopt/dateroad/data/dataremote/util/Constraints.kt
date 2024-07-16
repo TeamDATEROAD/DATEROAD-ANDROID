@@ -10,15 +10,20 @@ object ApiConstraints {
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"
+    const val COURSE_ID = "courseId"
+    const val LIKES = "likes"
+    const val SORT = "sort"
+    const val COUNTRY = "country"
+    const val CITY = "city"
+    const val COST = "cost"
+    const val SORT_BY = "sortBy"
+    const val POINTS = "points"
     const val ADVERTISEMENTS = "advertisements"
     const val DATES = "dates"
 }
 
 object Cost {
-    const val EXCESS_100000_TITLE = "10만원 초과"
-    const val LESS_THAN_100000_TITLE = "10만원 이하"
-    const val LESS_THAN_50000_TITLE = "5만원 이하"
-    const val LESS_THAN_30000_TITLE = "3만원 이하"
+    const val COST = "원"
 }
 
 object Duration {
@@ -28,4 +33,13 @@ object Duration {
 object Like {
     const val LIKE_MAX = "999+"
     const val THRESHOLD = 999
+}
+
+object Date {
+    const val INPUT_FORMAT = "yyyy-MM-dd"
+    const val COURSE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일 방문"
+}
+
+object Point {
+    const val POINT = " P"
 }

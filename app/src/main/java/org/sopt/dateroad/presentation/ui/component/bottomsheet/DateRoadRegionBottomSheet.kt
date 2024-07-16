@@ -33,11 +33,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.type.GyeonggiAreaType
+import org.sopt.dateroad.domain.type.IncheonAreaType
+import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.ChipType
-import org.sopt.dateroad.presentation.type.GyeonggiAreaType
-import org.sopt.dateroad.presentation.type.IncheonAreaType
-import org.sopt.dateroad.presentation.type.RegionType
-import org.sopt.dateroad.presentation.type.SeoulAreaType
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -95,7 +95,7 @@ fun DateRoadRegionBottomSheet(
                     val isSelected = selectedRegion == regionType
                     DateRoadTextChip(
                         modifier = Modifier.weight(1f),
-                        text = stringResource(id = regionType.nameRes),
+                        text = regionType.title,
                         chipType = ChipType.REGION,
                         isSelected = isSelected,
                         onSelectedChange = {
@@ -130,7 +130,7 @@ fun DateRoadRegionBottomSheet(
                     when (selectedRegion) {
                         RegionType.INCHEON -> IncheonAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                text = stringResource(id = areaType.nameRes),
+                                text = areaType.title,
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {
@@ -141,7 +141,7 @@ fun DateRoadRegionBottomSheet(
 
                         RegionType.GYEONGGI -> GyeonggiAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                text = stringResource(id = areaType.nameRes),
+                                text = areaType.title,
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {
@@ -152,7 +152,7 @@ fun DateRoadRegionBottomSheet(
 
                         else -> SeoulAreaType.entries.forEach { areaType ->
                             DateRoadTextChip(
-                                text = stringResource(id = areaType.nameRes),
+                                text = areaType.title,
                                 chipType = ChipType.AREA,
                                 isSelected = selectedArea == areaType,
                                 onSelectedChange = {

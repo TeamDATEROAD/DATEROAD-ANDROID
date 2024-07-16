@@ -1,10 +1,10 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
 import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.TimePicker

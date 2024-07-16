@@ -4,13 +4,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.usecase.PostMyCourseReadUseCase
+import org.sopt.dateroad.domain.usecase.GetMyCourseReadUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class ReadViewModel @Inject constructor(
-    private val postMyCourseReadUseCase: PostMyCourseReadUseCase
+    private val getMyCourseReadUseCase: GetMyCourseReadUseCase
 ) : BaseViewModel<ReadContract.ReadUiState, ReadContract.ReadSideEffect, ReadContract.ReadEvent>() {
     override fun createInitialState(): ReadContract.ReadUiState =
         ReadContract.ReadUiState()
@@ -25,7 +25,7 @@ class ReadViewModel @Inject constructor(
     fun fetchMyCourseRead() {
         viewModelScope.launch {
             setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
-            postMyCourseReadUseCase().onSuccess { courses ->
+            getMyCourseReadUseCase().onSuccess { courses ->
                 setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
             }.onFailure {
                 setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
