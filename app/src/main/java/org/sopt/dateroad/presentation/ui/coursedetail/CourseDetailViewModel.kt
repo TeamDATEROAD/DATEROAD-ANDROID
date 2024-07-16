@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -56,8 +55,7 @@ class CourseDetailViewModel @Inject constructor(
             setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
             getCourseDetailUseCase(courseId = courseId).onSuccess { courseDetail ->
                 setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Success, courseDetail = courseDetail))
-            }.onFailure { et ->
-                Log.e("ㅋㅋ", et.message.toString())
+            }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
             }
         }

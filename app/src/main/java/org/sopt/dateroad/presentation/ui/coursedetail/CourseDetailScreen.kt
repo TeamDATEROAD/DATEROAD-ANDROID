@@ -93,7 +93,7 @@ fun CourseDetailRoute(
     }
 
     LaunchedEffect(uiState.id) {
-        (uiState.id != 0).let {
+        if (uiState.id != 0) {
             when (uiState.courseDetailType) {
                 CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
                 CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
