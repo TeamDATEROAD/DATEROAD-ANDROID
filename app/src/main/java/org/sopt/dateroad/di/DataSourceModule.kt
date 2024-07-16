@@ -25,10 +25,6 @@ import org.sopt.dateroad.data.dataremote.datasourceimpl.UserPointRemoteDataSourc
 abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindsUserInfoLocalDataSource(userInfoLocalDataSourceImpl: UserInfoLocalDataSourceImpl): UserInfoLocalDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindAdvertisementRemoteDataSource(advertisementRemoteDataSourceImpl: AdvertisementRemoteDataSourceImpl): AdvertisementRemoteDataSource
 
     @Binds
@@ -46,6 +42,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsMyCourseRemoteDataSource(myCourseRemoteDataSourceImpl: MyCourseRemoteDataSourceImpl): MyCourseRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserInfoLocalDataSource(userInfoLocalDataSourceImpl: UserInfoLocalDataSourceImpl): UserInfoLocalDataSource
 
     @Binds
     @Singleton
