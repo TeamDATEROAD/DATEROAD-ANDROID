@@ -127,7 +127,8 @@ fun CourseDetailRoute(
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
                 onTopBarIconClicked = popBackStack,
-                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) }
+                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) },
+                popBackStack = popBackStack
             )
         }
 
@@ -151,7 +152,8 @@ fun CourseDetailScreen(
     dismissEditBottomSheet: () -> Unit,
     enrollSchedule: () -> Unit,
     onTopBarIconClicked: () -> Unit,
-    openCourseDetail: () -> Unit
+    openCourseDetail: () -> Unit,
+    popBackStack: () -> Unit
 ) {
     val buttonText =
         if (courseDetailUiState.courseDetail.free > 0) {
@@ -529,9 +531,14 @@ fun CourseDetailScreen(
         isButtonEnabled = true,
         buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
-            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to { onDeleteButtonClicked() }
+            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
+                onDeleteButtonClicked()
+                popBackStack()
+            }
         ),
         onDismissRequest = { dismissEditBottomSheet() },
-        onButtonClick = { dismissEditBottomSheet() }
+        onButtonClick = {
+            dismissEditBottomSheet()
+        }
     )
 }
