@@ -6,8 +6,8 @@ import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.repository.MyCourseRepository
 
 @Singleton
-class PostMyCourseReadUseCase @Inject constructor(
+class GetMyCourseEnrollUseCase @Inject constructor(
     private val myCourseRepository: MyCourseRepository
 ) {
-    suspend operator fun invoke(): Result<List<Course>> = myCourseRepository.postMyCourseRead()
+    suspend operator fun invoke(): Result<List<Course>> = myCourseRepository.getMyCourseEnroll()
 }
