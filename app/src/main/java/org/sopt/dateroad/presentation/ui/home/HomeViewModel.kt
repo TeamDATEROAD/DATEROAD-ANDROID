@@ -51,7 +51,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
     fun fetchLatestCourses() {
         setEvent(
             HomeContract.HomeEvent.FetchLatestCourses(
