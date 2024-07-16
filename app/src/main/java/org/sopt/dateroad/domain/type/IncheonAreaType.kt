@@ -5,7 +5,7 @@ import org.sopt.dateroad.domain.util.Incheon
 enum class IncheonAreaType(
     val title: String
 ) {
-    WHOLE(
-        title = Incheon.WHOLE
+    INCHEON_ENTIRE(
+        title = Incheon.INCHEON_ENTIRE
     )
 }

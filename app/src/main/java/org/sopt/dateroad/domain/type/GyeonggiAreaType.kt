@@ -5,11 +5,11 @@ import org.sopt.dateroad.domain.util.Gyeonggi
 enum class GyeonggiAreaType(
     val title: String
 ) {
-    WHOLE(
-        title = Gyeonggi.WHOLE
+    GYEONGGI_ENTIRE(
+        title = Gyeonggi.GYEONGGI_ENTIRE
     ),
-    SEOUNGNAM(
-        title = Gyeonggi.SEOUNGNAM
+    SEONGNAM(
+        title = Gyeonggi.SEONGNAM
     ),
     SUWON(
         title = Gyeonggi.SUWON
@@ -17,11 +17,11 @@ enum class GyeonggiAreaType(
     GOYANG_PAJU(
         title = Gyeonggi.GOYANG_PAJU
     ),
-    KIMPO(
-        title = Gyeonggi.KIMPO
+    GIMPO(
+        title = Gyeonggi.GIMPO
     ),
-    YOUNGIN_HWASEONG(
-        title = Gyeonggi.YOUNGIN_HWASEONG
+    YONGIN_HWASEONG(
+        title = Gyeonggi.YONGIN_HWASEONG
     ),
     ANYANG_GWACHEON(
         title = Gyeonggi.ANYANG_GWACHEON
@@ -32,8 +32,8 @@ enum class GyeonggiAreaType(
     NAMYANGJU_UIJEONGBU(
         title = Gyeonggi.NAMYANGJU_UIJEONGBU
     ),
-    GWANGJU_INCHEON_YEOJU(
-        title = Gyeonggi.GWANGJU_INCHEON_YEOJU
+    GWANGJU_ICHEON_YEOJU(
+        title = Gyeonggi.GWANGJU_ICHEON_YEOJU
     ),
     GAPYEONG_YANGPYEONG(
         title = Gyeonggi.GAPYEONG_YANGPYEONG
@@ -47,13 +47,13 @@ enum class GyeonggiAreaType(
     SIHEUNG_GWANGMYEONG(
         title = Gyeonggi.SIHEUNG_GWANGMYEONG
     ),
-    BUCHEON_ANSAN(
-        title = Gyeonggi.BUCHEON_ANSAN
+    BUCHEON_ANSHAN(
+        title = Gyeonggi.BUCHEON_ANSHAN
     ),
     DONGDUCHEON_YEONCHEON(
         title = Gyeonggi.DONGDUCHEON_YEONCHEON
     ),
-    PYEONGTEAK_OSAN_ANSEONG(
-        title = Gyeonggi.PYEONGTEAK_OSAN_ANSEONG
+    PYEONGTAEK_OSAN_ANSEONG(
+        title = Gyeonggi.PYEONGTAEK_OSAN_ANSEONG
     )
 }

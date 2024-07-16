@@ -5,8 +5,8 @@ import org.sopt.dateroad.domain.util.Seoul
 enum class SeoulAreaType(
     val title: String
 ) {
-    WHOLE(
-        title = Seoul.WHOLE
+    SEOUL_ENTIRE(
+        title = Seoul.SEOUL_ENTIRE
     ),
     GANGNAM_SEOCHO(
         title = Seoul.GANGNAM_SEOCHO
@@ -14,14 +14,14 @@ enum class SeoulAreaType(
     JAMSIL_SONGPA_GANGDONG(
         title = Seoul.JAMSIL_SONGPA_GANGDONG
     ),
-    KONKUK_UNIVERSITY_SEOUNGSU_WANGSIMNI(
-        title = Seoul.KONKUK_UNIVERSITY_SEOUNGSU_WANGSIMNI
+    KONDAE_SUNGSOO_WANGSIMNI(
+        title = Seoul.KONDAE_SUNGSOO_WANGSIMNI
     ),
-    JONGNO_JUNGGU(
-        title = Seoul.JONGNO_JUNGGU
+    JONGNO_JUNGRO(
+        title = Seoul.JONGNO_JUNGRO
     ),
-    HONGIK_UNIVERSITY_HAPJEONG_MAPO(
-        title = Seoul.HONGIK_UNIVERSITY_HAPJEONG_MAPO
+    HONGDAE_HAPJEONG_MAPO(
+        title = Seoul.HONGDAE_HAPJEONG_MAPO
     ),
     YEONGDEUNGPO_YEOUIDO(
         title = Seoul.YEONGDEUNGPO_YEOUIDO
@@ -32,8 +32,8 @@ enum class SeoulAreaType(
     YANGCHEON_GANGSEO(
         title = Seoul.YANGCHEON_GANGSEO
     ),
-    SEONGBUK_NOWON_JUNGNANG(
-        title = Seoul.SEONGBUK_NOWON_JUNGNANG
+    SEONGBUK_NOWON_JUNGBANG(
+        title = Seoul.SEONGBUK_NOWON_JUNGBANG
     ),
     GURO_GWANAK_DONGJAK(
         title = Seoul.GURO_GWANAK_DONGJAK

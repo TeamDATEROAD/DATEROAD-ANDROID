@@ -14,39 +14,39 @@ object Region {
 }
 
 object Seoul {
-    const val WHOLE = "서울 전체"
+    const val SEOUL_ENTIRE = "서울 전체"
     const val GANGNAM_SEOCHO = "강남/서초"
     const val JAMSIL_SONGPA_GANGDONG = "잠실/송파/강동"
-    const val KONKUK_UNIVERSITY_SEOUNGSU_WANGSIMNI = "건대/성수/왕십리"
-    const val JONGNO_JUNGGU = "종로/중구"
-    const val HONGIK_UNIVERSITY_HAPJEONG_MAPO = "홍대/합정/마포"
+    const val KONDAE_SUNGSOO_WANGSIMNI = "건대/성수/왕십리"
+    const val JONGNO_JUNGRO = "종로/중구"
+    const val HONGDAE_HAPJEONG_MAPO = "홍대/합정/마포"
     const val YEONGDEUNGPO_YEOUIDO = "영등포/여의도"
     const val YONGSAN_ITAEWON_HANNAM = "용산/이태원/한남"
     const val YANGCHEON_GANGSEO = "양천/강서"
-    const val SEONGBUK_NOWON_JUNGNANG = "성북/노원/중랑"
+    const val SEONGBUK_NOWON_JUNGBANG = "성북/노원/중랑"
     const val GURO_GWANAK_DONGJAK = "구로/관악/동작"
 }
 
 object Gyeonggi {
-    const val WHOLE = "경기 전체"
-    const val SEOUNGNAM = "성남"
+    const val GYEONGGI_ENTIRE = "경기 전체"
+    const val SEONGNAM = "성남"
     const val SUWON = "수원"
     const val GOYANG_PAJU = "고양/파주"
-    const val KIMPO = "김포"
-    const val YOUNGIN_HWASEONG = "용인/화성"
+    const val GIMPO = "김포"
+    const val YONGIN_HWASEONG = "용인/화성"
     const val ANYANG_GWACHEON = "안양/과천"
     const val POCHEON_YANGJU = "포천/양주"
     const val NAMYANGJU_UIJEONGBU = "남양주/의정부"
-    const val GWANGJU_INCHEON_YEOJU = "광주/이천/여주"
+    const val GWANGJU_ICHEON_YEOJU = "광주/이천/여주"
     const val GAPYEONG_YANGPYEONG = "가평/양평"
     const val GUNPO_UIWANG = "군포/의왕"
     const val HANAM_GURI = "하남/구리"
     const val SIHEUNG_GWANGMYEONG = "시흥/광명"
-    const val BUCHEON_ANSAN = "부천/안산"
+    const val BUCHEON_ANSHAN = "부천/안산"
     const val DONGDUCHEON_YEONCHEON = "동두천/연천"
-    const val PYEONGTEAK_OSAN_ANSEONG = "평택/오산/안성"
+    const val PYEONGTAEK_OSAN_ANSEONG = "평택/오산/안성"
 }
 
 object Incheon {
-    const val WHOLE = "인천 전체"
+    const val INCHEON_ENTIRE = "인천 전체"
 }
