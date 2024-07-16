@@ -4,15 +4,15 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.usecase.PostMyCourseEnrollUseCase
-import org.sopt.dateroad.domain.usecase.PostMyCourseReadUseCase
+import org.sopt.dateroad.domain.usecase.GetMyCourseEnrollUseCase
+import org.sopt.dateroad.domain.usecase.GetMyCourseReadUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class MyCourseViewModel @Inject constructor(
-    private val postMyCourseEnrollUseCase: PostMyCourseEnrollUseCase,
-    private val postMyCourseReadUseCase: PostMyCourseReadUseCase
+    private val getMyCourseEnrollUseCase: GetMyCourseEnrollUseCase,
+    private val getMyCourseReadUseCase: GetMyCourseReadUseCase
 ) : BaseViewModel<MyCourseContract.MyCourseUiState, MyCourseContract.MyCourseSideEffect, MyCourseContract.MyCourseEvent>() {
     override fun createInitialState(): MyCourseContract.MyCourseUiState = MyCourseContract.MyCourseUiState()
 
@@ -27,7 +27,7 @@ class MyCourseViewModel @Inject constructor(
     fun fetchMyCourseRead() {
         viewModelScope.launch {
             setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
-            postMyCourseReadUseCase().onSuccess { courses ->
+            getMyCourseReadUseCase().onSuccess { courses ->
                 setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
             }.onFailure {
                 setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
@@ -38,7 +38,7 @@ class MyCourseViewModel @Inject constructor(
     fun fetchMyCourseEnroll() {
         viewModelScope.launch {
             setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Loading, courses = currentState.courses))
-            postMyCourseEnrollUseCase().onSuccess { courses ->
+            getMyCourseEnrollUseCase().onSuccess { courses ->
                 setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Success, courses = courses))
             }.onFailure {
                 setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Error, courses = currentState.courses))

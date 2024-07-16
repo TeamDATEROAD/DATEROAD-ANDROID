@@ -9,11 +9,11 @@ import org.sopt.dateroad.domain.repository.MyCourseRepository
 class MyCourseRepositoryImpl @Inject constructor(
     private val myCourseRemoteDataSource: MyCourseRemoteDataSource
 ) : MyCourseRepository {
-    override suspend fun postMyCourseEnroll(): Result<List<Course>> = runCatching {
-        myCourseRemoteDataSource.postMyCourseEnroll().toDomain()
+    override suspend fun getMyCourseEnroll(): Result<List<Course>> = runCatching {
+        myCourseRemoteDataSource.getMyCourseEnroll().toDomain()
     }
 
-    override suspend fun postMyCourseRead(): Result<List<Course>> = runCatching {
-        myCourseRemoteDataSource.postMyCourseRead().toDomain()
+    override suspend fun getMyCourseRead(): Result<List<Course>> = runCatching {
+        myCourseRemoteDataSource.getMyCourseRead().toDomain()
     }
 }
