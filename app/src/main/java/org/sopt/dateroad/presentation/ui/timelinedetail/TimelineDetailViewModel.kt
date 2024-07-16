@@ -29,19 +29,18 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             startAt = "12:00",
             city = "건대/상수/왕십리",
             dDay = "Day",
-            tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP),
+            tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP),
             date = "2023.12.31",
             places = listOf(
-                Place(sequence = 1, title = "현진이집", duration = "2.5"),
-                Place(sequence = 2, title = "지현이집", duration = "2.0"),
-                Place(sequence = 3, title = "민석이집", duration = "2.0"),
-                Place(sequence = 4, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
-                Place(sequence = 5, title = "지현이집", duration = "2.0"),
-                Place(sequence = 6, title = "민석이집", duration = "2.0"),
-                Place(sequence = 7, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0"),
-                Place(sequence = 8, title = "지현이집", duration = "2.0"),
-                Place(sequence = 9, title = "민석이집", duration = "2.0"),
-                Place(sequence = 10, title = "제가근데이런데이트코스왜짜야해요?남자친구가짜면 안되나요? 제가 왜 그래야하죠?", duration = "2.0")
+                Place(title = "현진이집", duration = "2.5"),
+                Place(title = "지현이집", duration = "2.0"),
+                Place(title = "민석이집", duration = "2.0"),
+                Place(title = "현진이집", duration = "2.5"),
+                Place(title = "지현이집", duration = "2.0"),
+                Place(title = "민석이집", duration = "2.0"),
+                Place(title = "현진이집", duration = "2.5"),
+                Place(title = "지현이집", duration = "2.0"),
+                Place(title = "민석이집", duration = "2.0")
             )
         )
         setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }

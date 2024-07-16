@@ -208,10 +208,11 @@ fun TimelineDetailScreen(
                     .align(Alignment.TopCenter),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(uiState.dateDetail.places) { place ->
+                items(uiState.dateDetail.places.size) { index ->
                     DateRoadPlaceCard(
                         placeCardType = PlaceCardType.COURSE_NORMAL,
-                        place = Place(sequence = place.sequence, title = place.title, duration = place.duration)
+                        sequence = index,
+                        place = Place(title = uiState.dateDetail.places[index].title, duration = uiState.dateDetail.places[index].duration)
                     )
                 }
             }

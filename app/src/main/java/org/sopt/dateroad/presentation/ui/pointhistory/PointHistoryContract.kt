@@ -21,7 +21,7 @@ class PointHistoryContract {
     }
 
     sealed class PointHistoryEvent : UiEvent {
-        data object FetchPointHistory : PointHistoryEvent()
+        data class FetchPointHistory(val loadState: LoadState, val pointHistory: PointHistory) : PointHistoryEvent()
         data class OnTabBarClicked(val pointHistoryTabType: PointHistoryTabType) : PointHistoryEvent()
     }
 }

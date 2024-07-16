@@ -38,6 +38,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Profile
+import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.type.MyPageMenuType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
@@ -52,7 +53,6 @@ import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPagePointBox
-import org.sopt.dateroad.presentation.util.context.mapTagsToDateTagType
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -185,8 +185,14 @@ fun MyPageScreen(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                items(context.mapTagsToDateTagType(tags = myPageUiState.profile.tag)) { dateTagType ->
-                    DateRoadImageTag(textContent = stringResource(id = dateTagType.titleRes), imageContent = dateTagType.imageRes, tagContentType = TagType.MY_PAGE_DATE)
+                items(myPageUiState.profile.tag) { tag ->
+                    tag.getDateTagTypeByName()?.let { tagType ->
+                        DateRoadImageTag(
+                            textContent = stringResource(id = tagType.titleRes),
+                            imageContent = tagType.imageRes,
+                            tagContentType = TagType.MY_PAGE_DATE
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))

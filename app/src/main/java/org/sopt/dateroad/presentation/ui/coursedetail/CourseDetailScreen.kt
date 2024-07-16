@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -48,6 +47,7 @@ import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
@@ -64,7 +64,6 @@ import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
-import org.sopt.dateroad.presentation.util.context.mapTagsToDateTagType
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -93,9 +92,13 @@ fun CourseDetailRoute(
             }
     }
 
-    when (uiState.courseDetailType) {
-        CourseDetailType.COURSE -> viewModel.fetchCourseDetail()
-        CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
+    LaunchedEffect(uiState.id) {
+        if (uiState.id != 0) {
+            when (uiState.courseDetailType) {
+                CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
+                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
+            }
+        }
     }
 
     when (uiState.loadState) {
@@ -108,7 +111,14 @@ fun CourseDetailRoute(
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
-                onLikeButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked) },
+                onLikeButtonClicked = {
+                    if (uiState.id != 0) {
+                        when (uiState.courseDetail.isUserLiked) {
+                            true -> viewModel.deleteCourseLike(uiState.id)
+                            false -> viewModel.postCourseLike(uiState.id)
+                        }
+                    }
+                },
                 onDeleteButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked) },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
@@ -140,7 +150,6 @@ fun CourseDetailScreen(
     onTopBarIconClicked: () -> Unit,
     openCourseDetail: () -> Unit
 ) {
-    val context = LocalContext.current
     val buttonText =
         if (courseDetailUiState.courseDetail.free > 0) {
             stringResource(id = R.string.course_detail_free_read_button, courseDetailUiState.courseDetail.free)
@@ -162,7 +171,6 @@ fun CourseDetailScreen(
             scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset < imageHeight
         }
     }
-    val mappedTags = context.mapTagsToDateTagType(courseDetailUiState.courseDetail.tags)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
@@ -176,15 +184,15 @@ fun CourseDetailScreen(
                 item {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         HorizontalPager(
-                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList.size else courseDetailUiState.advertisementDetail.images.size,
+                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images.size else courseDetailUiState.advertisementDetail.images.size,
                             state = pagerState,
                             modifier = Modifier
-                                .fillMaxWidth()
-                            // userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess
+                                .fillMaxWidth(),
+                            userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.imageList[page] else courseDetailUiState.advertisementDetail.images[page])
+                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images[page] else courseDetailUiState.advertisementDetail.images[page])
                                     .crossfade(true)
                                     .build(),
                                 contentDescription = null,
@@ -210,7 +218,7 @@ fun CourseDetailScreen(
                         }
 
                         DateRoadTextTag(
-                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.imageList.size),
+                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.images.size),
                             tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                             modifier = Modifier
                                 .padding(end = 10.dp, bottom = 10.dp)
@@ -254,7 +262,7 @@ fun CourseDetailScreen(
                         }
                         when (courseDetailUiState.courseDetailType) {
                             CourseDetailType.COURSE -> {
-                                when (courseDetailUiState.courseDetail.isAccess) {
+                                when (courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
                                     true -> {
                                         Text(
                                             text = courseDetailUiState.courseDetail.description,
@@ -266,7 +274,8 @@ fun CourseDetailScreen(
                                     false -> {
                                         Column(
                                             modifier = Modifier
-                                                .fillMaxSize()
+                                                .fillMaxSize(),
+                                            horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
                                             GradientBoxWithText(text = courseDetailUiState.courseDetail.description)
                                             Column {
@@ -294,8 +303,6 @@ fun CourseDetailScreen(
                                                 Spacer(modifier = Modifier.height(24.dp))
                                                 DateRoadFilledButton(
                                                     modifier = Modifier
-                                                        .fillMaxWidth()
-                                                        .padding(horizontal = 52.dp)
                                                         .align(Alignment.CenterHorizontally),
                                                     isEnabled = true,
                                                     textContent = buttonText,
@@ -312,7 +319,7 @@ fun CourseDetailScreen(
                                                     disabledBackgroundColor = DateRoadTheme.colors.gray200,
                                                     disabledTextColor = DateRoadTheme.colors.gray400,
                                                     cornerRadius = 14.dp,
-                                                    paddingHorizontal = 0.dp,
+                                                    paddingHorizontal = 52.dp,
                                                     paddingVertical = 16.dp
                                                 )
                                                 Spacer(modifier = Modifier.height(16.dp))
@@ -321,6 +328,7 @@ fun CourseDetailScreen(
                                     }
                                 }
                             }
+
                             CourseDetailType.ADVERTISEMENT -> {
                                 Text(
                                     text = courseDetailUiState.advertisementDetail.description,
@@ -332,7 +340,7 @@ fun CourseDetailScreen(
                         }
                     }
                 }
-                if (courseDetailUiState.courseDetail.isAccess && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
+                if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE && courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
                     item {
                         Column(
                             modifier = Modifier
@@ -349,7 +357,7 @@ fun CourseDetailScreen(
                         }
                     }
 
-                    items(courseDetailUiState.courseDetail.places) { place ->
+                    items(courseDetailUiState.courseDetail.places.size) { index ->
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -357,7 +365,8 @@ fun CourseDetailScreen(
                         ) {
                             DateRoadPlaceCard(
                                 placeCardType = PlaceCardType.COURSE_NORMAL,
-                                place = place
+                                sequence = index,
+                                place = courseDetailUiState.courseDetail.places[index]
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
@@ -402,17 +411,19 @@ fun CourseDetailScreen(
                                 .padding(horizontal = 16.dp)
                         ) {
                             Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                                mappedTags.forEach { tag ->
-                                    DateRoadImageChip(
-                                        textId = tag.titleRes,
-                                        imageRes = tag.imageRes,
-                                        chipType = ChipType.DATE,
-                                        isSelected = false
-                                    )
+                                courseDetailUiState.courseDetail.tags.forEach { tag ->
+                                    tag.getDateTagTypeByName()?.let { tagType ->
+                                        DateRoadImageChip(
+                                            textId = tagType.titleRes,
+                                            imageRes = tagType.imageRes,
+                                            chipType = ChipType.DATE,
+                                            isSelected = false
+                                        )
+                                    }
                                 }
                             }
                             Spacer(modifier = Modifier.height(38.dp))
-                            if (!courseDetailUiState.courseDetail.isMine) {
+                            if (!courseDetailUiState.courseDetail.isCourseMine) {
                                 Spacer(modifier = Modifier.height(80.dp))
                             }
                         }
@@ -427,7 +438,7 @@ fun CourseDetailScreen(
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             onIconClick = { onTopBarIconClicked() },
             buttonContent = {
-                if (courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
+                if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
                     Icon(
                         painterResource(id = R.drawable.btn_course_detail_more_white),
                         contentDescription = null,
@@ -439,7 +450,7 @@ fun CourseDetailScreen(
             leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
         )
 
-        if (!courseDetailUiState.courseDetail.isMine && courseDetailUiState.courseDetail.isAccess) {
+        if (!courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetail.isAccess) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -455,7 +466,7 @@ fun CourseDetailScreen(
                         enabledBackgroundColor = DateRoadTheme.colors.gray100,
                         disabledBackgroundColor = DateRoadTheme.colors.gray100,
                         isEnabled = courseDetailUiState.isLikedButtonChecked,
-                        onClick = { onLikeButtonClicked() },
+                        onClick = onLikeButtonClicked,
                         cornerRadius = 14.dp,
                         paddingHorizontal = 23.dp,
                         paddingVertical = 18.dp
