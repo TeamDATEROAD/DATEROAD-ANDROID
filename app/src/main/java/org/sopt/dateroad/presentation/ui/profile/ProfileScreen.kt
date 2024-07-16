@@ -35,7 +35,6 @@ import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWi
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
-import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -57,21 +56,15 @@ fun ProfileRoute(
             }
     }
 
-    when (uiState.loadState) {
-        LoadState.Idle -> {
-            ProfileScreen(
-                profileUiState = uiState,
-                onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-                onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
-                onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                onNicknameButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameButtonClicked) },
-                onEnrollButtonClicked = { viewModel.setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome) }
-            )
-        }
-
-        else -> Unit
-    }
+    ProfileScreen(
+        profileUiState = uiState,
+        onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+        onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
+        onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+        onNicknameButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = uiState.loadState, name = uiState.name)) },
+        onEnrollButtonClicked = { viewModel.setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome) }
+    )
 
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
