@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.ui.past.PastRoute
-import kotlin.reflect.KFunction2
 
 fun NavController.navigationPast() {
     navigate(
