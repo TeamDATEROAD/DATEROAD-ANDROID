@@ -15,7 +15,7 @@ class CourseRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getCourseDetail(courseId: Int): ResponseCourseDetailDto = courseService.getCourseDetail(courseId = courseId)
 
-    override suspend fun getFilteredCourses(country: String, city: String, cost: Int): ResponseCoursesDto = courseService.getFilteredCourses(country = country, city = city, cost = cost)
+    override suspend fun getFilteredCourses(country: String?, city: String?, cost: Int?): ResponseCoursesDto = courseService.getFilteredCourses(country = country, city = city, cost = cost)
 
     override suspend fun getSortedCourses(sortBy: String): ResponseCoursesDto = courseService.getSortedCourses(sortBy = sortBy)
 

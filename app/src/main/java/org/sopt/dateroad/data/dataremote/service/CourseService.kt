@@ -20,34 +20,34 @@ import retrofit2.http.Query
 
 interface CourseService {
     @DELETE("$API/$VERSION/$COURSES/{$COURSE_ID}")
-    fun deleteCourse(
+    suspend fun deleteCourse(
         @Path(COURSE_ID) courseId: Int
     )
 
     @DELETE("$API/$VERSION/$COURSES/{$COURSE_ID}/$LIKES")
-    fun deleteCourseLike(
+    suspend fun deleteCourseLike(
         @Path(COURSE_ID) courseId: Int
     )
 
     @GET("$API/$VERSION/$COURSES/{$COURSE_ID}")
-    fun getCourseDetail(
+    suspend fun getCourseDetail(
         @Path(COURSE_ID) courseId: Int
     ): ResponseCourseDetailDto
 
     @GET("$API/$VERSION/$COURSES")
-    fun getFilteredCourses(
-        @Query(COUNTRY) country: String,
-        @Query(CITY) city: String,
-        @Query(COST) cost: Int
+    suspend fun getFilteredCourses(
+        @Query(COUNTRY) country: String?,
+        @Query(CITY) city: String?,
+        @Query(COST) cost: Int?
     ): ResponseCoursesDto
 
     @GET("$API/$VERSION/$COURSES/$SORT")
-    fun getSortedCourses(
+    suspend fun getSortedCourses(
         @Query(SORT_BY) sortBy: String
     ): ResponseCoursesDto
 
     @POST("$API/$VERSION/$COURSES/{$COURSE_ID}/$LIKES")
-    fun postCourseLike(
+    suspend fun postCourseLike(
         @Path(COURSE_ID) courseId: Int
     )
 }

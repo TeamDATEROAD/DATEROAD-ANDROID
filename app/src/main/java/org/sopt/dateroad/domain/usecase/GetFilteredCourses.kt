@@ -5,10 +5,11 @@ import javax.inject.Singleton
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.repository.CourseRepository
 import org.sopt.dateroad.domain.type.MoneyTagType
+import org.sopt.dateroad.domain.type.RegionType
 
 @Singleton
 class GetFilteredCourses @Inject constructor(
     private val courseRepository: CourseRepository
 ) {
-    suspend operator fun invoke(country: String, city: String, cost: MoneyTagType): Result<List<Course>> = courseRepository.getFilteredCourses(country = country, city = city, cost = cost)
+    suspend operator fun invoke(country: RegionType?, city: Any?, cost: MoneyTagType?): Result<List<Course>> = courseRepository.getFilteredCourses(country = country, city = city, cost = cost)
 }

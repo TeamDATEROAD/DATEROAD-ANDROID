@@ -21,10 +21,6 @@ object ApiConstraints {
 
 object Cost {
     const val COST = "원"
-    const val EXCESS_100000_TITLE = "10만원 초과"
-    const val LESS_THAN_100000_TITLE = "10만원 이하"
-    const val LESS_THAN_50000_TITLE = "5만원 이하"
-    const val LESS_THAN_30000_TITLE = "3만원 이하"
 }
 
 object Duration {

@@ -10,7 +10,7 @@ interface CourseRemoteDataSource {
 
     suspend fun getCourseDetail(courseId: Int): ResponseCourseDetailDto
 
-    suspend fun getFilteredCourses(country: String, city: String, cost: Int): ResponseCoursesDto
+    suspend fun getFilteredCourses(country: String?, city: String?, cost: Int?): ResponseCoursesDto
 
     suspend fun getSortedCourses(sortBy: String): ResponseCoursesDto
 

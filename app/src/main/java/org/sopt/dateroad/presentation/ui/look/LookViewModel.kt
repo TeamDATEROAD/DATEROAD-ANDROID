@@ -1,19 +1,24 @@
 package org.sopt.dateroad.presentation.ui.look
 
+import android.util.Log
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.presentation.type.RegionType
+import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.type.MoneyTagType
+import org.sopt.dateroad.domain.usecase.GetFilteredCourses
+import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import javax.inject.Inject
 
 @HiltViewModel
-class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiState, LookContract.LookSideEffect, LookContract.LookEvent>() {
+class LookViewModel @Inject constructor(
+    private val getFilteredCourses: GetFilteredCourses
+) : BaseViewModel<LookContract.LookUiState, LookContract.LookSideEffect, LookContract.LookEvent>() {
     override fun createInitialState(): LookContract.LookUiState = LookContract.LookUiState()
 
     override suspend fun handleEvent(event: LookContract.LookEvent) {
         when (event) {
-            is LookContract.LookEvent.FetchCourses -> fetchCourses()
             is LookContract.LookEvent.OnAreaButtonClicked -> {
                 setState { copy(isRegionBottomSheetOpen = true, regionBottomSheetSelectedRegion = RegionType.SEOUL, regionBottomSheetSelectedArea = null) }
             }
@@ -25,6 +30,8 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
             is LookContract.LookEvent.OnRegionBottomSheetDismissRequest -> {
                 setState { copy(isRegionBottomSheetOpen = false) }
             }
+
+            is LookContract.LookEvent.FetchCourses -> setState { copy(loadState = event.loadState, courses = event.courses) }
 
             is LookContract.LookEvent.OnMoneyChipClicked -> {
                 setState { copy(money = event.money.takeUnless { it == currentState.money }) }
@@ -44,85 +51,14 @@ class LookViewModel @Inject constructor() : BaseViewModel<LookContract.LookUiSta
         }
     }
 
-    private fun fetchCourses() {
-        setState {
-            copy(
-                loadState = LoadState.Success,
-                courses = listOf(
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                        cost = "5만원 이하",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "홍대",
-                        title = "데로 파이띵 !",
-                        cost = "10만원 이하",
-                        duration = "1시간",
-                        like = "3"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                        cost = "5만원 이하",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "홍대",
-                        title = "데로 파이띵 !",
-                        cost = "10만원 이하",
-                        duration = "1시간",
-                        like = "3"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                        cost = "5만원 이하",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "홍대",
-                        title = "데로 파이띵 !",
-                        cost = "10만원 이하",
-                        duration = "1시간",
-                        like = "3"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "성수동 당일치기 데이트 코스 둘러보러 가실까요?",
-                        cost = "5만원 이하",
-                        duration = "10시간",
-                        like = "999"
-                    ),
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "홍대",
-                        title = "데로 파이띵 !",
-                        cost = "10만원 이하",
-                        duration = "1시간",
-                        like = "3"
-                    )
-                )
-            )
+    fun fetchFilteredCourses(country: RegionType?, city: Any?, cost: MoneyTagType?) {
+        viewModelScope.launch {
+            setEvent(LookContract.LookEvent.FetchCourses(loadState = LoadState.Loading, courses = currentState.courses))
+            getFilteredCourses(country = country, city = city, cost = cost).onSuccess { courses ->
+                setEvent(LookContract.LookEvent.FetchCourses(loadState = LoadState.Success, courses = courses))
+            }.onFailure {
+                setEvent(LookContract.LookEvent.FetchCourses(loadState = LoadState.Error, courses = currentState.courses))
+            }
         }
     }
 }

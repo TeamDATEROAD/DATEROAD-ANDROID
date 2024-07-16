@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.RegionType
+import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
