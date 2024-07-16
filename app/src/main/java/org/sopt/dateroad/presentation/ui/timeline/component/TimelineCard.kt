@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.data.mapper.todomain.toEnglishMonth
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
@@ -80,14 +81,14 @@ fun TimelineCard(
                             .weight(1f)
                     ) {
                         Text(
-                            text = dateCard.date.split(".")[0],
+                            text = dateCard.date.split(".")[1].toEnglishMonth(),
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = dateCard.date.split(".")[1],
+                            text = dateCard.date.split(".")[2],
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 1,

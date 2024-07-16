@@ -50,3 +50,18 @@ object Gyeonggi {
 object Incheon {
     const val INCHEON_ENTIRE = "인천 전체"
 }
+
+object Month {
+    const val JANUARY = "January"
+    const val FEBRUARY = "February"
+    const val MARCH = "March"
+    const val APRIL = "April"
+    const val MAY = "May"
+    const val JUNE = "June"
+    const val JULY = "July"
+    const val AUGUST = "August"
+    const val SEPTEMBER = "September"
+    const val OCTOBER = "October"
+    const val NOVEMBER = "November"
+    const val DECEMBER = "December"
+}
