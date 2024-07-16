@@ -227,7 +227,7 @@
     <!-- DateSchedule -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>
     <string name="home_timeline_enroll">일정을 등록하러 가볼까요?</string>
-    <string name="home_timeline_month_day">Month: %1$s, Day: %2$s</string>
+    <string name="home_timeline_month_day">%1$s월 %2$s일</string>
     <string name="home_timeline_d_day">D-%s</string>
     <string name="home_timeline_start">%s 시작</string>
 
@@ -283,6 +283,7 @@
 
     <!-- TimelineDetail -->
     <string name="timeline_detail_point">데이트 코스 올리고 50P 받기</string>
+    <string name="timeline_detail_formatted_date">%1$d년 %2$d월 %3$d일</string>
 
     <!-- Read -->
     <string name="read_title_normal">%s님이 지금까지\n열람한 데이트 코스\n%d개</string>

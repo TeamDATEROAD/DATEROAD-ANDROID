@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.data.mapper.todomain.toTimelineDetailDate
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
@@ -160,7 +161,7 @@ fun TimelineDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = uiState.dateDetail.date,
+                        text = uiState.dateDetail.date.toTimelineDetailDate(),
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
@@ -235,6 +236,7 @@ fun TimelineDetailScreen(
                     items(uiState.dateDetail.places) { place ->
                         DateRoadPlaceCard(
                             placeCardType = PlaceCardType.COURSE_NORMAL,
+                            sequence = place.sequence,
                             place = Place(sequence = place.sequence, title = place.title, duration = place.duration)
                         )
                     }

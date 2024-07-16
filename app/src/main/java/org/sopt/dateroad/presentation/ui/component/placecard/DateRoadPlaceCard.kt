@@ -50,7 +50,7 @@ fun DateRoadPlaceCard(
         if (placeCardType == PlaceCardType.COURSE_NORMAL) {
             sequence?.let {
                 DateRoadTextTag(
-                    textContent = (sequence + 1).toString(),
+                    textContent = sequence.toString(),
                     tagContentType = TagType.PLACE_CARD_NUMBER
                 )
             }
