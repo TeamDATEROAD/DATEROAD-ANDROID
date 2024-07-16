@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +33,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
@@ -53,6 +57,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
@@ -65,6 +70,8 @@ fun HomeRoute(
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState()
 
     LaunchedEffect(Unit) {
         viewModel.fetchProfile()
@@ -90,11 +97,22 @@ fun HomeRoute(
             }
     }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(4000)
+            coroutineScope.launch {
+                val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
+                pagerState.animateScrollToPage(nextPage)
+            }
+        }
+    }
+
     when (uiState.loadState) {
         LoadState.Success -> {
             HomeScreen(
                 padding = padding,
                 uiState = uiState,
+                pagerState = pagerState,
                 navigateToPointHistory = navigateToPointHistory,
                 navigateToLook = navigateToLook,
                 navigateToTimeline = navigateToTimeline,
@@ -112,6 +130,7 @@ fun HomeRoute(
 fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
+    pagerState: PagerState,
     onEnrollClick: () -> Unit = {},
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
@@ -119,7 +138,7 @@ fun HomeScreen(
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
     onFabClick: (EnrollType, Int?) -> Unit
 ) {
-    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -152,138 +171,141 @@ fun HomeScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp)
+                    .fillMaxWidth()
             ) {
-                Spacer(modifier = Modifier.height(17.dp))
-                Text(
-                    text = PartialColorText(
-                        stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
-                        keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
-                        color = DateRoadTheme.colors.black
-                    ),
-                    color = DateRoadTheme.colors.purple600,
-                    style = DateRoadTheme.typography.titleExtra24
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.home_hot_date_course_description),
-                        style = DateRoadTheme.typography.bodyMed13,
-                        color = DateRoadTheme.colors.gray400
-                    )
-                    DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyMed13,
-                        textColor = DateRoadTheme.colors.purple600,
-                        paddingHorizontal = 20.dp,
-                        paddingVertical = 8.dp,
-                        onClick = navigateToLook
-                    )
-                }
-                Spacer(modifier = Modifier.height(13.dp))
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(uiState.topLikedCourses) { topLikedCourses ->
-                        HomeHotCourseCard(
-                            course = topLikedCourses,
-                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Box(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    HorizontalPager(
-                        count = uiState.advertisements.size,
-                        state = pagerState,
-                        modifier = Modifier.fillMaxWidth()
-                    ) { page ->
-                        HomeAdvertisement(
-                            advertisement = uiState.advertisements[page],
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
-                        )
-                    }
-                    DateRoadTextTag(
-                        textContent = stringResource(
-                            id = R.string.home_advertisement_number,
-                            pagerState.currentPage + 1,
-                            uiState.advertisements.size
-                        ),
-                        tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(6.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.height(32.dp))
-                Text(
-                    text = stringResource(id = R.string.home_new_date_course_title),
-                    style = DateRoadTheme.typography.titleExtra20,
-                    color = DateRoadTheme.colors.black,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(3.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.home_new_date_course_description),
-                        style = DateRoadTheme.typography.bodyMed13,
-                        color = DateRoadTheme.colors.gray400
-                    )
-                    DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyBold13,
-                        textColor = DateRoadTheme.colors.purple600,
-                        paddingHorizontal = 20.dp,
-                        paddingVertical = 8.dp,
-                        onClick = navigateToLook
-                    )
-                }
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .padding(start = 16.dp)
+
                 ) {
-                    uiState.latestCourses.forEach { latestCourses ->
-                        DateRoadCourseCard(
-                            course = latestCourses,
-                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.courseId) }
+                    Spacer(modifier = Modifier.height(17.dp))
+                    Text(
+                        text = PartialColorText(
+                            stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
+                            keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
+                            color = DateRoadTheme.colors.black
+                        ),
+                        color = DateRoadTheme.colors.purple600,
+                        style = DateRoadTheme.typography.titleExtra24
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.home_hot_date_course_description),
+                            style = DateRoadTheme.typography.bodyMed13,
+                            color = DateRoadTheme.colors.gray400
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        DateRoadTextButton(
+                            textContent = stringResource(id = R.string.button_more),
+                            textStyle = DateRoadTheme.typography.bodyMed13,
+                            textColor = DateRoadTheme.colors.purple600,
+                            paddingHorizontal = 20.dp,
+                            paddingVertical = 8.dp,
+                            onClick = navigateToLook
+                        )
                     }
+                    Spacer(modifier = Modifier.height(13.dp))
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(uiState.topLikedCourses) { topLikedCourses ->
+                            HomeHotCourseCard(
+                                course = topLikedCourses,
+                                onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp)
+                    ) {
+                        HorizontalPager(
+                            count = uiState.advertisements.size,
+                            state = pagerState,
+                            modifier = Modifier.fillMaxWidth()
+                        ) { page ->
+                            HomeAdvertisement(
+                                advertisement = uiState.advertisements[page],
+                                onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
+                            )
+                        }
+                        DateRoadTextTag(
+                            textContent = stringResource(
+                                id = R.string.home_advertisement_number,
+                                pagerState.currentPage + 1,
+                                uiState.advertisements.size
+                            ),
+                            tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(6.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = stringResource(id = R.string.home_new_date_course_title),
+                        style = DateRoadTheme.typography.titleExtra20,
+                        color = DateRoadTheme.colors.black,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.home_new_date_course_description),
+                            style = DateRoadTheme.typography.bodyMed13,
+                            color = DateRoadTheme.colors.gray400
+                        )
+                        DateRoadTextButton(
+                            textContent = stringResource(id = R.string.button_more),
+                            textStyle = DateRoadTheme.typography.bodyBold13,
+                            textColor = DateRoadTheme.colors.purple600,
+                            paddingHorizontal = 20.dp,
+                            paddingVertical = 8.dp,
+                            onClick = navigateToLook
+                        )
+                    }
+                }
+                uiState.latestCourses.forEach { latestCourses ->
+                    DateRoadCourseCard(
+                        course = latestCourses,
+                        onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.courseId) }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding),
-        Alignment.BottomEnd
-    ) {
-        DateRoadImageButton(
-            isEnabled = true,
-            onClick = { onFabClick(EnrollType.COURSE, null) },
-            cornerRadius = 44.dp,
-            paddingHorizontal = 16.dp,
-            paddingVertical = 16.dp,
+        Box(
             modifier = Modifier
-                .padding(16.dp)
-        )
+                .fillMaxSize()
+                .padding(padding),
+            Alignment.BottomEnd
+        ) {
+            DateRoadImageButton(
+                isEnabled = true,
+                onClick = { onFabClick(EnrollType.COURSE, null) },
+                cornerRadius = 44.dp,
+                paddingHorizontal = 16.dp,
+                paddingVertical = 16.dp,
+                modifier = Modifier
+                    .padding(16.dp)
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
@@ -367,7 +389,8 @@ fun HomeScreenPreview() {
                 remainingPoints = 100,
                 currentBannerPage = 0
             ),
-            onFabClick = { _, _ -> }
+            onFabClick = { _, _ -> },
+            pagerState = rememberPagerState()
         )
     }
 }
