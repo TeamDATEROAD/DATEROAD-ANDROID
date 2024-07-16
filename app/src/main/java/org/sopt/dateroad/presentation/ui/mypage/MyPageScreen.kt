@@ -90,7 +90,10 @@ fun MyPageRoute(
                 padding = padding,
                 myPageUiState = uiState,
                 deleteLogout = { viewModel.deleteLogout() },
-                deleteWithdrawal = { viewModel.deleteWithdrawal() },
+                deleteWithdrawal = {
+                    viewModel.deleteWithdrawal()
+                    viewModel.withdrawal(2, null)
+                },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
@@ -252,6 +255,7 @@ fun MyPageScreen(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
             onDismissRequest = { setWithdrawalDialog(false) },
             onClickConfirm = { setWithdrawalDialog(false) },
+            firstButtonEnabled = true,
             onClickDismiss = deleteWithdrawal
         )
     }

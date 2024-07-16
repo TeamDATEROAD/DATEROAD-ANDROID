@@ -1,13 +1,18 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Profile
+import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
+class MyPageViewModel @Inject constructor(
+    private val deleteWithdrawUserUseCase: DeleteWithdrawUseCase
+) : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
     override fun createInitialState(): MyPageContract.MyPageUiState =
         MyPageContract.MyPageUiState()
 
@@ -32,5 +37,20 @@ class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageContract.MyPag
 
     fun deleteWithdrawal() {
         setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false))
+    }
+
+    fun withdrawal(userId: Int, authCode: String?) {
+        viewModelScope.launch {
+            setState { copy(loadState = LoadState.Loading) }
+            deleteWithdrawUserUseCase(userId, authCode).onSuccess {
+                setState {
+                    copy(
+                        loadState = LoadState.Success
+                    )
+                }
+            }.onFailure {
+                setState { copy(loadState = LoadState.Error) }
+            }
+        }
     }
 }

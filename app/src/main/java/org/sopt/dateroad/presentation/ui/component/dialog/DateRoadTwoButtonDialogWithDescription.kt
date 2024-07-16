@@ -26,10 +26,13 @@ fun DateRoadTwoButtonDialogWithDescription(
     twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType,
     onDismissRequest: () -> Unit = {},
     onClickConfirm: () -> Unit,
-    onClickDismiss: () -> Unit = {}
+    onClickDismiss: () -> Unit = {},
+    firstButtonEnabled: Boolean = false,
+    secondButtonEnabled: Boolean = true
 ) {
     DateRoadDialog(
         onDismissRequest = onDismissRequest
+
     ) {
         Column(
             modifier = Modifier
@@ -67,13 +70,13 @@ fun DateRoadTwoButtonDialogWithDescription(
             ) {
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = false,
+                    isEnabled = firstButtonEnabled,
                     textContent = stringResource(id = twoButtonDialogWithDescriptionType.dismissButtonTextRes),
                     onClick = onClickDismiss
                 )
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = true,
+                    isEnabled = secondButtonEnabled,
                     textContent = stringResource(id = twoButtonDialogWithDescriptionType.confirmButtonTextRes),
                     onClick = onClickConfirm
                 )
