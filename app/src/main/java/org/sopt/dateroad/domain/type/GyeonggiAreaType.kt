@@ -55,5 +55,10 @@ enum class GyeonggiAreaType(
     ),
     PYEONGTAEK_OSAN_ANSEONG(
         title = Gyeonggi.PYEONGTAEK_OSAN_ANSEONG
-    )
+    );
+    companion object {
+        fun fromString(value: String): GyeonggiAreaType? {
+            return entries.find { it.name == value }
+        }
+    }
 }

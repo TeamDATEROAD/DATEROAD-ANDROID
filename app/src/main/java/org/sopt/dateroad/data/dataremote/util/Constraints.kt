@@ -20,6 +20,7 @@ object ApiConstraints {
     const val POINTS = "points"
     const val ADVERTISEMENTS = "advertisements"
     const val DATES = "dates"
+    const val TIME = "time"
 }
 
 object Cost {

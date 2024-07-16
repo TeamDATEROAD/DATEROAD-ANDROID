@@ -21,6 +21,7 @@ import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.TimelineDetailType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.past.component.PastCard
@@ -39,7 +40,7 @@ fun PastRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchPastDate()
+        viewModel.fetchPastDate(TimelineDetailType.PAST.titleContent)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

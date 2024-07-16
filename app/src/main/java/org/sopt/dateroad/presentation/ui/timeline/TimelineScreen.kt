@@ -33,6 +33,7 @@ import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
+import org.sopt.dateroad.presentation.type.TimelineDetailType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
@@ -59,7 +60,7 @@ fun TimelineRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchTimeline()
+        viewModel.fetchTimeline(TimelineDetailType.FUTURE.titleContent)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -151,7 +152,7 @@ fun TimelineScreen(
                     TimelineCard(
                         dateCard = date,
                         dateType = dateType,
-                        onClick = { navigateToTimelineDetail(dateType, date.dateId) },
+                        onClick = { navigateToTimelineDetail(dateType, date.dateId.toInt()) },
                         modifier = Modifier
                             .padding(end = 16.dp)
                     )

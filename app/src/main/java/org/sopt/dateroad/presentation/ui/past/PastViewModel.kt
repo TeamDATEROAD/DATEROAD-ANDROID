@@ -1,14 +1,18 @@
 package org.sopt.dateroad.presentation.ui.past
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Date
-import org.sopt.dateroad.presentation.type.DateTagType
+import kotlinx.coroutines.launch
+import org.sopt.dateroad.data.mapper.todomain.toDomain
+import org.sopt.dateroad.domain.usecase.GetDatesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class PastViewModel @Inject constructor() : BaseViewModel<PastContract.PastUiState, PastContract.PastSideEffect, PastContract.PastEvent>() {
+class PastViewModel @Inject constructor(
+    private val getDatesUseCase: GetDatesUseCase
+) : BaseViewModel<PastContract.PastUiState, PastContract.PastSideEffect, PastContract.PastEvent>() {
     override fun createInitialState(): PastContract.PastUiState =
         PastContract.PastUiState()
 
@@ -18,53 +22,17 @@ class PastViewModel @Inject constructor() : BaseViewModel<PastContract.PastUiSta
         }
     }
 
-    fun fetchPastDate() {
-        setEvent(
-            PastContract.PastEvent.FetchPastDate(
-                loadState = LoadState.Success,
-                dates = listOf(
-                    Date(
-                        dateId = 0,
-                        dDay = "3",
-                        title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                        date = "2024년 6월 23일",
-                        city = "건대/성수/왕십리",
-                        tags = listOf(DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 0,
-                        dDay = "3",
-                        title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                        date = "2024년 6월 23일",
-                        city = "건대/성수/왕십리",
-                        tags = listOf(DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 0,
-                        dDay = "3",
-                        title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                        date = "2024년 6월 23일",
-                        city = "건대/성수/왕십리",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 0,
-                        dDay = "3",
-                        title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                        date = "2024년 6월 23일",
-                        city = "건대/성수/왕십리",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 0,
-                        dDay = "3",
-                        title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                        date = "2024년 6월 23일",
-                        city = "건대/성수/왕십리",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    )
-                )
-            )
-        )
+    fun fetchPastDate(time: String) {
+        viewModelScope.launch {
+            setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, dates = emptyList()))
+            getDatesUseCase(time)
+                .onSuccess { response ->
+                    val dates = response.dates.map { it.toDomain() }
+                    setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Success, dates = dates))
+                }
+                .onFailure {
+                    setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Error, dates = emptyList()))
+                }
+        }
     }
 }

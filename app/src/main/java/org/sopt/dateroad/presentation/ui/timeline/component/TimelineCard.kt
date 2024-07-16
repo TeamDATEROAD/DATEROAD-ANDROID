@@ -45,7 +45,7 @@ fun TimelineCard(
     modifier: Modifier,
     dateCard: Date,
     dateType: DateType,
-    onClick: (Int) -> Unit = {}
+    onClick: (Long) -> Unit = {}
 ) {
     Box(
         modifier = modifier
