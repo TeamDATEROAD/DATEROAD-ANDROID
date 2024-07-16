@@ -9,7 +9,5 @@ import org.sopt.dateroad.domain.repository.AdvertisementRepository
 class GetAdvertisementsUseCase @Inject constructor(
     private val advertisementRepository: AdvertisementRepository
 ) {
-    suspend operator fun invoke(): Result<List<Advertisement>> = runCatching {
-        advertisementRepository.getHomeAdvertisements().getOrThrow()
-    }
+    suspend operator fun invoke(): Result<List<Advertisement>> = advertisementRepository.getHomeAdvertisements()
 }
