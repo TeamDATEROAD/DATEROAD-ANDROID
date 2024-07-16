@@ -8,10 +8,12 @@ import javax.inject.Singleton
 import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.DummyRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.MyCourseRepositoryImpl
+import org.sopt.dateroad.data.repositoryimpl.ProfileRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.UserPointRepositoryImpl
 import org.sopt.dateroad.domain.repository.CourseRepository
 import org.sopt.dateroad.domain.repository.DummyRepository
 import org.sopt.dateroad.domain.repository.MyCourseRepository
+import org.sopt.dateroad.domain.repository.ProfileRepository
 import org.sopt.dateroad.domain.repository.UserPointRepository
 
 @Module
@@ -32,4 +34,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsUserPointRepository(userPointRepositoryImpl: UserPointRepositoryImpl): UserPointRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository
 }

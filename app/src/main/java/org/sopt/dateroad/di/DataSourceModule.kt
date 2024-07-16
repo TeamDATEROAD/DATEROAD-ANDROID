@@ -10,10 +10,12 @@ import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceIm
 import org.sopt.dateroad.data.dataremote.datasource.CourseRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.MyCourseRemoteDataSource
+import org.sopt.dateroad.data.dataremote.datasource.ProfileRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.UserPointRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasourceimpl.CourseRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.MyCourseRemoteDataSourceImpl
+import org.sopt.dateroad.data.dataremote.datasourceimpl.ProfileRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.UserPointRemoteDataSourceImpl
 
 @Module
@@ -38,4 +40,8 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsUserPointRemoteDataSource(userPointRemoteDataSourceImpl: UserPointRemoteDataSourceImpl): UserPointRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsProfileDataSource(profileDataSourceImpl: ProfileRemoteDataSourceImpl): ProfileRemoteDataSource
 }

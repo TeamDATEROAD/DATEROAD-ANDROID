@@ -57,7 +57,6 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
@@ -70,7 +69,7 @@ fun MyPageRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchProfile()
+        viewModel.fetchProfile(4)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

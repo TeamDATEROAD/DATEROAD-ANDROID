@@ -1,13 +1,18 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Profile
+import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.usecase.GetUserUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
+class MyPageViewModel @Inject constructor(
+    private val getUserUseCase: GetUserUseCase
+) : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
+
     override fun createInitialState(): MyPageContract.MyPageUiState =
         MyPageContract.MyPageUiState()
 
@@ -22,8 +27,20 @@ class MyPageViewModel @Inject constructor() : BaseViewModel<MyPageContract.MyPag
         }
     }
 
-    fun fetchProfile() {
-        setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = Profile(name = "지현", tag = listOf("드라이브", "쇼핑", "실내"), point = 100)))
+    fun fetchProfile(userId: Int) {
+        viewModelScope.launch {
+            setState { copy(loadState = LoadState.Loading) }
+            getUserUseCase(userId).onSuccess { profile ->
+                setState {
+                    copy(
+                        loadState = LoadState.Success,
+                        profile = profile
+                    )
+                }
+            }.onFailure {
+                setState { copy(loadState = LoadState.Error) }
+            }
+        }
     }
 
     fun deleteLogout() {
