@@ -16,7 +16,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadFilledButton(
     modifier: Modifier = Modifier,
-    isEnabled: Boolean = false,
+    isEnabled: Boolean = true,
     textContent: String,
     textStyle: TextStyle,
     enabledBackgroundColor: Color,
