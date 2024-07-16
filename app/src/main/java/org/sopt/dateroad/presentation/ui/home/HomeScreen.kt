@@ -33,8 +33,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
@@ -55,6 +57,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
@@ -67,6 +70,8 @@ fun HomeRoute(
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState()
 
     LaunchedEffect(Unit) {
         viewModel.fetchProfile()
@@ -95,8 +100,10 @@ fun HomeRoute(
     LaunchedEffect(Unit) {
         while (true) {
             delay(4000)
-            val nextPage = (uiState.currentBannerPage + 1) % uiState.advertisements.size
-            viewModel.changeBannerPage(nextPage)
+            coroutineScope.launch {
+                val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
+                pagerState.animateScrollToPage(nextPage)
+            }
         }
     }
 
@@ -105,6 +112,7 @@ fun HomeRoute(
             HomeScreen(
                 padding = padding,
                 uiState = uiState,
+                pagerState = pagerState,
                 navigateToPointHistory = navigateToPointHistory,
                 navigateToLook = navigateToLook,
                 navigateToTimeline = navigateToTimeline,
@@ -122,6 +130,7 @@ fun HomeRoute(
 fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
+    pagerState: PagerState,
     onEnrollClick: () -> Unit = {},
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
@@ -129,12 +138,7 @@ fun HomeScreen(
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
     onFabClick: (EnrollType, Int?) -> Unit
 ) {
-    val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
-
-    LaunchedEffect(uiState.currentBannerPage) {
-        pagerState.scrollToPage(uiState.currentBannerPage)
-    }
 
     Column(
         modifier = Modifier
@@ -301,6 +305,7 @@ fun HomeScreen(
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
@@ -384,7 +389,8 @@ fun HomeScreenPreview() {
                 remainingPoints = 100,
                 currentBannerPage = 0
             ),
-            onFabClick = { _, _ -> }
+            onFabClick = { _, _ -> },
+            pagerState = rememberPagerState()
         )
     }
 }
