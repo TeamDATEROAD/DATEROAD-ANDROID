@@ -36,8 +36,8 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.InitCourseDetail -> setState { copy(id = event.id, courseDetailType = event.courseDetailType) }
             is CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail -> setState { copy(loadState = event.loadState, advertisementDetail = event.advertisementDetail) }
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
-            is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = false, like = courseDetail.like - 1)) }
-            is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = true, like = courseDetail.like + 1)) }
+            is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
+            is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
         }
     }
 
@@ -58,11 +58,11 @@ class CourseDetailViewModel @Inject constructor(
 
     fun deleteCourseLike(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Loading))
+            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
             deleteCourseLikeUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Success))
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = false, like = currentState.courseDetail.like - 1)))
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Error))
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
             }
         }
     }
@@ -80,11 +80,11 @@ class CourseDetailViewModel @Inject constructor(
 
     fun postCourseLike(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Loading))
+            setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
             postCourseLikeUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success))
+                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = true, like = currentState.courseDetail.like + 1)))
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error))
+                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
             }
         }
     }
