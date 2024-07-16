@@ -5,13 +5,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.AdvertisementDetail
+import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
+import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor(
-    private val getCourseDetailUseCase: GetCourseDetailUseCase
+    private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
+    private val getCourseDetailUseCase: GetCourseDetailUseCase,
+    private val postCourseLikeUseCase: PostCourseLikeUseCase
 ) : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
     override fun createInitialState(): CourseDetailContract.CourseDetailUiState = CourseDetailContract.CourseDetailUiState()
 
@@ -32,6 +36,8 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.InitCourseDetail -> setState { copy(id = event.id, courseDetailType = event.courseDetailType) }
             is CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail -> setState { copy(loadState = event.loadState, advertisementDetail = event.advertisementDetail) }
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
+            is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = false, like = courseDetail.like - 1)) }
+            is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = true, like = courseDetail.like + 1)) }
         }
     }
 
@@ -50,6 +56,17 @@ class CourseDetailViewModel @Inject constructor(
         )
     }
 
+    fun deleteCourseLike(courseId: Int) {
+        viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Loading))
+            deleteCourseLikeUseCase(courseId = courseId).onSuccess {
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Success))
+            }.onFailure {
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Error))
+            }
+        }
+    }
+
     fun fetchCourseDetail(courseId: Int) {
         viewModelScope.launch {
             setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
@@ -57,6 +74,17 @@ class CourseDetailViewModel @Inject constructor(
                 setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Success, courseDetail = courseDetail))
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
+            }
+        }
+    }
+
+    fun postCourseLike(courseId: Int) {
+        viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Loading))
+            postCourseLikeUseCase(courseId = courseId).onSuccess {
+                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success))
+            }.onFailure {
+                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error))
             }
         }
     }

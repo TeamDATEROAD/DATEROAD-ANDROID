@@ -111,7 +111,14 @@ fun CourseDetailRoute(
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
-                onLikeButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked) },
+                onLikeButtonClicked = {
+                    if (uiState.id != 0) {
+                        when (uiState.courseDetail.isUserLiked) {
+                            true -> viewModel.deleteCourseLike(uiState.id)
+                            false -> viewModel.postCourseLike(uiState.id)
+                        }
+                    }
+                },
                 onDeleteButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked) },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
@@ -459,7 +466,7 @@ fun CourseDetailScreen(
                         enabledBackgroundColor = DateRoadTheme.colors.gray100,
                         disabledBackgroundColor = DateRoadTheme.colors.gray100,
                         isEnabled = courseDetailUiState.isLikedButtonChecked,
-                        onClick = { onLikeButtonClicked() },
+                        onClick = onLikeButtonClicked,
                         cornerRadius = 14.dp,
                         paddingHorizontal = 23.dp,
                         paddingVertical = 18.dp
