@@ -119,7 +119,10 @@ fun CourseDetailRoute(
                         }
                     }
                 },
-                onDeleteButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked) },
+                onDeleteButtonClicked = {
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked)
+                    viewModel.deleteCourse(uiState.id)
+                },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
@@ -523,12 +526,12 @@ fun CourseDetailScreen(
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
         title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-        isButtonEnabled = false,
+        isButtonEnabled = true,
         buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
-            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to { }
+            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to { onDeleteButtonClicked() }
         ),
         onDismissRequest = { dismissEditBottomSheet() },
-        onButtonClick = { onDeleteButtonClicked() }
+        onButtonClick = { dismissEditBottomSheet() }
     )
 }
