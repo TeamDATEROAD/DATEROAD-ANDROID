@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.sopt.dateroad.data.dataremote.service.AdvertisementService
 import org.sopt.dateroad.data.dataremote.service.CourseService
 import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService
@@ -14,6 +15,10 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
+    @Provides
+    fun providesAdvertisementService(@DateRoad retrofit: Retrofit): AdvertisementService =
+        retrofit.create(AdvertisementService::class.java)
+
     @Provides
     fun providesCourseService(@DateRoad retrofit: Retrofit): CourseService =
         retrofit.create(CourseService::class.java)

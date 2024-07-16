@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -96,7 +97,7 @@ fun CourseDetailRoute(
         if (uiState.id != 0) {
             when (uiState.courseDetailType) {
                 CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
-                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
+                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail(uiState.id)
             }
         }
     }
@@ -130,6 +131,8 @@ fun CourseDetailRoute(
 
         else -> Unit
     }
+
+    Log.e("ㅋㅋ", uiState.advertisementDetail.toString())
 }
 
 @OptIn(ExperimentalPagerApi::class)
@@ -235,7 +238,7 @@ fun CourseDetailScreen(
                     ) {
                         if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
                             DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.tag,
+                                textContent = courseDetailUiState.advertisementDetail.advertisementTagTitle,
                                 tagContentType = TagType.ADVERTISEMENT_TITLE
                             )
                             Spacer(modifier = Modifier.height(16.dp))

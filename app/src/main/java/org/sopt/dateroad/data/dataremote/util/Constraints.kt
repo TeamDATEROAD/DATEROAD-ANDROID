@@ -18,6 +18,8 @@ object ApiConstraints {
     const val COST = "cost"
     const val SORT_BY = "sortBy"
     const val POINTS = "points"
+    const val ADVERTISEMENTS = "advertisements"
+    const val ADVERTISEMENT_ID = "advId"
 }
 
 object Cost {
@@ -34,8 +36,10 @@ object Like {
 }
 
 object Date {
-    const val INPUT_FORMAT = "yyyy-MM-dd"
+    const val COURSE_DETAIL_INPUT_FORMAT = "yyyy-MM-dd"
+    const val ADVERTISEMENT_DETAIL_INPUT_FORMAT = "yyyy.MM.dd"
     const val COURSE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일 방문"
+    const val ADVERTISEMENT_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
 }
 
 object Point {
