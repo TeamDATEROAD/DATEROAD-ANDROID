@@ -21,6 +21,7 @@ object ApiConstraints {
     const val ADVERTISEMENTS = "advertisements"
     const val DATES = "dates"
     const val TIME = "time"
+    const val NEAREST = "nearest"
 }
 
 object Cost {

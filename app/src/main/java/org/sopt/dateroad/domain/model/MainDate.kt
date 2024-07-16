@@ -1,10 +1,10 @@
 package org.sopt.dateroad.domain.model
 
 data class MainDate(
-    val dateId: Long,
-    val dDay: String,
-    val dateName: String,
-    val month: Int,
-    val day: Int,
-    val startAt: String
+    val dateId: Long = 0,
+    val dDay: String = "",
+    val dateName: String = "",
+    val month: Int = 0,
+    val day: Int = 0,
+    val startAt: String = ""
 )

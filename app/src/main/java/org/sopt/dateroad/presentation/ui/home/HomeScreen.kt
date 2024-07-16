@@ -79,7 +79,7 @@ fun HomeRoute(
         viewModel.fetchLatestCourses()
         viewModel.fetchRemainingPoints()
         viewModel.fetchTopLikedCourses()
-        viewModel.fetchMainDate()
+        viewModel.fetchNearestDate()
         viewModel.fetchUserName()
     }
 
