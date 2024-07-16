@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -131,8 +130,6 @@ fun CourseDetailRoute(
 
         else -> Unit
     }
-
-    Log.e("ㅋㅋ", uiState.advertisementDetail.toString())
 }
 
 @OptIn(ExperimentalPagerApi::class)
