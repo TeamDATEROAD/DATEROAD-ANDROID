@@ -465,7 +465,7 @@ fun CourseDetailScreen(
                         disabledContentColor = DateRoadTheme.colors.gray200,
                         enabledBackgroundColor = DateRoadTheme.colors.gray100,
                         disabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        isEnabled = courseDetailUiState.isLikedButtonChecked,
+                        isEnabled = courseDetailUiState.courseDetail.isUserLiked,
                         onClick = onLikeButtonClicked,
                         cornerRadius = 14.dp,
                         paddingHorizontal = 23.dp,
