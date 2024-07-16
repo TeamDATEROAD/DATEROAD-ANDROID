@@ -41,6 +41,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
@@ -76,11 +77,11 @@ fun HomeRoute(
     LaunchedEffect(Unit) {
         viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
-        viewModel.fetchLatestCourses()
         viewModel.fetchRemainingPoints()
-        viewModel.fetchTopLikedCourses()
         viewModel.fetchMainDate()
         viewModel.fetchUserName()
+        viewModel.fetchSortedCourses(SortByType.POPULAR)
+        viewModel.fetchSortedCourses(SortByType.LATEST)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

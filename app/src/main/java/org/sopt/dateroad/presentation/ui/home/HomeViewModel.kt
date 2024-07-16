@@ -1,15 +1,20 @@
 package org.sopt.dateroad.presentation.ui.home
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Advertisement
-import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.type.SortByType
+import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
+class HomeViewModel @Inject constructor(
+    private val getSortedCoursesUseCase: GetSortedCoursesUseCase
+) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
@@ -26,6 +31,23 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
 
     fun changeBannerPage(page: Int) {
         setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
+    }
+
+    fun fetchSortedCourses(sortBy: SortByType) {
+        viewModelScope.launch {
+            setState { copy(loadState = LoadState.Loading) }
+            getSortedCoursesUseCase(sortBy)
+                .onSuccess { responseCoursesDto ->
+                    if (sortBy == SortByType.POPULAR) {
+                        setEvent(HomeContract.HomeEvent.FetchTopLikedCourses(loadState = LoadState.Success, topLikedCourses = responseCoursesDto))
+                    } else {
+                        setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Success, latestCourses = responseCoursesDto))
+                    }
+                }
+                .onFailure {
+                    setState { copy(loadState = LoadState.Error) }
+                }
+        }
     }
 
     fun fetchProfile() {
@@ -63,67 +85,11 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         )
     }
 
-    fun fetchLatestCourses() {
-        setEvent(
-            HomeContract.HomeEvent.FetchLatestCourses(
-                loadState = LoadState.Success,
-                latestCourses = listOf(
-                    Course(
-                        courseId = 3,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "부천",
-                        title = "부천에서는 뭐하면서 놀면 좋을까요? 흐음.... 부천에서 놀게 있나?",
-                        cost = "10원",
-                        duration = "1시간",
-                        like = "100"
-                    ),
-                    Course(
-                        courseId = 4,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "제주",
-                        title = "제주도에서 한라봉 따먹을 사람?",
-                        cost = "120만원",
-                        duration = "48시간",
-                        like = "999+"
-                    )
-                )
-            )
-        )
-    }
-
     fun fetchRemainingPoints() {
         setEvent(
             HomeContract.HomeEvent.FetchRemainingPoints(
                 loadState = LoadState.Success,
                 remainingPoints = 100
-            )
-        )
-    }
-
-    fun fetchTopLikedCourses() {
-        setEvent(
-            HomeContract.HomeEvent.FetchTopLikedCourses(
-                loadState = LoadState.Success,
-                topLikedCourses = listOf(
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "데이트할사람~",
-                        cost = "100만원",
-                        duration = "21시간",
-                        like = "150"
-                    ),
-                    Course(
-                        courseId = 2,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "건대/성수/왕십리",
-                        title = "데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람",
-                        cost = "150만원",
-                        duration = "6시간",
-                        like = "200"
-                    )
-                )
             )
         )
     }
