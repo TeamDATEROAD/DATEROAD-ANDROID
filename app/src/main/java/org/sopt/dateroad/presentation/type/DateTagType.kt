@@ -16,7 +16,7 @@ enum class DateTagType(
         titleRes = R.string.date_tag_shopping,
         imageRes = R.drawable.ic_all_shopping
     ),
-    INDOOR(
+    INDOORS(
         titleRes = R.string.date_tag_indoor,
         imageRes = R.drawable.ic_all_indoor
     ),
@@ -28,11 +28,11 @@ enum class DateTagType(
         titleRes = R.string.date_tag_alcohol,
         imageRes = R.drawable.ic_all_alcohol
     ),
-    EPICURISM(
+    FOOD(
         titleRes = R.string.date_tag_epicurism,
         imageRes = R.drawable.ic_all_epicurism
     ),
-    CRAFT_SHOP(
+    WORKSHOP(
         titleRes = R.string.date_tag_craft_shop,
         imageRes = R.drawable.ic_all_craft_shop
     ),
@@ -48,8 +48,12 @@ enum class DateTagType(
         titleRes = R.string.date_tag_performance_music,
         imageRes = R.drawable.ic_all_performance_music
     ),
-    EXHIBITION_POP_UP(
+    EXHIBITION_POPUP(
         titleRes = R.string.date_tag_exhibition_pop_up,
         imageRes = R.drawable.ic_all_exhibition_pop_up
-    )
+    );
+
+    companion object {
+        fun String.getDateTagTypeByName(): DateTagType? = entries.find { it.name == this }
+    }
 }

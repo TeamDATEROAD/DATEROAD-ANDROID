@@ -54,7 +54,7 @@ fun DateRoadPlaceCard(
             Spacer(modifier = Modifier.width(14.dp))
         }
         Text(
-            text = place.title,
+            text = place.name,
             modifier = Modifier.weight(1f),
             style = DateRoadTheme.typography.bodyBold15,
             maxLines = 1,
@@ -91,18 +91,18 @@ fun DateRoadPlaceCardPreview() {
     Column {
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_NORMAL,
-            place = Place(sequence = 1, title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
+            place = Place(sequence = 1, name = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_EDIT,
-            place = Place(sequence = 2, title = "성수미술관 성수점", duration = "1시간"),
+            place = Place(sequence = 2, name = "성수미술관 성수점", duration = "1시간"),
             onIconClick = { }
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_DELETE,
-            place = Place(sequence = 3, title = "성수미술관 성수점", duration = "0.5시간"),
+            place = Place(sequence = 3, name = "성수미술관 성수점", duration = "0.5시간"),
             onIconClick = { }
         )
     }

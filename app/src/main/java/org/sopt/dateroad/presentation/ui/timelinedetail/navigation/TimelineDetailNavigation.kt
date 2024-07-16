@@ -30,7 +30,7 @@ fun NavGraphBuilder.timelineDetailGraph(
         TimelineDetailRoute(
             padding = padding,
             popBackStack = popBackStack,
-            dateId = dateId,
+            dateId = dateId.toLong(),
             dateType = dateType,
             sourceScreen = true
         )

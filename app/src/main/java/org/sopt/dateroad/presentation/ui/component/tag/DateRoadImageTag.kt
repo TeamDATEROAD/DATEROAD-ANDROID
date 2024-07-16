@@ -79,8 +79,8 @@ fun DateRoadImageTagPreview() {
                 tagContentType = TagType.PAST_DATE
             )
             DateRoadImageTag(
-                textContent = stringResource(id = DateTagType.EXHIBITION_POP_UP.titleRes),
-                imageContent = DateTagType.EXHIBITION_POP_UP.imageRes,
+                textContent = stringResource(id = DateTagType.EXHIBITION_POPUP.titleRes),
+                imageContent = DateTagType.EXHIBITION_POPUP.imageRes,
                 tagContentType = TagType.TIMELINE_DATE_PINK
             )
         }
