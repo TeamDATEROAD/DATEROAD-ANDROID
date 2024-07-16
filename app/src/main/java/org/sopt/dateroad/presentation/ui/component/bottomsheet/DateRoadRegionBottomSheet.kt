@@ -33,11 +33,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.domain.type.GyeonggiAreaType
 import org.sopt.dateroad.domain.type.IncheonAreaType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.type.SeoulAreaType
+import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme

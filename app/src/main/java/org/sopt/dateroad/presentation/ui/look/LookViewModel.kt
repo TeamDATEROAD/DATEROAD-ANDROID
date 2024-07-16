@@ -1,15 +1,14 @@
 package org.sopt.dateroad.presentation.ui.look
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.type.MoneyTagType
-import org.sopt.dateroad.domain.usecase.GetFilteredCourses
 import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.usecase.GetFilteredCourses
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class LookViewModel @Inject constructor(

@@ -2,7 +2,6 @@ package org.sopt.dateroad.domain.type
 
 import org.sopt.dateroad.domain.util.Cost
 
-
 enum class MoneyTagType(
     val title: String,
     val threshold: Int,

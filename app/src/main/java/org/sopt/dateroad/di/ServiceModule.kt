@@ -16,7 +16,7 @@ object ServiceModule {
     @Provides
     fun providesCourseService(@DateRoad retrofit: Retrofit): CourseService =
         retrofit.create(CourseService::class.java)
-    
+
     @Provides
     fun providesDummyService(@DateRoad retrofit: Retrofit): DummyService =
         retrofit.create(DummyService::class.java)
