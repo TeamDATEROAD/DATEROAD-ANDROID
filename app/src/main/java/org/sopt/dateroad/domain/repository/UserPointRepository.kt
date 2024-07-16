@@ -10,4 +10,6 @@ interface UserPointRepository {
     suspend fun getPointHistory(): Result<PointHistory>
 
     suspend fun postUsePoint(courseId: Int, usePoint: UsePoint)
+
+    suspend fun getUserProfileMain(userId: Int): Result<UserPoint>
 }

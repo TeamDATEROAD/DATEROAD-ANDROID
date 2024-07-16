@@ -1,15 +1,20 @@
 package org.sopt.dateroad.presentation.ui.home
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.usecase.GetUserProfileMainUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
+class HomeViewModel @Inject constructor(
+    private val getUserProfileMainUseCase: GetUserProfileMainUseCase
+) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
@@ -24,17 +29,23 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         }
     }
 
-    fun changeBannerPage(page: Int) {
-        setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
-    }
-
     fun fetchProfile() {
-        setEvent(
-            HomeContract.HomeEvent.FetchUserName(
-                loadState = LoadState.Success,
-                userName = "이현진"
-            )
-        )
+        viewModelScope.launch {
+            setState { copy(loadState = LoadState.Loading) }
+            getUserProfileMainUseCase(userId = 1)
+                .onSuccess { userPoint ->
+                    setState {
+                        copy(
+                            userName = userPoint.name,
+                            remainingPoints = userPoint.point,
+                            loadState = LoadState.Success
+                        )
+                    }
+                }
+                .onFailure {
+                    setState { copy(loadState = LoadState.Error) }
+                }
+        }
     }
 
     fun fetchAdvertisements() {
@@ -91,15 +102,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         )
     }
 
-    fun fetchRemainingPoints() {
-        setEvent(
-            HomeContract.HomeEvent.FetchRemainingPoints(
-                loadState = LoadState.Success,
-                remainingPoints = 100
-            )
-        )
-    }
-
     fun fetchTopLikedCourses() {
         setEvent(
             HomeContract.HomeEvent.FetchTopLikedCourses(
@@ -140,15 +142,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                     day = 23,
                     startAt = "14:00 PM"
                 )
-            )
-        )
-    }
-
-    fun fetchUserName() {
-        setEvent(
-            HomeContract.HomeEvent.FetchUserName(
-                loadState = LoadState.Success,
-                userName = "이현진"
             )
         )
     }

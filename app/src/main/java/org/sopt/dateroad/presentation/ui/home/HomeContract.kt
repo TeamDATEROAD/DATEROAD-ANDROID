@@ -16,7 +16,7 @@ class HomeContract {
         val latestCourses: List<Course> = listOf(),
         val advertisements: List<Advertisement> = listOf(),
         val userName: String = "",
-        val remainingPoints: Int = 0,
+        val remainingPoints: String = "",
         val currentBannerPage: Int = 0
     ) : UiState
 
@@ -35,7 +35,7 @@ class HomeContract {
         data class FetchLatestCourses(val loadState: LoadState, val latestCourses: List<Course>) : HomeEvent()
         data class FetchAdvertisements(val loadState: LoadState, val advertisements: List<Advertisement>) : HomeEvent()
         data class FetchUserName(val loadState: LoadState, val userName: String) : HomeEvent()
-        data class FetchRemainingPoints(val loadState: LoadState, val remainingPoints: Int) : HomeEvent()
+        data class FetchRemainingPoints(val loadState: LoadState, val remainingPoints: String) : HomeEvent()
         data class ChangeBannerPage(val page: Int) : HomeEvent()
     }
 }

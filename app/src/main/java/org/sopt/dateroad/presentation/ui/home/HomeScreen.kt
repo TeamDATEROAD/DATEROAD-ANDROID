@@ -77,10 +77,8 @@ fun HomeRoute(
         viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
         viewModel.fetchLatestCourses()
-        viewModel.fetchRemainingPoints()
         viewModel.fetchTopLikedCourses()
         viewModel.fetchMainDate()
-        viewModel.fetchUserName()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -148,7 +146,7 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         DateRoadHomeTopBar(
-            title = stringResource(id = R.string.home_main_date_point, uiState.remainingPoints),
+            title = uiState.remainingPoints,
             onClick = navigateToPointHistory
         )
         Row(
@@ -386,7 +384,7 @@ fun HomeScreenPreview() {
                     )
                 ),
                 userName = "현진",
-                remainingPoints = 100,
+                remainingPoints = "100",
                 currentBannerPage = 0
             ),
             onFabClick = { _, _ -> },

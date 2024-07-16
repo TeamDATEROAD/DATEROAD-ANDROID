@@ -23,4 +23,8 @@ class UserPointRepositoryImpl @Inject constructor(
     override suspend fun postUsePoint(courseId: Int, usePoint: UsePoint) {
         userPointRemoteDataSource.postUsePoint(courseId = courseId, requestUsePointDto = usePoint.toData())
     }
+
+    override suspend fun getUserProfileMain(userId: Int): Result<UserPoint> = runCatching {
+        userPointRemoteDataSource.getUserProfileMain(userId).toDomain()
+    }
 }
