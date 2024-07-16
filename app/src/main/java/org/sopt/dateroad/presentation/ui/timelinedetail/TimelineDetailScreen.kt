@@ -235,7 +235,7 @@ fun TimelineDetailScreen(
                     items(uiState.dateDetail.places) { place ->
                         DateRoadPlaceCard(
                             placeCardType = PlaceCardType.COURSE_NORMAL,
-                            place = Place(sequence = place.sequence, name = place.name, duration = place.duration)
+                            place = Place(sequence = place.sequence, title = place.title, duration = place.duration)
                         )
                     }
                 }
@@ -352,8 +352,8 @@ fun TimelineDetailScreenPreview() {
                     ),
                     date = "2024.07.15",
                     places = listOf(
-                        Place(name = "경복궁", duration = "2.5시간", sequence = 1),
-                        Place(name = "남산타워", duration = "1.5시간", sequence = 2)
+                        Place(title = "경복궁", duration = "2.5시간", sequence = 1),
+                        Place(title = "남산타워", duration = "1.5시간", sequence = 2)
                     )
                 )
             ),

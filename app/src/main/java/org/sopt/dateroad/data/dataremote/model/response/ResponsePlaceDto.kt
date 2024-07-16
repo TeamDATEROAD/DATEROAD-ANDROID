@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 data class ResponsePlaceDto(
     @SerialName("sequence")
     val sequence: Int,
-    @SerialName("name")
-    val name: String,
+    @SerialName("title")
+    val title: String,
     @SerialName("duration")
     val duration: Float
 )
