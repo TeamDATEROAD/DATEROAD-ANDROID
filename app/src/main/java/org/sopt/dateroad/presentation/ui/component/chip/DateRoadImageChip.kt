@@ -55,8 +55,8 @@ fun DateRoadImageChip(
 @Composable
 fun DateRoadImageChipPreview() {
     DateRoadImageChip(
-        textId = DateTagType.EXHIBITION_POP_UP.titleRes,
-        imageRes = DateTagType.EXHIBITION_POP_UP.imageRes,
+        textId = DateTagType.EXHIBITION_POPUP.titleRes,
+        imageRes = DateTagType.EXHIBITION_POPUP.imageRes,
         chipType = ChipType.DATE
     )
 }

@@ -2,7 +2,7 @@ package org.sopt.dateroad.domain.model
 
 data class CourseDetail(
     val courseId: Int = 0,
-    val imageList: List<String> = listOf(), // TODO: 나중에 String으로 변경
+    val images: List<String> = listOf(),
     val like: Int = 0,
     val totalTime: String = "",
     val date: String = "",
@@ -14,6 +14,7 @@ data class CourseDetail(
     val tags: List<String> = listOf(),
     val isAccess: Boolean = false,
     val free: Int = 0,
-    val isMine: Boolean = false,
-    val totalPoint: Int = 0
+    val totalPoint: Int = 0,
+    val isCourseMine: Boolean = false,
+    val isUserLiked: Boolean = false
 )

@@ -10,8 +10,8 @@ import retrofit2.http.GET
 
 interface MyCourseService {
     @GET("$API/$VERSION/$COURSES/$USERS")
-    suspend fun postMyCourseEnroll(): ResponseCoursesDto
+    suspend fun getMyCourseEnroll(): ResponseCoursesDto
 
     @GET("$API/$VERSION/$COURSES/$DATE_ACCESS")
-    suspend fun postMyCourseRead(): ResponseCoursesDto
+    suspend fun getMyCourseRead(): ResponseCoursesDto
 }
