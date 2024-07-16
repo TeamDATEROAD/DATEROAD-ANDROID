@@ -4,7 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseCoursesDto(
-    @SerialName("courses")
-    val courses: List<ResponseCourseDto>
+data class ResponseImageDto(
+    @SerialName("imageUrl")
+    val imageUrl: String,
+    @SerialName("sequence")
+    val sequence: Int
 )

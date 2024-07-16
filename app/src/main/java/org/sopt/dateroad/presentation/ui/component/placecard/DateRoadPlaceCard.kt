@@ -31,6 +31,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadPlaceCard(
     modifier: Modifier = Modifier,
     placeCardType: PlaceCardType,
+    sequence: Int? = null,
     place: Place,
     onIconClick: (() -> Unit)? = null
 ) {
@@ -47,10 +48,12 @@ fun DateRoadPlaceCard(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (placeCardType == PlaceCardType.COURSE_NORMAL) {
-            DateRoadTextTag(
-                textContent = place.sequence.toString(),
-                tagContentType = TagType.PLACE_CARD_NUMBER
-            )
+            sequence?.let {
+                DateRoadTextTag(
+                    textContent = (sequence + 1).toString(),
+                    tagContentType = TagType.PLACE_CARD_NUMBER
+                )
+            }
             Spacer(modifier = Modifier.width(14.dp))
         }
         Text(
@@ -91,18 +94,19 @@ fun DateRoadPlaceCardPreview() {
     Column {
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_NORMAL,
-            place = Place(sequence = 1, title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
+            sequence = 1,
+            place = Place(title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_EDIT,
-            place = Place(sequence = 2, title = "성수미술관 성수점", duration = "1시간"),
+            place = Place(title = "성수미술관 성수점", duration = "1시간"),
             onIconClick = { }
         )
         Spacer(modifier = Modifier.height(8.dp))
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_DELETE,
-            place = Place(sequence = 3, title = "성수미술관 성수점", duration = "0.5시간"),
+            place = Place(title = "성수미술관 성수점", duration = "0.5시간"),
             onIconClick = { }
         )
     }

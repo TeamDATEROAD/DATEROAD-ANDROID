@@ -29,3 +29,7 @@ object DatePicker {
 object CourseDetail {
     const val PRIVACY_POLICY_URL = "http://mammoth-cheese-88e.notion.site"
 }
+
+object Default {
+    const val REGION = "지역"
+}

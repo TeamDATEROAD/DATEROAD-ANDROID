@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseCoursesDto(
-    @SerialName("courses")
-    val courses: List<ResponseCourseDto>
+data class ResponseTagDto(
+    @SerialName("tag")
+    val tag: String
 )
