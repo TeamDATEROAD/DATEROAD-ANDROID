@@ -31,5 +31,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindDateRepository(dateRepositoryImpl: DateRepositoryImpl): DateRepository
+    abstract fun bindsDateRepository(dateRepositoryImpl: DateRepositoryImpl): DateRepository
 }
