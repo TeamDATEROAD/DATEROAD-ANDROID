@@ -8,14 +8,14 @@ import javax.inject.Singleton
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasource.AdvertisementRemoteDataSource
-import org.sopt.dateroad.data.dataremote.datasource.DateRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.CourseRemoteDataSource
+import org.sopt.dateroad.data.dataremote.datasource.DateRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.DummyRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasource.MyCourseRemoteDataSource
-import org.sopt.dateroad.data.dataremote.datasourceimpl.AdvertisementRemoteDataSourceImpl
-import org.sopt.dateroad.data.dataremote.datasourceimpl.DateRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasource.UserPointRemoteDataSource
+import org.sopt.dateroad.data.dataremote.datasourceimpl.AdvertisementRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.CourseRemoteDataSourceImpl
+import org.sopt.dateroad.data.dataremote.datasourceimpl.DateRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.MyCourseRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.UserPointRemoteDataSourceImpl
@@ -29,7 +29,15 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
+    abstract fun bindAdvertisementRemoteDataSource(advertisementRemoteDataSourceImpl: AdvertisementRemoteDataSourceImpl): AdvertisementRemoteDataSource
+
+    @Binds
+    @Singleton
     abstract fun bindsCourseRemoteDataSource(courseRemoteDataSourceImpl: CourseRemoteDataSourceImpl): CourseRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindDateRemoteDataSource(dateRemoteDataSourceImpl: DateRemoteDataSourceImpl): DateRemoteDataSource
 
     @Binds
     @Singleton
@@ -42,12 +50,4 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsUserPointRemoteDataSource(userPointRemoteDataSourceImpl: UserPointRemoteDataSourceImpl): UserPointRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindAdvertisementRemoteDataSource(advertisementRemoteDataSourceImpl: AdvertisementRemoteDataSourceImpl): AdvertisementRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindDateRemoteDataSource(dateRemoteDataSourceImpl: DateRemoteDataSourceImpl): DateRemoteDataSource
 }
