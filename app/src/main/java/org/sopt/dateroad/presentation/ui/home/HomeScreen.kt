@@ -65,7 +65,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -136,7 +136,7 @@ fun HomeScreen(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit
+    onFabClick: (EnrollType, Int?) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -286,22 +286,22 @@ fun HomeScreen(
                 }
             }
         }
-        Box(
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
+        Alignment.BottomEnd
+    ) {
+        DateRoadImageButton(
+            isEnabled = true,
+            onClick = { onFabClick(EnrollType.COURSE, null) },
+            cornerRadius = 44.dp,
+            paddingHorizontal = 16.dp,
+            paddingVertical = 16.dp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            Alignment.BottomEnd
-        ) {
-            DateRoadImageButton(
-                isEnabled = true,
-                onClick = { onFabClick(EnrollType.COURSE, null) },
-                cornerRadius = 44.dp,
-                paddingHorizontal = 16.dp,
-                paddingVertical = 16.dp,
-                modifier = Modifier
-                    .padding(16.dp)
-            )
-        }
+                .padding(16.dp)
+        )
     }
 }
 
