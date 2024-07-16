@@ -21,7 +21,7 @@ data class ResponseCourseDetailDto(
     val title: String,
     @SerialName("description")
     val description: String,
-    @SerialName("StartAt")
+    @SerialName("startAt")
     val startAt: String,
     @SerialName("places")
     val places: List<ResponsePlaceDto>,

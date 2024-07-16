@@ -30,16 +30,15 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.type.GyeonggiAreaType
+import org.sopt.dateroad.domain.type.IncheonAreaType
 import org.sopt.dateroad.domain.type.MoneyTagType
+import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.domain.type.GyeonggiAreaType
-import org.sopt.dateroad.domain.type.IncheonAreaType
-import org.sopt.dateroad.domain.type.RegionType
-import org.sopt.dateroad.domain.type.SeoulAreaType
-import org.sopt.dateroad.domain.util.Region
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadAreaButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -64,13 +63,16 @@ fun LookRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(uiState.area, uiState.money) {
-        viewModel.fetchFilteredCourses(country = uiState.region, city = when(uiState.area) {
-            is SeoulAreaType -> (uiState.area as SeoulAreaType)
-            is GyeonggiAreaType -> (uiState.area as GyeonggiAreaType)
-            is IncheonAreaType -> (uiState.area as IncheonAreaType)
-            else -> null
-        }
-            , cost = uiState.money)
+        viewModel.fetchFilteredCourses(
+            country = uiState.region,
+            city = when (uiState.area) {
+                is SeoulAreaType -> (uiState.area as SeoulAreaType)
+                is GyeonggiAreaType -> (uiState.area as GyeonggiAreaType)
+                is IncheonAreaType -> (uiState.area as IncheonAreaType)
+                else -> null
+            },
+            cost = uiState.money
+        )
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -145,11 +147,11 @@ fun LookScreen(
                 modifier = Modifier.weight(1f),
                 isSelected = lookUiState.area != null,
                 textContent = when (lookUiState.area) {
-                        is SeoulAreaType -> lookUiState.area.title
-                        is GyeonggiAreaType -> lookUiState.area.title
-                        is IncheonAreaType -> lookUiState.area.title
-                        else -> Default.REGION
-                    },
+                    is SeoulAreaType -> lookUiState.area.title
+                    is GyeonggiAreaType -> lookUiState.area.title
+                    is IncheonAreaType -> lookUiState.area.title
+                    else -> Default.REGION
+                },
                 onClick = onAreaButtonClicked
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -196,7 +198,7 @@ fun LookScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(lookUiState.courses.size) { index ->
-                LookCourseCard(course = lookUiState.courses[index], onClick = { onCourseCardClicked(index) })
+                LookCourseCard(course = lookUiState.courses[index], onClick = { onCourseCardClicked(lookUiState.courses[index].courseId) })
             }
         }
     }

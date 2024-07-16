@@ -31,3 +31,8 @@ object Like {
     const val LIKE_MAX = "999+"
     const val THRESHOLD = 999
 }
+
+object Date {
+    const val INPUT_FORMAT = "yyyy-MM-dd"
+    const val COURSE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일 방문"
+}

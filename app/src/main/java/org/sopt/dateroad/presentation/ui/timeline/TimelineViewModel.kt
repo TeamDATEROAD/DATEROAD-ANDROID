@@ -30,7 +30,7 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                         title = "데이트 일정 1",
                         date = "JUNE.23",
                         city = "서울",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP)
+                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
                     ),
                     Date(
                         dateId = 2,
@@ -38,7 +38,7 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                         title = "데이트 일정 2",
                         date = "JUNE.23",
                         city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POP_UP)
+                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
                     ),
                     Date(
                         dateId = 3,
@@ -62,7 +62,7 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                         title = "데이트 일정 2",
                         date = "JUNE.23",
                         city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POP_UP)
+                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
                     )
                 )
             )

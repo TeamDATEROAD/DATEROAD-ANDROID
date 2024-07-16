@@ -29,7 +29,7 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
             startAt = "12:00",
             city = "건대/상수/왕십리",
             dDay = "Day",
-            tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP),
+            tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP),
             date = "2023.12.31",
             places = listOf(
                 Place(title = "현진이집", duration = "2.5"),

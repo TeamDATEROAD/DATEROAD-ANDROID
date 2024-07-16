@@ -3,7 +3,7 @@ package org.sopt.dateroad.domain.model
 data class CourseDetail(
     val courseId: Int = 0,
     val images: List<String> = listOf(),
-    val like: Int = 0,
+    val like: String = "",
     val totalTime: String = "",
     val date: String = "",
     val city: String = "",

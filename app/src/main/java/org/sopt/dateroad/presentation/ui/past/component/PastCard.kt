@@ -160,7 +160,7 @@ fun PastCardPreview() {
                 title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
                 date = "2024년 6월 23일",
                 city = "건대/성수/왕십리",
-                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP)
+                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
             )
         )
     }

@@ -6,9 +6,9 @@ import org.sopt.dateroad.domain.model.CourseDetail
 fun ResponseCourseDetailDto.toDomain(): CourseDetail = CourseDetail(
     courseId = this.courseId,
     images = this.images.sortedBy { responseImageDto -> responseImageDto.sequence }.map { responseImageDto -> responseImageDto.imageUrl },
-    like = this.like,
+    like = this.like.toLike(),
     totalTime = this.totalTime.toDuration(),
-    date = this.date,
+    date = this.date.toCourseDetailDate(),
     city = this.city,
     title = this.title,
     description = this.description,

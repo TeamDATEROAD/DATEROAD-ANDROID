@@ -1,15 +1,19 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
+import android.util.Log
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.AdvertisementDetail
-import org.sopt.dateroad.domain.model.CourseDetail
-import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
+class CourseDetailViewModel @Inject constructor(
+    private val getCourseDetailUseCase: GetCourseDetailUseCase
+) : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
     override fun createInitialState(): CourseDetailContract.CourseDetailUiState = CourseDetailContract.CourseDetailUiState()
 
     override suspend fun handleEvent(event: CourseDetailContract.CourseDetailEvent) {
@@ -47,32 +51,16 @@ class CourseDetailViewModel @Inject constructor() : BaseViewModel<CourseDetailCo
         )
     }
 
-    fun fetchCourseDetail() {
-        setEvent(
-            CourseDetailContract.CourseDetailEvent.FetchCourseDetail(
-                loadState = LoadState.Success,
-                courseDetail = CourseDetail(
-                    courseId = 1,
-                    images = listOf("https://avatars.githubusercontent.com/u/103172971?v=4", "https://avatars.githubusercontent.com/u/103172971?v=4"),
-                    like = 123,
-                    totalTime = "5 시간",
-                    date = "24년 6월 27일 방문",
-                    city = "건대/성수/왕십리",
-                    title = "5년차 장기연애 커플이 보장하는 성수동 당일치기 데이트 코스",
-                    description = "나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?\n\n나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래? 나랑 더미데이트 하러 갈래?",
-                    places = listOf(
-                        Place(title = "성수미술관 성수점", duration = "2 시간"),
-                        Place(title = "생마차", duration = "3 시간")
-                    ),
-                    totalCost = "50,000 원",
-                    tags = listOf("드라이브", "쇼핑"),
-                    isAccess = true,
-                    free = 1,
-                    isCourseMine = false,
-                    totalPoint = 95
-                )
-            )
-        )
+    fun fetchCourseDetail(courseId: Int) {
+        viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
+            getCourseDetailUseCase(courseId = courseId).onSuccess { courseDetail ->
+                setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Success, courseDetail = courseDetail))
+            }.onFailure { et ->
+                Log.e("ㅋㅋ", et.message.toString())
+                setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
+            }
+        }
     }
 
     private fun handleDelete() {

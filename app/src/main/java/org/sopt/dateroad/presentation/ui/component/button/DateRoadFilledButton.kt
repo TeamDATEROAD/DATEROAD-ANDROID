@@ -37,7 +37,6 @@ fun DateRoadFilledButton(
         onClick = { onClick() }
     ) {
         Text(
-            modifier = modifier,
             text = textContent,
             style = textStyle,
             color = if (isEnabled) enabledTextColor else disabledTextColor,

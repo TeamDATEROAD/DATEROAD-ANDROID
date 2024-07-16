@@ -213,7 +213,7 @@ fun TimelineCardPreview() {
                 title = "성수동 당일치기 데이트\n가볼까요?",
                 date = "JUNE.23",
                 city = "건대/성수/왕십리",
-                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POP_UP)
+                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
             )
         )
     }
