@@ -24,6 +24,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         }
     }
 
+    fun changeBannerPage(page: Int) {
+        setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
+    }
+
     fun fetchProfile() {
         setEvent(
             HomeContract.HomeEvent.FetchUserName(
@@ -40,15 +44,19 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "비오는 장마철,\n실내데이트 어떠세요?",
-                        tag = "에디터 픽"
+                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
-                        title = "얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?얘두랑~ 나랑 데이트 할사람?",
-                        tag = "에디터 픽"
+                        imageUrl = "https://media.bunjang.co.kr/images/crop/1031740910_w%7Bres%7D.jpg"
+                    ),
+                    Advertisement(
+                        advertisementId = 3,
+                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBYWlIYyriqT9L-q6PKYG6-oNocmGGbxbd-g&s"
+                    ),
+                    Advertisement(
+                        advertisementId = 4,
+                        imageUrl = "https://i.pinimg.com/736x/6b/18/ce/6b18cedab2c67f9020c071486306df20.jpg"
                     )
                 )
             )
