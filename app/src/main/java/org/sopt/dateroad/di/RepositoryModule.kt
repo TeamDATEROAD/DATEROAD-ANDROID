@@ -17,13 +17,13 @@ import org.sopt.dateroad.domain.repository.MyCourseRepository
 abstract class RepositoryModule {
     @Binds
     @Singleton
+    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    @Singleton
     abstract fun bindsDummyRepository(dummyRepositoryImpl: DummyRepositoryImpl): DummyRepository
 
     @Binds
     @Singleton
     abstract fun bindsMyCourseRepository(myCourseRepositoryImpl: MyCourseRepositoryImpl): MyCourseRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 }

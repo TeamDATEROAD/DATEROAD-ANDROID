@@ -5,6 +5,7 @@ import org.sopt.dateroad.data.dataremote.model.base.BaseResponse
 import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
 import retrofit2.http.Body
@@ -16,7 +17,7 @@ import retrofit2.http.Query
 interface AuthService {
     @GET("$API/$VERSION/$USERS/$CHECK")
     suspend fun getNicknameCheck(
-        @Query("name") name: String
+        @Query(NAME) name: String
     )
 
     @POST("api/v1/users/signin")

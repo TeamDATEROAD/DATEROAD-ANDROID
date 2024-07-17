@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
@@ -23,7 +22,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.OnEnrollButtonClicked -> postSignUp(event.editProfile)
             is ProfileContract.ProfileEvent.OnDateChipClicked -> handleDateChipClicked(event.tag)
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
-            is ProfileContract.ProfileEvent.GetNicknameCheck -> getNicknameCheck(event.name)
+            is ProfileContract.ProfileEvent.GetNicknameCheck -> setState { copy(loadState = event.loadState, name = event.name) }
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> handleNicknameValueChanged(event.name)
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
@@ -64,27 +63,13 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun getNicknameCheck(name: String) {
+    fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
-            try {
-                val result = getNicknameCheckUseCase(name)
-                setState {
-                    copy(
-                        loadState = LoadState.Success,
-                        isNicknameChecked = true,
-                        nicknameValidateResult = TextFieldValidateResult.Success
-                    )
-                }
-            } catch (e: Exception) {
-                setState {
-                    copy(
-                        loadState = LoadState.Error,
-                        isNicknameChecked = false,
-                        nicknameValidateResult = TextFieldValidateResult.ConflictError
-                    )
-                }
-                e.printStackTrace()
+            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, name = currentState.name))
+            getNicknameCheckUseCase(name = name).onSuccess {
+                setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Success, name = currentState.name))
+            }.onFailure {
+                setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Error, name = currentState.name))
             }
         }
     }

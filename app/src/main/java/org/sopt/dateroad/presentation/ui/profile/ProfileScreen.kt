@@ -62,7 +62,9 @@ fun ProfileRoute(
         onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-        onNicknameButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = uiState.loadState, name = uiState.name)) },
+        onNicknameButtonClicked = {
+            viewModel.getNicknameCheck(uiState.name)
+        },
         onEnrollButtonClicked = { viewModel.setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome) }
     )
 
