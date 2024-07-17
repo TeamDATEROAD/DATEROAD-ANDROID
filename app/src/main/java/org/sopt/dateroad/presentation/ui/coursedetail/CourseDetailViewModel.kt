@@ -39,7 +39,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = false, like = courseDetail.like - 1)) }
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = true, like = courseDetail.like + 1)) }
-            is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState) }
+            is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
         }
     }
 
@@ -93,12 +93,11 @@ class CourseDetailViewModel @Inject constructor(
 
     fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading))
+            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading, deleteLoadState = LoadState.Loading))
             deleteCourseUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success))
-                setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack)
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success, deleteLoadState = LoadState.Success))
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error))
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error, deleteLoadState = LoadState.Error))
             }
         }
     }

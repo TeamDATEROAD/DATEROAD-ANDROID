@@ -21,7 +21,8 @@ class CourseDetailContract {
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
         val advertisementDetail: AdvertisementDetail = AdvertisementDetail(),
-        val currentImagePage: Int = 0
+        val currentImagePage: Int = 0,
+        val deleteLoadState: LoadState = LoadState.Idle
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
@@ -46,6 +47,6 @@ class CourseDetailContract {
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class DeleteCourseLike(val loadState: LoadState) : CourseDetailEvent()
         data class PostCourseLike(val loadState: LoadState) : CourseDetailEvent()
-        data class DeleteCourse(val loadState: LoadState) : CourseDetailEvent()
+        data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
     }
 }

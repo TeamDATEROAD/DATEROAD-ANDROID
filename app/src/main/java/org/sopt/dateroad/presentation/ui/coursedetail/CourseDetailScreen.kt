@@ -88,7 +88,7 @@ fun CourseDetailRoute(
             .collect { courseDetailSideEffect ->
                 when (courseDetailSideEffect) {
                     is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, courseDetailSideEffect.id)
-                    is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack() // 추가된 부분
+                    is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack()
                 }
             }
     }
@@ -100,6 +100,10 @@ fun CourseDetailRoute(
                 CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
             }
         }
+    }
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> popBackStack()
+        else -> Unit
     }
 
     when (uiState.loadState) {
@@ -127,8 +131,7 @@ fun CourseDetailRoute(
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
                 onTopBarIconClicked = popBackStack,
-                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) },
-                popBackStack = popBackStack
+                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) }
             )
         }
 
@@ -152,8 +155,7 @@ fun CourseDetailScreen(
     dismissEditBottomSheet: () -> Unit,
     enrollSchedule: () -> Unit,
     onTopBarIconClicked: () -> Unit,
-    openCourseDetail: () -> Unit,
-    popBackStack: () -> Unit
+    openCourseDetail: () -> Unit
 ) {
     val buttonText =
         if (courseDetailUiState.courseDetail.free > 0) {
