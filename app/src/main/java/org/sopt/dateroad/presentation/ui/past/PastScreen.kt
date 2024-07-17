@@ -96,7 +96,7 @@ fun PastScreen(
                     PastCard(
                         date = pastUiState.dates[index],
                         dateType = DateType.getDateTypeByIndex(index),
-                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), pastUiState.dates[index].dateId.toInt()) }
+                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), pastUiState.dates[index].dateId) }
                     )
                 }
             }

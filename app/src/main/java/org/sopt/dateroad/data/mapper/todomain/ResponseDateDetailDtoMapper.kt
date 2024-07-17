@@ -9,7 +9,7 @@ fun ResponseDateDetailDto.toDomain(): DateDetail = DateDetail(
     startAt = this.startAt,
     city = this.city.toAreaTitle(),
     tags = this.tags.map { it.toDomain() },
-    date = this.date.toDates(),
+    date = this.date.toBasicDates(),
     places = this.places.sortedBy { responsePlaceDto -> responsePlaceDto.sequence }.map { it.toDomain() },
     dDay = this.dDay.toDDayString()
 )

@@ -13,8 +13,7 @@ class TimelineDetailContract {
         val showKakaoDialog: Boolean = false,
         val showDeleteBottomSheet: Boolean = false,
         val showDeleteDialog: Boolean = false,
-        val dateDetail: DateDetail = DateDetail(),
-        val isDeleting: Boolean = false
+        val dateDetail: DateDetail = DateDetail()
     ) : UiState
 
     sealed interface TimelineDetailSideEffect : UiSideEffect {

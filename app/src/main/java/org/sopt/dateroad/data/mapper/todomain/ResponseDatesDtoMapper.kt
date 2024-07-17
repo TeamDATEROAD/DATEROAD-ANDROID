@@ -18,7 +18,7 @@ fun ResponseDateDto.toDatesDomain(): Date = Date(
     dateId = this.dateId,
     dDay = this.dDay.toDDayString(),
     title = this.title,
-    date = this.date.toDates(),
+    date = this.date.toBasicDates(),
     city = this.city.toAreaTitle(),
     tags = this.tags.map { it.toDomain() }
 )

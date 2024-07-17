@@ -64,13 +64,12 @@ class TimelineDetailViewModel @Inject constructor(
 
     private fun deleteDate(dateId: Int) {
         viewModelScope.launch {
-            setState { copy(isDeleting = true) }
-            val result = deleteDateUseCase(dateId)
-            result.onSuccess {
-                setState { copy(isDeleting = false) }
+            setState { copy(loadState = LoadState.Loading) }
+            deleteDateUseCase(dateId).onSuccess {
+                setState { copy(loadState = LoadState.Success) }
                 setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.PopBackStack)
             }.onFailure {
-                setState { copy(isDeleting = false) }
+                setState { copy(loadState = LoadState.Error) }
             }
         }
     }
