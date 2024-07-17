@@ -9,7 +9,8 @@ fun String.toCourseDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Lo
 fun String.toBasicDates(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.DATE_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
 fun Int.toDDayString(): String = when {
     this > 0 -> "${Date.D_DAY_OUTPUT_FORMAT}$this"
-    else -> Date.D_DAY_DEFAULT_LABEL
+    this == 0 -> Date.D_DAY_DEFAULT_LABEL
+    else -> ""
 }
 fun String.toStartAtString(): String = "$this${Date.NEAREST_DATE_START_OUTPUT_FORMAT}"
 fun String.toAdvertisementDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.ADVERTISEMENT_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""

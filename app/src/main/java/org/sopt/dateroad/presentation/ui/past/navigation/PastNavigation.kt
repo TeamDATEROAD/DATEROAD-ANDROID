@@ -16,7 +16,7 @@ fun NavController.navigationPast() {
 fun NavGraphBuilder.pastNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (Boolean, DateType, Int) -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     composable(route = PastRoute.ROUTE) {
         PastRoute(

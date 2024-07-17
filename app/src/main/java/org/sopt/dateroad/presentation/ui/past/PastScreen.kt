@@ -34,7 +34,7 @@ fun PastRoute(
     padding: PaddingValues,
     viewModel: PastViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (Boolean, DateType, Int) -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -47,7 +47,7 @@ fun PastRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { pastSideEffect ->
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
-                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(false, pastSideEffect.dateType, pastSideEffect.dateId)
+                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.dateType, pastSideEffect.dateId)
             }
         }
     }
