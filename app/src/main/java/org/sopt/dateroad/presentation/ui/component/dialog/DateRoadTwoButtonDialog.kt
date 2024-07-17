@@ -57,13 +57,13 @@ fun DateRoadTwoButtonDialog(
             ) {
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = false,
+                    enabledBackgroundColor = DateRoadTheme.colors.gray200,
+                    enabledTextColor = DateRoadTheme.colors.gray400,
                     textContent = stringResource(id = twoButtonDialogType.dismissButtonTextRes),
                     onClick = onClickDismiss
                 )
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = true,
                     textContent = stringResource(id = twoButtonDialogType.confirmButtonTextRes),
                     onClick = onClickConfirm
                 )
