@@ -70,6 +70,8 @@ fun ProfileRoute(
 
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+    }else{
+        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
     }
 }
 
