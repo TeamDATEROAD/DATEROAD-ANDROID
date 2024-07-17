@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.profile
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -26,8 +27,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.SignIn
+import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
@@ -35,6 +39,7 @@ import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWi
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -56,19 +61,26 @@ fun ProfileRoute(
             }
     }
 
+    LaunchedEffect(uiState.signUpLoadState) {
+        when (uiState.signUpLoadState) {
+            LoadState.Success -> navigationToHome()
+            else -> Unit
+        }
+    }
+
+
     ProfileScreen(
         profileUiState = uiState,
         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
         onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
+        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-        onNicknameButtonClicked = {
-            viewModel.getNicknameCheck(uiState.name)
-        },
-        onEnrollButtonClicked = { viewModel.setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome) }
+        onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
+        onEnrollButtonClicked = {
+            viewModel.postSignUp(uiState.signUp) }
     )
 
-    if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
+    if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.signUp.tag.isNotEmpty()) {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
     } else {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
@@ -108,10 +120,10 @@ fun ProfileScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Image(
-                painter = if (profileUiState.image.isEmpty()) {
+                painter = if (profileUiState.signUp.image.isEmpty()) {
                     painterResource(id = R.drawable.ic_enroll_profile_default)
                 } else {
-                    rememberAsyncImagePainter(model = profileUiState.image)
+                    rememberAsyncImagePainter(model = profileUiState.signUp.image)
                 },
                 contentDescription = null,
                 modifier = Modifier
@@ -138,7 +150,7 @@ fun ProfileScreen(
             conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
             buttonText = stringResource(id = R.string.profile_text_field_button_text),
             isButtonEnabled = profileUiState.isNicknameButtonEnabled,
-            value = profileUiState.name,
+            value = profileUiState.signUp.userSignUpInfo.name,
             onValueChange = onNicknameValueChanged,
             onButtonClick = { onNicknameButtonClicked() }
         )
@@ -146,7 +158,7 @@ fun ProfileScreen(
 
         DateRoadDateChipGroup(
             dateChipGroupType = DateChipGroupType.PROFILE,
-            selectedDateTags = profileUiState.tag,
+            selectedDateTags = profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() },
             onSelectedDateTagsChanged = onDateChipClicked
         )
 

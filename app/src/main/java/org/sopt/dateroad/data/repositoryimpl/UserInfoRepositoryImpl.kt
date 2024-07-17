@@ -17,5 +17,10 @@ class UserInfoRepositoryImpl @Inject constructor(
     }
     override fun getAccessToken(): String = userInfoLocalDataSource.accessToken
 
+    override fun setRefreshToken(refreshToken: String) {
+        userInfoLocalDataSource.refreshToken = refreshToken
+    }
+    override fun getRefreshToken(): String = userInfoLocalDataSource.refreshToken
+
     override fun clearUserInfo() = userInfoLocalDataSource.clear()
 }

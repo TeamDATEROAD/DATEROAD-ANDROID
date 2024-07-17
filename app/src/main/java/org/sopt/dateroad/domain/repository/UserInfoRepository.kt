@@ -5,5 +5,7 @@ interface UserInfoRepository {
     fun getIsLogin(): Boolean
     fun setAccessToken(accessToken: String)
     fun getAccessToken(): String
+    fun setRefreshToken(refreshToken: String)
+    fun getRefreshToken(): String
     fun clearUserInfo()
 }

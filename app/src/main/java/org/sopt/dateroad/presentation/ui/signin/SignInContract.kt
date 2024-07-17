@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.signin
 
+import org.sopt.dateroad.presentation.ui.profile.ProfileContract.ProfileEvent
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState

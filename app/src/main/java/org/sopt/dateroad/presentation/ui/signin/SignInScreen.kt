@@ -63,7 +63,6 @@ fun SignInRoute(
             .collect { signInSideEffect ->
                 when (signInSideEffect) {
                     is SignInContract.SignInSideEffect.NavigateToOnboarding -> {
-                        Log.e("ㅋㅋ", "kfjslflkjd")
                         navigateToOnboarding()
                     }
                     is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
@@ -78,6 +77,7 @@ fun SignInRoute(
         }
     }
 
+
     SignInScreen(
         signInUiState = uiState,
         onSignInClicked = {
@@ -88,7 +88,9 @@ fun SignInRoute(
     )
 
     when (uiState.loadState) {
-        LoadState.Success -> navigateToHome()
+        LoadState.Success -> {
+            navigateToHome()
+        }
         LoadState.Error -> navigateToOnboarding()
         else -> Unit
     }

@@ -1,5 +1,6 @@
 package org.sopt.dateroad.data.dataremote.interceptor
 
+import android.util.Log
 import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -11,9 +12,8 @@ class AuthInterceptor @Inject constructor(
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val authRequest = if (getAccessTokenUseCase().isEmpty()) originalRequest.newAuthBuilder() else originalRequest
+        val authRequest = originalRequest.newAuthBuilder()
 
-            originalRequest.newBuilder().addHeader(AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzIxMDYwNTExLCJleHAiOjE3MjM0Nzk2MTF9.w78wPvOFfLWLgYTLfBqcTqYJ2AOTePOCR0EqFr5IZbA").build()
         val response = chain.proceed(authRequest)
 
         when (response.code) {
