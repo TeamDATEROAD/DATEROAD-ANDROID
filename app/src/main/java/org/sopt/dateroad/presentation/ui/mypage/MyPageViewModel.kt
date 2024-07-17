@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,7 +23,7 @@ class MyPageViewModel @Inject constructor(
             is MyPageContract.MyPageEvent.SetLogoutDialog -> setState { copy(showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetSoonDialog -> setState { copy(showSoonDialog = event.showSoonDialog) }
-            is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState=event.loadState, profile = event.profile) }
+            is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState = event.loadState, profile = event.profile) }
         }
     }
 

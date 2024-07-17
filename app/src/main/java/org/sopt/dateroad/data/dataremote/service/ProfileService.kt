@@ -5,7 +5,6 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface ProfileService {
     @GET("$API/$VERSION/$USERS")
