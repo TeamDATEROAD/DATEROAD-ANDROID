@@ -16,7 +16,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadFilledButton(
     modifier: Modifier = Modifier,
-    isEnabled: Boolean = false,
+    isEnabled: Boolean = true,
     textContent: String,
     textStyle: TextStyle,
     enabledBackgroundColor: Color,
@@ -34,10 +34,9 @@ fun DateRoadFilledButton(
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = { onClick() }
+        onClick = { if (isEnabled) onClick() }
     ) {
         Text(
-            modifier = modifier,
             text = textContent,
             style = textStyle,
             color = if (isEnabled) enabledTextColor else disabledTextColor,

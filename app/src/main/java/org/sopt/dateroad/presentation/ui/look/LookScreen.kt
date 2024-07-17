@@ -30,15 +30,15 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.type.GyeonggiAreaType
+import org.sopt.dateroad.domain.type.IncheonAreaType
 import org.sopt.dateroad.domain.type.MoneyTagType
+import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.GyeonggiAreaType
-import org.sopt.dateroad.presentation.type.IncheonAreaType
-import org.sopt.dateroad.presentation.type.RegionType
-import org.sopt.dateroad.presentation.type.SeoulAreaType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadAreaButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -46,6 +46,7 @@ import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.look.component.LookCourseCard
+import org.sopt.dateroad.presentation.util.Default
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -61,8 +62,17 @@ fun LookRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(Unit) {
-        viewModel.setEvent(LookContract.LookEvent.FetchCourses)
+    LaunchedEffect(uiState.area, uiState.money) {
+        viewModel.fetchFilteredCourses(
+            country = uiState.region,
+            city = when (uiState.area) {
+                is SeoulAreaType -> (uiState.area as SeoulAreaType)
+                is GyeonggiAreaType -> (uiState.area as GyeonggiAreaType)
+                is IncheonAreaType -> (uiState.area as IncheonAreaType)
+                else -> null
+            },
+            cost = uiState.money
+        )
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -136,14 +146,12 @@ fun LookScreen(
             DateRoadAreaButton(
                 modifier = Modifier.weight(1f),
                 isSelected = lookUiState.area != null,
-                textContent = stringResource(
-                    id = when (lookUiState.area) {
-                        is SeoulAreaType -> lookUiState.area.nameRes
-                        is GyeonggiAreaType -> lookUiState.area.nameRes
-                        is IncheonAreaType -> lookUiState.area.nameRes
-                        else -> R.string.region
-                    }
-                ),
+                textContent = when (lookUiState.area) {
+                    is SeoulAreaType -> lookUiState.area.title
+                    is GyeonggiAreaType -> lookUiState.area.title
+                    is IncheonAreaType -> lookUiState.area.title
+                    else -> Default.REGION
+                },
                 onClick = onAreaButtonClicked
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -190,7 +198,7 @@ fun LookScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(lookUiState.courses.size) { index ->
-                LookCourseCard(course = lookUiState.courses[index], onClick = { onCourseCardClicked(index) })
+                LookCourseCard(course = lookUiState.courses[index], onClick = { onCourseCardClicked(lookUiState.courses[index].courseId) })
             }
         }
     }

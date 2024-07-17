@@ -1,0 +1,15 @@
+package org.sopt.dateroad.data.repositoryimpl
+
+import javax.inject.Inject
+import org.sopt.dateroad.data.dataremote.datasource.AdvertisementRemoteDataSource
+import org.sopt.dateroad.data.mapper.todomain.toDomain
+import org.sopt.dateroad.domain.model.Advertisement
+import org.sopt.dateroad.domain.repository.AdvertisementRepository
+
+class AdvertisementRepositoryImpl @Inject constructor(
+    private val advertisementRemoteDataSource: AdvertisementRemoteDataSource
+) : AdvertisementRepository {
+    override suspend fun getHomeAdvertisements(): Result<List<Advertisement>> = runCatching {
+        advertisementRemoteDataSource.getHomeAdvertisements().toDomain()
+    }
+}
