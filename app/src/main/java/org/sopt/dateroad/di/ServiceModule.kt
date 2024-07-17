@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.AdvertisementService
+import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.CourseService
 import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService

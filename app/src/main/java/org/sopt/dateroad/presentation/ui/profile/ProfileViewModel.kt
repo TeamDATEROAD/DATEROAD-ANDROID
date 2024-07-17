@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
@@ -22,7 +23,13 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.OnEnrollButtonClicked -> postSignUp(event.editProfile)
             is ProfileContract.ProfileEvent.OnDateChipClicked -> handleDateChipClicked(event.tag)
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
-            is ProfileContract.ProfileEvent.GetNicknameCheck -> setState { copy(loadState = event.loadState, name = event.name) }
+            is ProfileContract.ProfileEvent.GetNicknameCheck -> setState {
+                copy(
+                    loadState = event.loadState,
+                    name = event.name,
+                    nicknameValidateResult = event.nicknameValidateResult
+                )
+            }
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> handleNicknameValueChanged(event.name)
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
@@ -65,11 +72,23 @@ class ProfileViewModel @Inject constructor(
 
     fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, name = currentState.name))
+            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, name = currentState.name, nicknameValidateResult = TextFieldValidateResult.Basic))
             getNicknameCheckUseCase(name = name).onSuccess {
-                setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Success, name = currentState.name))
+                setEvent(
+                    ProfileContract.ProfileEvent.GetNicknameCheck(
+                        loadState = LoadState.Success,
+                        name = currentState.name,
+                        nicknameValidateResult = TextFieldValidateResult.Success
+                    )
+                )
             }.onFailure {
-                setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Error, name = currentState.name))
+                setEvent(
+                    ProfileContract.ProfileEvent.GetNicknameCheck(
+                        loadState = LoadState.Error,
+                        name = currentState.name,
+                        nicknameValidateResult = TextFieldValidateResult.ValidationError
+                    )
+                )
             }
         }
     }
