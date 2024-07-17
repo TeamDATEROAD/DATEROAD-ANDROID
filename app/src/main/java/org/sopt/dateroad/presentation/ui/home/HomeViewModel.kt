@@ -1,15 +1,19 @@
 package org.sopt.dateroad.presentation.ui.home
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Advertisement
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
+class HomeViewModel @Inject constructor(
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase
+) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
@@ -24,10 +28,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
         }
     }
 
-    fun changeBannerPage(page: Int) {
-        setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
-    }
-
     fun fetchProfile() {
         setEvent(
             HomeContract.HomeEvent.FetchUserName(
@@ -38,29 +38,16 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeContract.HomeUiSta
     }
 
     fun fetchAdvertisements() {
-        setEvent(
-            HomeContract.HomeEvent.FetchAdvertisements(
-                loadState = LoadState.Success,
-                advertisements = listOf(
-                    Advertisement(
-                        advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
-                    ),
-                    Advertisement(
-                        advertisementId = 2,
-                        imageUrl = "https://media.bunjang.co.kr/images/crop/1031740910_w%7Bres%7D.jpg"
-                    ),
-                    Advertisement(
-                        advertisementId = 3,
-                        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBYWlIYyriqT9L-q6PKYG6-oNocmGGbxbd-g&s"
-                    ),
-                    Advertisement(
-                        advertisementId = 4,
-                        imageUrl = "https://i.pinimg.com/736x/6b/18/ce/6b18cedab2c67f9020c071486306df20.jpg"
-                    )
-                )
-            )
-        )
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = currentState.advertisements))
+            getAdvertisementsUseCase()
+                .onSuccess { advertisements ->
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Success, advertisements = advertisements))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentState.advertisements))
+                }
+        }
     }
 
     fun fetchLatestCourses() {
