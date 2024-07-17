@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
@@ -117,8 +116,7 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postCourseUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure { e ->
-                Log.e("ㅋㅋ", e.message.toString())
+            }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
         }
