@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 class ResponseAdvertisementsDto(
     @SerialName("advertisementDtoResList")
-    val advertisementDtoResList: List<ResponseAdvertisementDto>
+    val advertisements: List<ResponseAdvertisementDto>
 )

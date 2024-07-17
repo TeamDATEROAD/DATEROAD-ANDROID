@@ -286,22 +286,22 @@ fun HomeScreen(
                 }
             }
         }
-        Box(
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
+        Alignment.BottomEnd
+    ) {
+        DateRoadImageButton(
+            isEnabled = true,
+            onClick = { onFabClick(EnrollType.COURSE, null) },
+            cornerRadius = 44.dp,
+            paddingHorizontal = 16.dp,
+            paddingVertical = 16.dp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            Alignment.BottomEnd
-        ) {
-            DateRoadImageButton(
-                isEnabled = true,
-                onClick = { onFabClick(EnrollType.COURSE, null) },
-                cornerRadius = 44.dp,
-                paddingHorizontal = 16.dp,
-                paddingVertical = 16.dp,
-                modifier = Modifier
-                    .padding(16.dp)
-            )
-        }
+                .padding(16.dp)
+        )
     }
 }
 
