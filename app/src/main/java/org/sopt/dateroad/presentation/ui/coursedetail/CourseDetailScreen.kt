@@ -235,7 +235,7 @@ fun CourseDetailScreen(
                     ) {
                         if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
                             DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.advertisementTagTitle,
+                                textContent = courseDetailUiState.advertisementDetail.tag,
                                 tagContentType = TagType.ADVERTISEMENT_TITLE
                             )
                             Spacer(modifier = Modifier.height(16.dp))

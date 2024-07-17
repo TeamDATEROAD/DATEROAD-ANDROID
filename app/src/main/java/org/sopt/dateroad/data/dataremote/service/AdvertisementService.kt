@@ -1,6 +1,7 @@
 package org.sopt.dateroad.data.dataremote.service
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAdvertisementDetailDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseAdvertisementsDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.ADVERTISEMENTS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.ADVERTISEMENT_ID
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
@@ -13,4 +14,7 @@ interface AdvertisementService {
     suspend fun getAdvertisementDetail(
         @Path(ADVERTISEMENT_ID) advertisementId: Int
     ): ResponseAdvertisementDetailDto
+
+    @GET("$API/$VERSION/$ADVERTISEMENTS")
+    suspend fun getHomeAdvertisements(): ResponseAdvertisementsDto
 }
