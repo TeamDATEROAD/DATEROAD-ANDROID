@@ -1,13 +1,16 @@
 package org.sopt.dateroad.data.dataremote.service
 
+import okhttp3.RequestBody
 import org.sopt.dateroad.data.dataremote.model.base.BaseResponse
 import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.WITHDRAW
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -20,6 +23,8 @@ interface AuthService {
     suspend fun getNicknameCheck(
         @Query("name") name: String
     )
+        @Query(NAME) name: String
+    ): Response<Unit>
 
     @POST("api/v1/users/signin")
     suspend fun postSignIn(
@@ -32,9 +37,13 @@ interface AuthService {
     ): BaseResponse<Unit>
 
     @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")
+    @DELETE("api/v1/users/withdraw")
     suspend fun deleteWithdraw(
         @Body requestWithdrawDto: RequestWithdrawDto
     )
+        @Query("userId") userId: Int,
+        @Body authCode: RequestBody
+    ): BaseResponse<Unit>
 
     @DELETE("api/v1/users/signout")
     suspend fun deleteSignOut(

@@ -88,6 +88,7 @@ fun CourseDetailRoute(
             .collect { courseDetailSideEffect ->
                 when (courseDetailSideEffect) {
                     is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, courseDetailSideEffect.id)
+                    is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack()
                 }
             }
     }
@@ -99,6 +100,10 @@ fun CourseDetailRoute(
                 CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
             }
         }
+    }
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> popBackStack()
+        else -> Unit
     }
 
     when (uiState.loadState) {
@@ -119,7 +124,9 @@ fun CourseDetailRoute(
                         }
                     }
                 },
-                onDeleteButtonClicked = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked) },
+                onDeleteButtonClicked = {
+                    viewModel.deleteCourse(uiState.id)
+                },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
@@ -235,7 +242,7 @@ fun CourseDetailScreen(
                     ) {
                         if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
                             DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.tag,
+                                textContent = courseDetailUiState.advertisementDetail.adTagType,
                                 tagContentType = TagType.ADVERTISEMENT_TITLE
                             )
                             Spacer(modifier = Modifier.height(16.dp))
@@ -523,12 +530,16 @@ fun CourseDetailScreen(
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
         title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-        isButtonEnabled = false,
+        isButtonEnabled = true,
         buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
-            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to { }
+            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
+                onDeleteButtonClicked()
+            }
         ),
         onDismissRequest = { dismissEditBottomSheet() },
-        onButtonClick = { onDeleteButtonClicked() }
+        onButtonClick = {
+            dismissEditBottomSheet()
+        }
     )
 }

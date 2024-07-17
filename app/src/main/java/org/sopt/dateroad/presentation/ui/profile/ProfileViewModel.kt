@@ -5,13 +5,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.EditProfile
+import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
+class ProfileViewModel @Inject constructor(
+    private val getNicknameCheckUseCase: GetNicknameCheckUseCase
+) : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
 
     override fun createInitialState(): ProfileContract.ProfileUiState = ProfileContract.ProfileUiState()
 
@@ -21,10 +24,15 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
             is ProfileContract.ProfileEvent.OnEnrollButtonClicked -> postSignUp(event.editProfile)
             is ProfileContract.ProfileEvent.OnDateChipClicked -> handleDateChipClicked(event.tag)
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
-            is ProfileContract.ProfileEvent.FetchNicknameCheck -> fetchNicknameCheck(event.name)
+            is ProfileContract.ProfileEvent.GetNicknameCheck -> setState {
+                copy(
+                    loadState = event.loadState,
+                    nicknameValidateResult = event.nicknameValidateResult
+                )
+            }
+
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> handleNicknameValueChanged(event.name)
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
-            is ProfileContract.ProfileEvent.OnNicknameButtonClicked -> handleNicknameCheck()
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
         }
     }
@@ -46,23 +54,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
         setState {
             copy(
                 name = name,
-                isNicknameButtonEnabled = when {
-                    name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH -> true
-                    else -> false
-                }
-            )
-        }
-    }
-
-    private fun handleNicknameCheck() {
-        setState {
-            copy(
-                nicknameValidateResult = when {
-                    name.isEmpty() -> TextFieldValidateResult.Basic
-                    isNicknameChecked -> TextFieldValidateResult.Success
-                    else -> TextFieldValidateResult.Success // TODO: 나중에 서버 로직 에러처리
-                }
-
+                isNicknameButtonEnabled = name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
             )
         }
     }
@@ -79,12 +71,32 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
         }
     }
 
-    private fun fetchNicknameCheck(name: String) {
+    fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            try {
-                setState { copy(isNicknameChecked = true, loadState = LoadState.Success) }
-            } catch (e: Exception) {
-                setState { copy(loadState = LoadState.Error) }
+            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic))
+            getNicknameCheckUseCase(name = name).onSuccess { code ->
+                when (code) {
+                    SUCCESS -> setEvent(
+                        ProfileContract.ProfileEvent.GetNicknameCheck(
+                            loadState = LoadState.Success,
+                            nicknameValidateResult = TextFieldValidateResult.Success
+                        )
+                    )
+
+                    CONFLICT -> setEvent(
+                        ProfileContract.ProfileEvent.GetNicknameCheck(
+                            loadState = LoadState.Success,
+                            nicknameValidateResult = TextFieldValidateResult.ConflictError
+                        )
+                    )
+                }
+            }.onFailure {
+                setEvent(
+                    ProfileContract.ProfileEvent.GetNicknameCheck(
+                        loadState = LoadState.Error,
+                        nicknameValidateResult = TextFieldValidateResult.ValidationError
+                    )
+                )
             }
         }
     }
@@ -92,5 +104,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel<ProfileContract.Pro
     companion object {
         const val MIN_NICKNAME_LENGTH = 2
         const val MAX_NICKNAME_LENGTH = 5
+        const val SUCCESS = 200
+        const val CONFLICT = 409
     }
 }
