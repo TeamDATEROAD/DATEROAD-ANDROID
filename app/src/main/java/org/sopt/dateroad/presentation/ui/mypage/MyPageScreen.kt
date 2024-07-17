@@ -37,6 +37,7 @@ import androidx.lifecycle.flowWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import org.sopt.dateroad.R
+import org.sopt.dateroad.data.dataremote.util.Point
 import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.MyCourseType
@@ -57,14 +58,14 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
-    navigateToPointGuide: () -> Unit
+    navigateToPointGuide: () -> Unit,
+    navigateToLogin: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -80,8 +81,14 @@ fun MyPageRoute(
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
+                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
                 }
             }
+    }
+
+    when (uiState.deleteUserLoadState) {
+        LoadState.Success -> navigateToLogin()
+        else -> Unit
     }
 
     when (uiState.loadState) {
@@ -90,7 +97,9 @@ fun MyPageRoute(
                 padding = padding,
                 myPageUiState = uiState,
                 deleteLogout = { viewModel.deleteLogout() },
-                deleteWithdrawal = { viewModel.deleteWithdrawal() },
+                deleteWithdrawal = {
+                    viewModel.withdrawal(null)
+                },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
@@ -117,8 +126,6 @@ fun MyPageScreen(
     setLogoutDialog: (Boolean) -> Unit,
     setWithdrawalDialog: (Boolean) -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = Modifier
             .padding(paddingValues = padding)
@@ -250,9 +257,15 @@ fun MyPageScreen(
     if (myPageUiState.showWithdrawalDialog) {
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
-            onDismissRequest = { setWithdrawalDialog(false) },
-            onClickConfirm = { setWithdrawalDialog(false) },
-            onClickDismiss = deleteWithdrawal
+            onDismissRequest = {
+                setWithdrawalDialog(false)
+            },
+            onClickConfirm = {
+                setWithdrawalDialog(false)
+            },
+            onClickDismiss = {
+                deleteWithdrawal()
+            }
         )
     }
 }
@@ -264,7 +277,7 @@ fun MyPageScreenPreview() {
         MyPageScreen(
             padding = PaddingValues(0.dp),
             myPageUiState = MyPageContract.MyPageUiState(
-                profile = Profile("지현", listOf("드라이브", "쇼핑", "실내"), 200)
+                profile = Profile("지현", listOf("드라이브", "쇼핑", "실내"), "200 $Point")
             ),
             deleteLogout = {},
             deleteWithdrawal = {},

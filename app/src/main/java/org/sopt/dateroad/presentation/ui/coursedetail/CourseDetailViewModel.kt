@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.GetAdvertisementDetailUseCase
+import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor(
+    private val deleteCourseUseCase: DeleteCourseUseCase,
     private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
     private val getAdvertisementDetailUseCase: GetAdvertisementDetailUseCase,
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
@@ -29,7 +31,6 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked -> setState { copy(isLikedButtonChecked = !isLikedButtonChecked) }
-            is CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked -> handleDelete()
             is CourseDetailContract.CourseDetailEvent.OnEditBottomSheet -> setState { copy(isEditBottomSheetOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet -> setState { copy(isEditBottomSheetOpen = false) }
             is CourseDetailContract.CourseDetailEvent.EnrollSchedule -> enrollSchedule()
@@ -39,6 +40,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
+            is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
         }
     }
 
@@ -86,8 +88,15 @@ class CourseDetailViewModel @Inject constructor(
         }
     }
 
-    private fun handleDelete() {
-        // Implement deletion logic here
+    fun deleteCourse(courseId: Int) {
+        viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading, deleteLoadState = LoadState.Loading))
+            deleteCourseUseCase(courseId = courseId).onSuccess {
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success, deleteLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error, deleteLoadState = LoadState.Error))
+            }
+        }
     }
 
     private fun enrollSchedule() {
