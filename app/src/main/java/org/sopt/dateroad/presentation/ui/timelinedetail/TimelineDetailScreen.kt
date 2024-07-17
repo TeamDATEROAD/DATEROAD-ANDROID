@@ -57,7 +57,7 @@ fun TimelineDetailRoute(
     padding: PaddingValues,
     popBackStack: () -> Unit,
     dateId: Int,
-    dateType: DateType,
+    dateType: DateType
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,7 +91,7 @@ fun TimelineDetailRoute(
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = {
                     viewModel.onDeleteConfirm(dateId)
-                },
+                }
             )
         }
 
@@ -110,7 +110,7 @@ fun TimelineDetailScreen(
     setShowKakaoDialog: (Boolean) -> Unit,
     setShowDeleteBottomSheet: (Boolean) -> Unit,
     setShowDeleteDialog: (Boolean) -> Unit,
-    onDeleteConfirm: () -> Unit,
+    onDeleteConfirm: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -157,7 +157,7 @@ fun TimelineDetailScreen(
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
-                    if (uiState.dateDetail.dDay == "") {
+                    if (uiState.dateDetail.dDay != "") {
                         DateRoadTextTag(
                             textContent = uiState.dateDetail.dDay,
                             tagContentType = TagType.TIMELINE_D_DAY

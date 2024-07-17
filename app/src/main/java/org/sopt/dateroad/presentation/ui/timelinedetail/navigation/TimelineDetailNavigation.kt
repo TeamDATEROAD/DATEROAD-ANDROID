@@ -31,7 +31,7 @@ fun NavGraphBuilder.timelineDetailGraph(
             padding = padding,
             popBackStack = popBackStack,
             dateId = dateId,
-            dateType = dateType,
+            dateType = dateType
         )
     }
 }

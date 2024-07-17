@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -19,6 +20,7 @@ class TimelineDetailViewModel @Inject constructor(
     override suspend fun handleEvent(event: TimelineDetailContract.TimelineDetailEvent) {
         when (event) {
             is TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail -> fetchDateDetail(event.dateId)
+            is TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail -> setTimelineDetail(event.loadState, event.dateDetail)
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet -> setState { copy(showDeleteBottomSheet = event.showDeleteBottomSheet) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog -> setState { copy(showDeleteDialog = event.showDeleteDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
@@ -55,9 +57,9 @@ class TimelineDetailViewModel @Inject constructor(
         viewModelScope.launch {
             setState { copy(loadState = LoadState.Loading) }
             getDateDetailUseCase(dateId).onSuccess { dateDetail ->
-                setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }
+                setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(LoadState.Success, dateDetail))
             }.onFailure {
-                setState { copy(loadState = LoadState.Error) }
+                setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(LoadState.Error))
             }
         }
     }
@@ -70,6 +72,16 @@ class TimelineDetailViewModel @Inject constructor(
                 setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.PopBackStack)
             }.onFailure {
                 setState { copy(loadState = LoadState.Error) }
+            }
+        }
+    }
+
+    private fun setTimelineDetail(loadState: LoadState, dateDetail: DateDetail?) {
+        setState {
+            if (loadState == LoadState.Success && dateDetail != null) {
+                copy(loadState = loadState, dateDetail = dateDetail)
+            } else {
+                copy(loadState = loadState)
             }
         }
     }
