@@ -10,5 +10,5 @@ class SetAccessTokenUseCase
 constructor(
     private val userInfoRepository: UserInfoRepository,
 ) {
-    suspend operator fun invoke(accessToken: String) = userInfoRepository.setAccessToken(accessToken = accessToken)
+    operator fun invoke(accessToken: String) = userInfoRepository.setAccessToken(accessToken = accessToken)
 }

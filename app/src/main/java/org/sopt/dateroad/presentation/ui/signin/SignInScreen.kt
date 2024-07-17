@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.signin
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -26,10 +25,12 @@ import androidx.lifecycle.flowWithLifecycle
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
 import org.sopt.dateroad.presentation.ui.component.webview.PrivacyPolicyWebView
 import org.sopt.dateroad.presentation.util.CourseDetail.PRIVACY_POLICY_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 
@@ -51,23 +52,30 @@ fun SignInRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
-    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
+    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, _ ->
         if (oAuthToken != null) {
-            Log.i(TAG, "로그인 성공 ${oAuthToken.accessToken}")
             viewModel.setAccessToken(oAuthToken.accessToken)
-            navigateToOnboarding()
         }
     }
-
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { signInSideEffect ->
                 when (signInSideEffect) {
-                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> {
+                        Log.e("ㅋㅋ", "kfjslflkjd")
+                        navigateToOnboarding()
+                    }
                     is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
                 }
             }
+    }
+
+    LaunchedEffect(uiState.authTokenLoadState) {
+        when (uiState.authTokenLoadState) {
+            LoadState.Success -> viewModel.postSignIn(signIn = SignIn("KAKAO"))
+            else -> Unit
+        }
     }
 
     SignInScreen(
@@ -78,6 +86,12 @@ fun SignInRoute(
         onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
         webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
     )
+
+    when (uiState.loadState) {
+        LoadState.Success -> navigateToHome()
+        LoadState.Error -> navigateToOnboarding()
+        else -> Unit
+    }
 }
 
 @Composable

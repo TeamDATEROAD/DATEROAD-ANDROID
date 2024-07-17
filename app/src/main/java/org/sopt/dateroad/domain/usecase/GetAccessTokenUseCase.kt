@@ -9,6 +9,6 @@ import org.sopt.dateroad.domain.repository.UserInfoRepository
 class GetAccessTokenUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
-    suspend operator fun invoke() =
+    operator fun invoke() =
         userInfoRepository.getAccessToken()
 }

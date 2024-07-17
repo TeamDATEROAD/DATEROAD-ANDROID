@@ -4,6 +4,10 @@ import javax.inject.Inject
 import org.sopt.dateroad.data.dataremote.datasource.AuthRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.request.RequestDummyDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
+import org.sopt.dateroad.data.mapper.todata.toData
+import org.sopt.dateroad.data.mapper.todomain.toDomain
+import org.sopt.dateroad.domain.model.Auth
+import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.repository.AuthRepository
 
 class AuthRepositoryImpl @Inject constructor(
@@ -21,8 +25,8 @@ class AuthRepositoryImpl @Inject constructor(
         authRemoteDataSource.getNicknameCheck(name = name)
     }
 
-    override suspend fun postSignIn(requestDummyDto: RequestDummyDto) {
-        authRemoteDataSource.postSignIn(requestDummyDto)
+    override suspend fun postSignIn(authorization: String, signIn: SignIn):Result<Auth> = runCatching{
+        authRemoteDataSource.postSignIn(authorization = authorization, requestSignInDto = signIn.toData()).toDomain()
     }
 
     override suspend fun postSignUp(requestDummyDto: RequestDummyDto) {
