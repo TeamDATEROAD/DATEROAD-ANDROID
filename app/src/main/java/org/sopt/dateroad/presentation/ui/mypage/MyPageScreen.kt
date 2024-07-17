@@ -69,7 +69,7 @@ fun MyPageRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchProfile(4)
+        viewModel.fetchProfile()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

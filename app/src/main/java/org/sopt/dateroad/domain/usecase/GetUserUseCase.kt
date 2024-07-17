@@ -9,6 +9,6 @@ import org.sopt.dateroad.domain.repository.ProfileRepository
 class GetUserUseCase @Inject constructor(
     private val profileRepository: ProfileRepository
 ) {
-    suspend operator fun invoke(userId: Int): Result<Profile> =
-        profileRepository.getUsers(userId = userId)
+    suspend operator fun invoke(): Result<Profile> =
+        profileRepository.getUsers()
 }

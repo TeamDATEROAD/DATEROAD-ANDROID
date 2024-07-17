@@ -10,7 +10,7 @@ import org.sopt.dateroad.domain.repository.ProfileRepository
 class ProfileRepositoryImpl @Inject constructor(
     private val profileDataSource: ProfileRemoteDataSource
 ) : ProfileRepository {
-    override suspend fun getUsers(userId: Int): Result<Profile> = runCatching {
-        profileDataSource.getUsers(userId = userId).toDomain()
+    override suspend fun getUsers(): Result<Profile> = runCatching {
+        profileDataSource.getUsers().toDomain()
     }
 }

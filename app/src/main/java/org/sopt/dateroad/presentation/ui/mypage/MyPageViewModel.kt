@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,27 +19,22 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: MyPageContract.MyPageEvent) {
         when (event) {
-            is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState = event.loadState, profile = event.profile) }
             is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy(loadState = event.loadState, showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(loadState = event.loadState, showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetLogoutDialog -> setState { copy(showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetSoonDialog -> setState { copy(showSoonDialog = event.showSoonDialog) }
+            is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState=event.loadState, profile = event.profile) }
         }
     }
 
-    fun fetchProfile(userId: Int) {
+    fun fetchProfile() {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
-            getUserUseCase(userId).onSuccess { profile ->
-                setState {
-                    copy(
-                        loadState = LoadState.Success,
-                        profile = profile
-                    )
-                }
-            }.onFailure {
-                setState { copy(loadState = LoadState.Error) }
+            setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Loading, profile = currentState.profile))
+            getUserUseCase().onSuccess { profile ->
+                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = profile))
+            }.onFailure { e ->
+                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Error, profile = currentState.profile))
             }
         }
     }

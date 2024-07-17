@@ -9,7 +9,5 @@ import retrofit2.http.Query
 
 interface ProfileService {
     @GET("$API/$VERSION/$USERS")
-    suspend fun getUsers(
-        @Query("userID") userId: Int
-    ): ResponseUserDto
+    suspend fun getUsers(): ResponseUserDto
 }
