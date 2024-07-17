@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.signin
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -19,6 +21,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
 import org.sopt.dateroad.presentation.ui.component.webview.PrivacyPolicyWebView
@@ -34,6 +38,24 @@ fun SignInRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
+        Log.e("ㅋㅋ", message?.message.toString())
+        if (oAuthToken != null) {
+            // viewModel.postLogin(oAuthToken.accessToken)
+        }
+    }
+
+    fun setLayoutLoginKakaoClickListener() {
+        Log.e("ㅋㅋ", "되니?")
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+            Log.e("ㅋㅋ", "a?")
+            UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
+        } else {
+            Log.e("ㅋㅋ", "b")
+            UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+        }
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -47,7 +69,10 @@ fun SignInRoute(
 
     SignInScreen(
         signInUiState = uiState,
-        onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding) },
+        onSignInClicked = {
+            setLayoutLoginKakaoClickListener()
+            viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding)
+        },
         onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
         webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
     )
