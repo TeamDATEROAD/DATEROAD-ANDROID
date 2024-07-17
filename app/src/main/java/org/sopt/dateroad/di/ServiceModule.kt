@@ -9,6 +9,7 @@ import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.CourseService
 import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService
+import org.sopt.dateroad.data.dataremote.service.ProfileService
 import org.sopt.dateroad.data.dataremote.service.UserPointService
 import org.sopt.dateroad.di.qualifier.DateRoad
 import retrofit2.Retrofit
@@ -39,4 +40,8 @@ object ServiceModule {
     @Provides
     fun providesUserPointService(@DateRoad retrofit: Retrofit): UserPointService =
         retrofit.create(UserPointService::class.java)
+
+    @Provides
+    fun providesProfileService(@DateRoad retrofit: Retrofit): ProfileService =
+        retrofit.create(ProfileService::class.java)
 }
