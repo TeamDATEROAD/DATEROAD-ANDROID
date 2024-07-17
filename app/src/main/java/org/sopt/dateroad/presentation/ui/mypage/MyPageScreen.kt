@@ -37,6 +37,7 @@ import androidx.lifecycle.flowWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import org.sopt.dateroad.R
+import org.sopt.dateroad.data.dataremote.util.Point
 import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.MyCourseType
@@ -263,7 +264,7 @@ fun MyPageScreenPreview() {
         MyPageScreen(
             padding = PaddingValues(0.dp),
             myPageUiState = MyPageContract.MyPageUiState(
-                profile = Profile("지현", listOf("드라이브", "쇼핑", "실내"), 200)
+                profile = Profile("지현", listOf("드라이브", "쇼핑", "실내"), "200 $Point")
             ),
             deleteLogout = {},
             deleteWithdrawal = {},
