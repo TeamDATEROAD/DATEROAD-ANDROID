@@ -8,6 +8,7 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -18,7 +19,7 @@ interface AuthService {
     @GET("$API/$VERSION/$USERS/$CHECK")
     suspend fun getNicknameCheck(
         @Query(NAME) name: String
-    )
+    ): Response<Unit>
 
     @POST("api/v1/users/signin")
     suspend fun postSignIn(

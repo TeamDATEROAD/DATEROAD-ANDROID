@@ -12,9 +12,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
     private val authService: AuthService
 ) : AuthRemoteDataSource {
 
-    override suspend fun getNicknameCheck(name: String) {
-        authService.getNicknameCheck(name = name)
-    }
+    override suspend fun getNicknameCheck(name: String) = authService.getNicknameCheck(name = name).code()
 
     override suspend fun postSignIn(requestDummyDto: RequestDummyDto) {
         authService.postSignIn(requestDummyDto)

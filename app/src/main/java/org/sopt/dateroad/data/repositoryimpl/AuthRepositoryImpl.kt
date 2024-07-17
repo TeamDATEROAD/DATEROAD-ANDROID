@@ -8,7 +8,7 @@ import org.sopt.dateroad.domain.repository.AuthRepository
 class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
-    override suspend fun getNicknameCheck(name: String): Result<Unit> = runCatching {
+    override suspend fun getNicknameCheck(name: String): Result<Int> = runCatching {
         authRemoteDataSource.getNicknameCheck(name = name)
     }
     override suspend fun postSignIn(requestDummyDto: RequestDummyDto) {

@@ -8,9 +8,5 @@ import org.sopt.dateroad.domain.repository.AuthRepository
 class GetNicknameCheckUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(name: String): Result<Unit> {
-        return runCatching {
-            authRepository.getNicknameCheck(name)
-        }
-    }
+    suspend operator fun invoke(name: String): Result<Int> = authRepository.getNicknameCheck(name)
 }
