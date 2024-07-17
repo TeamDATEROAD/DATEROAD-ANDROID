@@ -44,7 +44,7 @@ class SignInViewModel @Inject constructor(
             setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Loading))
             postSignInUseCase(authorization = getAccessTokenUseCase(), signIn = signIn).onSuccess { auth ->
                 setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Success))
-                setAccessTokenUseCase(auth.accessToken)
+                setAccessTokenUseCase("Bearer "+ auth.accessToken)
                 setRefreshTokenUseCase(auth.refreshToken)
             }.onFailure {
                 setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Error))

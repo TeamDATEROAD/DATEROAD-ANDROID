@@ -90,8 +90,13 @@ fun SignInRoute(
     when (uiState.loadState) {
         LoadState.Success -> {
             navigateToHome()
+            Log.d("http","Home")
         }
-        LoadState.Error -> navigateToOnboarding()
+        LoadState.Error -> {
+            navigateToOnboarding()
+            Log.d("http","OnBoarding")
+
+        }
         else -> Unit
     }
 }
