@@ -18,12 +18,12 @@ import retrofit2.Retrofit
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
     @Provides
-    fun providesAuthService(@DateRoad retrofit: Retrofit): AuthService =
-        retrofit.create(AuthService::class.java)
-
-    @Provides
     fun providesAdvertisementService(@DateRoad retrofit: Retrofit): AdvertisementService =
         retrofit.create(AdvertisementService::class.java)
+
+    @Provides
+    fun providesAuthService(@DateRoad retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 
     @Provides
     fun providesCourseService(@DateRoad retrofit: Retrofit): CourseService =

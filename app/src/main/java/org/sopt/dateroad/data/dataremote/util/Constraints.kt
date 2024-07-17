@@ -20,6 +20,7 @@ object ApiConstraints {
     const val COST = "cost"
     const val SORT_BY = "sortBy"
     const val POINTS = "points"
+    const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
 }
 

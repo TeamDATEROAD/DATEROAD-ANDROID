@@ -27,7 +27,7 @@ object DatePicker {
 }
 
 object CourseDetail {
-    const val PRIVACY_POLICY_URL = "http://mammoth-cheese-88e.notion.site"
+    const val PRIVACY_POLICY_URL = "https://www.notion.so/hooooooni/04da4aa279ca4b599193784091a52859"
 }
 
 object Default {

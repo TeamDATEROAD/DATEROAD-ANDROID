@@ -64,7 +64,8 @@ fun MyPageRoute(
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
-    navigateToPointGuide: () -> Unit
+    navigateToPointGuide: () -> Unit,
+    navigateToLogin: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -80,8 +81,14 @@ fun MyPageRoute(
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
+                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
                 }
             }
+    }
+
+    when (uiState.deleteUserLoadState) {
+        LoadState.Success -> navigateToLogin()
+        else -> Unit
     }
 
     when (uiState.loadState) {
@@ -90,7 +97,9 @@ fun MyPageRoute(
                 padding = padding,
                 myPageUiState = uiState,
                 deleteLogout = { viewModel.deleteLogout() },
-                deleteWithdrawal = { viewModel.deleteWithdrawal() },
+                deleteWithdrawal = {
+                    viewModel.withdrawal(null)
+                },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
@@ -117,8 +126,6 @@ fun MyPageScreen(
     setLogoutDialog: (Boolean) -> Unit,
     setWithdrawalDialog: (Boolean) -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = Modifier
             .padding(paddingValues = padding)
@@ -250,9 +257,15 @@ fun MyPageScreen(
     if (myPageUiState.showWithdrawalDialog) {
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
-            onDismissRequest = { setWithdrawalDialog(false) },
-            onClickConfirm = { setWithdrawalDialog(false) },
-            onClickDismiss = deleteWithdrawal
+            onDismissRequest = {
+                setWithdrawalDialog(false)
+            },
+            onClickConfirm = {
+                setWithdrawalDialog(false)
+            },
+            onClickDismiss = {
+                deleteWithdrawal()
+            }
         )
     }
 }
