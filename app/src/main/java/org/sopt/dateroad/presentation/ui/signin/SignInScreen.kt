@@ -1,5 +1,7 @@
 package org.sopt.dateroad.presentation.ui.signin
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +32,15 @@ import org.sopt.dateroad.presentation.util.CourseDetail.PRIVACY_POLICY_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
+
+fun setLayoutLoginKakaoClickListener(context: Context, callback: (OAuthToken?, Throwable?) -> Unit) {
+    if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+        UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
+    } else {
+        UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+    }
+}
+
 @Composable
 fun SignInRoute(
     viewModel: SignInViewModel = hiltViewModel(),
@@ -39,23 +50,15 @@ fun SignInRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
+
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
-        Log.e("ㅋㅋ", message?.message.toString())
         if (oAuthToken != null) {
-            // viewModel.postLogin(oAuthToken.accessToken)
+            Log.i(TAG, "로그인 성공 ${oAuthToken.accessToken}")
+            viewModel.setAccessToken(oAuthToken.accessToken)
+            navigateToOnboarding()
         }
     }
 
-    fun setLayoutLoginKakaoClickListener() {
-        Log.e("ㅋㅋ", "되니?")
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
-            Log.e("ㅋㅋ", "a?")
-            UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
-        } else {
-            Log.e("ㅋㅋ", "b")
-            UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
-        }
-    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -70,8 +73,7 @@ fun SignInRoute(
     SignInScreen(
         signInUiState = uiState,
         onSignInClicked = {
-            setLayoutLoginKakaoClickListener()
-            viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding)
+            setLayoutLoginKakaoClickListener(context = context, callback = callback)
         },
         onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
         webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
@@ -113,3 +115,4 @@ fun SignInScreen(
         }
     }
 }
+

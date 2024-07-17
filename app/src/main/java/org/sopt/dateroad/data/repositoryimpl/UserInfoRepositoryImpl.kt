@@ -10,8 +10,12 @@ class UserInfoRepositoryImpl @Inject constructor(
     override fun setIsLogin(isLogin: Boolean) {
         userInfoLocalDataSource.isLogin = isLogin
     }
-
     override fun getIsLogin(): Boolean = userInfoLocalDataSource.isLogin
+
+    override fun setAccessToken(accessToken: String) {
+        userInfoLocalDataSource.accessToken = accessToken
+    }
+    override fun getAccessToken(): String = userInfoLocalDataSource.accessToken
 
     override fun clearUserInfo() = userInfoLocalDataSource.clear()
 }
