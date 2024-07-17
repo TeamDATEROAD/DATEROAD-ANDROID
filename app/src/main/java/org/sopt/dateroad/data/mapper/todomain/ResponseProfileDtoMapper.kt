@@ -7,6 +7,6 @@ import org.sopt.dateroad.domain.model.Profile
 fun ResponseProfileDto.toDomain(): Profile = Profile(
     name = this.name,
     tag = this.tags,
-    point = "${this.point}${POINT}",
+    point = "${this.point}$POINT",
     imageUrl = this.imageUrl
 )
