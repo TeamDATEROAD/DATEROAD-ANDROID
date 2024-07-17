@@ -22,6 +22,7 @@ object ApiConstraints {
     const val POINTS = "points"
     const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
+    const val ADVERTISEMENT_ID = "advId"
     const val DATES = "dates"
     const val TIME = "time"
     const val NEAREST = "nearest"
@@ -48,6 +49,7 @@ object Date {
     const val MAIN_DATE_OUTPUT_FORMAT = "%d월 %d일"
     const val D_DAY_OUTPUT_FORMAT = "D-"
     const val NEAREST_DATE_START_OUTPUT_FORMAT = " 시작"
+    const val ADVERTISEMENT_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
 }
 
 object Point {

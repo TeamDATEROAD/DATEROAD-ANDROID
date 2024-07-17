@@ -51,6 +51,13 @@ object Incheon {
     const val INCHEON_ENTIRE = "인천 전체"
 }
 
+object Advertisement {
+    const val EDITOR = "에디터 픽"
+    const val AD = "광고"
+    const val ABOUT = "ABOUT"
+    const val HOT = "이달의 HOT"
+}
+
 object Month {
     const val JANUARY = "January"
     const val FEBRUARY = "February"

@@ -13,3 +13,5 @@ fun Int.toDDayString(): String = when {
 }
 
 fun String.toStartAtString(): String = "$this${Date.NEAREST_DATE_START_OUTPUT_FORMAT}"
+
+fun String.toAdvertisementDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.ADVERTISEMENT_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
