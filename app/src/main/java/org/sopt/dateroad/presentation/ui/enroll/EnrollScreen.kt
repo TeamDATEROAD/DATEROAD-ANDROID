@@ -121,6 +121,8 @@ fun EnrollRoute(
             )
         }
 
+        LoadState.Success -> popBackStack()
+
         else -> Unit
     }
 
@@ -264,8 +266,8 @@ fun EnrollScreen(
             modifier = Modifier.padding(horizontal = 16.dp),
             isEnabled = enrollUiState.isEnrollButtonEnabled,
             textContent = when (enrollUiState.enrollType) {
-                EnrollType.COURSE -> if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next_with_page, enrollUiState.page.position, 3) else stringResource(id = R.string.apply)
-                EnrollType.TIMELINE -> if (enrollUiState.page == EnrollScreenType.FIRST) stringResource(id = R.string.enroll_button_text_next) else stringResource(id = R.string.apply)
+                EnrollType.COURSE -> if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next_with_page, enrollUiState.page.position, 3) else stringResource(id = R.string.complete)
+                EnrollType.TIMELINE -> if (enrollUiState.page == EnrollScreenType.FIRST) stringResource(id = R.string.enroll_button_text_next) else stringResource(id = R.string.complete)
             },
             onClick = onEnrollButtonClick
         )

@@ -1,10 +1,13 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.usecase.PostDateUseCase
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
@@ -14,7 +17,9 @@ import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.EnrollUiState, EnrollContract.EnrollSideEffect, EnrollContract.EnrollEvent>() {
+class EnrollViewModel @Inject constructor(
+    private val postDateUseCase: PostDateUseCase
+) : BaseViewModel<EnrollContract.EnrollUiState, EnrollContract.EnrollSideEffect, EnrollContract.EnrollEvent>() {
     override fun createInitialState(): EnrollContract.EnrollUiState = EnrollContract.EnrollUiState()
 
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
@@ -100,6 +105,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick -> setState { copy(enroll = currentState.enroll.copy(places = currentState.enroll.places.toMutableList().apply { removeAt(event.index) })) }
             is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(enroll = currentState.enroll.copy(description = event.description)) }
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(enroll = currentState.enroll.copy(cost = event.cost)) }
+            is EnrollContract.EnrollEvent.Enroll -> setState { copy(loadState = event.loadState) }
         }
     }
 
@@ -108,6 +114,13 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
     }
 
     private fun postTimeline() {
-        setState { copy(loadState = LoadState.Success) }
+        viewModelScope.launch {
+            setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
+            postDateUseCase(date = currentState.enroll).onSuccess {
+                setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
+            }.onFailure {
+                setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
+            }
+        }
     }
 }

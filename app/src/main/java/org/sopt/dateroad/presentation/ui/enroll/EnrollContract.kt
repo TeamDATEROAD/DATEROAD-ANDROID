@@ -77,5 +77,6 @@ class EnrollContract {
         data class OnPlaceCardDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnDescriptionValueChange(val description: String) : EnrollEvent()
         data class OnCostValueChange(val cost: String) : EnrollEvent()
+        data class Enroll(val loadState: LoadState) : EnrollEvent()
     }
 }

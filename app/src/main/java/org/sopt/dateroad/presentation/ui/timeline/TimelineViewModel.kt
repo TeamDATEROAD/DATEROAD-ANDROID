@@ -47,22 +47,6 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
                         date = "JUNE.23",
                         city = "부산",
                         tags = listOf(DateTagType.SHOPPING)
-                    ),
-                    Date(
-                        dateId = 4,
-                        dDay = "1",
-                        title = "데이트 일정 1",
-                        date = "JUNE.23",
-                        city = "서울",
-                        tags = listOf(DateTagType.SHOPPING)
-                    ),
-                    Date(
-                        dateId = 5,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
                     )
                 )
             )
