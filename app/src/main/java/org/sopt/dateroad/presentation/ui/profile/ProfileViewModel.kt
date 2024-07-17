@@ -90,7 +90,7 @@ class ProfileViewModel @Inject constructor(
                         )
                     )
                 }
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(
                     ProfileContract.ProfileEvent.GetNicknameCheck(
                         loadState = LoadState.Error,
