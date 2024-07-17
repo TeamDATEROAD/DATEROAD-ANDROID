@@ -1,31 +1,51 @@
 package org.sopt.dateroad.presentation.ui.home
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.datastore.preferences.*
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.Advertisement
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
-import org.sopt.dateroad.domain.usecase.GetUserProfileMainUseCase
+import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import java.io.IOException
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getUserProfileMainUseCase: GetUserProfileMainUseCase,
+    @ApplicationContext private val context: Context,
+    private val GetUserPointUseCase: GetUserPointUseCase,
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
+    private val PREFS_NAME = "org.sopt.dateroad"
+    private val KEY_USER_ID = "user_id"
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
+
+    fun saveUserId(userId: Int) {
+        sharedPreferences.edit().putInt(KEY_USER_ID, userId).apply()
+    }
+
+    fun getUserId(): Int {
+        return sharedPreferences.getInt(KEY_USER_ID, -1)
+    }
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
         when (event) {
             is HomeContract.HomeEvent.ChangeBannerPage -> setState { copy(currentBannerPage = event.page) }
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
-            is HomeContract.HomeEvent.FetchRemainingPoints -> setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
+            is HomeContract.HomeEvent.FetchRemainingPoints -> { setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) } }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
             is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
@@ -34,19 +54,18 @@ class HomeViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
-            getUserProfileMainUseCase(userId = 1)
+            val userId = getUserId()
+            setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName))
+            setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+            GetUserPointUseCase(userId = userId)
                 .onSuccess { userPoint ->
-                    setState {
-                        copy(
-                            userName = userPoint.name,
-                            remainingPoints = userPoint.point,
-                            loadState = LoadState.Success
-                        )
-                    }
+                    saveUserId(userId)
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point))
                 }
                 .onFailure {
-                    setState { copy(loadState = LoadState.Error) }
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Error, remainingPoints = currentState.remainingPoints))
                 }
         }
     }

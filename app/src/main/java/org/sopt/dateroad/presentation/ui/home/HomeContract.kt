@@ -16,7 +16,7 @@ class HomeContract {
         val latestCourses: List<Course> = listOf(),
         val advertisements: List<Advertisement> = listOf(),
         val userName: String = "",
-        val remainingPoints: String = "",
+        val remainingPoints: String = "0",
         val currentBannerPage: Int = 0
     ) : UiState
 

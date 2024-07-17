@@ -3,7 +3,6 @@ package org.sopt.dateroad.data.dataremote.service
 import org.sopt.dateroad.data.dataremote.model.request.RequestUsePointDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponsePointHistoryDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseUserPointDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseUserProfileMainDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.COURSES
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.COURSE_ID
@@ -20,8 +19,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserPointService {
-    @GET("$API/$VERSION/$USERS")
-    suspend fun getUserPoint(): ResponseUserPointDto
+    @GET("$API/$VERSION/$USERS/$MAIN")
+    suspend fun getUserPoint(
+        @Query(USER_ID) userId: Int
+    ): ResponseUserPointDto
 
     @GET("$API/$VERSION/$POINTS")
     suspend fun getPointHistory(): ResponsePointHistoryDto
@@ -31,9 +32,4 @@ interface UserPointService {
         @Path(COURSE_ID) courseId: Int,
         @Body requestUsePointDto: RequestUsePointDto
     )
-
-    @GET("$API/$VERSION/$USERS/$MAIN")
-    suspend fun getUserProfileMain(
-        @Query(USER_ID) userId: Int
-    ): ResponseUserProfileMainDto
 }
