@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.data.mapper.todomain.toDomain
+import org.sopt.dateroad.domain.type.DateTimeType
 import org.sopt.dateroad.domain.usecase.GetDatesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -22,17 +22,14 @@ class PastViewModel @Inject constructor(
         }
     }
 
-    fun fetchPastDate(time: String) {
+    fun fetchPastDate(time: DateTimeType) {
         viewModelScope.launch {
-            setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, dates = emptyList()))
-            getDatesUseCase(time)
-                .onSuccess { response ->
-                    val dates = response.dates.map { it.toDomain() }
-                    setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Success, dates = dates))
-                }
-                .onFailure {
-                    setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Error, dates = emptyList()))
-                }
+            setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, dates = currentState.dates))
+            getDatesUseCase(time = time).onSuccess { dates ->
+                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Success, dates = dates))
+            }.onFailure {
+                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Error, dates = currentState.dates))
+            }
         }
     }
 }

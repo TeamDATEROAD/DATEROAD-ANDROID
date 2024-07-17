@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.data.mapper.todomain.toDomain
+import org.sopt.dateroad.domain.type.DateTimeType
 import org.sopt.dateroad.domain.usecase.GetDatesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -23,16 +23,15 @@ class TimelineViewModel @Inject constructor(
         }
     }
 
-    fun fetchTimeline(time: String) {
+    fun fetchTimeline(time: DateTimeType) {
         viewModelScope.launch {
-            setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Loading, dates = emptyList()))
-            getDatesUseCase(time)
-                .onSuccess { response ->
-                    val dates = response.dates.map { it.toDomain() }
+            setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Loading, dates = currentState.dates))
+            getDatesUseCase(time = time)
+                .onSuccess { dates ->
                     setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Success, dates = dates))
                 }
                 .onFailure {
-                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Error, dates = emptyList()))
+                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Error, dates = currentState.dates))
                 }
         }
     }

@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -28,7 +27,7 @@ class TimelineDetailViewModel @Inject constructor(
         }
     }
 
-    fun fetchTimelineDetail(dateId: Long) {
+    fun fetchTimelineDetail(dateId: Int) {
         setEvent(TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail(dateId))
     }
 
@@ -48,22 +47,22 @@ class TimelineDetailViewModel @Inject constructor(
         setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen = source))
     }
 
-    fun onDeleteConfirm(dateId: Long) {
+    fun onDeleteConfirm(dateId: Int) {
         setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteDate(dateId))
     }
 
-    private fun fetchDateDetail(dateId: Long) {
+    private fun fetchDateDetail(dateId: Int) {
         viewModelScope.launch {
             setState { copy(loadState = LoadState.Loading) }
             getDateDetailUseCase(dateId).onSuccess { dateDetail ->
-                setState { copy(loadState = LoadState.Success, dateDetail = dateDetail.toDomain()) }
+                setState { copy(loadState = LoadState.Success, dateDetail = dateDetail) }
             }.onFailure {
                 setState { copy(loadState = LoadState.Error) }
             }
         }
     }
 
-    private fun deleteDate(dateId: Long) {
+    private fun deleteDate(dateId: Int) {
         viewModelScope.launch {
             setState { copy(isDeleting = true) }
             val result = deleteDateUseCase(dateId)

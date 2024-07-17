@@ -40,8 +40,6 @@ enum class SeoulAreaType(
     );
 
     companion object {
-        fun fromString(value: String): SeoulAreaType? {
-            return entries.find { it.name == value }
-        }
+        fun String.toSeoulAreaTitle(): String = entries.find { it.name == this }?.title ?: ""
     }
 }

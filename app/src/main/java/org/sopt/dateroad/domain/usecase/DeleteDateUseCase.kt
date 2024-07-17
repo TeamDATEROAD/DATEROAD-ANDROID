@@ -8,7 +8,7 @@ import org.sopt.dateroad.domain.repository.DateRepository
 class DeleteDateUseCase @Inject constructor(
     private val dateRepository: DateRepository
 ) {
-    suspend operator fun invoke(dateId: Long): Result<Unit> {
+    suspend operator fun invoke(dateId: Int): Result<Unit> {
         return runCatching {
             dateRepository.deleteDate(dateId)
         }

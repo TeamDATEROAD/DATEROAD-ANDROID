@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.data.mapper.todomain.toEnglishMonth
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
@@ -46,7 +45,7 @@ fun TimelineCard(
     modifier: Modifier,
     dateCard: Date,
     dateType: DateType,
-    onClick: (Long) -> Unit = {}
+    onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = modifier
@@ -81,23 +80,16 @@ fun TimelineCard(
                             .weight(1f)
                     ) {
                         Text(
-                            text = dateCard.date.split(".")[1].toEnglishMonth(),
+                            text = dateCard.date,
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = dateCard.date.split(".")[2],
-                            style = DateRoadTheme.typography.titleExtra24,
-                            color = DateRoadTheme.colors.black,
-                            maxLines = 1,
+                            maxLines = 2,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     DateRoadTextTag(
-                        textContent = stringResource(R.string.home_timeline_d_day, dateCard.dDay),
+                        textContent = dateCard.dDay,
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }

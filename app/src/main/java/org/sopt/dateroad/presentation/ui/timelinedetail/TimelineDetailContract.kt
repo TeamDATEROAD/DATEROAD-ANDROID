@@ -23,11 +23,11 @@ class TimelineDetailContract {
     }
 
     sealed class TimelineDetailEvent : UiEvent {
-        data class FetchTimelineDetail(val dateId: Long) : TimelineDetailEvent()
+        data class FetchTimelineDetail(val dateId: Int) : TimelineDetailEvent()
         data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
         data class SetSourceScreen(val sourceScreen: Boolean) : TimelineDetailEvent()
-        data class DeleteDate(val dateId: Long) : TimelineDetailEvent()
+        data class DeleteDate(val dateId: Int) : TimelineDetailEvent()
     }
 }

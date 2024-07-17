@@ -1,12 +1,13 @@
 package org.sopt.dateroad.domain.repository
 
-import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseDatesDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
+import org.sopt.dateroad.domain.model.Date
+import org.sopt.dateroad.domain.model.DateDetail
+import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.type.DateTimeType
 
 interface DateRepository {
-    suspend fun deleteDate(dateId: Long)
-    suspend fun getDateDetail(dateId: Long): ResponseDateDetailDto
-    suspend fun getDates(time: String): ResponseDatesDto
-    suspend fun getNearestDate(): ResponseNearestDateDto
+    suspend fun deleteDate(dateId: Int)
+    suspend fun getDateDetail(dateId: Int): DateDetail
+    suspend fun getDates(time: DateTimeType): List<Date>
+    suspend fun getNearestDate(): MainDate
 }

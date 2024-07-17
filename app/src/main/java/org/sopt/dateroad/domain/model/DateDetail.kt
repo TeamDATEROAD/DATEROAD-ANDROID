@@ -3,12 +3,12 @@ package org.sopt.dateroad.domain.model
 import org.sopt.dateroad.presentation.type.DateTagType
 
 data class DateDetail(
-    val dateId: Long = 0,
+    val dateId: Int = 0,
     val title: String = "",
     val startAt: String = "",
-    val city: String? = null,
-    val tags: List<DateTagType> = emptyList(),
+    val city: String = "",
+    val tags: List<DateTagType> = listOf(),
     val date: String = "",
     val dDay: String = "",
-    val places: List<Place> = emptyList()
+    val places: List<Place> = listOf()
 )

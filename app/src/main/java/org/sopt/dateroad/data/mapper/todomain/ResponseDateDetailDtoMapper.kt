@@ -7,9 +7,9 @@ fun ResponseDateDetailDto.toDomain(): DateDetail = DateDetail(
     dateId = this.dateId,
     title = this.title,
     startAt = this.startAt,
-    city = this.city,
+    city = this.city.toAreaTitle(),
     tags = this.tags.map { it.toDomain() },
-    date = this.date,
-    places = this.places.map { it.toDomain() },
-    dDay = this.dDay.toString()
+    date = this.date.toDates(),
+    places = this.places.sortedBy { responsePlaceDto -> responsePlaceDto.sequence }.map { it.toDomain() },
+    dDay = this.dDay.toDDayString()
 )

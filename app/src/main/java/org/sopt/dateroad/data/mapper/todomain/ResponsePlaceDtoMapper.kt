@@ -5,6 +5,5 @@ import org.sopt.dateroad.domain.model.Place
 
 fun ResponsePlaceDto.toDomain() = Place(
     title = this.title,
-    duration = this.duration.toDuration(),
-    sequence = this.sequence
+    duration = this.duration.toDuration()
 )

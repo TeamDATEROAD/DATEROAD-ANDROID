@@ -322,8 +322,7 @@ fun HomeScreenPreview() {
                     dateId = 1,
                     dDay = "3",
                     dateName = "부천 데이트",
-                    month = 6,
-                    day = 23,
+                    date = "2024.06.23",
                     startAt = "14:00 PM"
                 ),
                 topLikedCourses = listOf(

@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
@@ -17,10 +16,6 @@ class HomeViewModel @Inject constructor(
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
     private val getNearestDateUseCase: GetNearestDateUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
-    init {
-        fetchNearestDate()
-    }
-
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
@@ -126,8 +121,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Loading, mainDate = MainDate()))
             getNearestDateUseCase()
-                .onSuccess { responseNearestDateDto ->
-                    val mainDate = responseNearestDateDto.toDomain()
+                .onSuccess { mainDate ->
                     setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = mainDate))
                 }
                 .onFailure {

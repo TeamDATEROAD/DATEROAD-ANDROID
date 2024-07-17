@@ -17,12 +17,12 @@ import retrofit2.http.Query
 interface DateService {
     @DELETE("$API/$VERSION/$DATES/{$DATE_ID}")
     suspend fun deleteDate(
-        @Path(DATE_ID) dateId: Long
+        @Path(DATE_ID) dateId: Int
     )
 
     @GET("$API/$VERSION/$DATES/{$DATE_ID}")
     suspend fun getDateDetail(
-        @Path(DATE_ID) dateId: Long
+        @Path(DATE_ID) dateId: Int
     ): ResponseDateDetailDto
 
     @GET("$API/$VERSION/$DATES")

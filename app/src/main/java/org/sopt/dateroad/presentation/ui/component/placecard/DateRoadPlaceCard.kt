@@ -50,7 +50,7 @@ fun DateRoadPlaceCard(
         if (placeCardType == PlaceCardType.COURSE_NORMAL) {
             sequence?.let {
                 DateRoadTextTag(
-                    textContent = sequence.toString(),
+                    textContent = (sequence + 1).toString(),
                     tagContentType = TagType.PLACE_CARD_NUMBER
                 )
             }
@@ -94,7 +94,7 @@ fun DateRoadPlaceCardPreview() {
     Column {
         DateRoadPlaceCard(
             placeCardType = PlaceCardType.COURSE_NORMAL,
-            sequence = 1,
+            sequence = 0,
             place = Place(title = "성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점성수미술관 성수점", duration = "2.5시간")
         )
         Spacer(modifier = Modifier.height(8.dp))

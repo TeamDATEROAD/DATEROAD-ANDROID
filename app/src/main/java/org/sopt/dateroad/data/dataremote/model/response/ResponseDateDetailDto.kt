@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseDateDetailDto(
     @SerialName("dateId")
-    val dateId: Long,
+    val dateId: Int,
     @SerialName("title")
     val title: String,
     @SerialName("startAt")
     val startAt: String,
     @SerialName("city")
-    val city: String?,
+    val city: String,
     @SerialName("tags")
     val tags: List<ResponseTagDto>,
     @SerialName("date")

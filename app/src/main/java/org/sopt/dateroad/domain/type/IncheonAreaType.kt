@@ -8,9 +8,8 @@ enum class IncheonAreaType(
     INCHEON_ENTIRE(
         title = Incheon.INCHEON_ENTIRE
     );
+
     companion object {
-        fun fromString(value: String): IncheonAreaType? {
-            return entries.find { it.name == value }
-        }
+        fun String.toIncheonAreaTitle(): String = IncheonAreaType.entries.find { it.name == this }?.title ?: ""
     }
 }

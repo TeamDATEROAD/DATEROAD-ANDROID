@@ -26,7 +26,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.data.mapper.todomain.toTimelineDate
 import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
@@ -39,7 +38,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 fun PastCard(
     date: Date,
     dateType: DateType,
-    onClick: (Long) -> Unit = {}
+    onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -67,7 +66,7 @@ fun PastCard(
                     .padding(top = 14.dp, start = 16.dp, end = 16.dp)
             ) {
                 Text(
-                    text = date.date.toTimelineDate(),
+                    text = date.date,
                     style = DateRoadTheme.typography.bodySemi13,
                     color = DateRoadTheme.colors.black,
                     modifier = Modifier

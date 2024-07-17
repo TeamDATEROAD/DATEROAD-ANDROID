@@ -10,19 +10,11 @@ import org.sopt.dateroad.data.dataremote.service.DateService
 class DateRemoteDataSourceImpl @Inject constructor(
     private val dateService: DateService
 ) : DateRemoteDataSource {
-    override suspend fun deleteDate(dateId: Long) {
-        dateService.deleteDate(dateId)
-    }
+    override suspend fun deleteDate(dateId: Int) = dateService.deleteDate(dateId)
 
-    override suspend fun getDateDetail(dateId: Long): ResponseDateDetailDto {
-        return dateService.getDateDetail(dateId)
-    }
+    override suspend fun getDateDetail(dateId: Int): ResponseDateDetailDto = dateService.getDateDetail(dateId)
 
-    override suspend fun getDates(time: String): ResponseDatesDto {
-        return dateService.getDates(time)
-    }
+    override suspend fun getDates(time: String): ResponseDatesDto = dateService.getDates(time)
 
-    override suspend fun getNearestDate(): ResponseNearestDateDto {
-        return dateService.getNearestDate()
-    }
+    override suspend fun getNearestDate(): ResponseNearestDateDto = dateService.getNearestDate()
 }
