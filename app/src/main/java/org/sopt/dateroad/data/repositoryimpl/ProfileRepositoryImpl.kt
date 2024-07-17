@@ -11,6 +11,6 @@ class ProfileRepositoryImpl @Inject constructor(
     private val profileDataSource: ProfileRemoteDataSource
 ) : ProfileRepository {
     override suspend fun getUsers(): Result<Profile> = runCatching {
-        profileDataSource.getUsers().toDomain()
+        profileDataSource.getProfile().toDomain()
     }
 }
