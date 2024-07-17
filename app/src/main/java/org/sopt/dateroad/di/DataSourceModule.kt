@@ -31,7 +31,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindAdvertisementRemoteDataSource(advertisementRemoteDataSourceImpl: AdvertisementRemoteDataSourceImpl): AdvertisementRemoteDataSource
+    abstract fun bindsAdvertisementDataSource(advertisementRemoteDataSourceImpl: AdvertisementRemoteDataSourceImpl): AdvertisementRemoteDataSource
 
     @Binds
     @Singleton
