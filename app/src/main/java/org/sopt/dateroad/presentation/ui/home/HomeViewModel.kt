@@ -39,14 +39,13 @@ class HomeViewModel @Inject constructor(
 
     fun fetchAdvertisements() {
         viewModelScope.launch {
-            val currentAdvertisements = currentState.advertisements
-            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = currentAdvertisements))
+            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = currentState.advertisements))
             getAdvertisementsUseCase()
                 .onSuccess { advertisements ->
                     setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Success, advertisements = advertisements))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentAdvertisements))
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentState.advertisements))
                 }
         }
     }
