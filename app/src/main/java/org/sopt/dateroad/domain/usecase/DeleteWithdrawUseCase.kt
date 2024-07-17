@@ -8,7 +8,5 @@ import org.sopt.dateroad.domain.repository.AuthRepository
 class DeleteWithdrawUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(userId: Int, authCode: String?): Result<Unit> {
-        return authRepository.deleteWithdraw(userId, authCode)
-    }
+    suspend operator fun invoke(authCode: String?): Result<Unit> = authRepository.deleteWithdraw(authCode)
 }

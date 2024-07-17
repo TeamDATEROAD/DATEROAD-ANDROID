@@ -8,8 +8,7 @@ import org.sopt.dateroad.domain.repository.AuthRepository
 class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
-    override suspend fun deleteWithdraw(userId: Int, authCode: String?): Result<Unit> = runCatching {
-        val requestWithdrawDto = RequestWithdrawDto(authCode)
-        authRemoteDataSource.deleteWithdraw(userId, requestWithdrawDto)
+    override suspend fun deleteWithdraw( authCode: String?): Result<Unit> = runCatching {
+        authRemoteDataSource.deleteWithdraw(requestWithdrawDto =  RequestWithdrawDto(authCode))
     }
 }

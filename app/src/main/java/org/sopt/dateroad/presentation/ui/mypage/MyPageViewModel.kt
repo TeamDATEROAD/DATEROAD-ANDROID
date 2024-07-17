@@ -1,11 +1,13 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
+import org.sopt.dateroad.presentation.ui.pointhistory.PointHistoryContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -35,21 +37,18 @@ class MyPageViewModel @Inject constructor(
         setEvent(MyPageContract.MyPageEvent.DeleteLogout(loadState = LoadState.Success, showLogoutDialog = false))
     }
 
-    fun deleteWithdrawal() {
-        setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false))
-    }
 
-    fun withdrawal(userId: Int, authCode: String?) {
+
+    fun withdrawal(authCode: String?) {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
-            deleteWithdrawUserUseCase(userId, authCode).onSuccess {
-                setState {
-                    copy(
-                        loadState = LoadState.Success
-                    )
-                }
-            }.onFailure {
-                setState { copy(loadState = LoadState.Error) }
+
+            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true))
+            deleteWithdrawUserUseCase(authCode).onSuccess {
+                Log.d("http","성공")
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false))
+            }.onFailure { e ->
+                Log.d("http", e.message.toString())
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false))
             }
         }
     }

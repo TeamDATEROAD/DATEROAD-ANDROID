@@ -11,6 +11,7 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.WITHDRAW
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -30,9 +31,8 @@ interface AuthService {
         @Body requestDummyDto: RequestDummyDto
     ): BaseResponse<Unit>
 
-    @DELETE("$API/$VERSION/$USERS/$WITHDRAW")
+    @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")
     suspend fun deleteWithdraw(
-        @Query("userId") userId: Int,
         @Body requestWithdrawDto: RequestWithdrawDto
     )
 

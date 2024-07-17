@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RequestWithdrawDto(
     @SerialName("authCode")
-    val authCode: String?
+    val authCode: String? = null
 )
