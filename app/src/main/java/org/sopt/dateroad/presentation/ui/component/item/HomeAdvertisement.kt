@@ -31,7 +31,7 @@ fun HomeAdvertisement(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
-                .data(advertisement.imageUrl)
+                .data(advertisement.thumbnail)
                 .crossfade(true)
                 .build(),
             placeholder = null,
@@ -49,7 +49,7 @@ fun HomeAdvertisementPreview() {
         HomeAdvertisement(
             advertisement = Advertisement(
                 advertisementId = 0,
-                imageUrl = "www.naver.jpg"
+                thumbnail = "www.naver.jpg"
             )
         )
     }

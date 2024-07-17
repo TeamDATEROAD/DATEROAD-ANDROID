@@ -284,22 +284,22 @@ fun HomeScreen(
                 }
             }
         }
-        Box(
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
+        Alignment.BottomEnd
+    ) {
+        DateRoadImageButton(
+            isEnabled = true,
+            onClick = { onFabClick(EnrollType.COURSE, null) },
+            cornerRadius = 44.dp,
+            paddingHorizontal = 16.dp,
+            paddingVertical = 16.dp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            Alignment.BottomEnd
-        ) {
-            DateRoadImageButton(
-                isEnabled = true,
-                onClick = { onFabClick(EnrollType.COURSE, null) },
-                cornerRadius = 44.dp,
-                paddingHorizontal = 16.dp,
-                paddingVertical = 16.dp,
-                modifier = Modifier
-                    .padding(16.dp)
-            )
-        }
+                .padding(16.dp)
+        )
     }
 }
 
@@ -376,11 +376,11 @@ fun HomeScreenPreview() {
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     )
                 ),
                 userName = "현진",
