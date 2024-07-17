@@ -40,7 +40,11 @@ object Like {
 object Date {
     const val INPUT_FORMAT = "yyyy.MM.dd"
     const val COURSE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일 방문"
-    const val TIMELINE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
+    const val DATE_OUTPUT_FORMAT = "yyyy년 M월 d일"
+    const val TIMELINE_OUTPUT_FORMAT = "%s\n%d"
+    const val MAIN_DATE_OUTPUT_FORMAT = "%d월 %d일"
+    const val D_DAY_OUTPUT_FORMAT = "D-"
+    const val NEAREST_DATE_START_OUTPUT_FORMAT = " 시작"
 }
 
 object Point {
