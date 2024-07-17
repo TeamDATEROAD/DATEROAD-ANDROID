@@ -64,7 +64,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -133,7 +133,7 @@ fun HomeScreen(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit,
+    onFabClick: (EnrollType, Int?) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
