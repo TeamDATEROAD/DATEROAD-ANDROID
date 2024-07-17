@@ -33,10 +33,20 @@ class UserInfoLocalDataSourceImpl @Inject constructor(
         get() = sharedPreferences.getBoolean(IS_LOGIN, false)
         set(value) = sharedPreferences.edit { putBoolean(IS_LOGIN, value) }
 
+    override var userId: String
+        get() = sharedPreferences.getString(USER_ID, "").toString()
+        set(value) = sharedPreferences.edit { putString(USER_ID, value) }
+
+    override var remainingPoints: Int
+        get() = sharedPreferences.getInt(REMAINING_POINTS, 0)
+        set(value) = sharedPreferences.edit { putInt(REMAINING_POINTS, value) }
+
     override fun clear() = sharedPreferences.edit { clear() }
 
     companion object {
         const val FILE_NAME = "DateRoadLocalDataSource"
         const val IS_LOGIN = "IsLogin"
+        const val USER_ID = "UserId"
+        const val REMAINING_POINTS = "RemainingPoints"
     }
 }

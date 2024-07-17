@@ -1,44 +1,26 @@
 package org.sopt.dateroad.presentation.ui.home
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.datastore.preferences.*
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
-import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
+import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
+import org.sopt.dateroad.domain.usecase.SetRemainingPointsUseCase
+import org.sopt.dateroad.domain.usecase.SetUserIdUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import java.io.IOException
-import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val GetUserPointUseCase: GetUserPointUseCase,
-    private val getAdvertisementsUseCase: GetAdvertisementsUseCase
+    private val getUserPointUseCase: GetUserPointUseCase,
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
+    private val setUserIdUseCase: SetUserIdUseCase,
+    private val setRemainingPointsUseCase: SetRemainingPointsUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
-    private val PREFS_NAME = "org.sopt.dateroad"
-    private val KEY_USER_ID = "user_id"
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
-
-    fun saveUserId(userId: Int) {
-        sharedPreferences.edit().putInt(KEY_USER_ID, userId).apply()
-    }
-
-    fun getUserId(): Int {
-        return sharedPreferences.getInt(KEY_USER_ID, -1)
-    }
 
     override suspend fun handleEvent(event: HomeContract.HomeEvent) {
         when (event) {
@@ -54,14 +36,14 @@ class HomeViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            val userId = getUserId()
             setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName))
             setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
-            GetUserPointUseCase(userId = userId)
+            getUserPointUseCase(userId = 1)
                 .onSuccess { userPoint ->
-                    saveUserId(userId)
                     setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name))
                     setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point))
+                    setUserIdUseCase(userPoint.name)
+                    setRemainingPointsUseCase(userPoint.point.filter { it.isDigit() }.toIntOrNull() ?: 0)
                 }
                 .onFailure {
                     setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName))
