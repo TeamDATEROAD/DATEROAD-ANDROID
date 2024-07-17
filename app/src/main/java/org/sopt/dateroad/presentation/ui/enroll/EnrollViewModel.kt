@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
@@ -7,6 +8,7 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.domain.usecase.PostCourseUseCase
 import org.sopt.dateroad.domain.usecase.PostDateUseCase
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -18,6 +20,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
+    private val postCourseUseCase: PostCourseUseCase,
     private val postDateUseCase: PostDateUseCase
 ) : BaseViewModel<EnrollContract.EnrollUiState, EnrollContract.EnrollSideEffect, EnrollContract.EnrollEvent>() {
     override fun createInitialState(): EnrollContract.EnrollUiState = EnrollContract.EnrollUiState()
@@ -110,7 +113,15 @@ class EnrollViewModel @Inject constructor(
     }
 
     private fun postCourse() {
-        setState { copy(loadState = LoadState.Success) }
+        viewModelScope.launch {
+            setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
+            postCourseUseCase(enroll = currentState.enroll).onSuccess {
+                setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
+            }.onFailure { e ->
+                Log.e("ㅋㅋ", e.message.toString())
+                setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
+            }
+        }
     }
 
     private fun postTimeline() {

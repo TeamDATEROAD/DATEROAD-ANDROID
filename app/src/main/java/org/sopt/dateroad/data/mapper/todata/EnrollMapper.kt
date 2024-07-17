@@ -1,5 +1,6 @@
 package org.sopt.dateroad.data.mapper.todata
 
+import org.sopt.dateroad.data.dataremote.model.request.RequestCourseDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
 import org.sopt.dateroad.domain.model.Enroll
 import org.sopt.dateroad.domain.util.toAreaTitle
@@ -12,4 +13,14 @@ fun Enroll.toDateData(): RequestDateDto = RequestDateDto(
     country = this.country?.name.orEmpty(),
     city = this.city.toAreaTitle(),
     places = places.mapIndexed { index, place -> place.toData(sequence = index) }
+)
+
+fun Enroll.toCourseData(): RequestCourseDto = RequestCourseDto(
+    title = this.title,
+    date = this.date,
+    startAt = this.startAt,
+    country = country?.name.orEmpty(),
+    city = this.city.toAreaTitle(),
+    description = this.description,
+    cost = this.cost.toInt()
 )
