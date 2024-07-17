@@ -32,7 +32,7 @@ class MyPageViewModel @Inject constructor(
             setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Loading, profile = currentState.profile))
             getUserUseCase().onSuccess { profile ->
                 setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = profile))
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Error, profile = currentState.profile))
             }
         }
