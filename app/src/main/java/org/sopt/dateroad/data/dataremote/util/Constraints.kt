@@ -48,10 +48,26 @@ object Date {
     const val TIMELINE_OUTPUT_FORMAT = "%s\n%d"
     const val MAIN_DATE_OUTPUT_FORMAT = "%d월 %d일"
     const val D_DAY_OUTPUT_FORMAT = "D-"
+    const val D_DAY_DEFAULT_LABEL = "D-Day"
     const val NEAREST_DATE_START_OUTPUT_FORMAT = " 시작"
     const val ADVERTISEMENT_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
 }
 
 object Point {
     const val POINT = " P"
+}
+
+object Month {
+    const val JANUARY = "January"
+    const val FEBRUARY = "February"
+    const val MARCH = "March"
+    const val APRIL = "April"
+    const val MAY = "May"
+    const val JUNE = "June"
+    const val JULY = "July"
+    const val AUGUST = "August"
+    const val SEPTEMBER = "September"
+    const val OCTOBER = "October"
+    const val NOVEMBER = "November"
+    const val DECEMBER = "December"
 }
