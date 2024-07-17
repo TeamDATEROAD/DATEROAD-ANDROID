@@ -14,10 +14,10 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor(
+    private val deleteCourseUseCase: DeleteCourseUseCase,
     private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
-    private val postCourseLikeUseCase: PostCourseLikeUseCase,
-    private val deleteCourseUseCase: DeleteCourseUseCase
+    private val postCourseLikeUseCase: PostCourseLikeUseCase
 ) : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
     override fun createInitialState(): CourseDetailContract.CourseDetailUiState = CourseDetailContract.CourseDetailUiState()
 
@@ -30,7 +30,6 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked -> setState { copy(isLikedButtonChecked = !isLikedButtonChecked) }
-            is CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked -> handleDelete()
             is CourseDetailContract.CourseDetailEvent.OnEditBottomSheet -> setState { copy(isEditBottomSheetOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet -> setState { copy(isEditBottomSheetOpen = false) }
             is CourseDetailContract.CourseDetailEvent.EnrollSchedule -> enrollSchedule()
@@ -95,16 +94,13 @@ class CourseDetailViewModel @Inject constructor(
     fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
             setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading))
-            deleteCourseLikeUseCase(courseId = courseId).onSuccess {
+            deleteCourseUseCase(courseId = courseId).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success))
+                setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack)
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error))
             }
         }
-    }
-
-    private fun handleDelete() {
-        // Implement deletion logic here
     }
 
     private fun enrollSchedule() {

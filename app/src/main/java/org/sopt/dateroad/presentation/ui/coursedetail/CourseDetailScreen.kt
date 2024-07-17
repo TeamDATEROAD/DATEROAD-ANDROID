@@ -88,6 +88,7 @@ fun CourseDetailRoute(
             .collect { courseDetailSideEffect ->
                 when (courseDetailSideEffect) {
                     is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, courseDetailSideEffect.id)
+                    is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack() // 추가된 부분
                 }
             }
     }
@@ -120,7 +121,6 @@ fun CourseDetailRoute(
                     }
                 },
                 onDeleteButtonClicked = {
-                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteButtonClicked)
                     viewModel.deleteCourse(uiState.id)
                 },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
@@ -533,7 +533,6 @@ fun CourseDetailScreen(
         itemList = listOf(
             stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
                 onDeleteButtonClicked()
-                popBackStack()
             }
         ),
         onDismissRequest = { dismissEditBottomSheet() },

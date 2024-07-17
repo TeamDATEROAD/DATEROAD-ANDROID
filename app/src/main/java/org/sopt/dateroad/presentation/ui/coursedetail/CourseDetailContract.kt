@@ -26,6 +26,7 @@ class CourseDetailContract {
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
         data class NavigateToEnroll(val id: Int) : CourseDetailSideEffect
+        data object PopBackStack : CourseDetailSideEffect
     }
 
     sealed class CourseDetailEvent : UiEvent {
@@ -36,7 +37,6 @@ class CourseDetailContract {
         data object DismissDialogLookedForFree : CourseDetailEvent()
         data object OnDialogPointLack : CourseDetailEvent()
         data object DismissDialogPointLack : CourseDetailEvent()
-        data object OnDeleteButtonClicked : CourseDetailEvent()
         data object OnEditBottomSheet : CourseDetailEvent()
         data object DismissEditBottomSheet : CourseDetailEvent()
         data object EnrollSchedule : CourseDetailEvent()
