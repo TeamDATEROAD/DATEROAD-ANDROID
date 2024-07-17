@@ -7,7 +7,7 @@ import okhttp3.Response
 class AuthInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val authRequest = originalRequest.newBuilder().addHeader(AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzIxMjA2MTc5LCJleHAiOjE3MjM2MjUyNzl9.ZVq3q2jNdcTXIcvHtg1EbcNpNVqOlFeElEIRRwVI3CU").build()
+        val authRequest = originalRequest.newBuilder().addHeader(AUTHORIZATION, "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzIxMDYwNTExLCJleHAiOjE3MjM0Nzk2MTF9.w78wPvOFfLWLgYTLfBqcTqYJ2AOTePOCR0EqFr5IZbA").build()
         val response = chain.proceed(authRequest)
 
         when (response.code) {

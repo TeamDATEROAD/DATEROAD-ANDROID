@@ -4,18 +4,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
-import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val deleteWithdrawUserUseCase: DeleteWithdrawUseCase
-) : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
-class MyPageViewModel @Inject constructor(
+    private val deleteWithdrawUserUseCase: DeleteWithdrawUseCase,
     private val getUserUseCase: GetUserUseCase
 ) : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
 

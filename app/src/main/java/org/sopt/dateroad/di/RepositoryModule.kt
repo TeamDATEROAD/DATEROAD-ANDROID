@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import org.sopt.dateroad.data.repositoryimpl.AuthRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.AdvertisementRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.AuthRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl
@@ -13,7 +12,6 @@ import org.sopt.dateroad.data.repositoryimpl.DummyRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.MyCourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.ProfileRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.UserPointRepositoryImpl
-import org.sopt.dateroad.domain.repository.AuthRepository
 import org.sopt.dateroad.domain.repository.AdvertisementRepository
 import org.sopt.dateroad.domain.repository.AuthRepository
 import org.sopt.dateroad.domain.repository.CourseRepository
@@ -27,11 +25,11 @@ import org.sopt.dateroad.domain.repository.UserPointRepository
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
+    abstract fun bindsAdvertisementRepository(advertisementRepositoryImpl: AdvertisementRepositoryImpl): AdvertisementRepository
 
     @Binds
     @Singleton
-    abstract fun bindsAdvertisementRepository(advertisementRepositoryImpl: AdvertisementRepositoryImpl): AdvertisementRepository
+    abstract fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 
     @Binds
     @Singleton
@@ -48,12 +46,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsUserPointRepository(userPointRepositoryImpl: UserPointRepositoryImpl): UserPointRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindAuthRepository(
-        authRepositoryImpl: AuthRepositoryImpl
-    ): AuthRepository
 
     @Binds
     @Singleton
