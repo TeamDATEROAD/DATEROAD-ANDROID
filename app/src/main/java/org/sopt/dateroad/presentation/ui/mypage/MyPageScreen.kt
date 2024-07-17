@@ -101,7 +101,6 @@ fun MyPageRoute(
 
     when (uiState.loadState) {
         LoadState.Success -> {
-
         }
 
         else -> Unit
@@ -256,17 +255,16 @@ fun MyPageScreen(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
             onDismissRequest = {
                 setWithdrawalDialog(false)
-                Log.d("http","DisMissRequest")
-
+                Log.d("http", "DisMissRequest")
             },
-            onClickConfirm = {   setWithdrawalDialog(false)
-                Log.d("http","ClickConfirm")
+            onClickConfirm = {
+                setWithdrawalDialog(false)
+                Log.d("http", "ClickConfirm")
             },
             firstButtonEnabled = true,
             onClickDismiss = {
                 deleteWithdrawal()
-                Log.d("http","onClickDisMiss")
-
+                Log.d("http", "onClickDisMiss")
             }
         )
     }

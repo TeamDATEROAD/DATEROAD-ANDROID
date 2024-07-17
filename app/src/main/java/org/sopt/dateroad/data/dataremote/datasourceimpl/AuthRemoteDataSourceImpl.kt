@@ -8,6 +8,6 @@ import org.sopt.dateroad.data.dataremote.service.AuthService
 class AuthRemoteDataSourceImpl @Inject constructor(
     private val authService: AuthService
 ) : AuthRemoteDataSource {
-    override suspend fun deleteWithdraw( requestWithdrawDto: RequestWithdrawDto) =
-        authService.deleteWithdraw( requestWithdrawDto = requestWithdrawDto)
+    override suspend fun deleteWithdraw(requestWithdrawDto: RequestWithdrawDto) =
+        authService.deleteWithdraw(requestWithdrawDto = requestWithdrawDto)
 }
