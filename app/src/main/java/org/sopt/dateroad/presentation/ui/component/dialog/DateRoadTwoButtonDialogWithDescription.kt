@@ -26,9 +26,8 @@ fun DateRoadTwoButtonDialogWithDescription(
     twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType,
     onDismissRequest: () -> Unit = {},
     onClickConfirm: () -> Unit,
-    onClickDismiss: () -> Unit = {},
-    firstButtonEnabled: Boolean = false,
-    secondButtonEnabled: Boolean = true
+    onClickDismiss: () -> Unit = {}
+
 ) {
     DateRoadDialog(
         onDismissRequest = onDismissRequest
@@ -70,13 +69,13 @@ fun DateRoadTwoButtonDialogWithDescription(
             ) {
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = firstButtonEnabled,
+                    enabledBackgroundColor = DateRoadTheme.colors.gray200,
+                    enabledTextColor = DateRoadTheme.colors.gray400,
                     textContent = stringResource(id = twoButtonDialogWithDescriptionType.dismissButtonTextRes),
                     onClick = onClickDismiss
                 )
                 DateRoadBasicButton(
                     modifier = Modifier.weight(1f),
-                    isEnabled = secondButtonEnabled,
                     textContent = stringResource(id = twoButtonDialogWithDescriptionType.confirmButtonTextRes),
                     onClick = onClickConfirm
                 )

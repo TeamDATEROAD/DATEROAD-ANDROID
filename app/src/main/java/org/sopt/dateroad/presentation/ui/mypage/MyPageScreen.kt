@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -65,7 +64,8 @@ fun MyPageRoute(
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
-    navigateToPointGuide: () -> Unit
+    navigateToPointGuide: () -> Unit,
+    navigateToLogin: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -81,26 +81,32 @@ fun MyPageRoute(
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
+                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
                 }
             }
     }
-    MyPageScreen(
-        padding = padding,
-        myPageUiState = uiState,
-        deleteLogout = { viewModel.deleteLogout() },
-        deleteWithdrawal = {
-            viewModel.withdrawal(null)
-        },
-        navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
-        navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
-        navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
-        setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
-        setLogoutDialog = { showLogoutDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)) },
-        setWithdrawalDialog = { showWithdrawalDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)) }
-    )
+
+    when (uiState.deleteUserLoadState) {
+        LoadState.Success -> navigateToLogin()
+        else -> Unit
+    }
 
     when (uiState.loadState) {
         LoadState.Success -> {
+            MyPageScreen(
+                padding = padding,
+                myPageUiState = uiState,
+                deleteLogout = { viewModel.deleteLogout() },
+                deleteWithdrawal = {
+                    viewModel.withdrawal(null)
+                },
+                navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
+                navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
+                navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
+                setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
+                setLogoutDialog = { showLogoutDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)) },
+                setWithdrawalDialog = { showWithdrawalDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)) }
+            )
         }
 
         else -> Unit
@@ -120,8 +126,6 @@ fun MyPageScreen(
     setLogoutDialog: (Boolean) -> Unit,
     setWithdrawalDialog: (Boolean) -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = Modifier
             .padding(paddingValues = padding)
@@ -255,16 +259,12 @@ fun MyPageScreen(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.WITHDRAWAL,
             onDismissRequest = {
                 setWithdrawalDialog(false)
-                Log.d("http", "DisMissRequest")
             },
             onClickConfirm = {
                 setWithdrawalDialog(false)
-                Log.d("http", "ClickConfirm")
             },
-            firstButtonEnabled = true,
             onClickDismiss = {
                 deleteWithdrawal()
-                Log.d("http", "onClickDisMiss")
             }
         )
     }

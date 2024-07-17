@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class MyPageViewModel @Inject constructor(
         when (event) {
             is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState = event.loadState, profile = event.profile) }
             is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy(loadState = event.loadState, showLogoutDialog = event.showLogoutDialog) }
-            is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(loadState = event.loadState, showWithdrawalDialog = event.showWithdrawalDialog) }
+            is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(loadState = event.loadState, showWithdrawalDialog = event.showWithdrawalDialog, deleteUserLoadState = event.deleteUserLoadState) }
             is MyPageContract.MyPageEvent.SetLogoutDialog -> setState { copy(showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetSoonDialog -> setState { copy(showSoonDialog = event.showSoonDialog) }
@@ -38,13 +37,11 @@ class MyPageViewModel @Inject constructor(
 
     fun withdrawal(authCode: String?) {
         viewModelScope.launch {
-            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true))
+            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {
-                Log.d("http", "성공")
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false))
-            }.onFailure { e ->
-                Log.d("http", e.message.toString())
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false))
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error))
             }
         }
     }
