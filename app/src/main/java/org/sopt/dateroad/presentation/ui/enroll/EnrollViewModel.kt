@@ -49,11 +49,11 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
             is EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest -> setState { copy(isDurationBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.FetchEnrollCourseType -> setState { copy(enrollType = event.enrollType) }
             is EnrollContract.EnrollEvent.SetEnrollButtonEnabled -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
-            is EnrollContract.EnrollEvent.SetImage -> setState { copy(images = event.images) }
-            is EnrollContract.EnrollEvent.OnImageDeleteButtonClick -> setState { copy(images = currentState.images.toMutableList().apply { removeAt(event.index) }) }
+            is EnrollContract.EnrollEvent.SetImage -> setState { copy(enroll = currentState.enroll.copy(images = event.images)) }
+            is EnrollContract.EnrollEvent.OnImageDeleteButtonClick -> setState { copy(enroll = currentState.enroll.copy(images = currentState.enroll.images.toMutableList().apply { removeAt(event.index) })) }
             is EnrollContract.EnrollEvent.OnTitleValueChange -> setState {
                 copy(
-                    title = event.title,
+                    enroll = currentState.enroll.copy(title = event.title),
                     titleValidateState = when {
                         event.title.isEmpty() -> TextFieldValidateResult.Basic
                         event.title.length >= TITLE_MIN_LENGTH -> TextFieldValidateResult.Success
@@ -64,7 +64,7 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
 
             is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState {
                 copy(
-                    date = event.date,
+                    enroll = currentState.enroll.copy(date = event.date),
                     dateValidateState = when {
                         event.date.isEmpty() -> TextFieldValidateResult.Basic
                         LocalDate.parse(event.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
@@ -74,30 +74,32 @@ class EnrollViewModel @Inject constructor() : BaseViewModel<EnrollContract.Enrol
                 )
             }
 
-            is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick -> setState { copy(startAt = event.startAt, isTimePickerBottomSheetOpen = false) }
+            is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick -> setState { copy(enroll = currentState.enroll.copy(startAt = event.startAt), isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnDateChipClicked -> setState {
                 copy(
-                    tags = currentState.tags.toMutableList().apply {
-                        if (contains(event.tag)) {
-                            remove(event.tag)
-                        } else if (size < 3) {
-                            add(event.tag)
+                    enroll = enroll.copy(
+                        tags = currentState.enroll.tags.toMutableList().apply {
+                            if (contains(event.tag)) {
+                                remove(event.tag)
+                            } else if (size < 3) {
+                                add(event.tag)
+                            }
                         }
-                    }
+                    )
                 )
             }
 
             is EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick -> setState { copy(onRegionBottomSheetRegionSelected = event.country) }
             is EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick -> setState { copy(onRegionBottomSheetAreaSelected = event.city) }
-            is EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick -> setState { copy(isRegionBottomSheetOpen = false, country = event.region, city = event.area) }
-            is EnrollContract.EnrollEvent.OnAddPlaceButtonClick -> setState { copy(place = currentState.place.toMutableList().apply { add(event.place) }, placeTitle = "", placeDuration = "") }
-            is EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop -> setState { copy(place = event.places) }
-            is EnrollContract.EnrollEvent.OnPlaceTitleValueChange -> setState { copy(placeTitle = event.placeTitle) }
-            is EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick -> setState { copy(isDurationBottomSheetOpen = false, placeDuration = event.placeDuration) }
+            is EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick -> setState { copy(isRegionBottomSheetOpen = false, enroll = currentState.enroll.copy(country = event.region, city = event.area)) }
+            is EnrollContract.EnrollEvent.OnAddPlaceButtonClick -> setState { copy(enroll = currentState.enroll.copy(places = currentState.enroll.places.toMutableList().apply { add(event.place) }), place = currentState.place.copy(title = "", duration = "")) }
+            is EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop -> setState { copy(enroll = currentState.enroll.copy(places = event.places)) }
+            is EnrollContract.EnrollEvent.OnPlaceTitleValueChange -> setState { copy(place = currentState.place.copy(title = event.placeTitle)) }
+            is EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick -> setState { copy(isDurationBottomSheetOpen = false, place = currentState.place.copy(duration = event.placeDuration)) }
             is EnrollContract.EnrollEvent.OnEditableValueChange -> setState { copy(isPlaceEditable = event.editable) }
-            is EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick -> setState { copy(place = currentState.place.toMutableList().apply { removeAt(event.index) }) }
-            is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(description = event.description) }
-            is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(cost = event.cost) }
+            is EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick -> setState { copy(enroll = currentState.enroll.copy(places = currentState.enroll.places.toMutableList().apply { removeAt(event.index) })) }
+            is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(enroll = currentState.enroll.copy(description = event.description)) }
+            is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(enroll = currentState.enroll.copy(cost = event.cost)) }
         }
     }
 
