@@ -10,6 +10,8 @@ object ApiConstraints {
     const val USERS = "users"
     const val PAGE = "page"
     const val CONTENT = "content"
+    const val CHECK = "check"
+    const val NAME = "name"
     const val COURSE_ID = "courseId"
     const val LIKES = "likes"
     const val SORT = "sort"
