@@ -1,30 +1,25 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
-import androidx.lifecycle.viewModelScope
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.share.WebSharerClient
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
-import kotlinx.serialization.Serializable
-import org.sopt.dateroad.domain.model.DateDetail
-import org.sopt.dateroad.domain.model.Place
-import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import javax.inject.Inject
 
 @HiltViewModel
 class TimelineDetailViewModel @Inject constructor(
     private val deleteDateUseCase: DeleteDateUseCase,
-    private val getDateDetailUseCase: GetDateDetailUseCase
+    private val getDateDetailUseCase: GetDateDetailUseCase,
 ) : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
     override fun createInitialState(): TimelineDetailContract.TimelineDetailUiState = TimelineDetailContract.TimelineDetailUiState()
 
@@ -37,7 +32,6 @@ class TimelineDetailViewModel @Inject constructor(
             is TimelineDetailContract.TimelineDetailEvent.DeleteDate -> setState { copy(deleteLoadState = event.deleteLoadState) }
             is TimelineDetailContract.TimelineDetailEvent.SetLoadState -> setState { copy(loadState = event.loadState) }
             is TimelineDetailContract.TimelineDetailEvent.SetSideEffect -> setSideEffect(event.sideEffect)
-            is TimelineDetailContract.TimelineDetailEvent.SetSourceScreen -> setState { copy(sourceScreen = event.sourceScreen) }
             is TimelineDetailContract.TimelineDetailEvent.ShareKakao -> shareKakao(event.context, event.dateDetail)
         }
     }
@@ -68,16 +62,16 @@ class TimelineDetailViewModel @Inject constructor(
         val templateId = 109999
         val templateArgs = mapOf(
             "userName" to "이현진",
-            "name_1" to (dateDetail.places[0].title ?: ""),
-            "duration_1" to (dateDetail.places[0].duration ?: ""),
-            "name_2" to (dateDetail.places[1].title ?: ""),
-            "duration_2" to (dateDetail.places[1].duration ?: ""),
-            "name_3" to (dateDetail.places[2].title ?: ""),
-            "duration_3" to (dateDetail.places[2].duration ?: ""),
-            "name_4" to (dateDetail.places[3].title ?: ""),
-            "duration_4" to (dateDetail.places[3].duration ?: ""),
-            "name_5" to (dateDetail.places[4].title ?: ""),
-            "duration_5" to (dateDetail.places[4].duration ?: ""),
+            "name_1" to (dateDetail.places[0].title),
+            "duration_1" to (dateDetail.places[0].duration),
+            "name_2" to (dateDetail.places[1].title),
+            "duration_2" to (dateDetail.places[1].duration),
+            "name_3" to (dateDetail.places[2].title),
+            "duration_3" to (dateDetail.places[2].duration),
+            "name_4" to (dateDetail.places[3].title),
+            "duration_4" to (dateDetail.places[3].duration),
+            "name_5" to (dateDetail.places[4].title),
+            "duration_5" to (dateDetail.places[4].duration),
             "startAt" to dateDetail.startAt
         )
 
