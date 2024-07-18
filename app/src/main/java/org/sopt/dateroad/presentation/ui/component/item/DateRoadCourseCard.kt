@@ -40,14 +40,14 @@ fun DateRoadCourseCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp, horizontal = 16.dp)
-            .height(110.dp)
+            .height(130.dp)
             .background(DateRoadTheme.colors.white)
             .noRippleClickable(onClick = { onClick(course.courseId) })
     ) {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
+                .padding(top = 10.dp, bottom = 10.dp, start = 16.dp)
                 .aspectRatio(1f)
         ) {
             AsyncImage(
@@ -73,31 +73,29 @@ fun DateRoadCourseCard(
         }
         Column(
             modifier = Modifier
+                .padding(start = 14.dp)
                 .fillMaxHeight()
         ) {
+            Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = course.city,
                 style = DateRoadTheme.typography.bodyMed13,
                 color = DateRoadTheme.colors.gray400,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 5.dp, start = 14.dp, bottom = 5.dp)
             )
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = course.title,
                 style = DateRoadTheme.typography.bodyBold15,
                 color = DateRoadTheme.colors.black,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp, start = 14.dp),
+                    .fillMaxWidth(),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 4.dp, start = 14.dp)
-            ) {
+            Row {
                 DateRoadImageTag(
                     textContent = course.cost,
                     imageContent = R.drawable.ic_all_money_12,

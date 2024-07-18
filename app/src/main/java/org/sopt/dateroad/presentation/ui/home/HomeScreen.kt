@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -37,6 +38,9 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.Advertisement
+import org.sopt.dateroad.domain.model.Course
+import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -51,6 +55,7 @@ import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColor
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
@@ -72,10 +77,8 @@ fun HomeRoute(
     LaunchedEffect(Unit) {
         viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
-        viewModel.fetchLatestCourses()
-        viewModel.fetchTopLikedCourses()
         viewModel.fetchNearestDate()
-        viewModel.fetchUserName()
+        viewModel.fetchProfile()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
     }
@@ -146,6 +149,7 @@ fun HomeScreen(
     ) {
         DateRoadHomeTopBar(
             title = uiState.remainingPoints,
+            profileImage = uiState.profileImageUrl,
             onClick = navigateToPointHistory
         )
         Row(
@@ -297,6 +301,87 @@ fun HomeScreen(
             paddingVertical = 16.dp,
             modifier = Modifier
                 .padding(16.dp)
+        )
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    val pagerState = rememberPagerState()
+    DATEROADTheme {
+        HomeScreen(
+            padding = PaddingValues(0.dp),
+            navigateToPointHistory = {},
+            navigateToLook = {},
+            navigateToTimeline = {},
+            uiState = HomeContract.HomeUiState(
+                loadState = LoadState.Success,
+                mainDate = MainDate(
+                    dateId = 1,
+                    dDay = "3",
+                    dateName = "부천 데이트",
+                    date = "2024.06.13",
+                    startAt = "14:00 PM"
+                ),
+                topLikedCourses = listOf(
+                    Course(
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "Seoul",
+                        title = "Beautiful Seoul Tour",
+                        cost = "$100",
+                        duration = "4 hours",
+                        like = "150"
+                    ),
+                    Course(
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "Busan",
+                        title = "Amazing Busan Trip",
+                        cost = "$120",
+                        duration = "6 hours",
+                        like = "200"
+                    )
+                ),
+                latestCourses = listOf(
+                    Course(
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZg_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "Incheon",
+                        title = "Incheon Day Tour",
+                        cost = "$80",
+                        duration = "5 hours",
+                        like = "100"
+                    ),
+                    Course(
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZg_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "Jeju",
+                        title = "Jeju Island Adventure",
+                        cost = "$150",
+                        duration = "8 hours",
+                        like = "300"
+                    )
+                ),
+                advertisements = listOf(
+                    Advertisement(
+                        advertisementId = 1,
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                    ),
+                    Advertisement(
+                        advertisementId = 2,
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                    )
+                ),
+                userName = "현진",
+                remainingPoints = "100",
+                currentBannerPage = 0
+            ),
+            onFabClick = { _, _ -> },
+            navigateToCourseDetail = { _, _ -> },
+            pagerState = pagerState
         )
     }
 }
