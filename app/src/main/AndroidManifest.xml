@@ -17,7 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-        <!-- Sentry configuration -->
         <meta-data
             android:name="io.sentry.dsn"
             android:value="${IO_SENTRY_DSN}" />
