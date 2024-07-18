@@ -80,23 +80,16 @@ fun TimelineCard(
                             .weight(1f)
                     ) {
                         Text(
-                            text = dateCard.date.split(".")[0],
+                            text = dateCard.date,
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = dateCard.date.split(".")[1],
-                            style = DateRoadTheme.typography.titleExtra24,
-                            color = DateRoadTheme.colors.black,
-                            maxLines = 1,
+                            maxLines = 2,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     DateRoadTextTag(
-                        textContent = stringResource(R.string.home_timeline_d_day, dateCard.dDay),
+                        textContent = dateCard.dDay,
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }

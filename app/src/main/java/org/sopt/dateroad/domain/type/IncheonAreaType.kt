@@ -7,5 +7,9 @@ enum class IncheonAreaType(
 ) {
     INCHEON_ENTIRE(
         title = Incheon.INCHEON_ENTIRE
-    )
+    );
+
+    companion object {
+        fun String.toIncheonAreaTitle(): String = IncheonAreaType.entries.find { it.name == this }?.title ?: ""
+    }
 }

@@ -41,7 +41,6 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Advertisement
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
-import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
@@ -78,7 +77,8 @@ fun HomeRoute(
         viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
         viewModel.fetchRemainingPoints()
-        viewModel.fetchMainDate()
+        viewModel.fetchTopLikedCourses()
+        viewModel.fetchNearestDate()
         viewModel.fetchUserName()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
@@ -287,22 +287,22 @@ fun HomeScreen(
                 }
             }
         }
-        Box(
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
+        Alignment.BottomEnd
+    ) {
+        DateRoadImageButton(
+            isEnabled = true,
+            onClick = { onFabClick(EnrollType.COURSE, null) },
+            cornerRadius = 44.dp,
+            paddingHorizontal = 16.dp,
+            paddingVertical = 16.dp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            Alignment.BottomEnd
-        ) {
-            DateRoadImageButton(
-                isEnabled = true,
-                onClick = { onFabClick(EnrollType.COURSE, null) },
-                cornerRadius = 44.dp,
-                paddingHorizontal = 16.dp,
-                paddingVertical = 16.dp,
-                modifier = Modifier
-                    .padding(16.dp)
-            )
-        }
+                .padding(16.dp)
+        )
     }
 }
 
@@ -323,8 +323,7 @@ fun HomeScreenPreview() {
                     dateId = 1,
                     dDay = "3",
                     dateName = "부천 데이트",
-                    month = 6,
-                    day = 23,
+                    date = "2024.06.23",
                     startAt = "14:00 PM"
                 ),
                 topLikedCourses = listOf(
@@ -379,11 +378,11 @@ fun HomeScreenPreview() {
                 advertisements = listOf(
                     Advertisement(
                         advertisementId = 1,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     ),
                     Advertisement(
                         advertisementId = 2,
-                        imageUrl = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
                     )
                 ),
                 userName = "현진",

@@ -30,7 +30,7 @@ enum class MoneyTagType(
 
     companion object {
         fun Int.toCostTagTitle(): String = when {
-            this > EXCESS_100000.threshold -> EXCESS_100000.title
+            this > LESS_THAN_100000.threshold -> EXCESS_100000.title
             this > LESS_THAN_50000.threshold -> LESS_THAN_100000.title
             this > LESS_THAN_30000.threshold -> LESS_THAN_50000.title
             else -> LESS_THAN_30000.title

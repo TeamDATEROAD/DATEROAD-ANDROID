@@ -18,14 +18,17 @@ class TimelineDetailContract {
 
     sealed interface TimelineDetailSideEffect : UiSideEffect {
         data object PopBackStack : TimelineDetailSideEffect
-        // data class NavigateToEnroll(val dateId: Int) : TimelineDetailSideEffect
     }
 
     sealed class TimelineDetailEvent : UiEvent {
-        data class FetchTimelineDetail(val loadState: LoadState, val dateId: Int?) : TimelineDetailEvent()
+        data class FetchTimelineDetail(val dateId: Int) : TimelineDetailEvent()
+        data class SetTimelineDetail(val loadState: LoadState, val dateDetail: DateDetail? = null) : TimelineDetailEvent()
         data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
         data class SetSourceScreen(val sourceScreen: Boolean) : TimelineDetailEvent()
+        data class DeleteDate(val dateId: Int) : TimelineDetailEvent()
+        data class SetLoadState(val loadState: LoadState) : TimelineDetailEvent()
+        data class SetSideEffect(val sideEffect: TimelineDetailSideEffect) : TimelineDetailEvent()
     }
 }

@@ -8,5 +8,5 @@ import org.sopt.dateroad.domain.repository.CourseRepository
 class DeleteCourseLikeUseCase @Inject constructor(
     private val courseRepository: CourseRepository
 ) {
-    suspend operator fun invoke(courseId: Int): Result<Unit> = courseRepository.deleteCourse(courseId = courseId)
+    suspend operator fun invoke(courseId: Int): Result<Unit> = courseRepository.deleteCourseLike(courseId = courseId)
 }

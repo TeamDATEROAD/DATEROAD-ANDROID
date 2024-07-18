@@ -21,11 +21,13 @@ class CourseDetailContract {
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
         val advertisementDetail: AdvertisementDetail = AdvertisementDetail(),
-        val currentImagePage: Int = 0
+        val currentImagePage: Int = 0,
+        val deleteLoadState: LoadState = LoadState.Idle
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
         data class NavigateToEnroll(val id: Int) : CourseDetailSideEffect
+        data object PopBackStack : CourseDetailSideEffect
     }
 
     sealed class CourseDetailEvent : UiEvent {
@@ -36,7 +38,6 @@ class CourseDetailContract {
         data object DismissDialogLookedForFree : CourseDetailEvent()
         data object OnDialogPointLack : CourseDetailEvent()
         data object DismissDialogPointLack : CourseDetailEvent()
-        data object OnDeleteButtonClicked : CourseDetailEvent()
         data object OnEditBottomSheet : CourseDetailEvent()
         data object DismissEditBottomSheet : CourseDetailEvent()
         data object EnrollSchedule : CourseDetailEvent()
@@ -44,7 +45,8 @@ class CourseDetailContract {
         data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
         data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
-        data class DeleteCourseLike(val loadState: LoadState) : CourseDetailEvent()
-        data class PostCourseLike(val loadState: LoadState) : CourseDetailEvent()
+        data class DeleteCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
+        data class PostCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
+        data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
     }
 }
