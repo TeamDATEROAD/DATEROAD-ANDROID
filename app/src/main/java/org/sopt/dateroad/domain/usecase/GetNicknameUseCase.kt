@@ -5,8 +5,8 @@ import javax.inject.Singleton
 import org.sopt.dateroad.domain.repository.UserInfoRepository
 
 @Singleton
-class GetRefreshTokenUseCase @Inject constructor(
-    private val userInfoRepository: UserInfoRepository
+class GetNicknameUseCase @Inject constructor(
+    private val authInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke() = userInfoRepository.getRefreshToken()
+    operator fun invoke(): String = authInfoRepository.getNickname()
 }
