@@ -109,6 +109,7 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
+    implementation("com.kakao.sdk:v2-user:2.20.3")
 
     // View Pager
     implementation(libs.bundles.pager)
