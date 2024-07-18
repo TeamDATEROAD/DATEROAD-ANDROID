@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -442,23 +443,41 @@ fun CourseDetailScreen(
             }
         }
 
-        DateRoadBasicTopBar(
-            title = "",
-            backGroundColor = if (isTopBarTransparent) Color.Transparent else DateRoadTheme.colors.white,
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
-            onIconClick = { onTopBarIconClicked() },
-            buttonContent = {
-                if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
-                    Icon(
-                        painterResource(id = R.drawable.btn_course_detail_more_white),
-                        contentDescription = null,
-                        tint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black,
-                        modifier = Modifier.noRippleClickable { onEditBottomSheet() }
+        Box(modifier = Modifier.background(
+            if (isTopBarTransparent) {
+                Brush.verticalGradient(
+                    colors = listOf(
+                        DateRoadTheme.colors.black.copy(alpha = 0.22f),
+                        Color.Transparent
                     )
-                }
-            },
-            leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
-        )
+                )
+            } else {
+                Brush.verticalGradient(
+                    colors = listOf(
+                        DateRoadTheme.colors.white,
+                        DateRoadTheme.colors.white
+                    )
+                )
+            }
+        )){
+            DateRoadBasicTopBar(
+                title = "",
+                backGroundColor = if (isTopBarTransparent) Color.Transparent else DateRoadTheme.colors.white,
+                iconLeftResource = R.drawable.ic_top_bar_back_white,
+                onIconClick = { onTopBarIconClicked() },
+                buttonContent = {
+                    if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
+                        Icon(
+                            painterResource(id = R.drawable.btn_course_detail_more_white),
+                            contentDescription = null,
+                            tint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black,
+                            modifier = Modifier.noRippleClickable { onEditBottomSheet() }
+                        )
+                    }
+                },
+                leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
+            )
+        }
 
         if (!courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetail.isAccess) {
             Box(
