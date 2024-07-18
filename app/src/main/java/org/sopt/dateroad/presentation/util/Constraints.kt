@@ -34,3 +34,7 @@ object CourseDetail {
 object Default {
     const val REGION = "지역"
 }
+
+object Time {
+    const val TIME = " 시간"
+}

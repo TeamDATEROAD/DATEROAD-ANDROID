@@ -1,6 +1,8 @@
 package org.sopt.dateroad.data.mapper.todomain
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDto
+import org.sopt.dateroad.data.mapper.toEntity.toDuration
+import org.sopt.dateroad.data.mapper.toEntity.toLike
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.type.MoneyTagType.Companion.toCostTagTitle
 

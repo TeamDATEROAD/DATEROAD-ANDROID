@@ -1,6 +1,8 @@
-package org.sopt.dateroad.data.mapper.todomain
+package org.sopt.dateroad.data.mapper.toEntity
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
 import org.sopt.dateroad.data.dataremote.util.Date
@@ -9,6 +11,10 @@ import org.sopt.dateroad.domain.type.MonthType
 fun String.toCourseDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.COURSE_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
 
 fun String.toBasicDates(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.DATE_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
+
+fun String.fromCourseDetailToEnrollDate(): String = LocalDate.parse(this, DateTimeFormatter.ofPattern(Date.COURSE_DETAIL_OUTPUT_FORMAT)).format(DateTimeFormatter.ofPattern(Date.INPUT_FORMAT))
+
+fun String.fromDateToEnrollDate(): String = LocalDate.parse(this, DateTimeFormatter.ofPattern(Date.DATE_OUTPUT_FORMAT)).format(DateTimeFormatter.ofPattern(Date.INPUT_FORMAT))
 
 fun Int.toDDayString(): String = when {
     this > 0 -> "${Date.D_DAY_OUTPUT_FORMAT}$this"
