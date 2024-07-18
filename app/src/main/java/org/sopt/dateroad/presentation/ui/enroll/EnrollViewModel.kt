@@ -1,7 +1,9 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.mapper.toEntity.toEnroll
 import org.sopt.dateroad.domain.type.RegionType
@@ -11,14 +13,8 @@ import org.sopt.dateroad.domain.usecase.PostCourseUseCase
 import org.sopt.dateroad.domain.usecase.PostDateUseCase
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
-import org.sopt.dateroad.presentation.util.DatePicker
-import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import javax.inject.Inject
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
@@ -65,28 +61,9 @@ class EnrollViewModel @Inject constructor(
             is EnrollContract.EnrollEvent.SetEnrollButtonEnabled -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is EnrollContract.EnrollEvent.SetImage -> setState { copy(enroll = currentState.enroll.copy(images = event.images)) }
             is EnrollContract.EnrollEvent.OnImageDeleteButtonClick -> setState { copy(enroll = currentState.enroll.copy(images = currentState.enroll.images.toMutableList().apply { removeAt(event.index) })) }
-            is EnrollContract.EnrollEvent.OnTitleValueChange -> setState {
-                copy(
-                    enroll = currentState.enroll.copy(title = event.title),
-                    titleValidateState = when {
-                        event.title.isEmpty() -> TextFieldValidateResult.Basic
-                        event.title.length >= TITLE_MIN_LENGTH -> TextFieldValidateResult.Success
-                        else -> TextFieldValidateResult.ValidationError
-                    }
-                )
-            }
+            is EnrollContract.EnrollEvent.OnTitleValueChange -> setState { copy(enroll = currentState.enroll.copy(title = event.title)) }
 
-            is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState {
-                copy(
-                    enroll = currentState.enroll.copy(date = event.date),
-                    dateValidateState = when {
-                        event.date.isEmpty() -> TextFieldValidateResult.Basic
-                        currentState.enrollType == EnrollType.COURSE && LocalDate.parse(event.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
-                        else -> TextFieldValidateResult.Success
-                    },
-                    isDatePickerBottomSheetOpen = false
-                )
-            }
+            is EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick -> setState { copy(enroll = currentState.enroll.copy(date = event.date), isDatePickerBottomSheetOpen = false) }
 
             is EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick -> setState { copy(enroll = currentState.enroll.copy(startAt = event.startAt), isTimePickerBottomSheetOpen = false) }
             is EnrollContract.EnrollEvent.OnDateChipClicked -> setState {
@@ -115,6 +92,8 @@ class EnrollViewModel @Inject constructor(
             is EnrollContract.EnrollEvent.OnDescriptionValueChange -> setState { copy(enroll = currentState.enroll.copy(description = event.description)) }
             is EnrollContract.EnrollEvent.OnCostValueChange -> setState { copy(enroll = currentState.enroll.copy(cost = event.cost)) }
             is EnrollContract.EnrollEvent.Enroll -> setState { copy(loadState = event.loadState) }
+            is EnrollContract.EnrollEvent.SetTitleValidationState -> setState { copy(titleValidateState = event.titleValidationState) }
+            is EnrollContract.EnrollEvent.SetDateValidationState -> setState { copy(dateValidateState = event.dateValidationState) }
         }
     }
 
@@ -144,7 +123,8 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postCourseUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure {
+            }.onFailure { e ->
+                Log.e("ㅋㅋㅋ", e.message.toString())
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
         }
@@ -156,6 +136,8 @@ class EnrollViewModel @Inject constructor(
             postDateUseCase(date = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
             }.onFailure {
+                    e ->
+                Log.e("ㅋㅋㅋㅋ", e.message.toString())
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
         }

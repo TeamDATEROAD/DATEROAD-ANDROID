@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,6 +23,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
@@ -38,7 +39,9 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
+import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
+import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.TimePicker
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -82,6 +85,30 @@ fun EnrollRoute(
                     is EnrollContract.EnrollSideEffect.NavigateToMyCourseRead -> navigateToMyCourse(MyCourseType.READ)
                 }
             }
+    }
+
+    LaunchedEffect(uiState.enroll.title) {
+        viewModel.setEvent(
+            EnrollContract.EnrollEvent.SetTitleValidationState(
+                titleValidationState = when {
+                    uiState.enroll.title.isEmpty() -> TextFieldValidateResult.Basic
+                    uiState.enroll.title.length >= TITLE_MIN_LENGTH -> TextFieldValidateResult.Success
+                    else -> TextFieldValidateResult.ValidationError
+                }
+            )
+        )
+    }
+
+    LaunchedEffect(uiState.enroll.date) {
+        viewModel.setEvent(
+            EnrollContract.EnrollEvent.SetDateValidationState(
+                dateValidationState = when {
+                    uiState.enroll.date.isEmpty() -> TextFieldValidateResult.Basic
+                    uiState.enrollType == EnrollType.COURSE && LocalDate.parse(uiState.enroll.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
+                    else -> TextFieldValidateResult.Success
+                }
+            )
+        )
     }
 
     when (uiState.loadState) {
@@ -140,7 +167,7 @@ fun EnrollRoute(
                     EnrollScreenType.FIRST -> {
                         when (enrollType) {
                             EnrollType.COURSE -> enroll.images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && enroll.startAt.isNotEmpty() && enroll.tags.isNotEmpty() && enroll.country != null && enroll.city != null
-                            EnrollType.TIMELINE -> titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && enroll.startAt.isNotEmpty() && enroll.tags.isNotEmpty() && enroll.country != null && enroll.city != null
+                            EnrollType.TIMELINE -> titleValidateState == TextFieldValidateResult.Success && enroll.startAt.isNotEmpty() && enroll.tags.isNotEmpty() && enroll.country != null && enroll.city != null
                         }
                     }
 

@@ -1,12 +1,12 @@
 package org.sopt.dateroad.data.mapper.toEntity
 
-import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
-import org.sopt.dateroad.data.dataremote.util.Date
-import org.sopt.dateroad.domain.type.MonthType
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
+import org.sopt.dateroad.data.dataremote.util.Date
+import org.sopt.dateroad.domain.type.MonthType
 
 fun String.toCourseDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.COURSE_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
 

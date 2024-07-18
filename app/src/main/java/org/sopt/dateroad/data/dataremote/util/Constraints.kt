@@ -45,7 +45,7 @@ object Cost {
 }
 
 object Duration {
-    const val DURATION = "시간"
+    const val DURATION = " 시간"
 }
 
 object Like {

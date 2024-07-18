@@ -93,7 +93,7 @@ fun TimelineDetailRoute(
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
-                onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id))}
+                onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) }
             )
         }
 
@@ -288,7 +288,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                     .noRippleClickable(onClick = {onEnrollButtonClick(uiState.dateDetail.dateId)})
+                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.dateDetail.dateId) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),

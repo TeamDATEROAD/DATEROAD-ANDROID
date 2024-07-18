@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.timeline
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -26,9 +25,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.domain.type.DateTimeType
-import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -204,9 +201,7 @@ fun TimelineScreenPreview() {
             padding = PaddingValues(0.dp),
             uiState = TimelineContract.TimelineUiState(
                 loadState = LoadState.Success,
-                dates = listOf(
-
-                )
+                dates = listOf()
             ),
             pagerState = rememberPagerState(),
             navigateToTimelineDetail = { _, _ -> },

@@ -4,7 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
 import org.sopt.dateroad.data.mapper.toEntity.toBasicDates
 import org.sopt.dateroad.data.mapper.toEntity.toDDayString
 import org.sopt.dateroad.domain.model.DateDetail
-import org.sopt.dateroad.data.mapper.toEntity.toAreaTitle
 
 fun ResponseDateDetailDto.toDomain(): DateDetail = DateDetail(
     dateId = this.dateId,
