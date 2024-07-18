@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
 import org.sopt.dateroad.domain.model.Profile
+import org.sopt.dateroad.presentation.ui.signin.SignInContract.SignInEvent
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -13,6 +14,7 @@ class MyPageContract {
         val showLogoutDialog: Boolean = false,
         val showWithdrawalDialog: Boolean = false,
         val showSoonDialog: Boolean = false,
+        val showWebView:Boolean = false,
         val deleteUserLoadState: LoadState = LoadState.Idle,
         val deleteSignOutLoadState: LoadState = LoadState.Idle
     ) : UiState
@@ -31,5 +33,7 @@ class MyPageContract {
         data class SetLogoutDialog(val showLogoutDialog: Boolean) : MyPageEvent()
         data class SetWithdrawalDialog(val showWithdrawalDialog: Boolean) : MyPageEvent()
         data class SetSoonDialog(val showSoonDialog: Boolean) : MyPageEvent()
+        data object OnWebViewClick : MyPageEvent()
+        data object WebViewClose : MyPageEvent()
     }
 }

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 @Composable
-fun PrivacyPolicyWebView(url: String, onClose: () -> Unit) {
+fun DateRoadWebView(url: String, onClose: () -> Unit) {
     val webViewState = rememberWebViewState(url)
     var webView: android.webkit.WebView? by remember { mutableStateOf(null) }
 
