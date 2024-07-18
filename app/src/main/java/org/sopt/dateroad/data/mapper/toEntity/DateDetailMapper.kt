@@ -6,8 +6,8 @@ import org.sopt.dateroad.domain.model.Enroll
 fun DateDetail.toEnroll() = Enroll(
     title = this.title,
     startAt = this.startAt,
-    country = null,
-    city = this.city.toAreaTitle(),
+    country = this.city.toRegionType(),
+    city = this.city.toAreaType(),
     tags = this.tags,
     date = this.date.fromDateToEnrollDate(),
     places = this.places

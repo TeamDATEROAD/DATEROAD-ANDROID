@@ -8,7 +8,7 @@ fun CourseDetail.toEnroll() = Enroll(
     date = this.date.fromCourseDetailToEnrollDate(),
     startAt = this.startAt,
     tags = this.tags,
-    country = null,
-    city = this.city,
+    country = this.city.toRegionType(),
+    city = this.city.toAreaType(),
     places = this.places
 )
