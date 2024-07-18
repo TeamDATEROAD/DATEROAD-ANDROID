@@ -80,9 +80,7 @@ fun CourseDetailRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(
-            CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType)
-        )
+        viewModel.setEvent(CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -112,36 +110,12 @@ fun CourseDetailRoute(
         LoadState.Success -> {
             CourseDetailScreen(
                 courseDetailUiState = uiState,
-                onDialogPointLack = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.OnDialogPointLack
-                    )
-                },
-                dismissDialogPointLack = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.DismissDialogPointLack
-                    )
-                },
-                onDialogLookedForFree = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree
-                    )
-                },
-                dismissDialogLookedForFree = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree
-                    )
-                },
-                onDialogLookedByPoint = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint
-                    )
-                },
-                dismissDialogLookedByPoint = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint
-                    )
-                },
+                onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
+                dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
+                onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
+                dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
+                onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
+                dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
                 onLikeButtonClicked = {
                     if (uiState.id != 0) {
                         when (uiState.courseDetail.isUserLiked) {
@@ -153,26 +127,13 @@ fun CourseDetailRoute(
                 onDeleteButtonClicked = {
                     viewModel.deleteCourse(uiState.id)
                 },
-                onEditBottomSheet = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.OnEditBottomSheet
-                    )
-                },
-                dismissEditBottomSheet = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet
-                    )
-                },
-                enrollSchedule = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.EnrollSchedule
-                    )
-                },
+                onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
+                dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
+                enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
                 onTopBarIconClicked = popBackStack,
                 openCourseDetail = {
-                    viewModel.setEvent(
-                        CourseDetailContract.CourseDetailEvent.OpenCourse
-                    )
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
+                    viewModel.postUsePoint(uiState.id)
                 }
             )
         }

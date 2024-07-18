@@ -6,5 +6,5 @@ import org.sopt.dateroad.domain.model.Point
 fun ResponsePointDto.toDomain() = Point(
     point = this.point.toPoint(),
     description = this.description,
-    createAt = this.createAt
+    createdAt = this.createdAt
 )

@@ -25,5 +25,15 @@ class UserInfoRepositoryImpl @Inject constructor(
 
     override fun getRemainingPoints(): Int = userInfoLocalDataSource.remainingPoints
 
+    override fun setAccessToken(accessToken: String) {
+        userInfoLocalDataSource.accessToken = accessToken
+    }
+    override fun getAccessToken(): String = userInfoLocalDataSource.accessToken
+
+    override fun setRefreshToken(refreshToken: String) {
+        userInfoLocalDataSource.refreshToken = refreshToken
+    }
+    override fun getRefreshToken(): String = userInfoLocalDataSource.refreshToken
+
     override fun clearUserInfo() = userInfoLocalDataSource.clear()
 }

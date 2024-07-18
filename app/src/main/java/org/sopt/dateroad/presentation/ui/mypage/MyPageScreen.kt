@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -91,12 +92,23 @@ fun MyPageRoute(
         else -> Unit
     }
 
+    when (uiState.deleteSignOutLoadState) {
+        LoadState.Success -> {
+            Log.d("http", "성공")
+            navigateToLogin()
+        }
+        else -> Log.d("http", LoadState.values().toString())
+    }
+
     when (uiState.loadState) {
         LoadState.Success -> {
             MyPageScreen(
                 padding = padding,
                 myPageUiState = uiState,
-                deleteLogout = { viewModel.deleteLogout() },
+                deleteLogout = {
+                    viewModel.deleteLogout()
+                    viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
+                },
                 deleteWithdrawal = {
                     viewModel.withdrawal(null)
                 },

@@ -2,6 +2,7 @@ package org.sopt.dateroad.data.dataremote.datasourceimpl
 
 import javax.inject.Inject
 import org.sopt.dateroad.data.dataremote.datasource.DateRemoteDataSource
+import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDatesDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
@@ -17,4 +18,6 @@ class DateRemoteDataSourceImpl @Inject constructor(
     override suspend fun getDates(time: String): ResponseDatesDto = dateService.getDates(time)
 
     override suspend fun getNearestDate(): ResponseNearestDateDto = dateService.getNearestDate()
+
+    override suspend fun postDate(requestDateDto: RequestDateDto) = dateService.postDate(requestDateDto = requestDateDto)
 }

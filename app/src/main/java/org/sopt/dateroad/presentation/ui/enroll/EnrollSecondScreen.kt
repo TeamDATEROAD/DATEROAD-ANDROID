@@ -58,7 +58,7 @@ fun EnrollSecondScreen(
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
 
-    val placeLists = rememberUpdatedState(enrollUiState.place.toMutableStateList())
+    val placeLists = rememberUpdatedState(enrollUiState.enroll.places.toMutableStateList())
     val dragDropListState = rememberDragAndDropListState(onMove = { from, to ->
         placeLists.value.move(from, to)
         onPlaceCardDragAndDrop(placeLists.value.toList())
@@ -84,12 +84,12 @@ fun EnrollSecondScreen(
         Spacer(modifier = Modifier.height(13.dp))
         EnrollPlaceInsertBar(
             modifier = Modifier.padding(horizontal = 16.dp),
-            title = enrollUiState.placeTitle,
-            duration = enrollUiState.placeDuration,
+            title = enrollUiState.place.title,
+            duration = enrollUiState.place.duration,
             onTitleChange = onPlaceTitleValueChange,
             onSelectedCourseTimeClick = onSelectedPlaceCourseTimeClick,
             onAddCourseButtonClick = {
-                onAddPlaceButtonClick(Place(title = enrollUiState.placeTitle, duration = enrollUiState.placeDuration))
+                onAddPlaceButtonClick(Place(title = enrollUiState.place.title, duration = enrollUiState.place.duration))
             }
         )
         Spacer(modifier = Modifier.height(22.dp))
@@ -150,7 +150,7 @@ fun EnrollSecondScreen(
                 },
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(enrollUiState.place.size) { index ->
+            items(enrollUiState.enroll.places.size) { index ->
                 DateRoadPlaceCard(
                     modifier = Modifier
                         .zIndex(if (index == dragDropListState.currentIndexOfDraggedItem) 1f else 0f)
@@ -159,7 +159,7 @@ fun EnrollSecondScreen(
                             scaleY = animateFloatAsState(if (dragDropListState.currentIndexOfDraggedItem == index) 1.1f else 1.0f, label = "").value
                         ),
                     placeCardType = if (enrollUiState.isPlaceEditable) PlaceCardType.COURSE_EDIT else PlaceCardType.COURSE_DELETE,
-                    place = enrollUiState.place[index],
+                    place = enrollUiState.enroll.places[index],
                     onIconClick = { onPlaceCardDeleteButtonClick(index) }
                 )
             }

@@ -9,6 +9,6 @@ data class ResponsePointDto(
     val point: Int,
     @SerialName("description")
     val description: String,
-    @SerialName("createAt")
-    val createAt: String
+    @SerialName("createdAt")
+    val createdAt: String
 )

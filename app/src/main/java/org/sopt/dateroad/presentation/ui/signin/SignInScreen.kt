@@ -1,5 +1,7 @@
 package org.sopt.dateroad.presentation.ui.signin
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -19,12 +22,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
 import org.sopt.dateroad.presentation.ui.component.webview.PrivacyPolicyWebView
 import org.sopt.dateroad.presentation.util.CourseDetail.PRIVACY_POLICY_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+
+fun setLayoutLoginKakaoClickListener(context: Context, callback: (OAuthToken?, Throwable?) -> Unit) {
+    if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
+        UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
+    } else {
+        UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
+    }
+}
 
 @Composable
 fun SignInRoute(
@@ -34,31 +49,53 @@ fun SignInRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+
+    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, _ ->
+        if (oAuthToken != null) {
+            viewModel.setAccessToken(oAuthToken.accessToken)
+        }
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { signInSideEffect ->
                 when (signInSideEffect) {
-                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> {
+                        navigateToOnboarding()
+                    }
                     is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
                 }
             }
     }
 
+    LaunchedEffect(uiState.authTokenLoadState) {
+        when (uiState.authTokenLoadState) {
+            LoadState.Success -> viewModel.postSignIn(signIn = SignIn("KAKAO"))
+            else -> Unit
+        }
+    }
+
     SignInScreen(
         signInUiState = uiState,
-        onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding) },
-        onWebViewClicked = {
-            viewModel.setEvent(
-                SignInContract.SignInEvent.OnWebViewClick
-            )
+        onSignInClicked = {
+            setLayoutLoginKakaoClickListener(context = context, callback = callback)
         },
-        webViewClose = {
-            viewModel.setEvent(
-                SignInContract.SignInEvent.WebViewClose
-            )
-        }
+        onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
+        webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
     )
+
+    when (uiState.loadState) {
+        LoadState.Success -> {
+            navigateToHome()
+            Log.d("http", "Home")
+        }
+        LoadState.Error -> {
+            navigateToOnboarding()
+            Log.d("http", "OnBoarding")
+        }
+        else -> Unit
+    }
 }
 
 @Composable

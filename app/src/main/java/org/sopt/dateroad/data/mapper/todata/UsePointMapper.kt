@@ -5,6 +5,6 @@ import org.sopt.dateroad.domain.model.UsePoint
 
 fun UsePoint.toData(): RequestUsePointDto = RequestUsePointDto(
     point = this.point,
-    transactionType = this.transactionType.name,
+    type = this.type,
     description = this.description
 )
