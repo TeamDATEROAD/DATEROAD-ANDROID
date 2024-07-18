@@ -45,7 +45,7 @@ fun setLayoutLoginKakaoClickListener(context: Context, callback: (OAuthToken?, T
 fun SignInRoute(
     viewModel: SignInViewModel = hiltViewModel(),
     navigateToOnboarding: () -> Unit,
-    navigateToHome: () -> Unit,
+    navigateToHome: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -107,7 +107,7 @@ fun SignInScreen(
     signInUiState: SignInContract.SignInUiState = SignInContract.SignInUiState(),
     onSignInClicked: () -> Unit,
     onWebViewClicked: () -> Unit,
-    webViewClose: () -> Unit,
+    webViewClose: () -> Unit
 ) {
     if (signInUiState.isWebViewOpened) {
         PrivacyPolicyWebView(url = PRIVACY_POLICY_URL, onClose = webViewClose)
