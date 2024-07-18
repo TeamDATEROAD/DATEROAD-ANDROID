@@ -46,6 +46,11 @@ fun MyCourseRoute(
         viewModel.setEvent(
             MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType)
         )
+
+        when (myCourseType) {
+            MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
+            MyCourseType.READ -> viewModel.fetchMyCourseRead()
+        }
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -55,13 +60,6 @@ fun MyCourseRoute(
                     is MyCourseContract.MyCourseSideEffect.PopBackStack -> popBackStack()
                 }
             }
-    }
-
-    LaunchedEffect(uiState.myCourseType) {
-        when (uiState.myCourseType) {
-            MyCourseType.ENROLL -> viewModel.fetchMyCourseEnroll()
-            MyCourseType.READ -> viewModel.fetchMyCourseRead()
-        }
     }
 
     when (uiState.loadState) {
