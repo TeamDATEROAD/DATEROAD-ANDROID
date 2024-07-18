@@ -15,8 +15,8 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    val setAccessTokenUseCase: SetAccessTokenUseCase,
     val getAccessTokenUseCase: GetAccessTokenUseCase,
+    val setAccessTokenUseCase: SetAccessTokenUseCase,
     val setRefreshTokenUseCase: SetRefreshTokenUseCase,
     val postSignInUseCase: PostSignInUseCase
 ) : BaseViewModel<SignInContract.SignInUiState, SignInContract.SignInSideEffect, SignInContract.SignInEvent>() {
@@ -32,7 +32,7 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun setAccessToken(accessToken: String) {
+    fun setKakaoAccessToken(accessToken: String) {
         setAccessTokenUseCase(accessToken)
         setEvent(SignInContract.SignInEvent.SetAuthToken(authTokenLoadState = LoadState.Success))
     }

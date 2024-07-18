@@ -8,7 +8,10 @@ import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
+import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
+import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.util.Token
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -16,7 +19,8 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class ProfileViewModel @Inject constructor(
     private val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     private val postSignUpUseCase: PostSignUpUseCase,
-    private val getRefreshTokenUseCase: GetRefreshTokenUseCase
+    private val setAccessTokenUseCase: SetAccessTokenUseCase,
+    private val setRefreshTokenUseCase: SetRefreshTokenUseCase
 ) : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
 
     override fun createInitialState(): ProfileContract.ProfileUiState = ProfileContract.ProfileUiState()
@@ -63,8 +67,10 @@ class ProfileViewModel @Inject constructor(
     fun postSignUp(signUp: SignUp) {
         viewModelScope.launch {
             setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Loading))
-            postSignUpUseCase(signUp = signUp).onSuccess {
+            postSignUpUseCase(signUp = signUp).onSuccess { auth ->
                 setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Success))
+                setAccessTokenUseCase(accessToken = Token.BEARER + auth.accessToken)
+                setRefreshTokenUseCase(refreshToken = auth.refreshToken)
             }.onFailure {
                 setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Error))
             }

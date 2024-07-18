@@ -52,7 +52,7 @@ fun SignInRoute(
 
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
         if (oAuthToken != null) {
-            viewModel.setAccessToken(oAuthToken.accessToken)
+            viewModel.setKakaoAccessToken(oAuthToken.accessToken)
         }
     }
 
