@@ -10,8 +10,6 @@ import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Enroll
 import org.sopt.dateroad.domain.model.MainDate
-import org.sopt.dateroad.data.mapper.todata.toDateData
-import org.sopt.dateroad.domain.model.Enroll
 import org.sopt.dateroad.domain.repository.DateRepository
 import org.sopt.dateroad.domain.type.DateTimeType
 

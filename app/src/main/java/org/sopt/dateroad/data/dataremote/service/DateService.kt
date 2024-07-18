@@ -4,7 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseDatesDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
-import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DATES
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NEAREST
