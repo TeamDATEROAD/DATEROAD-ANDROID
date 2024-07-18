@@ -36,6 +36,10 @@
             android:name="io.sentry.traces.profiling.sample-rate"
             android:value="1.0" />
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="kakao${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

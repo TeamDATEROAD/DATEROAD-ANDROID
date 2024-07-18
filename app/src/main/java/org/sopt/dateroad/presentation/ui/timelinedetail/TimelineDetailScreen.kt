@@ -91,7 +91,7 @@ fun TimelineDetailRoute(
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
-                // onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
+                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
             )
         }
 
@@ -116,7 +116,7 @@ fun TimelineDetailScreen(
     setShowDeleteBottomSheet: (Boolean) -> Unit,
     setShowDeleteDialog: (Boolean) -> Unit,
     onDeleteConfirm: () -> Unit,
-    // onKakaoShareConfirm: () -> Unit
+    onKakaoShareConfirm: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -284,7 +284,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                        // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
+                    // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
@@ -305,7 +305,7 @@ fun TimelineDetailScreen(
             onDismissRequest = { setShowKakaoDialog(false) },
             onClickConfirm = {
                 setShowKakaoDialog(false)
-                // onKakaoShareConfirm()
+                onKakaoShareConfirm()
             },
             onClickDismiss = { setShowKakaoDialog(false) }
         )
