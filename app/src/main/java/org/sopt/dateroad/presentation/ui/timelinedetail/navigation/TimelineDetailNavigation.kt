@@ -30,7 +30,6 @@ fun NavGraphBuilder.timelineDetailGraph(
         val dateType = DateType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.DATE_TYPE) ?: DateType.PINK.name)
         val dateId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.DATE_ID) ?: 1
         TimelineDetailRoute(
-            padding = padding,
             popBackStack = popBackStack,
             dateId = dateId,
             dateType = dateType,
