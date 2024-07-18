@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.usecase.DeleteSignOutUseCase
 import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -13,6 +14,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val deleteWithdrawUserUseCase: DeleteWithdrawUseCase,
+    private val deleteSignOutUseCase: DeleteSignOutUseCase,
     private val getUserUseCase: GetUserUseCase
 ) : BaseViewModel<MyPageContract.MyPageUiState, MyPageContract.MyPageSideEffect, MyPageContract.MyPageEvent>() {
 
@@ -21,8 +23,8 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: MyPageContract.MyPageEvent) {
         when (event) {
-            is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy(loadState = event.loadState, showLogoutDialog = event.showLogoutDialog) }
-            is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(loadState = event.loadState, showWithdrawalDialog = event.showWithdrawalDialog, deleteUserLoadState = event.deleteUserLoadState) }
+            is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy( deleteSignOutLoadState = event.deleteSignOutLoadState) }
+            is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog, deleteUserLoadState = event.deleteUserLoadState) }
             is MyPageContract.MyPageEvent.SetLogoutDialog -> setState { copy(showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetSoonDialog -> setState { copy(showSoonDialog = event.showSoonDialog) }
@@ -45,16 +47,23 @@ class MyPageViewModel @Inject constructor(
 
 
     fun deleteLogout() {
-        setEvent(MyPageContract.MyPageEvent.DeleteLogout(loadState = LoadState.Success, showLogoutDialog = false))
+        viewModelScope.launch {
+            setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Loading))
+            deleteSignOutUseCase().onSuccess {
+                setEvent(MyPageContract.MyPageEvent.DeleteLogout( showLogoutDialog = false, deleteSignOutLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(MyPageContract.MyPageEvent.DeleteLogout( showLogoutDialog = false, deleteSignOutLoadState = LoadState.Error))
+            }
+        }
     }
 
     fun withdrawal(authCode: String?) {
         viewModelScope.launch {
-            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
+            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal( showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
             }.onFailure {
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error))
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error))
             }
         }
     }

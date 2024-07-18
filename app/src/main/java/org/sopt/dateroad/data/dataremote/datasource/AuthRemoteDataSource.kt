@@ -8,7 +8,7 @@ import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
 
 interface AuthRemoteDataSource {
-    suspend fun deleteSignOut(userId: Int)
+    suspend fun deleteSignOut()
 
     suspend fun deleteWithdraw(requestWithdrawDto: RequestWithdrawDto)
 

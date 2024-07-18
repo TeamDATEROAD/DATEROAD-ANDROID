@@ -14,8 +14,8 @@ import org.sopt.dateroad.data.dataremote.service.AuthService
 class AuthRemoteDataSourceImpl @Inject constructor(
     private val authService: AuthService
 ) : AuthRemoteDataSource {
-    override suspend fun deleteSignOut(userId: Int) {
-        authService.deleteSignOut(userId)
+    override suspend fun deleteSignOut() {
+        authService.deleteSignOut()
     }
 
     override suspend fun deleteWithdraw(requestWithdrawDto: RequestWithdrawDto) =

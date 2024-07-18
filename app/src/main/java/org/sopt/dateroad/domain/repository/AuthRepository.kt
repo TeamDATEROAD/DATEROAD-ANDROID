@@ -5,7 +5,7 @@ import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 
 interface AuthRepository {
-    suspend fun deleteSignOut(userId: Int)
+    suspend fun deleteSignOut(): Result<Unit>
 
     suspend fun deleteWithdraw(authCode: String?): Result<Unit>
 

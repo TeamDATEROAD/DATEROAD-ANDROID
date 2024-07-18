@@ -22,8 +22,8 @@ class AuthRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
     private val authRemoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
-    override suspend fun deleteSignOut(userId: Int) {
-        authRemoteDataSource.deleteSignOut(userId)
+    override suspend fun deleteSignOut(): Result<Unit> =runCatching {
+        authRemoteDataSource.deleteSignOut()
     }
 
     override suspend fun deleteWithdraw(authCode: String?): Result<Unit> = runCatching {
