@@ -1,8 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.share.ShareClient
@@ -13,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
-import org.sopt.dateroad.domain.usecase.GetUserIdUseCase
+import org.sopt.dateroad.domain.usecase.GetNicknameUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -21,7 +19,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class TimelineDetailViewModel @Inject constructor(
     private val deleteDateUseCase: DeleteDateUseCase,
     private val getDateDetailUseCase: GetDateDetailUseCase,
-    private val getUserIdUseCase: GetUserIdUseCase
+    private val getNickNameUseCase: GetNicknameUseCase
 ) : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
     override fun createInitialState(): TimelineDetailContract.TimelineDetailUiState = TimelineDetailContract.TimelineDetailUiState()
 
@@ -64,7 +62,7 @@ class TimelineDetailViewModel @Inject constructor(
         val templateId = 109999
         val templateArgs = mutableMapOf<String, String>()
 
-        templateArgs["userName"] = getUserIdUseCase()
+        templateArgs["userName"] = getNickNameUseCase()
         templateArgs["startAt"] = dateDetail.startAt
 
         dateDetail.places.forEachIndexed { index, place ->
@@ -78,8 +76,6 @@ class TimelineDetailViewModel @Inject constructor(
             ShareClient.instance.shareCustom(context, templateId.toLong(), templateArgs) { sharingResult, error ->
                 if (sharingResult != null) {
                     context.startActivity(sharingResult.intent)
-                    Log.w("KakaoShare", "Warning Msg: ${sharingResult.warningMsg}")
-                    Log.w("KakaoShare", "Argument Msg: ${sharingResult.argumentMsg}")
                 }
             }
         } else {
@@ -87,11 +83,7 @@ class TimelineDetailViewModel @Inject constructor(
             try {
                 KakaoCustomTabsClient.openWithDefault(context, sharerUrl)
             } catch (e: UnsupportedOperationException) {
-                try {
-                    KakaoCustomTabsClient.open(context, sharerUrl)
-                } catch (e: ActivityNotFoundException) {
-                    Log.e("KakaoShare", "웹 브라우저가 설치되지 않음", e)
-                }
+                KakaoCustomTabsClient.open(context, sharerUrl)
             }
         }
     }

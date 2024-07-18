@@ -2,15 +2,6 @@
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
-v2All = "2.20.3"
-v2Cert = "2.20.3"
-v2Friend = "2.20.3"
-v2LinkRx = "2.4.2"
-v2Navi = "2.20.3"
-v2Share = "2.20.3"
-v2ShareVersion = "2.20.3"
-v2Talk = "2.20.3"
-v2User = "2.20.3"
 versionCode = "1"
 versionName = "1.0.0"
 jvmTarget = "1.8"
@@ -57,6 +48,17 @@ timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.20.3"
 lifecycleRuntimeComposeAndroid = "2.8.2"
+
+#Kakao
+v2All = "2.20.3"
+v2Cert = "2.20.3"
+v2Friend = "2.20.3"
+v2LinkRx = "2.4.2"
+v2Navi = "2.20.3"
+v2Share = "2.20.3"
+v2ShareVersion = "2.20.3"
+v2Talk = "2.20.3"
+v2User = "2.20.3"
 
 [libraries]
 # Test
