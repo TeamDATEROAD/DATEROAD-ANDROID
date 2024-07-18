@@ -6,6 +6,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.usecase.GetAccessTokenUseCase
+import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignInUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
@@ -16,6 +17,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     val getAccessTokenUseCase: GetAccessTokenUseCase,
+    val getRefreshTokenUseCase: GetRefreshTokenUseCase,
     val setAccessTokenUseCase: SetAccessTokenUseCase,
     val setRefreshTokenUseCase: SetRefreshTokenUseCase,
     val postSignInUseCase: PostSignInUseCase
@@ -48,5 +50,9 @@ class SignInViewModel @Inject constructor(
                 setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Error))
             }
         }
+    }
+
+    fun checkAutoLogin() {
+        if (getRefreshTokenUseCase().isNotEmpty()) setEvent(SignInContract.SignInEvent.PostSignIn(LoadState.Success))
     }
 }

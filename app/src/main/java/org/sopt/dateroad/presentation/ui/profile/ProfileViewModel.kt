@@ -6,7 +6,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
-import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase

@@ -56,6 +56,10 @@ fun SignInRoute(
         }
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.checkAutoLogin()
+    }
+
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { signInSideEffect ->
