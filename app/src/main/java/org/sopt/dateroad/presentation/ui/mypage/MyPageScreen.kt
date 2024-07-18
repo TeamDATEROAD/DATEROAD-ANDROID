@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -96,10 +95,9 @@ fun MyPageRoute(
 
     when (uiState.deleteSignOutLoadState) {
         LoadState.Success -> {
-            Log.d("http", "성공")
             navigateToLogin()
         }
-        else -> Log.d("http", LoadState.values().toString())
+        else -> Unit
     }
 
     when (uiState.loadState) {
@@ -159,7 +157,7 @@ fun MyPageScreen(
     webViewClose: () -> Unit
 ) {
     if (myPageUiState.showWebView) {
-        DateRoadWebView(url = ASK_URL, onClose = webViewClose) // Update URL as needed
+        DateRoadWebView(url = ASK_URL, onClose = webViewClose)
     } else {
         Column(
             modifier = Modifier

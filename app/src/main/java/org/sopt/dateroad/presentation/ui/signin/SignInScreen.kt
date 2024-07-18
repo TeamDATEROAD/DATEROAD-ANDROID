@@ -1,7 +1,6 @@
 package org.sopt.dateroad.presentation.ui.signin
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -52,7 +51,6 @@ fun SignInRoute(
     val context = LocalContext.current
 
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
-        Log.e("ㅋㅋ", message?.message.toString())
         if (oAuthToken != null) {
             viewModel.setAccessToken(oAuthToken.accessToken)
         }
@@ -90,12 +88,10 @@ fun SignInRoute(
     when (uiState.loadState) {
         LoadState.Success -> {
             navigateToHome()
-            Log.d("http", "Home")
         }
 
         LoadState.Error -> {
             navigateToOnboarding()
-            Log.d("http", "OnBoarding")
         }
 
         else -> Unit
