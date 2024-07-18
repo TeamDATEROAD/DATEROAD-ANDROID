@@ -251,7 +251,7 @@ fun MyPageScreen(
                     onClick = {
                         when (myPageMenuType) {
                             MyPageMenuType.MY_COURSE_ENROLL -> navigateToMyCourse()
-                            MyPageMenuType.POINT_SYSTEM -> navigateToPointHistory()
+                            MyPageMenuType.POINT_SYSTEM -> navigateToPointGuide()
                             MyPageMenuType.QUESTION -> showWebView(true)
                             MyPageMenuType.LOGOUT -> setLogoutDialog(true)
                             else -> Unit
