@@ -19,6 +19,7 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.WITHDRAW
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart
@@ -27,7 +28,7 @@ import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface AuthService {
-    @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$SIGN_OUT")
+    @DELETE("$API/$VERSION/$USERS/$SIGN_OUT")
     suspend fun deleteSignOut(): BaseResponse<Unit>
 
     @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")

@@ -11,6 +11,7 @@ import org.sopt.dateroad.domain.usecase.GetAdvertisementDetailUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
+import org.sopt.dateroad.presentation.util.Point
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -119,7 +120,7 @@ class CourseDetailViewModel @Inject constructor(
     fun postUsePoint(courseId: Int) {
         viewModelScope.launch {
             setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading))
-            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(50, "POINT_USED", "${currentState.courseDetail.title} 코스 열람")).onSuccess {
+            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, "${currentState.courseDetail.title} 코스 열람")).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success))
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error))

@@ -27,9 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -37,6 +35,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -44,12 +43,12 @@ import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
-import org.sopt.dateroad.presentation.ui.component.item.HomeAdvertisement
-import org.sopt.dateroad.presentation.ui.component.item.HomeHotCourseCard
-import org.sopt.dateroad.presentation.ui.component.item.HomeTimeLineCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
+import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
+import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
+import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -57,41 +56,23 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
+    viewModel: HomeViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
-    val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
-        viewModel.fetchLatestCourses()
-        viewModel.fetchTopLikedCourses()
-        viewModel.fetchNearestDate()
-        viewModel.fetchUserName()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
-    }
-
-    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
-        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
-            .collect { sideEffect ->
-                when (sideEffect) {
-                    is HomeContract.HomeSideEffect.NavigateToCourseListPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToCourseDetailPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToDateDetailPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToTimeline -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToEditorPickPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToPointHistoryPage -> TODO()
-                }
-            }
+        viewModel.fetchNearestDate()
+        viewModel.fetchUserPoint()
     }
 
     LaunchedEffect(Unit) {
@@ -135,8 +116,6 @@ fun HomeScreen(
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
     onFabClick: (EnrollType, Int?) -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier
             .padding(padding)
@@ -145,7 +124,7 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         DateRoadHomeTopBar(
-            title = uiState.remainingPoints,
+            title = uiState.userPoint.point,
             onClick = navigateToPointHistory
         )
         Row(
@@ -153,7 +132,7 @@ fun HomeScreen(
         ) {
             HomeTimeLineCard(
                 mainDate = uiState.mainDate,
-                onClick = if (uiState.mainDate == null) {
+                onClick = if (uiState.mainDate == MainDate()) {
                     onEnrollClick
                 } else {
                     navigateToTimeline
@@ -174,7 +153,7 @@ fun HomeScreen(
                 Text(
                     modifier = Modifier.padding(start = 16.dp),
                     text = PartialColorText(
-                        stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
+                        stringResource(id = R.string.home_hot_date_course_title, uiState.userPoint.name),
                         keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
                         color = DateRoadTheme.colors.black
                     ),

@@ -12,8 +12,8 @@ import org.sopt.dateroad.domain.repository.UserPointRepository
 class UserPointRepositoryImpl @Inject constructor(
     private val userPointRemoteDataSource: UserPointRemoteDataSource
 ) : UserPointRepository {
-    override suspend fun getUserPoint(userId: Int): Result<UserPoint> = runCatching {
-        userPointRemoteDataSource.getUserPoint(userId).toDomain()
+    override suspend fun getUserPoint(): Result<UserPoint> = runCatching {
+        userPointRemoteDataSource.getUserPoint().toDomain()
     }
 
     override suspend fun getPointHistory(): Result<PointHistory> = runCatching {

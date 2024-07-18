@@ -1,9 +1,5 @@
 package org.sopt.dateroad.presentation.util
 
-object BottomSheet
-
-object Dialog
-
 object PointHistoryTab {
     const val GAINED_HISTORY_POSITION = 0
     const val USED_HISTORY_POSITION = 1
@@ -33,4 +29,13 @@ object CourseDetail {
 
 object Default {
     const val REGION = "지역"
+}
+
+object Point {
+    const val POINT = 50
+    const val POINT_USED = "POINT_USED"
+}
+
+object Token {
+    const val BEARER = "Bearer "
 }

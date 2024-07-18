@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.signin
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,6 +9,7 @@ import org.sopt.dateroad.domain.usecase.GetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignInUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
+import org.sopt.dateroad.presentation.util.Token
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -42,9 +42,8 @@ class SignInViewModel @Inject constructor(
             setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Loading))
             postSignInUseCase(authorization = getAccessTokenUseCase(), signIn = signIn).onSuccess { auth ->
                 setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Success))
-                setAccessTokenUseCase("Bearer " + auth.accessToken)
+                setAccessTokenUseCase(Token.BEARER + auth.accessToken)
                 setRefreshTokenUseCase(auth.refreshToken)
-                Log.d("refresh", auth.refreshToken)
             }.onFailure {
                 setEvent(SignInContract.SignInEvent.PostSignIn(loadState = LoadState.Error))
             }
