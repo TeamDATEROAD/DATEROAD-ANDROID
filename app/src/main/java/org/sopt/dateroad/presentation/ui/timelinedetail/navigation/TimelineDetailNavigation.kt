@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailRoute
 
 fun NavController.navigateToTimelineDetail(dateType: DateType, dateId: Int, navOptions: NavOptions? = null) {
@@ -16,7 +17,8 @@ fun NavController.navigateToTimelineDetail(dateType: DateType, dateId: Int, navO
 
 fun NavGraphBuilder.timelineDetailGraph(
     padding: PaddingValues,
-    popBackStack: () -> Unit
+    popBackStack: () -> Unit,
+    navigateToEnroll: (EnrollType, Int) -> Unit
 ) {
     composable(
         route = TimelineDetailRoutes.ROUTE_WITH_ARGUMENT,
@@ -31,7 +33,8 @@ fun NavGraphBuilder.timelineDetailGraph(
             padding = padding,
             popBackStack = popBackStack,
             dateId = dateId,
-            dateType = dateType
+            dateType = dateType,
+            navigateToEnroll = navigateToEnroll
         )
     }
 }

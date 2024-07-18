@@ -37,7 +37,7 @@ fun NavGraphBuilder.enrollNavGraph(
             EnrollType.valueOf(it)
         } ?: EnrollType.COURSE
         val courseId = backStackEntry.arguments?.getString(EnrollRoute.COURSE_ID)?.toIntOrNull()
-        EnrollRoute(padding = padding, popBackStack = popBackStack, navigateToMyCourse = navigationToMyCourse, enrollType = enrollType, courseId = courseId)
+        EnrollRoute(padding = padding, popBackStack = popBackStack, navigateToMyCourse = navigationToMyCourse, enrollType = enrollType, id = courseId)
     }
 }
 

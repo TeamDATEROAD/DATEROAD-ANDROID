@@ -24,6 +24,7 @@ import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Point
 import org.sopt.dateroad.domain.model.PointHistory
+import org.sopt.dateroad.domain.model.UserPoint
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.PointHistoryTabType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
@@ -47,6 +48,7 @@ fun PointHistoryRoute(
 
     LaunchedEffect(Unit) {
         viewModel.fetchPointHistory()
+        viewModel.fetchUserPoint()
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -98,8 +100,7 @@ fun PointHistoryScreen(
         Spacer(modifier = Modifier.height(22.dp))
         PointHistoryPointBox(
             modifier = Modifier.padding(horizontal = 16.dp),
-            name = pointHistoryUiState.name,
-            point = pointHistoryUiState.point
+            userPoint = pointHistoryUiState.userPoint
         )
         Spacer(modifier = Modifier.height(16.dp))
         DateRoadTabBar(
@@ -156,8 +157,7 @@ fun PointHistoryPreview() {
         PointHistoryScreen(
             padding = PaddingValues(0.dp),
             pointHistoryUiState = PointHistoryContract.PointHistoryUiState(
-                name = "호은",
-                point = 100,
+                userPoint = UserPoint(),
                 loadState = LoadState.Success,
                 pointHistory = PointHistory(
                     gained = listOf(

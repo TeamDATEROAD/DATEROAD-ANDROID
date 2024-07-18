@@ -55,7 +55,6 @@ fun OnboardingRoute(
     }
 
     OnboardingScreen(
-        onBoardingUiState = uiState,
         onEnrollProfileButtonClicked = { viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToProfile) }
     )
 }
@@ -63,7 +62,6 @@ fun OnboardingRoute(
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingScreen(
-    onBoardingUiState: OnBoardingContract.OnBoardingUiState,
     pagerState: PagerState = rememberPagerState(),
     onEnrollProfileButtonClicked: () -> Unit
 ) {

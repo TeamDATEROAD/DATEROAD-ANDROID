@@ -37,7 +37,9 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
@@ -57,6 +59,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineDetailRoute(
     padding: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToEnroll: (EnrollType, Int) -> Unit,
     dateId: Int,
     dateType: DateType
 ) {
@@ -74,6 +77,7 @@ fun TimelineDetailRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is TimelineDetailContract.TimelineDetailSideEffect.PopBackStack -> popBackStack()
+                    is TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, sideEffect.id)
                 }
             }
     }
@@ -91,6 +95,7 @@ fun TimelineDetailRoute(
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
+                onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) },
                 onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
             )
         }
@@ -116,7 +121,8 @@ fun TimelineDetailScreen(
     setShowDeleteBottomSheet: (Boolean) -> Unit,
     setShowDeleteDialog: (Boolean) -> Unit,
     onDeleteConfirm: () -> Unit,
-    onKakaoShareConfirm: () -> Unit
+    onKakaoShareConfirm: () -> Unit,
+    onEnrollButtonClick: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -194,11 +200,13 @@ fun TimelineDetailScreen(
                     horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     items(uiState.dateDetail.tags) { tag ->
-                        DateRoadImageTag(
-                            textContent = stringResource(id = tag.titleRes),
-                            imageContent = tag.imageRes,
-                            tagContentType = dateType.tagType
-                        )
+                        tag.getDateTagTypeByName()?.let { tagType ->
+                            DateRoadImageTag(
+                                textContent = stringResource(id = tagType.titleRes),
+                                imageContent = tagType.imageRes,
+                                tagContentType = dateType.tagType
+                            )
+                        }
                     }
                 }
             }
@@ -284,7 +292,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                    // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
+                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.dateDetail.dateId) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),

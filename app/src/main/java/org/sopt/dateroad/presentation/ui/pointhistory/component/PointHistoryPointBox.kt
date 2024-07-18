@@ -16,13 +16,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.UserPoint
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun PointHistoryPointBox(
     modifier: Modifier = Modifier,
-    name: String,
-    point: Int
+    userPoint: UserPoint
 ) {
     Column(
         modifier = modifier
@@ -32,13 +32,13 @@ fun PointHistoryPointBox(
             .padding(start = 16.dp, top = 16.dp, bottom = 14.dp)
     ) {
         Text(
-            text = stringResource(id = R.string.point_box_nickname, name),
+            text = stringResource(id = R.string.point_box_nickname, userPoint.name),
             color = DateRoadTheme.colors.white,
             style = DateRoadTheme.typography.bodyMed13
         )
         Spacer(modifier = Modifier.height(11.dp))
         Text(
-            text = stringResource(id = R.string.point_box_point, point),
+            text = userPoint.point,
             color = DateRoadTheme.colors.white,
             style = DateRoadTheme.typography.titleExtra24,
             maxLines = 1,
@@ -51,6 +51,6 @@ fun PointHistoryPointBox(
 @Composable
 fun PointHistoryPointBoxPreview() {
     Column {
-        PointHistoryPointBox(name = "호은", point = 200)
+        PointHistoryPointBox(userPoint = UserPoint())
     }
 }

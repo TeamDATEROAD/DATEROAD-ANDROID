@@ -1,4 +1,4 @@
-package org.sopt.dateroad.data.mapper.todomain
+package org.sopt.dateroad.data.mapper.toEntity
 
 import java.text.NumberFormat
 import java.util.Locale

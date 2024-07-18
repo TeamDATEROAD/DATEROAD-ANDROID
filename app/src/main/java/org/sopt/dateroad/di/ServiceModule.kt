@@ -9,7 +9,6 @@ import org.sopt.dateroad.data.dataremote.service.AdvertisementService
 import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.CourseService
 import org.sopt.dateroad.data.dataremote.service.DateService
-import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService
 import org.sopt.dateroad.data.dataremote.service.ProfileService
 import org.sopt.dateroad.data.dataremote.service.UserPointService
@@ -36,10 +35,6 @@ object ServiceModule {
     @Provides
     fun provideDateService(@DateRoad retrofit: Retrofit): DateService =
         retrofit.create(DateService::class.java)
-
-    @Provides
-    fun providesDummyService(@DateRoad retrofit: Retrofit): DummyService =
-        retrofit.create(DummyService::class.java)
 
     @Provides
     fun providesMyCourseService(@DateRoad retrofit: Retrofit): MyCourseService =

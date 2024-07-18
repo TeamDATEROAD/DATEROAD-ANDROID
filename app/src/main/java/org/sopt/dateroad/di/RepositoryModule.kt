@@ -9,7 +9,6 @@ import org.sopt.dateroad.data.repositoryimpl.AdvertisementRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.AuthRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.DateRepositoryImpl
-import org.sopt.dateroad.data.repositoryimpl.DummyRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.MyCourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.ProfileRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.UserPointRepositoryImpl
@@ -17,7 +16,6 @@ import org.sopt.dateroad.domain.repository.AdvertisementRepository
 import org.sopt.dateroad.domain.repository.AuthRepository
 import org.sopt.dateroad.domain.repository.CourseRepository
 import org.sopt.dateroad.domain.repository.DateRepository
-import org.sopt.dateroad.domain.repository.DummyRepository
 import org.sopt.dateroad.domain.repository.MyCourseRepository
 import org.sopt.dateroad.domain.repository.ProfileRepository
 import org.sopt.dateroad.domain.repository.UserPointRepository
@@ -40,10 +38,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindsDateRepository(dateRepositoryImpl: DateRepositoryImpl): DateRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindsDummyRepository(dummyRepositoryImpl: DummyRepositoryImpl): DummyRepository
 
     @Binds
     @Singleton
