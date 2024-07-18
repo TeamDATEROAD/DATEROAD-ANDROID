@@ -33,7 +33,6 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
-
 fun setLayoutLoginKakaoClickListener(context: Context, callback: (OAuthToken?, Throwable?) -> Unit) {
     if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
         UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
@@ -77,7 +76,6 @@ fun SignInRoute(
         }
     }
 
-
     SignInScreen(
         signInUiState = uiState,
         onSignInClicked = {
@@ -90,12 +88,11 @@ fun SignInRoute(
     when (uiState.loadState) {
         LoadState.Success -> {
             navigateToHome()
-            Log.d("http","Home")
+            Log.d("http", "Home")
         }
         LoadState.Error -> {
             navigateToOnboarding()
-            Log.d("http","OnBoarding")
-
+            Log.d("http", "OnBoarding")
         }
         else -> Unit
     }
@@ -136,4 +133,3 @@ fun SignInScreen(
         }
     }
 }
-

@@ -1,6 +1,5 @@
 package org.sopt.dateroad.data.dataremote.interceptor
 
-import android.util.Log
 import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Request

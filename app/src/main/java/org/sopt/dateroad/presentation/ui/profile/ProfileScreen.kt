@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -27,8 +26,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import coil.compose.rememberAsyncImagePainter
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.SignIn
-import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
@@ -68,7 +65,6 @@ fun ProfileRoute(
         }
     }
 
-
     ProfileScreen(
         profileUiState = uiState,
         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
@@ -77,7 +73,8 @@ fun ProfileRoute(
         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
         onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
         onEnrollButtonClicked = {
-            viewModel.postSignUp(uiState.signUp) }
+            viewModel.postSignUp(uiState.signUp)
+        }
     )
 
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.signUp.tag.isNotEmpty()) {

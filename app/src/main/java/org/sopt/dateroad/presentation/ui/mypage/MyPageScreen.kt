@@ -94,11 +94,10 @@ fun MyPageRoute(
 
     when (uiState.deleteSignOutLoadState) {
         LoadState.Success -> {
-            Log.d("http","성공")
+            Log.d("http", "성공")
             navigateToLogin()
         }
-        else -> Log.d("http",LoadState.values().toString())
-
+        else -> Log.d("http", LoadState.values().toString())
     }
 
     when (uiState.loadState) {
@@ -108,7 +107,8 @@ fun MyPageRoute(
                 myPageUiState = uiState,
                 deleteLogout = {
                     viewModel.deleteLogout()
-                    viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)                               },
+                    viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
+                },
                 deleteWithdrawal = {
                     viewModel.withdrawal(null)
                 },

@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RequestUsePointDto(
     @SerialName("point")
-    val point: Int=50,
+    val point: Int = 50,
     @SerialName("type")
-    val type: String="POINT_USED",
+    val type: String = "POINT_USED",
     @SerialName("description")
-    val description: String="포인트 사용"
+    val description: String = "포인트 사용"
 )

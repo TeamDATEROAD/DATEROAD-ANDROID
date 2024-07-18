@@ -1,20 +1,16 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
-import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
-import org.sopt.dateroad.presentation.ui.signin.SignInContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -29,13 +25,17 @@ class ProfileViewModel @Inject constructor(
         when (event) {
             is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.OnDateChipClicked -> setState {
-                copy(signUp = currentState.signUp.copy(tag = currentState.signUp.tag.toMutableList().apply {
-                    if (contains(event.tag)) {
-                        remove(event.tag)
-                    } else if (size < 3) {
-                        add(event.tag)
-                    }
-                }))
+                copy(
+                    signUp = currentState.signUp.copy(
+                        tag = currentState.signUp.tag.toMutableList().apply {
+                            if (contains(event.tag)) {
+                                remove(event.tag)
+                            } else if (size < 3) {
+                                add(event.tag)
+                            }
+                        }
+                    )
+                )
             }
 
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
@@ -58,7 +58,6 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.PostSignUp -> setState { copy(signUpLoadState = event.signUpLoadState) }
         }
     }
-
 
     fun postSignUp(signUp: SignUp) {
         viewModelScope.launch {

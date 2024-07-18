@@ -26,7 +26,7 @@ class MyPageContract {
 
     sealed class MyPageEvent : UiEvent {
         data class FetchProfile(val loadState: LoadState, val profile: Profile) : MyPageEvent()
-        data class DeleteLogout(val showLogoutDialog: Boolean,val deleteSignOutLoadState: LoadState) : MyPageEvent()
+        data class DeleteLogout(val showLogoutDialog: Boolean, val deleteSignOutLoadState: LoadState) : MyPageEvent()
         data class DeleteWithdrawal(val showWithdrawalDialog: Boolean, val deleteUserLoadState: LoadState) : MyPageEvent()
         data class SetLogoutDialog(val showLogoutDialog: Boolean) : MyPageEvent()
         data class SetWithdrawalDialog(val showWithdrawalDialog: Boolean) : MyPageEvent()

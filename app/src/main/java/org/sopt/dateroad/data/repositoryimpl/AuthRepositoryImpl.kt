@@ -2,7 +2,7 @@ package org.sopt.dateroad.data.repositoryimpl
 
 import android.content.ContentResolver
 import android.net.Uri
-import androidx.compose.ui.text.substring
+import javax.inject.Inject
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -16,13 +16,12 @@ import org.sopt.dateroad.domain.model.Auth
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.repository.AuthRepository
-import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
     private val authRemoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
-    override suspend fun deleteSignOut(): Result<Unit> =runCatching {
+    override suspend fun deleteSignOut(): Result<Unit> = runCatching {
         authRemoteDataSource.deleteSignOut()
     }
 

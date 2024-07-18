@@ -2,7 +2,6 @@ package org.sopt.dateroad.data.dataremote.datasource
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import org.sopt.dateroad.data.dataremote.model.request.RequestSignInDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto

@@ -8,7 +8,7 @@ import org.sopt.dateroad.domain.repository.UserInfoRepository
 class SetRefreshTokenUseCase
 @Inject
 constructor(
-    private val userInfoRepository: UserInfoRepository,
+    private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke(refreshToken: String) = userInfoRepository.setRefreshToken(refreshToken = refreshToken)
 }

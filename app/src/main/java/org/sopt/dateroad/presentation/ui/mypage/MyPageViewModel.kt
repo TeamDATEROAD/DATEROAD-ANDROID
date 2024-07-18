@@ -23,7 +23,7 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: MyPageContract.MyPageEvent) {
         when (event) {
-            is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy( deleteSignOutLoadState = event.deleteSignOutLoadState) }
+            is MyPageContract.MyPageEvent.DeleteLogout -> setState { copy(deleteSignOutLoadState = event.deleteSignOutLoadState) }
             is MyPageContract.MyPageEvent.DeleteWithdrawal -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog, deleteUserLoadState = event.deleteUserLoadState) }
             is MyPageContract.MyPageEvent.SetLogoutDialog -> setState { copy(showLogoutDialog = event.showLogoutDialog) }
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
@@ -45,21 +45,20 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-
     fun deleteLogout() {
         viewModelScope.launch {
             setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Loading))
             deleteSignOutUseCase().onSuccess {
-                setEvent(MyPageContract.MyPageEvent.DeleteLogout( showLogoutDialog = false, deleteSignOutLoadState = LoadState.Success))
+                setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Success))
             }.onFailure {
-                setEvent(MyPageContract.MyPageEvent.DeleteLogout( showLogoutDialog = false, deleteSignOutLoadState = LoadState.Error))
+                setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Error))
             }
         }
     }
 
     fun withdrawal(authCode: String?) {
         viewModelScope.launch {
-            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal( showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
+            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {
                 setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
             }.onFailure {

@@ -1,7 +1,5 @@
 package org.sopt.dateroad.data.dataremote.util
 
-import android.media.Image
-
 object ApiConstraints {
     const val AUTHORIZATION = "Authorization"
     const val FORM_DATA_IMAGE = "image"
