@@ -37,9 +37,6 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Advertisement
-import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -76,7 +73,6 @@ fun HomeRoute(
         viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
         viewModel.fetchLatestCourses()
-        viewModel.fetchRemainingPoints()
         viewModel.fetchTopLikedCourses()
         viewModel.fetchNearestDate()
         viewModel.fetchUserName()

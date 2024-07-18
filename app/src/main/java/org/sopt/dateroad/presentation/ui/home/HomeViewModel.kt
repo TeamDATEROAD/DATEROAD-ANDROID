@@ -35,15 +35,10 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchRemainingPoints -> {
                 setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
             }
-
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
             is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
         }
-    }
-
-    fun changeBannerPage(page: Int) {
-        setEvent(HomeContract.HomeEvent.ChangeBannerPage(page))
     }
 
     fun fetchSortedCourses(sortBy: SortByType) {
@@ -92,15 +87,6 @@ class HomeViewModel @Inject constructor(
                     setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentState.advertisements))
                 }
         }
-    }
-
-    fun fetchRemainingPoints() {
-        setEvent(
-            HomeContract.HomeEvent.FetchRemainingPoints(
-                loadState = LoadState.Success,
-                remainingPoints = 100
-            )
-        )
     }
 
     fun fetchLatestCourses() {
@@ -177,21 +163,6 @@ class HomeViewModel @Inject constructor(
             HomeContract.HomeEvent.FetchUserName(
                 loadState = LoadState.Success,
                 userName = "이현진"
-            )
-        )
-    }
-
-    fun fetchMainDate() {
-        setEvent(
-            HomeContract.HomeEvent.FetchMainDate(
-                loadState = LoadState.Success,
-                mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "성수 데이트",
-                    date = "2023.04.13",
-                    startAt = "14:00 PM"
-                )
             )
         )
     }
