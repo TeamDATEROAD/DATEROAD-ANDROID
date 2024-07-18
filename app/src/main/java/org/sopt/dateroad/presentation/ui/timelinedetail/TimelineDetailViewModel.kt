@@ -75,18 +75,14 @@ class TimelineDetailViewModel @Inject constructor(
         }
 
         if (ShareClient.instance.isKakaoTalkSharingAvailable(context)) {
-            // 카카오톡으로 카카오톡 공유 가능
             ShareClient.instance.shareCustom(context, templateId.toLong(), templateArgs) { sharingResult, error ->
                 if (sharingResult != null) {
                     context.startActivity(sharingResult.intent)
-
-                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우
                     Log.w("KakaoShare", "Warning Msg: ${sharingResult.warningMsg}")
                     Log.w("KakaoShare", "Argument Msg: ${sharingResult.argumentMsg}")
                 }
             }
         } else {
-            // 카카오톡 미설치: 웹 공유 사용 권장
             val sharerUrl = WebSharerClient.instance.makeCustomUrl(templateId.toLong(), templateArgs)
             try {
                 KakaoCustomTabsClient.openWithDefault(context, sharerUrl)
