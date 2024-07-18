@@ -51,7 +51,8 @@ fun SignInRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
-    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, _ ->
+    val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
+        Log.e("ㅋㅋ", message?.message.toString())
         if (oAuthToken != null) {
             viewModel.setAccessToken(oAuthToken.accessToken)
         }
@@ -64,6 +65,7 @@ fun SignInRoute(
                     is SignInContract.SignInSideEffect.NavigateToOnboarding -> {
                         navigateToOnboarding()
                     }
+
                     is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
                 }
             }
@@ -90,10 +92,12 @@ fun SignInRoute(
             navigateToHome()
             Log.d("http", "Home")
         }
+
         LoadState.Error -> {
             navigateToOnboarding()
             Log.d("http", "OnBoarding")
         }
+
         else -> Unit
     }
 }
