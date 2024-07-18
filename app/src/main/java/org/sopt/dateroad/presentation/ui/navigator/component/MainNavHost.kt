@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -24,6 +23,7 @@ import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.timelineDetailGraph
+import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun MainNavHost(
@@ -34,7 +34,7 @@ fun MainNavHost(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceDim)
+            .background(DateRoadTheme.colors.white)
     ) {
         NavHost(
             navController = navigator.navHostController,
