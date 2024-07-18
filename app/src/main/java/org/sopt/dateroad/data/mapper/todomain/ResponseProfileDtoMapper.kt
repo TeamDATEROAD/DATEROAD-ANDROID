@@ -1,6 +1,7 @@
 package org.sopt.dateroad.data.mapper.todomain
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseProfileDto
+import org.sopt.dateroad.data.mapper.toEntity.toPoint
 import org.sopt.dateroad.domain.model.Profile
 
 fun ResponseProfileDto.toDomain(): Profile = Profile(

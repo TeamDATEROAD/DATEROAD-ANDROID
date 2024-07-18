@@ -39,6 +39,7 @@ import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPlaceInsertBar
+import org.sopt.dateroad.presentation.util.Time
 import org.sopt.dateroad.presentation.util.draganddrop.rememberDragAndDropListState
 import org.sopt.dateroad.presentation.util.mutablelist.move
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -89,7 +90,7 @@ fun EnrollSecondScreen(
             onTitleChange = onPlaceTitleValueChange,
             onSelectedCourseTimeClick = onSelectedPlaceCourseTimeClick,
             onAddCourseButtonClick = {
-                onAddPlaceButtonClick(Place(title = enrollUiState.place.title, duration = enrollUiState.place.duration))
+                onAddPlaceButtonClick(Place(title = enrollUiState.place.title, duration = enrollUiState.place.duration + Time.TIME))
             }
         )
         Spacer(modifier = Modifier.height(22.dp))

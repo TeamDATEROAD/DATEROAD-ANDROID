@@ -79,8 +79,10 @@ fun HomeRoute(
         while (true) {
             delay(4000)
             coroutineScope.launch {
-                val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
-                pagerState.animateScrollToPage(nextPage)
+                if (uiState.advertisements.isNotEmpty()) {
+                    val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
+                    pagerState.animateScrollToPage(nextPage)
+                }
             }
         }
     }

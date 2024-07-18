@@ -1,6 +1,7 @@
 package org.sopt.dateroad.data.mapper.todomain
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAdvertisementDetailDto
+import org.sopt.dateroad.data.mapper.toEntity.toAdvertisementDetailDate
 import org.sopt.dateroad.domain.model.AdvertisementDetail
 import org.sopt.dateroad.domain.type.AdvertisementTagType.Companion.toAdvertisementTagTitle
 

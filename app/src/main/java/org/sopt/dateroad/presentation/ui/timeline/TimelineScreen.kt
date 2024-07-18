@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.timeline
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -26,9 +25,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Date
 import org.sopt.dateroad.domain.type.DateTimeType
-import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -123,21 +120,17 @@ fun TimelineScreen(
         )
         Spacer(modifier = Modifier.height(52.dp))
 
-        if (uiState.dates.isEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+        ) {
+            if (uiState.dates.isEmpty()) {
                 DateRoadEmptyView(
+                    modifier = Modifier.fillMaxWidth(),
                     emptyViewType = EmptyViewType.TIMELINE
                 )
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-            ) {
+            } else {
                 HorizontalPager(
                     count = uiState.dates.size,
                     state = pagerState,
@@ -165,11 +158,11 @@ fun TimelineScreen(
                 )
             }
         }
+
         Column(
             modifier = Modifier
                 .padding(bottom = 40.dp)
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -207,32 +200,7 @@ fun TimelineScreenPreview() {
             padding = PaddingValues(0.dp),
             uiState = TimelineContract.TimelineUiState(
                 loadState = LoadState.Success,
-                dates = listOf(
-                    Date(
-                        dateId = 1,
-                        dDay = "1",
-                        title = "데이트 일정 1",
-                        date = "JUNE.23",
-                        city = "서울",
-                        tags = listOf(DateTagType.SHOPPING)
-                    ),
-                    Date(
-                        dateId = 2,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 3,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    )
-                )
+                dates = listOf()
             ),
             pagerState = rememberPagerState(),
             navigateToTimelineDetail = { _, _ -> },

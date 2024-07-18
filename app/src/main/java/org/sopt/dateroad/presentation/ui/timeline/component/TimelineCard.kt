@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timeline.component
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -172,6 +173,7 @@ fun TimelineCard(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 25.dp)
             ) {
+                Log.e("zz", dateCard.city)
                 Text(
                     text = dateCard.city,
                     style = DateRoadTheme.typography.bodyMed15,

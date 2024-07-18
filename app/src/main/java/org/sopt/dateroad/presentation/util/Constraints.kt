@@ -39,3 +39,7 @@ object Point {
 object Token {
     const val BEARER = "Bearer "
 }
+
+object Time {
+    const val TIME = " 시간"
+}
