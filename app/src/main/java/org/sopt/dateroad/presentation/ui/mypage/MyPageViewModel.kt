@@ -29,6 +29,8 @@ class MyPageViewModel @Inject constructor(
             is MyPageContract.MyPageEvent.SetWithdrawalDialog -> setState { copy(showWithdrawalDialog = event.showWithdrawalDialog) }
             is MyPageContract.MyPageEvent.SetSoonDialog -> setState { copy(showSoonDialog = event.showSoonDialog) }
             is MyPageContract.MyPageEvent.FetchProfile -> setState { copy(loadState = event.loadState, profile = event.profile) }
+            is MyPageContract.MyPageEvent.OnWebViewClick -> setState { copy(showWebView = true) }
+            is MyPageContract.MyPageEvent.WebViewClose -> setState { copy(showWebView = false) }
         }
     }
 
