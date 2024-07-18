@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.coursedetail
 import org.sopt.dateroad.domain.model.AdvertisementDetail
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -27,7 +28,7 @@ class CourseDetailContract {
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
-        data class NavigateToEnroll(val id: Int) : CourseDetailSideEffect
+        data class NavigateToEnroll(val enrollType: EnrollType, val id: Int?) : CourseDetailSideEffect
         data object PopBackStack : CourseDetailSideEffect
     }
 
@@ -47,8 +48,8 @@ class CourseDetailContract {
         data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
-        data class DeleteCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
-        data class PostCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
+        data class DeleteCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
+        data class PostCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
     }
 }

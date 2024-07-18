@@ -73,7 +73,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun CourseDetailRoute(
     viewModel: CourseDetailViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int) -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
     courseDetailType: CourseDetailType,
     id: Int
 ) {
@@ -88,7 +88,7 @@ fun CourseDetailRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { courseDetailSideEffect ->
                 when (courseDetailSideEffect) {
-                    is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, courseDetailSideEffect.id)
+                    is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(courseDetailSideEffect.enrollType, courseDetailSideEffect.id)
                     is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack()
                 }
             }
@@ -112,7 +112,10 @@ fun CourseDetailRoute(
             CourseDetailScreen(
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
-                dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
+                dismissDialogPointLack = {
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack)
+                    viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.COURSE, null))
+                },
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
@@ -130,7 +133,7 @@ fun CourseDetailRoute(
                 },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
-                enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
+                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, uiState.id)) },
                 onTopBarIconClicked = popBackStack,
                 openCourseDetail = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
@@ -536,8 +539,7 @@ fun CourseDetailScreen(
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
             onDismissRequest = { dismissDialogPointLack() },
-            onClickConfirm = { dismissDialogPointLack() },
-            onClickDismiss = { dismissDialogPointLack() }
+            onClickConfirm = { dismissDialogPointLack() }
         )
     }
 
