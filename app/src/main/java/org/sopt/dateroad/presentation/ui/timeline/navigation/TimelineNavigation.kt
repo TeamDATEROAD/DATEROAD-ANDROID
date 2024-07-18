@@ -29,8 +29,7 @@ fun NavGraphBuilder.timelineNavGraph(
             padding = padding,
             navigateToPast = navigateToPast,
             navigateToEnroll = navigateToEnroll,
-            navigateToTimelineDetail = navigateToTimelineDetail,
-            popBackStack = popBackStack
+            navigateToTimelineDetail = navigateToTimelineDetail
         )
     }
 }

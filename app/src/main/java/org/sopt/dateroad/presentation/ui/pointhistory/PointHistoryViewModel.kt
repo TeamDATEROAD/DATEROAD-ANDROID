@@ -5,12 +5,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.GetPointHistoryUseCase
+import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class PointHistoryViewModel @Inject constructor(
-    private val getPointHistoryUseCase: GetPointHistoryUseCase
+    private val getPointHistoryUseCase: GetPointHistoryUseCase,
+    private val getUserPointUseCase: GetUserPointUseCase
 ) : BaseViewModel<PointHistoryContract.PointHistoryUiState, PointHistoryContract.PointHistorySideEffect, PointHistoryContract.PointHistoryEvent>() {
     override fun createInitialState(): PointHistoryContract.PointHistoryUiState =
         PointHistoryContract.PointHistoryUiState()
@@ -19,6 +21,7 @@ class PointHistoryViewModel @Inject constructor(
         when (event) {
             is PointHistoryContract.PointHistoryEvent.FetchPointHistory -> setState { copy(loadState = event.loadState, pointHistory = event.pointHistory) }
             is PointHistoryContract.PointHistoryEvent.OnTabBarClicked -> setState { copy(pointHistoryTabType = event.pointHistoryTabType) }
+            is PointHistoryContract.PointHistoryEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
         }
     }
 
@@ -35,6 +38,17 @@ class PointHistoryViewModel @Inject constructor(
                 setEvent(
                     PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Error, pointHistory = currentState.pointHistory)
                 )
+            }
+        }
+    }
+
+    fun fetchUserPoint() {
+        viewModelScope.launch {
+            setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Loading, userPoint = currentState.userPoint))
+            getUserPointUseCase().onSuccess { userPoint ->
+                setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Success, userPoint = userPoint))
+            }.onFailure { e ->
+                setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
             }
         }
     }

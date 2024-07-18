@@ -5,8 +5,8 @@ import javax.inject.Singleton
 import org.sopt.dateroad.domain.repository.UserInfoRepository
 
 @Singleton
-class SetRemainingPointsUseCase @Inject constructor(
+class SetNicknameUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke(remainingPoints: Int) = userInfoRepository.setRemainingPoints(remainingPoints = remainingPoints)
+    operator fun invoke(nickname: String) = userInfoRepository.setNickname(nickname = nickname)
 }

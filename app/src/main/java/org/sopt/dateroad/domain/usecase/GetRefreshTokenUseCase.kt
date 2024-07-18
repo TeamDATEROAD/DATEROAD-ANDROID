@@ -8,6 +8,5 @@ import org.sopt.dateroad.domain.repository.UserInfoRepository
 class GetRefreshTokenUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke() =
-        userInfoRepository.getRefreshToken()
+    operator fun invoke() = userInfoRepository.getRefreshToken()
 }

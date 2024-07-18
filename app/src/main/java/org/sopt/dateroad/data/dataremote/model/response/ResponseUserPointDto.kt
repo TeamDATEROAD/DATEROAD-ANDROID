@@ -10,5 +10,5 @@ data class ResponseUserPointDto(
     @SerialName("point")
     val point: Int,
     @SerialName("image")
-    val image: String
+    val image: String?
 )

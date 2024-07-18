@@ -48,8 +48,7 @@ fun TimelineRoute(
     viewModel: TimelineViewModel = hiltViewModel(),
     navigateToPast: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit,
-    popBackStack: () -> Unit
+    navigateToTimelineDetail: (DateType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState()
