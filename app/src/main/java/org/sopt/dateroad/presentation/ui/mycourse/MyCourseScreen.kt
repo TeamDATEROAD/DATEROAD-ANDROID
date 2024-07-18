@@ -22,6 +22,7 @@ import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
@@ -35,6 +36,7 @@ fun MyCourseRoute(
     padding: PaddingValues,
     viewModel: MyCourseViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
     myCourseType: MyCourseType
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -65,7 +67,8 @@ fun MyCourseRoute(
             MyCourseScreen(
                 padding = padding,
                 myCourseUiState = uiState,
-                onIconClick = popBackStack
+                onIconClick = popBackStack,
+                onCourseCardClick = navigateToEnroll
             )
         }
 
@@ -77,8 +80,8 @@ fun MyCourseRoute(
 fun MyCourseScreen(
     padding: PaddingValues,
     myCourseUiState: MyCourseContract.MyCourseUiState = MyCourseContract.MyCourseUiState(),
-    onIconClick: () -> Unit
-
+    onIconClick: () -> Unit,
+    onCourseCardClick: (EnrollType, Int?) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -110,7 +113,13 @@ fun MyCourseScreen(
             }
             items(myCourseUiState.courses) { course ->
                 DateRoadCourseCard(
-                    course = course
+                    course = course,
+                    onClick = {
+                        when (myCourseUiState.myCourseType) {
+                            MyCourseType.ENROLL -> {}
+                            MyCourseType.READ -> onCourseCardClick(EnrollType.TIMELINE, course.courseId)
+                        }
+                    }
                 )
             }
         }
@@ -165,7 +174,8 @@ fun MyCourseScreenPreview() {
                     )
                 )
             ),
-            onIconClick = {}
+            onIconClick = {},
+            onCourseCardClick = { _, _ -> }
         )
     }
 }

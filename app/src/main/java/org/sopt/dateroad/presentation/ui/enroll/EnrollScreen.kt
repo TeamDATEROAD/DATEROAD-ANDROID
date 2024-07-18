@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -69,10 +70,17 @@ fun EnrollRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
+    }
+
+    LaunchedEffect(uiState.enrollType) {
         if (id != null) {
-            when (uiState.enrollType) {
-                EnrollType.COURSE -> viewModel.fetchDateDetail(dateId = id)
-                EnrollType.TIMELINE -> viewModel.fetchCourseDetail(courseId = id)
+            when (enrollType) {
+                EnrollType.COURSE -> {
+                    viewModel.fetchDateDetail(dateId = id)
+                }
+                EnrollType.TIMELINE -> {
+                    viewModel.fetchCourseDetail(courseId = id)
+                }
             }
         }
     }
