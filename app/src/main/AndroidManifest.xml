@@ -35,7 +35,9 @@
         <meta-data
             android:name="io.sentry.traces.profiling.sample-rate"
             android:value="1.0" />
-
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
         <activity
             android:name=".presentation.ui.navigator.MainActivity"
             android:exported="true"
@@ -46,8 +48,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:host="kakaolink"
+                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
+
             </intent-filter>
         </activity>
+
     </application>
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
 
 </manifest>

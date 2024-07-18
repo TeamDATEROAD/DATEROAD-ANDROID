@@ -7,8 +7,8 @@ data class DateDetail(
     val title: String = "",
     val startAt: String = "",
     val city: String = "",
-    val tags: List<DateTagType> = emptyList(),
+    val tags: List<DateTagType> = listOf(),
     val date: String = "",
     val dDay: String = "",
-    val places: List<Place> = emptyList()
+    val places: List<Place> = listOf()
 )

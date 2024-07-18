@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -65,6 +66,7 @@ fun TimelineDetailRoute(
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.fetchTimelineDetail(dateId)
@@ -91,14 +93,14 @@ fun TimelineDetailRoute(
                 showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
-                setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) }
+                setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
+                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) } // 콜백 연결
             )
         }
 
         else -> Unit
     }
 }
-
 @Composable
 fun TimelineDetailScreen(
     padding: PaddingValues,
@@ -109,7 +111,8 @@ fun TimelineDetailScreen(
     showKakaoClicked: () -> Unit = {},
     setShowKakaoDialog: (Boolean) -> Unit,
     setShowDeleteBottomSheet: (Boolean) -> Unit,
-    setShowDeleteDialog: (Boolean) -> Unit
+    setShowDeleteDialog: (Boolean) -> Unit,
+    onKakaoShareConfirm: () -> Unit // 추가된 콜백
 ) {
     Column(
         modifier = Modifier
@@ -275,11 +278,15 @@ fun TimelineDetailScreen(
             }
         }
     }
+
     if (uiState.showKakaoDialog) {
         DateRoadTwoButtonDialog(
             twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
             onDismissRequest = { setShowKakaoDialog(false) },
-            onClickConfirm = { setShowKakaoDialog(false) },
+            onClickConfirm = {
+                setShowKakaoDialog(false)
+                onKakaoShareConfirm() // 콜백 호출
+            },
             onClickDismiss = { setShowKakaoDialog(false) }
         )
     }
@@ -307,6 +314,7 @@ fun TimelineDetailScreen(
     }
 }
 
+
 @Preview
 @Composable
 fun TimelineDetailScreenPreview() {
@@ -332,7 +340,8 @@ fun TimelineDetailScreenPreview() {
             showKakaoClicked = {},
             setShowKakaoDialog = {},
             setShowDeleteBottomSheet = {},
-            setShowDeleteDialog = {}
+            setShowDeleteDialog = {},
+            onKakaoShareConfirm = {}
         )
     }
 }

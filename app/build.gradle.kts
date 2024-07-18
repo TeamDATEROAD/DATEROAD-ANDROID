@@ -32,6 +32,8 @@ android {
             useSupportLibrary = true
         }
 
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", properties["kakao.native.app.key"].toString())
+
         manifestPlaceholders["IO_SENTRY_DSN"] = properties["io.sentry.dsn"] as String
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY_MANIFEST"] = properties["kakao.native.app.key.manifest"] as String
     }
@@ -107,6 +109,15 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
+    implementation (libs.kakao.v2.user)
+    implementation (libs.v2.share.v2150)
+    implementation (libs.v2.all) //전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation (libs.v2.user.v2203 )// 카카오 로그인 API 모듈
+    implementation (libs.v2.share)// 카카오톡 공유 API 모듈
+    implementation (libs.v2.talk)// 카카오톡 채널, 카카오톡 소셜, 카카오톡 메시지 API 모듈
+    implementation (libs.v2.friend) // 피커 API 모듈
+    implementation (libs.v2.navi )// 카카오내비 API 모듈
+    implementation (libs.v2.cert)// 카카오톡 인증 서비스 API 모듈
 
     // View Pager
     implementation(libs.bundles.pager)

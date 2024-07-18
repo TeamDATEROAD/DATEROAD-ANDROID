@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
+import android.content.Context
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
@@ -18,7 +19,6 @@ class TimelineDetailContract {
 
     sealed interface TimelineDetailSideEffect : UiSideEffect {
         data object PopBackStack : TimelineDetailSideEffect
-        // data class NavigateToEnroll(val dateId: Int) : TimelineDetailSideEffect
     }
 
     sealed class TimelineDetailEvent : UiEvent {
@@ -27,5 +27,6 @@ class TimelineDetailContract {
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
         data class SetSourceScreen(val sourceScreen: Boolean) : TimelineDetailEvent()
+        data class ShareKakao(val context: Context, val dateDetail: DateDetail) : TimelineDetailEvent()
     }
 }
