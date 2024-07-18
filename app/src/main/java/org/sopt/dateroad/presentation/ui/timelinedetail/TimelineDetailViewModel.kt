@@ -26,23 +26,13 @@ class TimelineDetailViewModel @Inject constructor(
             is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetSourceScreen -> setState { copy(sourceScreen = event.sourceScreen) }
             is TimelineDetailContract.TimelineDetailEvent.DeleteDate -> deleteDate(event.dateId)
+            is TimelineDetailContract.TimelineDetailEvent.SetLoadState -> setState { copy(loadState = event.loadState) }
+            is TimelineDetailContract.TimelineDetailEvent.SetSideEffect -> setSideEffect(event.sideEffect)
         }
     }
 
     fun fetchTimelineDetail(dateId: Int) {
         setEvent(TimelineDetailContract.TimelineDetailEvent.FetchTimelineDetail(dateId))
-    }
-
-    fun setShowDeleteBottomSheet(show: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet = show))
-    }
-
-    fun setShowDeleteDialog(show: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog = show))
-    }
-
-    fun setShowKakaoDialog(show: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog = show))
     }
 
     fun setSourceScreen(source: Boolean) {
@@ -55,7 +45,7 @@ class TimelineDetailViewModel @Inject constructor(
 
     private fun fetchDateDetail(dateId: Int) {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
+            setEvent(TimelineDetailContract.TimelineDetailEvent.SetLoadState(LoadState.Loading))
             getDateDetailUseCase(dateId).onSuccess { dateDetail ->
                 setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(LoadState.Success, dateDetail))
             }.onFailure {
@@ -66,23 +56,17 @@ class TimelineDetailViewModel @Inject constructor(
 
     private fun deleteDate(dateId: Int) {
         viewModelScope.launch {
-            setState { copy(loadState = LoadState.Loading) }
+            setEvent(TimelineDetailContract.TimelineDetailEvent.SetLoadState(LoadState.Loading))
             deleteDateUseCase(dateId).onSuccess {
-                setState { copy(loadState = LoadState.Success) }
-                setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.PopBackStack)
+                setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(LoadState.Success))
+                setEvent(TimelineDetailContract.TimelineDetailEvent.SetSideEffect(TimelineDetailContract.TimelineDetailSideEffect.PopBackStack))
             }.onFailure {
-                setState { copy(loadState = LoadState.Error) }
+                setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(LoadState.Error))
             }
         }
     }
 
     private fun setTimelineDetail(loadState: LoadState, dateDetail: DateDetail?) {
-        setState {
-            if (loadState == LoadState.Success && dateDetail != null) {
-                copy(loadState = loadState, dateDetail = dateDetail)
-            } else {
-                copy(loadState = loadState)
-            }
-        }
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(loadState, dateDetail))
     }
 }

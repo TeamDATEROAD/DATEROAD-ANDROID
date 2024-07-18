@@ -65,7 +65,7 @@ fun TimelineDetailRoute(
 
     LaunchedEffect(Unit) {
         viewModel.fetchTimelineDetail(dateId)
-        viewModel.setSourceScreen(uiState.dateDetail.dDay == "")
+        viewModel.setSourceScreen(uiState.dateDetail.dDay.isEmpty())
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -235,7 +235,7 @@ fun TimelineDetailScreen(
                 }
             }
 
-            if (uiState.sourceScreen) {
+            if (uiState.dateDetail.dDay.isNotEmpty()) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)

@@ -58,7 +58,7 @@ fun PastRoute(
                 padding = padding,
                 pastUiState = uiState,
                 popBackStack = { viewModel.setSideEffect(PastContract.PastSideEffect.PopBackStack) },
-                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(sourceScreen = false, dateType = dateType, dateId = dateId)) }
+                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) }
             )
         }
 
