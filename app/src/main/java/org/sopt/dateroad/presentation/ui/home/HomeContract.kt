@@ -11,7 +11,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class HomeContract {
     data class HomeUiState(
         val loadState: LoadState = LoadState.Idle,
-        val mainDate: MainDate? = null,
+        val mainDate: MainDate = MainDate(),
         val topLikedCourses: List<Course> = listOf(),
         val latestCourses: List<Course> = listOf(),
         val advertisements: List<Advertisement> = listOf(),
@@ -30,7 +30,7 @@ class HomeContract {
     }
 
     sealed class HomeEvent : UiEvent {
-        data class FetchMainDate(val loadState: LoadState, val mainDate: MainDate?) : HomeEvent()
+        data class FetchMainDate(val loadState: LoadState, val mainDate: MainDate) : HomeEvent()
         data class FetchTopLikedCourses(val loadState: LoadState, val topLikedCourses: List<Course>) : HomeEvent()
         data class FetchLatestCourses(val loadState: LoadState, val latestCourses: List<Course>) : HomeEvent()
         data class FetchAdvertisements(val loadState: LoadState, val advertisements: List<Advertisement>) : HomeEvent()
