@@ -9,6 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.sopt.dateroad.data.dataremote.datasource.AuthRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.PROFILE_FORM_DATA_IMAGE
 import org.sopt.dateroad.data.dataremote.util.ContentUriRequestBody
 import org.sopt.dateroad.data.mapper.todata.toData
 import org.sopt.dateroad.data.mapper.todomain.toDomain
@@ -39,7 +40,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun postSignUp(signUp: SignUp): Result<Auth> = runCatching {
         authRemoteDataSource.postSignUp(
-            image = if (signUp.image.isEmpty()) null else ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(signUp.image)).toFormData(),
+            image = if (signUp.image.isEmpty()) null else ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(signUp.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE),
             userSignUpData = Json.encodeToString(signUp.userSignUpInfo.toData()).toRequestBody("application/json".toMediaType()),
             tags = (Json.encodeToString(signUp.tag.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType())
         ).toDomain()

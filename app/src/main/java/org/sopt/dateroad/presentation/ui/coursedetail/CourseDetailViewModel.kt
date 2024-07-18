@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.AdvertisementDetail
 import org.sopt.dateroad.domain.model.UsePoint
 import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase

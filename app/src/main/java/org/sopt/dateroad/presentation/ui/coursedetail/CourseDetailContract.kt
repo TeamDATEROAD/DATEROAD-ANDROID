@@ -46,8 +46,6 @@ class CourseDetailContract {
         data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
         data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
-        data class DeleteCourseLike(val loadState: LoadState) : CourseDetailEvent()
-        data class PostCourseLike(val loadState: LoadState) : CourseDetailEvent()
         data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
         data class DeleteCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
