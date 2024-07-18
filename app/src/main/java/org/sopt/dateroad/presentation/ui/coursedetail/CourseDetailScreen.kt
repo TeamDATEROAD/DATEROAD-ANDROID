@@ -97,7 +97,7 @@ fun CourseDetailRoute(
         if (uiState.id != 0) {
             when (uiState.courseDetailType) {
                 CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
-                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail()
+                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail(uiState.id)
             }
         }
     }
@@ -233,7 +233,7 @@ fun CourseDetailScreen(
                         }
 
                         DateRoadTextTag(
-                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.images.size),
+                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, pagerState.pageCount),
                             tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                             modifier = Modifier
                                 .padding(end = 10.dp, bottom = 10.dp)
@@ -250,7 +250,7 @@ fun CourseDetailScreen(
                     ) {
                         if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
                             DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.adTagType,
+                                textContent = courseDetailUiState.advertisementDetail.advertisementTagTitle,
                                 tagContentType = TagType.ADVERTISEMENT_TITLE
                             )
                             Spacer(modifier = Modifier.height(16.dp))
@@ -480,7 +480,7 @@ fun CourseDetailScreen(
                         disabledContentColor = DateRoadTheme.colors.gray200,
                         enabledBackgroundColor = DateRoadTheme.colors.gray100,
                         disabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        isEnabled = courseDetailUiState.isLikedButtonChecked,
+                        isEnabled = courseDetailUiState.courseDetail.isUserLiked,
                         onClick = onLikeButtonClicked,
                         cornerRadius = 14.dp,
                         paddingHorizontal = 23.dp,

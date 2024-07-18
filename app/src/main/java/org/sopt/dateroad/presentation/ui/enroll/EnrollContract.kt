@@ -1,8 +1,8 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import org.sopt.dateroad.domain.model.Enroll
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
-import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
@@ -18,11 +18,9 @@ class EnrollContract {
         val loadState: LoadState = LoadState.Idle,
         val enrollType: EnrollType = EnrollType.COURSE,
         val page: EnrollScreenType = EnrollScreenType.FIRST,
+        val enroll: Enroll = Enroll(),
         val isEnrollButtonEnabled: Boolean = false,
-        val images: List<String> = listOf(),
-        val title: String = "",
         val titleValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
-        val date: String = "",
         val dateValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val isDatePickerBottomSheetOpen: Boolean = false,
         val datePickers: List<Picker> = listOf(
@@ -30,27 +28,19 @@ class EnrollContract {
             Picker(items = (1..12).map { it.toString() }),
             Picker(items = (1..31).map { it.toString() })
         ),
-        val startAt: String = "",
         val isTimePickerBottomSheetOpen: Boolean = false,
         val timePickers: List<Picker> = listOf(
             Picker(items = listOf(TimePicker.AM, TimePicker.PM)),
             Picker(items = (1..12).map { it.toString() }),
             Picker(items = (0..59).map { it.toString().padStart(2, '0') })
         ),
-        val tags: List<DateTagType> = listOf(),
-        val country: RegionType? = null,
-        val city: Any? = null,
         val isRegionBottomSheetOpen: Boolean = false,
         val onRegionBottomSheetRegionSelected: RegionType? = RegionType.SEOUL,
         val onRegionBottomSheetAreaSelected: Any? = null,
-        val place: List<Place> = listOf(),
-        val placeTitle: String = "",
-        val placeDuration: String = "",
+        val place: Place = Place(),
         val isPlaceEditable: Boolean = true,
         val isDurationBottomSheetOpen: Boolean = false,
-        val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() })),
-        val description: String = "",
-        val cost: String = ""
+        val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() }))
     ) : UiState
 
     sealed interface EnrollSideEffect : UiSideEffect {
@@ -75,7 +65,7 @@ class EnrollContract {
         data class OnTitleValueChange(val title: String) : EnrollEvent()
         data class OnDatePickerBottomSheetButtonClick(val date: String) : EnrollEvent()
         data class OnTimePickerBottomSheetButtonClick(val startAt: String) : EnrollEvent()
-        data class OnDateChipClicked(val tag: DateTagType) : EnrollEvent()
+        data class OnDateChipClicked(val tag: String) : EnrollEvent()
         data class OnRegionBottomSheetRegionChipClick(val country: RegionType) : EnrollEvent()
         data class OnRegionBottomSheetAreaChipClick(val city: Any?) : EnrollEvent()
         data class OnRegionBottomSheetButtonClick(val region: RegionType?, val area: Any?) : EnrollEvent()
@@ -87,5 +77,6 @@ class EnrollContract {
         data class OnPlaceCardDeleteButtonClick(val index: Int) : EnrollEvent()
         data class OnDescriptionValueChange(val description: String) : EnrollEvent()
         data class OnCostValueChange(val cost: String) : EnrollEvent()
+        data class Enroll(val loadState: LoadState) : EnrollEvent()
     }
 }

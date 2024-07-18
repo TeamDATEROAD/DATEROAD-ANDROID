@@ -3,6 +3,7 @@ package org.sopt.dateroad.data.dataremote.util
 object ApiConstraints {
     const val AUTHORIZATION = "Authorization"
     const val FORM_DATA_IMAGE = "image"
+    const val FORM_DATA_IMAGE = "images"
     const val TEXT_PLANE = "text/plain"
     const val API = "api"
     const val VERSION = "v1"
@@ -21,6 +22,10 @@ object ApiConstraints {
     const val COST = "cost"
     const val SORT_BY = "sortBy"
     const val POINTS = "points"
+    const val IMAGES = "images"
+    const val COURSE = "course"
+    const val TAGS = "tags"
+    const val PLACES = "places"
     const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
     const val SIGN_IN = "signin"
@@ -29,6 +34,10 @@ object ApiConstraints {
     const val USER_SIGN_UP_DATA = "userSignUpReq"
     const val IMAGE = "image"
     const val TAG = "tag"
+    const val ADVERTISEMENT_ID = "advId"
+    const val DATES = "dates"
+    const val TIME = "time"
+    const val NEAREST = "nearest"
 }
 
 object Cost {
@@ -47,8 +56,30 @@ object Like {
 object Date {
     const val INPUT_FORMAT = "yyyy.MM.dd"
     const val COURSE_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일 방문"
+    const val DATE_OUTPUT_FORMAT = "yyyy년 M월 d일"
+    const val TIMELINE_OUTPUT_FORMAT = "%s\n%d"
+    const val MAIN_DATE_OUTPUT_FORMAT = "%d월 %d일"
+    const val D_DAY_OUTPUT_FORMAT = "D-"
+    const val D_DAY_DEFAULT_LABEL = "D-Day"
+    const val NEAREST_DATE_START_OUTPUT_FORMAT = " 시작"
+    const val ADVERTISEMENT_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
 }
 
 object Point {
     const val POINT = " P"
+}
+
+object Month {
+    const val JANUARY = "January"
+    const val FEBRUARY = "February"
+    const val MARCH = "March"
+    const val APRIL = "April"
+    const val MAY = "May"
+    const val JUNE = "June"
+    const val JULY = "July"
+    const val AUGUST = "August"
+    const val SEPTEMBER = "September"
+    const val OCTOBER = "October"
+    const val NOVEMBER = "November"
+    const val DECEMBER = "December"
 }

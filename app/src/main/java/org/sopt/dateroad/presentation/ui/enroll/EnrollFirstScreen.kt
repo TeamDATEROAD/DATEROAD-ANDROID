@@ -18,6 +18,7 @@ import org.sopt.dateroad.domain.type.IncheonAreaType
 import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadBasicTextField
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -43,7 +44,7 @@ fun EnrollFirstScreen(
             placeholder = stringResource(id = R.string.enroll_title_placeholder),
             validateState = enrollUiState.titleValidateState,
             errorDescription = stringResource(id = R.string.enroll_title_error_description),
-            value = enrollUiState.title,
+            value = enrollUiState.enroll.title,
             onValueChange = onTitleValueChange
         )
         Spacer(modifier = Modifier.height(2.dp))
@@ -51,7 +52,7 @@ fun EnrollFirstScreen(
             placeholder = stringResource(id = R.string.enroll_date_placeholder),
             validateState = enrollUiState.dateValidateState,
             errorDescription = stringResource(id = R.string.enroll_date_error_description),
-            value = enrollUiState.date,
+            value = enrollUiState.enroll.date,
             readOnly = true,
             iconResourceId = R.drawable.ic_enroll_calendar,
             onClick = onDateTextFieldClick
@@ -59,7 +60,7 @@ fun EnrollFirstScreen(
         Spacer(modifier = Modifier.height(2.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_date_start_at),
-            value = enrollUiState.startAt,
+            value = enrollUiState.enroll.startAt,
             readOnly = true,
             iconResourceId = R.drawable.ic_enroll_time,
             onClick = onTimeTextFieldClick
@@ -67,16 +68,16 @@ fun EnrollFirstScreen(
         Spacer(modifier = Modifier.height(20.dp))
         DateRoadDateChipGroup(
             dateChipGroupType = DateChipGroupType.ENROLL,
-            selectedDateTags = enrollUiState.tags,
+            selectedDateTags = enrollUiState.enroll.tags.mapNotNull { tag -> tag.getDateTagTypeByName() },
             onSelectedDateTagsChanged = onDateChipClicked
         )
         Spacer(modifier = Modifier.height(20.dp))
         DateRoadBasicTextField(
             placeholder = stringResource(id = R.string.enroll_city_placeholder),
-            value = when (enrollUiState.city) {
-                is SeoulAreaType -> enrollUiState.city.title
-                is GyeonggiAreaType -> enrollUiState.city.title
-                is IncheonAreaType -> enrollUiState.city.title
+            value = when (enrollUiState.enroll.city) {
+                is SeoulAreaType -> enrollUiState.enroll.city.title
+                is GyeonggiAreaType -> enrollUiState.enroll.city.title
+                is IncheonAreaType -> enrollUiState.enroll.city.title
                 else -> ""
             },
             readOnly = true,

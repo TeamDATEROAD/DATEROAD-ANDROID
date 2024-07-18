@@ -34,14 +34,14 @@ fun EnrollThirdScreen(
         DateRoadTextArea(
             title = stringResource(id = R.string.enroll_description_title),
             placeholder = stringResource(id = R.string.enroll_description_placeholder),
-            value = enrollUiState.description,
+            value = enrollUiState.enroll.description,
             onValueChange = onDescriptionValueChange
         )
         Spacer(modifier = Modifier.height(15.dp))
         DateRoadBasicTextField(
             title = stringResource(id = R.string.enroll_cost_title),
             placeholder = stringResource(id = R.string.enroll_cost_placeholder),
-            value = enrollUiState.cost,
+            value = enrollUiState.enroll.cost,
             onValueChange = { newValue ->
                 if (newValue.all { it.isDigit() }) onCostValueChange(newValue)
             },

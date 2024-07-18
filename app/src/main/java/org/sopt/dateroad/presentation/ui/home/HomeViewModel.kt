@@ -7,12 +7,14 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
+import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getAdvertisementsUseCase: GetAdvertisementsUseCase
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
+    private val getNearestDateUseCase: GetNearestDateUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
@@ -115,20 +117,17 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    fun fetchMainDate() {
-        setEvent(
-            HomeContract.HomeEvent.FetchMainDate(
-                loadState = LoadState.Success,
-                mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "성수 데이트",
-                    month = 6,
-                    day = 23,
-                    startAt = "14:00 PM"
-                )
-            )
-        )
+    fun fetchNearestDate() {
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Loading, mainDate = MainDate()))
+            getNearestDateUseCase()
+                .onSuccess { mainDate ->
+                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = mainDate))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Error, mainDate = MainDate()))
+                }
+        }
     }
 
     fun fetchUserName() {

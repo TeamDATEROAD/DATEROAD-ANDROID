@@ -57,7 +57,7 @@ fun HomeTimeLineCard(
         ) {
             if (mainDate != null) {
                 DateRoadTextTag(
-                    textContent = stringResource(R.string.home_timeline_d_day, mainDate.dDay),
+                    textContent = mainDate.dDay,
                     tagContentType = TagType.TIMELINE_D_DAY
                 )
             }
@@ -72,11 +72,7 @@ fun HomeTimeLineCard(
             )
             Row {
                 Text(
-                    text = if (mainDate != null) {
-                        stringResource(id = R.string.home_timeline_month_day, mainDate.month, mainDate.day)
-                    } else {
-                        stringResource(id = R.string.home_timeline_enroll)
-                    },
+                    text = mainDate?.date ?: stringResource(id = R.string.home_timeline_enroll),
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.purple300,
                     maxLines = 1,
@@ -85,7 +81,7 @@ fun HomeTimeLineCard(
 
                 if (mainDate != null) {
                     Text(
-                        text = stringResource(id = R.string.home_timeline_start, mainDate.startAt),
+                        text = mainDate.startAt,
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.purple300,
                         maxLines = 1,
@@ -157,8 +153,7 @@ fun DateRoadDateSchedulePreview() {
                 dateId = 1,
                 dDay = "3",
                 dateName = "성수 데이트",
-                month = 6,
-                day = 23,
+                date = "2024.06.13",
                 startAt = "14:00 PM"
             )
         )

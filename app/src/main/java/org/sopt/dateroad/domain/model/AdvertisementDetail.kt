@@ -5,5 +5,5 @@ data class AdvertisementDetail(
     val title: String = "",
     val createAt: String = "",
     val description: String = "",
-    val adTagType: String = ""
+    val advertisementTagTitle: String = ""
 )
