@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
+import android.content.Context
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
@@ -29,5 +30,6 @@ class TimelineDetailContract {
         data class DeleteDate(val deleteLoadState: LoadState) : TimelineDetailEvent()
         data class SetLoadState(val loadState: LoadState) : TimelineDetailEvent()
         data class SetSideEffect(val sideEffect: TimelineDetailSideEffect) : TimelineDetailEvent()
+        data class ShareKakao(val context: Context, val dateDetail: DateDetail) : TimelineDetailEvent()
     }
 }

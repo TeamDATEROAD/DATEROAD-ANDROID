@@ -46,8 +46,19 @@ ktlint = "11.5.1"
 coil = "2.6.0"
 timber = "5.0.1"
 sentry = "4.1.1"
-kakao = "2.15.0"
+kakao = "2.20.3"
 lifecycleRuntimeComposeAndroid = "2.8.2"
+
+#Kakao
+v2All = "2.20.3"
+v2Cert = "2.20.3"
+v2Friend = "2.20.3"
+v2LinkRx = "2.4.2"
+v2Navi = "2.20.3"
+v2Share = "2.20.3"
+v2ShareVersion = "2.20.3"
+v2Talk = "2.20.3"
+v2User = "2.20.3"
 
 [libraries]
 # Test
@@ -55,6 +66,12 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+kakao-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+kakao-share = { group = "com.kakao.sdk", name = "v2-share", version.ref = "kakao" }
+kakao-talk = { group = "com.kakao.sdk", name = "v2-talk", version.ref = "kakao" }
+kakao-friend = { group = "com.kakao.sdk", name = "v2-friend", version.ref = "kakao" }
+kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" }
+kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
 
 # Debug
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -154,7 +171,12 @@ hilt = [
 ]
 
 kakao = [
-    "kakao-v2-user"
+    "kakao-v2-user",
+    "kakao-share",
+    "kakao-talk",
+    "kakao-friend",
+    "kakao-navi",
+    "kakao-cert"
 ]
 
 pager = [
