@@ -52,6 +52,7 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialo
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPagePointBox
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -103,9 +104,24 @@ fun MyPageRoute(
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
-                setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
-                setLogoutDialog = { showLogoutDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)) },
-                setWithdrawalDialog = { showWithdrawalDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)) }
+                setSoonDialog = { showSoonDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                setLogoutDialog = { showLogoutDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                setWithdrawalDialog = { showWithdrawalDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                }
             )
         }
 

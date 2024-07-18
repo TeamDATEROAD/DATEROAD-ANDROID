@@ -24,11 +24,20 @@ class PointHistoryViewModel @Inject constructor(
 
     fun fetchPointHistory() {
         viewModelScope.launch {
-            setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Loading, pointHistory = currentState.pointHistory))
+            setEvent(
+                PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Loading, pointHistory = currentState.pointHistory),
+                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getPointHistoryUseCase().onSuccess { pointHistory ->
-                setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Success, pointHistory = pointHistory))
+                setEvent(
+                    PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Success, pointHistory = pointHistory),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }.onFailure {
-                setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Error, pointHistory = currentState.pointHistory))
+                setEvent(
+                    PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Error, pointHistory = currentState.pointHistory),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }
         }
     }

@@ -64,7 +64,8 @@ class PastViewModel @Inject constructor() : BaseViewModel<PastContract.PastUiSta
                         tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
                     )
                 )
-            )
+            ),
+            org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
         )
     }
 }

@@ -26,22 +26,40 @@ class MyCourseViewModel @Inject constructor(
 
     fun fetchMyCourseRead() {
         viewModelScope.launch {
-            setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses),
+                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getMyCourseReadUseCase().onSuccess { courses ->
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }.onFailure {
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }
         }
     }
 
     fun fetchMyCourseEnroll() {
         viewModelScope.launch {
-            setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Loading, courses = currentState.courses),
+                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getMyCourseEnrollUseCase().onSuccess { courses ->
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Success, courses = courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }.onFailure {
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Error, courses = currentState.courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }
         }
     }

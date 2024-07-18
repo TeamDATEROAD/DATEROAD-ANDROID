@@ -36,31 +36,33 @@ class HomeViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName))
-            setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+            setEvent(
+                HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName),
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getUserPointUseCase(userId = 1)
                 .onSuccess { userPoint ->
-                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name))
-                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point))
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
                     setUserIdUseCase(userPoint.name)
                     setRemainingPointsUseCase(userPoint.point.filter { it.isDigit() }.toIntOrNull() ?: 0)
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName))
-                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Error, remainingPoints = currentState.remainingPoints))
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Error, remainingPoints = currentState.remainingPoints), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
                 }
         }
     }
 
     fun fetchAdvertisements() {
         viewModelScope.launch {
-            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = currentState.advertisements))
+            setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Loading, advertisements = currentState.advertisements), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
             getAdvertisementsUseCase()
                 .onSuccess { advertisements ->
-                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Success, advertisements = advertisements))
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Success, advertisements = advertisements), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentState.advertisements))
+                    setEvent(HomeContract.HomeEvent.FetchAdvertisements(loadState = LoadState.Error, advertisements = currentState.advertisements), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
                 }
         }
     }
@@ -89,7 +91,8 @@ class HomeViewModel @Inject constructor(
                         like = "999+"
                     )
                 )
-            )
+            ),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
         )
     }
 
@@ -117,7 +120,8 @@ class HomeViewModel @Inject constructor(
                         like = "200"
                     )
                 )
-            )
+            ),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
         )
     }
 
@@ -133,7 +137,8 @@ class HomeViewModel @Inject constructor(
                     day = 23,
                     startAt = "14:00 PM"
                 )
-            )
+            ),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
         )
     }
 }

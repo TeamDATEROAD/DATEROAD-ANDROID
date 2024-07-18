@@ -5,6 +5,7 @@ import javax.inject.Inject
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -47,14 +48,14 @@ class TimelineDetailViewModel @Inject constructor() : BaseViewModel<TimelineDeta
     }
 
     fun setShowDeleteDialog(show: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog = show))
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog = show), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
     }
 
     fun setShowKakaoDialog(show: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog = show))
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog = show), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
     }
 
     fun setSourceScreen(source: Boolean) {
-        setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen = source))
+        setEvent(TimelineDetailContract.TimelineDetailEvent.SetSourceScreen(sourceScreen = source), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
     }
 }

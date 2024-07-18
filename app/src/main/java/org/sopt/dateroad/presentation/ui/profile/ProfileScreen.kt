@@ -34,7 +34,9 @@ import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGro
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWithButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -58,10 +60,30 @@ fun ProfileRoute(
 
     ProfileScreen(
         profileUiState = uiState,
-        onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-        onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag)) },
-        onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+        onImageButtonClicked = {
+            viewModel.setEvent(
+                ProfileContract.ProfileEvent.OnImageButtonClicked,
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
+        },
+        onNicknameValueChanged = { name ->
+            viewModel.setEvent(
+                ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name),
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
+        },
+        onDateChipClicked = { tag ->
+            viewModel.setEvent(
+                ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag),
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
+        },
+        onBottomSheetDismissRequest = {
+            viewModel.setEvent(
+                ProfileContract.ProfileEvent.OnBottomSheetDismissRequest,
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
+        },
         onNicknameButtonClicked = {
             viewModel.getNicknameCheck(uiState.name)
         },
@@ -69,9 +91,15 @@ fun ProfileRoute(
     )
 
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.tag.isNotEmpty()) {
-        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+        viewModel.setEvent(
+            ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+        )
     } else {
-        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+        viewModel.setEvent(
+            ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+        )
     }
 }
 

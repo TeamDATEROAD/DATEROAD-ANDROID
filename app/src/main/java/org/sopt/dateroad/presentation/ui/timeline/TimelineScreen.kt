@@ -39,6 +39,7 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialo
 import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -73,7 +74,7 @@ fun TimelineRoute(
     }
 
     LaunchedEffect(pagerState.currentPage) {
-        viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
+        viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
     }
 
     when (uiState.loadState) {
@@ -82,7 +83,7 @@ fun TimelineRoute(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                onAddDateCardClick = { if (uiState.dates.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
+                onAddDateCardClick = { if (uiState.dates.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal, HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
                 onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxDateCardModal = false) } },
                 navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) },
                 onPastButtonClick = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToPast) }

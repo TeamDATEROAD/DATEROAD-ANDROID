@@ -64,6 +64,7 @@ import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -80,7 +81,10 @@ fun CourseDetailRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType))
+        viewModel.setEvent(
+            CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType),
+            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+        )
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -110,12 +114,42 @@ fun CourseDetailRoute(
         LoadState.Success -> {
             CourseDetailScreen(
                 courseDetailUiState = uiState,
-                onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
-                dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
-                onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
-                dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
-                onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
-                dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
+                onDialogPointLack = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.OnDialogPointLack,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                dismissDialogPointLack = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.DismissDialogPointLack,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onDialogLookedForFree = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                dismissDialogLookedForFree = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onDialogLookedByPoint = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                dismissDialogLookedByPoint = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
                 onLikeButtonClicked = {
                     if (uiState.id != 0) {
                         when (uiState.courseDetail.isUserLiked) {
@@ -127,11 +161,31 @@ fun CourseDetailRoute(
                 onDeleteButtonClicked = {
                     viewModel.deleteCourse(uiState.id)
                 },
-                onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
-                dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
-                enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
+                onEditBottomSheet = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.OnEditBottomSheet,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                dismissEditBottomSheet = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                enrollSchedule = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.EnrollSchedule,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
                 onTopBarIconClicked = popBackStack,
-                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) }
+                openCourseDetail = {
+                    viewModel.setEvent(
+                        CourseDetailContract.CourseDetailEvent.OpenCourse,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                }
             )
         }
 

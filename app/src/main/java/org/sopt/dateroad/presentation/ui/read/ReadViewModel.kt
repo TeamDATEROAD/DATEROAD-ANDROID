@@ -24,16 +24,28 @@ class ReadViewModel @Inject constructor(
 
     fun fetchMyCourseRead() {
         viewModelScope.launch {
-            setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses),
+                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getMyCourseReadUseCase().onSuccess { courses ->
-                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }.onFailure {
-                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses),
+                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                )
             }
         }
     }
 
     fun fetchName() {
-        setEvent(ReadContract.ReadEvent.FetchName(name = "지현"))
+        setEvent(
+            ReadContract.ReadEvent.FetchName(name = "지현"),
+            org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+        )
     }
 }

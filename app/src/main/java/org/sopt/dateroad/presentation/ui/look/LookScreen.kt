@@ -45,6 +45,7 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.ui.look.component.LookCourseCard
 import org.sopt.dateroad.presentation.util.Default
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -90,13 +91,48 @@ fun LookRoute(
             LookScreen(
                 padding = padding,
                 lookUiState = uiState,
-                onAreaButtonClicked = { viewModel.setEvent(LookContract.LookEvent.OnAreaButtonClicked) },
-                onResetButtonClicked = { viewModel.setEvent(LookContract.LookEvent.OnResetButtonClicked) },
-                onRegionBottomSheetDismissRequest = { viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetDismissRequest) },
-                onMoneyChipClicked = { moneyTagType -> viewModel.setEvent(LookContract.LookEvent.OnMoneyChipClicked(money = moneyTagType)) },
-                onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area)) },
-                onRegionBottomSheetRegionClicked = { region: RegionType? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region)) },
-                onRegionBottomSheetAreaClicked = { area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)) },
+                onAreaButtonClicked = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnAreaButtonClicked,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onResetButtonClicked = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnResetButtonClicked,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onRegionBottomSheetDismissRequest = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetDismissRequest,
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onMoneyChipClicked = { moneyTagType ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnMoneyChipClicked(money = moneyTagType),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onRegionBottomSheetRegionClicked = { region: RegionType? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
+                onRegionBottomSheetAreaClicked = { area: Any? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    )
+                },
                 onEnrollButtonClicked = { viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToEnroll) },
                 onCourseCardClicked = { courseId -> viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )

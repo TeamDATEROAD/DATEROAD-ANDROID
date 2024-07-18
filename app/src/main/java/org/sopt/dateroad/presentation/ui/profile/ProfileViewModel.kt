@@ -8,6 +8,7 @@ import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -73,21 +74,26 @@ class ProfileViewModel @Inject constructor(
 
     fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic))
+            setEvent(
+                ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic),
+                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
                     SUCCESS -> setEvent(
                         ProfileContract.ProfileEvent.GetNicknameCheck(
                             loadState = LoadState.Success,
                             nicknameValidateResult = TextFieldValidateResult.Success
-                        )
+                        ),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
                     )
 
                     CONFLICT -> setEvent(
                         ProfileContract.ProfileEvent.GetNicknameCheck(
                             loadState = LoadState.Success,
                             nicknameValidateResult = TextFieldValidateResult.ConflictError
-                        )
+                        ),
+                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
                     )
                 }
             }.onFailure {
@@ -95,7 +101,8 @@ class ProfileViewModel @Inject constructor(
                     ProfileContract.ProfileEvent.GetNicknameCheck(
                         loadState = LoadState.Error,
                         nicknameValidateResult = TextFieldValidateResult.ValidationError
-                    )
+                    ),
+                    HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
                 )
             }
         }
