@@ -68,7 +68,7 @@ fun MyPageRoute(
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
-    navigateToLogin: () -> Unit,
+    navigateToLogin: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -132,7 +132,8 @@ fun MyPageRoute(
                         MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)
                     )
                 },
-                showWebView={ viewModel.setEvent(MyPageContract.MyPageEvent.OnWebViewClick)
+                showWebView = {
+                    viewModel.setEvent(MyPageContract.MyPageEvent.OnWebViewClick)
                 },
                 webViewClose = { viewModel.setEvent(MyPageContract.MyPageEvent.WebViewClose) }
             )
@@ -141,6 +142,7 @@ fun MyPageRoute(
         else -> Unit
     }
 }
+
 @Composable
 fun MyPageScreen(
     padding: PaddingValues,
