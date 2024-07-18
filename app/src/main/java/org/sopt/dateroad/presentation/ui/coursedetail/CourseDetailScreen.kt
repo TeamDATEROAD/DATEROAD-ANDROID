@@ -131,7 +131,10 @@ fun CourseDetailRoute(
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
                 onTopBarIconClicked = popBackStack,
-                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) }
+                openCourseDetail = {
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
+                    viewModel.postUsePoint(uiState.id)
+                }
             )
         }
 
@@ -225,7 +228,7 @@ fun CourseDetailScreen(
                         }
 
                         DateRoadTextTag(
-                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, courseDetailUiState.courseDetail.images.size),
+                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, pagerState.pageCount),
                             tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
                             modifier = Modifier
                                 .padding(end = 10.dp, bottom = 10.dp)

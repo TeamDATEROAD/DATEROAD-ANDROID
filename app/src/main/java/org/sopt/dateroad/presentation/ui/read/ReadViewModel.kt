@@ -24,16 +24,24 @@ class ReadViewModel @Inject constructor(
 
     fun fetchMyCourseRead() {
         viewModelScope.launch {
-            setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses)
+            )
             getMyCourseReadUseCase().onSuccess { courses ->
-                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses)
+                )
             }.onFailure {
-                setEvent(ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses)
+                )
             }
         }
     }
 
     fun fetchName() {
-        setEvent(ReadContract.ReadEvent.FetchName(name = "지현"))
+        setEvent(
+            ReadContract.ReadEvent.FetchName(name = "지현")
+        )
     }
 }

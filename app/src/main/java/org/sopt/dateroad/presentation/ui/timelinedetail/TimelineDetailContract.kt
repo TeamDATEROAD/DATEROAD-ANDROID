@@ -10,7 +10,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class TimelineDetailContract {
     data class TimelineDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val sourceScreen: Boolean = false,
+        val deleteLoadState: LoadState = LoadState.Idle,
         val showKakaoDialog: Boolean = false,
         val showDeleteBottomSheet: Boolean = false,
         val showDeleteDialog: Boolean = false,
@@ -22,10 +22,13 @@ class TimelineDetailContract {
     }
 
     sealed class TimelineDetailEvent : UiEvent {
-        data class FetchTimelineDetail(val loadState: LoadState, val dateId: Int?) : TimelineDetailEvent()
+        data class SetTimelineDetail(val loadState: LoadState, val dateDetail: DateDetail) : TimelineDetailEvent()
         data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
+        data class DeleteDate(val deleteLoadState: LoadState) : TimelineDetailEvent()
+        data class SetLoadState(val loadState: LoadState) : TimelineDetailEvent()
+        data class SetSideEffect(val sideEffect: TimelineDetailSideEffect) : TimelineDetailEvent()
         data class SetSourceScreen(val sourceScreen: Boolean) : TimelineDetailEvent()
         data class ShareKakao(val context: Context, val dateDetail: DateDetail) : TimelineDetailEvent()
     }

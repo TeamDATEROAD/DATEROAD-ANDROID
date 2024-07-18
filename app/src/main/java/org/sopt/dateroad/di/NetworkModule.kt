@@ -64,7 +64,7 @@ object NetworkModule {
     @Provides
     @DateRoad
     @Singleton
-    fun providesPingleRetrofit(
+    fun providesDateRoadRetrofit(
         okHttpClient: OkHttpClient,
         json: Json
     ): Retrofit =

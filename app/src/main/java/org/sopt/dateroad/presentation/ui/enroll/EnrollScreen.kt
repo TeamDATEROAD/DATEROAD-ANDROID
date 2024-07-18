@@ -106,7 +106,7 @@ fun EnrollRoute(
                 onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
                 onDatePickerBottomSheetButtonClick = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
                 onTimePickerBottomSheetButtonClick = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
-                onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag)) },
+                onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag.name)) },
                 onRegionBottomSheetRegionChipClick = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)) },
                 onRegionBottomSheetAreaChipClick = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
@@ -121,6 +121,8 @@ fun EnrollRoute(
             )
         }
 
+        LoadState.Success -> popBackStack()
+
         else -> Unit
     }
 
@@ -130,18 +132,18 @@ fun EnrollRoute(
                 when (page) {
                     EnrollScreenType.FIRST -> {
                         when (enrollType) {
-                            EnrollType.COURSE -> images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
-                            EnrollType.TIMELINE -> titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && startAt.isNotEmpty() && tags.isNotEmpty() && country != null && city != null
+                            EnrollType.COURSE -> enroll.images.isNotEmpty() && titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && enroll.startAt.isNotEmpty() && enroll.tags.isNotEmpty() && enroll.country != null && enroll.city != null
+                            EnrollType.TIMELINE -> titleValidateState == TextFieldValidateResult.Success && dateValidateState == TextFieldValidateResult.Success && enroll.startAt.isNotEmpty() && enroll.tags.isNotEmpty() && enroll.country != null && enroll.city != null
                         }
                     }
 
-                    EnrollScreenType.SECOND -> place.size >= 2
-                    EnrollScreenType.THIRD -> description.length >= 200 && cost.isNotEmpty()
+                    EnrollScreenType.SECOND -> enroll.places.size >= 2
+                    EnrollScreenType.THIRD -> enroll.description.length >= 200 && enroll.cost.isNotEmpty()
                 }
             )
         )
 
-        if (place.isEmpty()) viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = true))
+        if (enroll.places.isEmpty()) viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = true))
     }
 }
 
@@ -195,7 +197,7 @@ fun EnrollScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 EnrollPhotos(
                     isDeletable = enrollUiState.page == EnrollScreenType.FIRST,
-                    images = enrollUiState.images,
+                    images = enrollUiState.enroll.images,
                     onPhotoButtonClick = onPhotoButtonClick,
                     onDeleteButtonClick = onImageDeleteButtonClick
                 )
@@ -264,8 +266,8 @@ fun EnrollScreen(
             modifier = Modifier.padding(horizontal = 16.dp),
             isEnabled = enrollUiState.isEnrollButtonEnabled,
             textContent = when (enrollUiState.enrollType) {
-                EnrollType.COURSE -> if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next_with_page, enrollUiState.page.position, 3) else stringResource(id = R.string.apply)
-                EnrollType.TIMELINE -> if (enrollUiState.page == EnrollScreenType.FIRST) stringResource(id = R.string.enroll_button_text_next) else stringResource(id = R.string.apply)
+                EnrollType.COURSE -> if (enrollUiState.page != EnrollScreenType.THIRD) stringResource(id = R.string.enroll_button_text_next_with_page, enrollUiState.page.position, 3) else stringResource(id = R.string.complete)
+                EnrollType.TIMELINE -> if (enrollUiState.page == EnrollScreenType.FIRST) stringResource(id = R.string.enroll_button_text_next) else stringResource(id = R.string.complete)
             },
             onClick = onEnrollButtonClick
         )

@@ -37,5 +37,10 @@ enum class SeoulAreaType(
     ),
     GURO_GWANAK_DONGJAK(
         title = Seoul.GURO_GWANAK_DONGJAK
-    )
+    );
+
+    companion object {
+        fun String.toSeoulAreaTitle(): String = entries.find { it.name == this }?.title ?: ""
+        fun String.toSeoulAreaType() = entries.find { it.name == this }?.name
+    }
 }

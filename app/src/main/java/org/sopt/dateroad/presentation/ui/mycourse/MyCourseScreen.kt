@@ -41,7 +41,9 @@ fun MyCourseRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.setEvent(MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType))
+        viewModel.setEvent(
+            MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType)
+        )
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
