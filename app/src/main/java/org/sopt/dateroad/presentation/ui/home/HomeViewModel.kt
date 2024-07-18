@@ -135,7 +135,7 @@ class HomeViewModel @Inject constructor(
                     setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = mainDate))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Error, mainDate = MainDate()))
+                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = MainDate()))
                 }
         }
     }
@@ -154,11 +154,6 @@ class HomeViewModel @Inject constructor(
             HomeContract.HomeEvent.FetchMainDate(
                 loadState = LoadState.Success,
                 mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "성수 데이트",
-                    date = "2023.04.13",
-                    startAt = "14:00 PM"
                 )
             )
         )

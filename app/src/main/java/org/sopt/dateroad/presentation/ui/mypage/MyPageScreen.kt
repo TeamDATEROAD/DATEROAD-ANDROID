@@ -110,7 +110,7 @@ fun MyPageRoute(
                     viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
                 },
                 deleteWithdrawal = {
-                    viewModel.withdrawal(null)
+                    viewModel.withdrawal("")
                 },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
@@ -288,6 +288,7 @@ fun MyPageScreen(
                 setWithdrawalDialog(false)
             },
             onClickDismiss = {
+                Log.d("http","회원탈퇴 되냐??")
                 deleteWithdrawal()
             }
         )

@@ -35,7 +35,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeTimeLineCard(
-    mainDate: MainDate? = null,
+    mainDate: MainDate = MainDate(),
     onClick: () -> Unit = {}
 ) {
     val purple600 = DateRoadTheme.colors.purple600
@@ -51,18 +51,18 @@ fun HomeTimeLineCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(start = if (mainDate != null) 16.dp else 23.dp, end = 9.dp, top = 3.dp)
+                .padding(start = if (mainDate.dateName.isNotEmpty()) 16.dp else 23.dp, end = 9.dp, top = 3.dp)
                 .weight(4.5f),
             verticalArrangement = Arrangement.Center
         ) {
-            if (mainDate != null) {
+            if (mainDate.dateName.isNotEmpty()) {
                 DateRoadTextTag(
                     textContent = mainDate.dDay,
                     tagContentType = TagType.TIMELINE_D_DAY
                 )
             }
             Text(
-                text = mainDate?.dateName ?: stringResource(id = R.string.home_timeline_is_not),
+                text = if (mainDate.dateName.isNotEmpty()) mainDate.dateName else stringResource(id = R.string.home_timeline_is_not),
                 style = DateRoadTheme.typography.titleBold20,
                 color = DateRoadTheme.colors.white,
                 maxLines = 1,
@@ -72,14 +72,14 @@ fun HomeTimeLineCard(
             )
             Row {
                 Text(
-                    text = mainDate?.date ?: stringResource(id = R.string.home_timeline_enroll),
+                    text = if (mainDate.dateName.isNotEmpty()) mainDate.date else stringResource(id = R.string.home_timeline_enroll),
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.purple300,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
-                if (mainDate != null) {
+                if (mainDate.dateName.isNotEmpty()) {
                     Text(
                         text = mainDate.startAt,
                         style = DateRoadTheme.typography.bodyMed15,
@@ -132,7 +132,7 @@ fun HomeTimeLineCard(
         ) {
             Spacer(modifier = Modifier.height(30.dp))
             Image(
-                painter = painterResource(id = if (mainDate != null) R.drawable.ic_home_right_arrow_purple else R.drawable.ic_home_plus_purple),
+                painter = painterResource(id = if (mainDate.dateName.isNotEmpty()) R.drawable.ic_home_right_arrow_purple else R.drawable.ic_home_plus_purple),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
@@ -158,7 +158,7 @@ fun DateRoadDateSchedulePreview() {
             )
         )
         HomeTimeLineCard(
-            mainDate = null
+            mainDate = MainDate() // 빈 MainDate 객체 전달
         )
     }
 }
