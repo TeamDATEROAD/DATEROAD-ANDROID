@@ -81,7 +81,7 @@ class EnrollViewModel @Inject constructor(
                     enroll = currentState.enroll.copy(date = event.date),
                     dateValidateState = when {
                         event.date.isEmpty() -> TextFieldValidateResult.Basic
-                        LocalDate.parse(event.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
+                        currentState.enrollType == EnrollType.COURSE && LocalDate.parse(event.date, DateTimeFormatter.ofPattern(DatePicker.DATE_PATTERN)).isAfter(LocalDate.now()) -> TextFieldValidateResult.ValidationError
                         else -> TextFieldValidateResult.Success
                     },
                     isDatePickerBottomSheetOpen = false
