@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.usecase.ClearUserInfoUseCase
 import org.sopt.dateroad.domain.usecase.DeleteSignOutUseCase
 import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
@@ -12,6 +13,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
+    private val clearUserInfoUseCase: ClearUserInfoUseCase,
     private val deleteWithdrawUserUseCase: DeleteWithdrawUseCase,
     private val deleteSignOutUseCase: DeleteSignOutUseCase,
     private val getUserUseCase: GetUserUseCase
@@ -49,6 +51,7 @@ class MyPageViewModel @Inject constructor(
             setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Loading))
             deleteSignOutUseCase().onSuccess {
                 setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Success))
+                clearUserInfoUseCase()
             }.onFailure {
                 setEvent(MyPageContract.MyPageEvent.DeleteLogout(showLogoutDialog = false, deleteSignOutLoadState = LoadState.Error))
             }
@@ -60,6 +63,7 @@ class MyPageViewModel @Inject constructor(
             setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {
                 setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
+                clearUserInfoUseCase()
             }.onFailure {
                 setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error))
             }
