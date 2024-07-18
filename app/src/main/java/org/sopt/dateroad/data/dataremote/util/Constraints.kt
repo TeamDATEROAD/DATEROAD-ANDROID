@@ -1,7 +1,7 @@
 package org.sopt.dateroad.data.dataremote.util
 
 object ApiConstraints {
-    const val FORM_DATA_IMAGE = "image"
+    const val FORM_DATA_IMAGE = "images"
     const val TEXT_PLANE = "text/plain"
     const val API = "api"
     const val VERSION = "v1"
@@ -20,6 +20,10 @@ object ApiConstraints {
     const val COST = "cost"
     const val SORT_BY = "sortBy"
     const val POINTS = "points"
+    const val IMAGES = "images"
+    const val COURSE = "course"
+    const val TAGS = "tags"
+    const val PLACES = "places"
     const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
     const val ADVERTISEMENT_ID = "advId"
