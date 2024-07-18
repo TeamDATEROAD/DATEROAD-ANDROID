@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -38,9 +37,6 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Advertisement
-import org.sopt.dateroad.domain.model.Course
-import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
@@ -54,7 +50,6 @@ import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColor
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
-import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
