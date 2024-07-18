@@ -10,19 +10,15 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DATE_ACCESS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.MAIN
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.POINTS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
-import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USER_ID
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface UserPointService {
     @GET("$API/$VERSION/$USERS/$MAIN")
-    suspend fun getUserPoint(
-        @Query(USER_ID) userId: Int
-    ): ResponseUserPointDto
+    suspend fun getUserPoint(): ResponseUserPointDto
 
     @GET("$API/$VERSION/$POINTS")
     suspend fun getPointHistory(): ResponsePointHistoryDto
