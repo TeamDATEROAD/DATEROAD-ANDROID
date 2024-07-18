@@ -60,20 +60,21 @@ class TimelineDetailViewModel @Inject constructor(
 
     fun shareKakao(context: Context, dateDetail: DateDetail) {
         val templateId = 109999
-        val templateArgs = mapOf(
-            "userName" to "이현진",
-            "name_1" to (dateDetail.places[0].title),
-            "duration_1" to (dateDetail.places[0].duration),
-            "name_2" to (dateDetail.places[1].title),
-            "duration_2" to (dateDetail.places[1].duration),
-            "name_3" to (dateDetail.places[2].title),
-            "duration_3" to (dateDetail.places[2].duration),
-            "name_4" to (dateDetail.places[3].title),
-            "duration_4" to (dateDetail.places[3].duration),
-            "name_5" to (dateDetail.places[4].title),
-            "duration_5" to (dateDetail.places[4].duration),
-            "startAt" to dateDetail.startAt
-        )
+        val templateArgs = mutableMapOf<String, String>()
+
+        templateArgs["userName"] = "이현진"
+        templateArgs["startAt"] = dateDetail.startAt
+
+        dateDetail.places.forEachIndexed { index, place ->
+            if (index < 5) {
+                templateArgs["name${index + 1}"] = place.title
+                templateArgs["duration${index + 1}"] = place.duration
+            }
+            Log.d("kakao", "Index: $index, Title: ${place.title}, Duration: ${place.duration}")
+        }
+
+        // Log the templateArgs to verify they are correct
+        Log.d("templateArgs", templateArgs.toString())
 
         if (ShareClient.instance.isKakaoTalkSharingAvailable(context)) {
             // 카카오톡으로 카카오톡 공유 가능

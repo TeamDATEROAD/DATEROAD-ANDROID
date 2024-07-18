@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
+import android.content.Context
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
