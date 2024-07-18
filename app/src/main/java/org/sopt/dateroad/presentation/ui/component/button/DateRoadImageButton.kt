@@ -43,6 +43,25 @@ fun DateRoadImageButton(
     }
 }
 
+@Composable
+fun CourseDetailLikeButton(
+    isLiked: Boolean,
+    onLikeButtonClicked: () -> Unit
+) {
+    DateRoadImageButton(
+        iconResId = R.drawable.ic_coures_detail_heart_default,
+        enabledContentColor = DateRoadTheme.colors.purple600,
+        disabledContentColor = DateRoadTheme.colors.gray200,
+        enabledBackgroundColor = DateRoadTheme.colors.gray100,
+        disabledBackgroundColor = DateRoadTheme.colors.gray100,
+        isEnabled = isLiked,
+        onClick = onLikeButtonClicked,
+        cornerRadius = 14.dp,
+        paddingHorizontal = 23.dp,
+        paddingVertical = 18.dp
+    )
+}
+
 @Preview
 @Composable
 fun DateRoadImageButtonPreview() {
@@ -75,6 +94,10 @@ fun DateRoadImageButtonPreview() {
                 cornerRadius = 44.dp,
                 paddingHorizontal = 12.dp,
                 paddingVertical = 12.dp
+            )
+            CourseDetailLikeButton(
+                isLiked = true,
+                onLikeButtonClicked = { }
             )
         }
     }

@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -46,6 +47,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.CourseDetail
+import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.ChipType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
@@ -54,9 +57,9 @@ import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
+import org.sopt.dateroad.presentation.ui.component.button.CourseDetailLikeButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
-import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
@@ -67,6 +70,7 @@ import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfo
 import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -490,17 +494,9 @@ fun CourseDetailScreen(
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 Row {
-                    DateRoadImageButton(
-                        iconResId = R.drawable.ic_coures_detail_heart_default,
-                        enabledContentColor = DateRoadTheme.colors.purple600,
-                        disabledContentColor = DateRoadTheme.colors.gray200,
-                        enabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        disabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        isEnabled = courseDetailUiState.courseDetail.isUserLiked,
-                        onClick = onLikeButtonClicked,
-                        cornerRadius = 14.dp,
-                        paddingHorizontal = 23.dp,
-                        paddingVertical = 18.dp
+                    CourseDetailLikeButton(
+                        isLiked = courseDetailUiState.courseDetail.isUserLiked,
+                        onLikeButtonClicked = onLikeButtonClicked
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     DateRoadBasicButton(
@@ -566,4 +562,66 @@ fun CourseDetailScreen(
             dismissEditBottomSheet()
         }
     )
+}
+
+@Composable
+fun CourseDetailScreenP() {
+    val dummyCourseDetail = CourseDetailContract.CourseDetailUiState(
+        loadState = LoadState.Success,
+        courseDetailType = CourseDetailType.COURSE,
+        courseDetail = CourseDetail(
+            courseId = 1,
+            title = "Sample Course",
+            description = "This is a sample course description.",
+            totalTime = "4 hours",
+            totalCost = "$100",
+            city = "Seoul",
+            images = listOf(
+                "https://via.placeholder.com/300",
+                "https://via.placeholder.com/300"
+            ),
+            tags = listOf("TAG1", "TAG2"),
+            places = listOf(
+                Place(
+                    title = "Place 1",
+                    duration = "1"
+                ),
+                Place(
+                    title = "Place 2",
+                    duration = "2"
+                )
+            ),
+            isCourseMine = true,
+            isAccess = true,
+            isUserLiked = false,
+            like = 10,
+            free = 2,
+            totalPoint = 30
+        )
+    )
+
+    CourseDetailScreen(
+        courseDetailUiState = dummyCourseDetail,
+        onDialogPointLack = {},
+        dismissDialogPointLack = {},
+        onDialogLookedForFree = {},
+        dismissDialogLookedForFree = {},
+        onDialogLookedByPoint = {},
+        dismissDialogLookedByPoint = {},
+        onLikeButtonClicked = {},
+        onDeleteButtonClicked = {},
+        onEditBottomSheet = {},
+        dismissEditBottomSheet = {},
+        enrollSchedule = {},
+        onTopBarIconClicked = {},
+        openCourseDetail = {}
+    )
+}
+
+@Preview
+@Composable
+fun CourseDetailScreenPreview() {
+    DATEROADTheme {
+        CourseDetailScreenP()
+    }
 }
