@@ -158,7 +158,7 @@ fun DateRoadDateSchedulePreview() {
             )
         )
         HomeTimeLineCard(
-            mainDate = MainDate() // 빈 MainDate 객체 전달
+            mainDate = MainDate()
         )
     }
 }

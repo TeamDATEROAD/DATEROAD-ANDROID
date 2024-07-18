@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.profile
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -75,10 +74,9 @@ fun ProfileRoute(
     LaunchedEffect(uiState.signUpLoadState) {
         when (uiState.signUpLoadState) {
             LoadState.Success -> {
-                Log.d("signUpTest", "navigateToHome")
                 navigationToHome()
             }
-            else -> Log.d("signUpTest", "SignUpError")
+            else -> Unit
         }
     }
 
@@ -100,11 +98,9 @@ fun ProfileRoute(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             }
-            Log.d("image", "imageUrl : ${uiState.signUp.image}")
         },
         deletePhoto = {
             viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = ""))
-            Log.d("image", "imageUrl : ${uiState.signUp.image}")
         }
     )
 
