@@ -252,7 +252,6 @@ fun MyPageScreen(
                             MyPageMenuType.POINT_SYSTEM -> navigateToPointGuide()
                             MyPageMenuType.QUESTION -> showWebView(true)
                             MyPageMenuType.LOGOUT -> setLogoutDialog(true)
-                            else -> Unit
                         }
                     }
                 )
