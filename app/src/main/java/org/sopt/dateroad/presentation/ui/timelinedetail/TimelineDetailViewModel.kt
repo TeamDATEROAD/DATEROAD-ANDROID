@@ -13,13 +13,15 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
+import org.sopt.dateroad.domain.usecase.GetUserIdUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class TimelineDetailViewModel @Inject constructor(
     private val deleteDateUseCase: DeleteDateUseCase,
-    private val getDateDetailUseCase: GetDateDetailUseCase
+    private val getDateDetailUseCase: GetDateDetailUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase
 ) : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
     override fun createInitialState(): TimelineDetailContract.TimelineDetailUiState = TimelineDetailContract.TimelineDetailUiState()
 
@@ -62,7 +64,7 @@ class TimelineDetailViewModel @Inject constructor(
         val templateId = 109999
         val templateArgs = mutableMapOf<String, String>()
 
-        templateArgs["userName"] = "이현진"
+        templateArgs["userName"] = getUserIdUseCase()
         templateArgs["startAt"] = dateDetail.startAt
 
         dateDetail.places.forEachIndexed { index, place ->
@@ -70,22 +72,15 @@ class TimelineDetailViewModel @Inject constructor(
                 templateArgs["name${index + 1}"] = place.title
                 templateArgs["duration${index + 1}"] = place.duration
             }
-            Log.d("kakao", "Index: $index, Title: ${place.title}, Duration: ${place.duration}")
         }
-
-        // Log the templateArgs to verify they are correct
-        Log.d("templateArgs", templateArgs.toString())
 
         if (ShareClient.instance.isKakaoTalkSharingAvailable(context)) {
             // 카카오톡으로 카카오톡 공유 가능
             ShareClient.instance.shareCustom(context, templateId.toLong(), templateArgs) { sharingResult, error ->
-                if (error != null) {
-                    Log.e("KakaoShare", "카카오톡 공유 실패", error)
-                } else if (sharingResult != null) {
-                    Log.d("KakaoShare", "카카오톡 공유 성공 ${sharingResult.intent}")
+                if (sharingResult != null) {
                     context.startActivity(sharingResult.intent)
 
-                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우
                     Log.w("KakaoShare", "Warning Msg: ${sharingResult.warningMsg}")
                     Log.w("KakaoShare", "Argument Msg: ${sharingResult.argumentMsg}")
                 }
