@@ -23,8 +23,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
@@ -46,6 +44,8 @@ import org.sopt.dateroad.presentation.util.TimePicker
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun EnrollRoute(
@@ -60,7 +60,7 @@ fun EnrollRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        viewModel.setEvent(EnrollContract.EnrollEvent.SetImage(images = listOf(uri.toString())))
+        if (uri != null) viewModel.setEvent(EnrollContract.EnrollEvent.SetImage(images = listOf(uri.toString())))
     }
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_ITEMS)) { uris: List<Uri> ->
@@ -77,6 +77,7 @@ fun EnrollRoute(
                 EnrollType.COURSE -> {
                     viewModel.fetchDateDetail(dateId = id)
                 }
+
                 EnrollType.TIMELINE -> {
                     viewModel.fetchCourseDetail(courseId = id)
                 }
