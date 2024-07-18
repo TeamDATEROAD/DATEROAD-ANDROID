@@ -5,10 +5,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.AdvertisementDetail
+import org.sopt.dateroad.domain.model.UsePoint
 import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
+import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -17,7 +19,8 @@ class CourseDetailViewModel @Inject constructor(
     private val deleteCourseUseCase: DeleteCourseUseCase,
     private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
-    private val postCourseLikeUseCase: PostCourseLikeUseCase
+    private val postCourseLikeUseCase: PostCourseLikeUseCase,
+    private val postUsePointUseCase: PostUsePointUseCase
 ) : BaseViewModel<CourseDetailContract.CourseDetailUiState, CourseDetailContract.CourseDetailSideEffect, CourseDetailContract.CourseDetailEvent>() {
     override fun createInitialState(): CourseDetailContract.CourseDetailUiState = CourseDetailContract.CourseDetailUiState()
 
@@ -40,6 +43,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = false, like = courseDetail.like - 1)) }
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(loadState = event.loadState, courseDetail = courseDetail.copy(isUserLiked = true, like = courseDetail.like + 1)) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
+            is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(usePointLoadState = usePointLoadState) }
         }
     }
 
@@ -87,6 +91,17 @@ class CourseDetailViewModel @Inject constructor(
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success))
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error))
+            }
+        }
+    }
+
+    fun postUsePoint(courseId: Int) {
+        viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading))
+            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(50,"POINT_USED","포인트 사용")).onSuccess {
+                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error))
             }
         }
     }
