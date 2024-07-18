@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -35,6 +36,12 @@
             android:name="io.sentry.traces.profiling.sample-rate"
             android:value="1.0" />
 
+        <!-- Kakao SDK configuration -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
+
+        <!-- Kakao Login -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -48,6 +55,7 @@
             </intent-filter>
         </activity>
 
+        <!-- Main Activity -->
         <activity
             android:name=".presentation.ui.navigator.MainActivity"
             android:exported="true"
@@ -59,6 +67,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Kakao Talk Sharing -->
+        <activity
+            android:name=".DateRoadApp"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="kakaolink"
+                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY_MANIFEST}" />
+            </intent-filter>
+        </activity>
     </application>
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
 </manifest>

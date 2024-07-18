@@ -109,7 +109,16 @@ dependencies {
 
     // Kakao
     implementation(libs.bundles.kakao)
-    implementation("com.kakao.sdk:v2-user:2.20.3")
+    implementation(libs.kakao.v2.user)
+    implementation(libs.v2.share.v2150)
+    implementation(libs.v2.all) // 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation(libs.v2.user.v2203) // 카카오 로그인 API 모듈
+    implementation(libs.v2.share) // 카카오톡 공유 API 모듈
+    implementation(libs.v2.talk) // 카카오톡 채널, 카카오톡 소셜, 카카오톡 메시지 API 모듈
+    implementation(libs.v2.friend) // 피커 API 모듈
+    implementation(libs.v2.navi) // 카카오내비 API 모듈
+    implementation(libs.v2.cert) // 카카오톡 인증 서비스 API 모듈
+    implementation (libs.v2.link.rx)
 
     // View Pager
     implementation(libs.bundles.pager)

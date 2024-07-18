@@ -1,24 +1,25 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.share.WebSharerClient
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.usecase.DeleteDateUseCase
 import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class TimelineDetailViewModel @Inject constructor(
     private val deleteDateUseCase: DeleteDateUseCase,
-    private val getDateDetailUseCase: GetDateDetailUseCase,
+    private val getDateDetailUseCase: GetDateDetailUseCase
 ) : BaseViewModel<TimelineDetailContract.TimelineDetailUiState, TimelineDetailContract.TimelineDetailSideEffect, TimelineDetailContract.TimelineDetailEvent>() {
     override fun createInitialState(): TimelineDetailContract.TimelineDetailUiState = TimelineDetailContract.TimelineDetailUiState()
 

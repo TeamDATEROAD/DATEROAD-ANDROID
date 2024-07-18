@@ -2,6 +2,15 @@
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
+v2All = "2.20.3"
+v2Cert = "2.20.3"
+v2Friend = "2.20.3"
+v2LinkRx = "2.4.2"
+v2Navi = "2.20.3"
+v2Share = "2.20.3"
+v2ShareVersion = "2.15.0"
+v2Talk = "2.20.3"
+v2User = "2.20.3"
 versionCode = "1"
 versionName = "1.0.0"
 jvmTarget = "1.8"
@@ -55,6 +64,12 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+kakao-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+kakao-share = { group = "com.kakao.sdk", name = "v2-share", version.ref = "kakao" }
+kakao-talk = { group = "com.kakao.sdk", name = "v2-talk", version.ref = "kakao" }
+kakao-friend = { group = "com.kakao.sdk", name = "v2-friend", version.ref = "kakao" }
+kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" }
+kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
 
 # Debug
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -100,6 +115,15 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+v2-all = { module = "com.kakao.sdk:v2-all", version.ref = "v2All" }
+v2-cert = { module = "com.kakao.sdk:v2-cert", version.ref = "v2Cert" }
+v2-link-rx = { module = "com.kakao.sdk:v2-link-rx", version.ref = "v2LinkRx" }
+v2-navi = { module = "com.kakao.sdk:v2-navi", version.ref = "v2Navi" }
+v2-friend = { module = "com.kakao.sdk:v2-friend", version.ref = "v2Friend" }
+v2-share = { module = "com.kakao.sdk:v2-share", version.ref = "v2Share" }
+v2-share-v2150 = { module = "com.kakao.sdk:v2-share", version.ref = "v2ShareVersion" }
+v2-talk = { module = "com.kakao.sdk:v2-talk", version.ref = "v2Talk" }
+v2-user-v2203 = { module = "com.kakao.sdk:v2-user", version.ref = "v2User" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -154,7 +178,9 @@ hilt = [
 ]
 
 kakao = [
-    "kakao-v2-user"
+    "kakao-v2-user",
+    "kakao-share",
+    "kakao-user", "kakao-share", "kakao-talk", "kakao-friend", "kakao-navi", "kakao-cert"
 ]
 
 pager = [
