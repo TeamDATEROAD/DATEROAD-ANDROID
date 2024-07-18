@@ -63,7 +63,11 @@ fun PointHistoryRoute(
             PointHistoryScreen(
                 padding = padding,
                 pointHistoryUiState = uiState,
-                onTabBarClicked = { pointHistoryTabType -> viewModel.setEvent(PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType)) },
+                onTabBarClicked = { pointHistoryTabType ->
+                    viewModel.setEvent(
+                        PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType)
+                    )
+                },
                 onTopBarIconClicked = { viewModel.setSideEffect(PointHistoryContract.PointHistorySideEffect.PopBackStack) }
             )
         }

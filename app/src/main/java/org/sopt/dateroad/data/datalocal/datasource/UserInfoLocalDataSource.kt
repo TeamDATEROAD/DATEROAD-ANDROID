@@ -4,5 +4,7 @@ interface UserInfoLocalDataSource {
     var isLogin: Boolean
     var accessToken: String
     var refreshToken: String
+    var nickname: String
+    var remainingPoints: Int
     fun clear()
 }

@@ -50,10 +50,10 @@ object ServiceModule {
         retrofit.create(UserPointService::class.java)
 
     @Provides
-    fun providesProfileService(@DateRoad retrofit: Retrofit): ProfileService =
-        retrofit.create(ProfileService::class.java)
-
-    @Provides
     fun provideUserInfoRepository(userInfoLocalDataSource: UserInfoLocalDataSource): UserInfoRepository =
         UserInfoRepositoryImpl(userInfoLocalDataSource)
+
+    @Provides
+    fun providesProfileService(@DateRoad retrofit: Retrofit): ProfileService =
+        retrofit.create(ProfileService::class.java)
 }

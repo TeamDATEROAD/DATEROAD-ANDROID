@@ -10,7 +10,20 @@ class UserInfoRepositoryImpl @Inject constructor(
     override fun setIsLogin(isLogin: Boolean) {
         userInfoLocalDataSource.isLogin = isLogin
     }
+
+    override fun setUserId(userId: String) {
+        userInfoLocalDataSource.nickname = userId
+    }
+
+    override fun setRemainingPoints(remainingPoints: Int) {
+        userInfoLocalDataSource.remainingPoints = remainingPoints
+    }
+
     override fun getIsLogin(): Boolean = userInfoLocalDataSource.isLogin
+
+    override fun getUserId(): String = userInfoLocalDataSource.nickname
+
+    override fun getRemainingPoints(): Int = userInfoLocalDataSource.remainingPoints
 
     override fun setAccessToken(accessToken: String) {
         userInfoLocalDataSource.accessToken = accessToken

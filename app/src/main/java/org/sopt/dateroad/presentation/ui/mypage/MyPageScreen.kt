@@ -115,9 +115,21 @@ fun MyPageRoute(
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
-                setSoonDialog = { showSoonDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)) },
-                setLogoutDialog = { showLogoutDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)) },
-                setWithdrawalDialog = { showWithdrawalDialog -> viewModel.setEvent(MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)) }
+                setSoonDialog = { showSoonDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)
+                    )
+                },
+                setLogoutDialog = { showLogoutDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)
+                    )
+                },
+                setWithdrawalDialog = { showWithdrawalDialog ->
+                    viewModel.setEvent(
+                        MyPageContract.MyPageEvent.SetWithdrawalDialog(showWithdrawalDialog = showWithdrawalDialog)
+                    )
+                }
             )
         }
 

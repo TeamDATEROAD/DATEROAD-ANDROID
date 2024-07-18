@@ -105,11 +105,6 @@ fun CourseDetailRoute(
         LoadState.Success -> popBackStack()
         else -> Unit
     }
-    when (uiState.deleteLoadState) {
-        LoadState.Success -> {
-        }
-        else -> Unit
-    }
 
     when (uiState.loadState) {
         LoadState.Success -> {

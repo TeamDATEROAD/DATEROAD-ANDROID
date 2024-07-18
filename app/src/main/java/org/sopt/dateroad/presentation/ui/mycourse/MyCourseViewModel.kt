@@ -26,22 +26,34 @@ class MyCourseViewModel @Inject constructor(
 
     fun fetchMyCourseRead() {
         viewModelScope.launch {
-            setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses)
+            )
             getMyCourseReadUseCase().onSuccess { courses ->
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses)
+                )
             }.onFailure {
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses)
+                )
             }
         }
     }
 
     fun fetchMyCourseEnroll() {
         viewModelScope.launch {
-            setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Loading, courses = currentState.courses))
+            setEvent(
+                MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Loading, courses = currentState.courses)
+            )
             getMyCourseEnrollUseCase().onSuccess { courses ->
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Success, courses = courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Success, courses = courses)
+                )
             }.onFailure {
-                setEvent(MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Error, courses = currentState.courses))
+                setEvent(
+                    MyCourseContract.MyCourseEvent.FetchMyCourseEnroll(loadState = LoadState.Error, courses = currentState.courses)
+                )
             }
         }
     }

@@ -50,44 +50,68 @@ class CourseDetailViewModel @Inject constructor(
 
     fun fetchAdvertisementDetail(advertisementId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Loading, advertisementDetail = currentState.advertisementDetail))
+            setEvent(
+                CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Loading, advertisementDetail = currentState.advertisementDetail)
+            )
             getAdvertisementDetailUseCase(advertisementId = advertisementId).onSuccess { advertisementDetail ->
-                setEvent(CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Success, advertisementDetail = advertisementDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Success, advertisementDetail = advertisementDetail)
+                )
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Error, advertisementDetail = currentState.advertisementDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Error, advertisementDetail = currentState.advertisementDetail)
+                )
             }
         }
     }
 
     fun deleteCourseLike(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
+            setEvent(
+                CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail)
+            )
             deleteCourseLikeUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = false, like = currentState.courseDetail.like - 1)))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = false, like = currentState.courseDetail.like - 1))
+                )
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.DeleteCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail)
+                )
             }
         }
     }
 
     fun fetchCourseDetail(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
+            setEvent(
+                CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Loading, courseDetail = currentState.courseDetail)
+            )
             getCourseDetailUseCase(courseId = courseId).onSuccess { courseDetail ->
-                setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Success, courseDetail = courseDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Success, courseDetail = courseDetail)
+                )
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.FetchCourseDetail(loadState = LoadState.Error, courseDetail = currentState.courseDetail)
+                )
             }
         }
     }
 
     fun postCourseLike(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail))
+            setEvent(
+                CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Loading, courseDetail = currentState.courseDetail)
+            )
             postCourseLikeUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = true, like = currentState.courseDetail.like + 1)))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Success, courseDetail = currentState.courseDetail.copy(isUserLiked = true, like = currentState.courseDetail.like + 1))
+                )
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.PostCourseLike(loadState = LoadState.Error, courseDetail = currentState.courseDetail)
+                )
             }
         }
     }
@@ -105,11 +129,17 @@ class CourseDetailViewModel @Inject constructor(
 
     fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
-            setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading, deleteLoadState = LoadState.Loading))
+            setEvent(
+                CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading, deleteLoadState = LoadState.Loading)
+            )
             deleteCourseUseCase(courseId = courseId).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success, deleteLoadState = LoadState.Success))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success, deleteLoadState = LoadState.Success)
+                )
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error, deleteLoadState = LoadState.Error))
+                setEvent(
+                    CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error, deleteLoadState = LoadState.Error)
+                )
             }
         }
     }

@@ -24,11 +24,17 @@ class PointHistoryViewModel @Inject constructor(
 
     fun fetchPointHistory() {
         viewModelScope.launch {
-            setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Loading, pointHistory = currentState.pointHistory))
+            setEvent(
+                PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Loading, pointHistory = currentState.pointHistory)
+            )
             getPointHistoryUseCase().onSuccess { pointHistory ->
-                setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Success, pointHistory = pointHistory))
+                setEvent(
+                    PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Success, pointHistory = pointHistory)
+                )
             }.onFailure {
-                setEvent(PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Error, pointHistory = currentState.pointHistory))
+                setEvent(
+                    PointHistoryContract.PointHistoryEvent.FetchPointHistory(loadState = LoadState.Error, pointHistory = currentState.pointHistory)
+                )
             }
         }
     }

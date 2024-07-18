@@ -6,5 +6,5 @@ import org.sopt.dateroad.domain.model.UserPoint
 fun ResponseUserPointDto.toDomain(): UserPoint = UserPoint(
     name = this.name,
     point = this.point.toPoint(),
-    imageUrl = this.imageUrl
+    imageUrl = this.image
 )

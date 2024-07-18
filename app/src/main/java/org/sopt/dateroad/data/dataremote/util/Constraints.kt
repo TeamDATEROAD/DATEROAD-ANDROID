@@ -26,6 +26,8 @@ object ApiConstraints {
     const val COURSE = "course"
     const val TAGS = "tags"
     const val PLACES = "places"
+    const val MAIN = "main"
+    const val USER_ID = "userId"
     const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
     const val SIGN_IN = "signin"

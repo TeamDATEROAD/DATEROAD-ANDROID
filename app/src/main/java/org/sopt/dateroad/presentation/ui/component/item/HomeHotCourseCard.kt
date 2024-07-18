@@ -37,6 +37,7 @@ fun HomeHotCourseCard(
 ) {
     Column(
         modifier = Modifier
+            .padding(start = 16.dp)
             .background(DateRoadTheme.colors.white)
             .width(230.dp)
             .noRippleClickable(onClick = { onClick(course.courseId) })

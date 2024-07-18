@@ -90,13 +90,41 @@ fun LookRoute(
             LookScreen(
                 padding = padding,
                 lookUiState = uiState,
-                onAreaButtonClicked = { viewModel.setEvent(LookContract.LookEvent.OnAreaButtonClicked) },
-                onResetButtonClicked = { viewModel.setEvent(LookContract.LookEvent.OnResetButtonClicked) },
-                onRegionBottomSheetDismissRequest = { viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetDismissRequest) },
-                onMoneyChipClicked = { moneyTagType -> viewModel.setEvent(LookContract.LookEvent.OnMoneyChipClicked(money = moneyTagType)) },
-                onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area)) },
-                onRegionBottomSheetRegionClicked = { region: RegionType? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region)) },
-                onRegionBottomSheetAreaClicked = { area: Any? -> viewModel.setEvent(LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)) },
+                onAreaButtonClicked = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnAreaButtonClicked
+                    )
+                },
+                onResetButtonClicked = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnResetButtonClicked
+                    )
+                },
+                onRegionBottomSheetDismissRequest = {
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetDismissRequest
+                    )
+                },
+                onMoneyChipClicked = { moneyTagType ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnMoneyChipClicked(money = moneyTagType)
+                    )
+                },
+                onRegionBottomSheetButtonClicked = { region: RegionType?, area: Any? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetButtonClicked(region = region, area = area)
+                    )
+                },
+                onRegionBottomSheetRegionClicked = { region: RegionType? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetRegionClicked(region = region)
+                    )
+                },
+                onRegionBottomSheetAreaClicked = { area: Any? ->
+                    viewModel.setEvent(
+                        LookContract.LookEvent.OnRegionBottomSheetAreaClicked(area = area)
+                    )
+                },
                 onEnrollButtonClicked = { viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToEnroll) },
                 onCourseCardClicked = { courseId -> viewModel.setSideEffect(LookContract.LookSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )

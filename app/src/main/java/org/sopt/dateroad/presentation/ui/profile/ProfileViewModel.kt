@@ -72,7 +72,9 @@ class ProfileViewModel @Inject constructor(
 
     fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic))
+            setEvent(
+                ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic)
+            )
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
                     SUCCESS -> setEvent(
