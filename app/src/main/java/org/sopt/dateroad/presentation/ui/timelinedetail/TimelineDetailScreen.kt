@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,7 +56,6 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun TimelineDetailRoute(
-    padding: PaddingValues,
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int) -> Unit,
     dateId: Int,
@@ -85,7 +83,6 @@ fun TimelineDetailRoute(
     when (uiState.loadState) {
         LoadState.Success -> {
             TimelineDetailScreen(
-                padding = padding,
                 uiState = uiState,
                 dateType = dateType,
                 onTopBarItemClick = popBackStack,
@@ -111,7 +108,6 @@ fun TimelineDetailRoute(
 
 @Composable
 fun TimelineDetailScreen(
-    padding: PaddingValues,
     uiState: TimelineDetailContract.TimelineDetailUiState,
     dateType: DateType,
     onTopBarItemClick: () -> Unit = {},
@@ -325,6 +321,7 @@ fun TimelineDetailScreen(
             title = stringResource(id = R.string.timeline_detail_bottom_sheet_title),
             isButtonEnabled = false,
             buttonText = stringResource(id = R.string.dialog_cancel),
+            onButtonClick = { setShowDeleteBottomSheet(false) },
             itemList = listOf(
                 stringResource(id = R.string.timeline_detail_delete) to { setShowDeleteDialog(true) }
             ),
