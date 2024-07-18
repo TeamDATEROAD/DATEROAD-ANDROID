@@ -42,5 +42,6 @@ enum class SeoulAreaType(
     companion object {
         fun String.toSeoulAreaTitle(): String = entries.find { it.name == this }?.title ?: ""
         fun String.toSeoulAreaType(): SeoulAreaType? = entries.find { it.name == this }
+        fun String.fromTitleToSeoulAreaType(): SeoulAreaType? = entries.find { it.title == this }
     }
 }

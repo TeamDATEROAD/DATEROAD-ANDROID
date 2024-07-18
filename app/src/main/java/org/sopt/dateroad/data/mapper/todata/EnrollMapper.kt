@@ -3,7 +3,7 @@ package org.sopt.dateroad.data.mapper.todata
 import org.sopt.dateroad.data.dataremote.model.request.RequestCourseDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
 import org.sopt.dateroad.domain.model.Enroll
-import org.sopt.dateroad.domain.util.toAreaTitle
+import org.sopt.dateroad.data.mapper.toEntity.toAreaTitle
 
 fun Enroll.toDateData(): RequestDateDto = RequestDateDto(
     title = this.title,

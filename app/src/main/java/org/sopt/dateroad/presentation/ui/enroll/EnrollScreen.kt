@@ -67,7 +67,6 @@ fun EnrollRoute(
     LaunchedEffect(Unit) {
         viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
         if (id != null) {
-            Log.e("ㅋㅋ", "fd")
             when (uiState.enrollType) {
                 EnrollType.COURSE -> viewModel.fetchDateDetail(dateId = id)
                 EnrollType.TIMELINE -> viewModel.fetchCourseDetail(courseId = id)

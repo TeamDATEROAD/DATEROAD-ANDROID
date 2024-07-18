@@ -9,6 +9,6 @@ fun CourseDetail.toEnroll() = Enroll(
     startAt = this.startAt,
     tags = this.tags,
     country = this.city.toRegionType(),
-    city = this.city.toAreaType(),
+    city = this.city.fromTitleToAreaType(),
     places = this.places
 )
