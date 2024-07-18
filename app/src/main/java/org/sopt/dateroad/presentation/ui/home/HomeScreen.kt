@@ -37,6 +37,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
@@ -75,7 +76,8 @@ fun HomeRoute(
         viewModel.fetchTopLikedCourses()
         viewModel.fetchNearestDate()
         viewModel.fetchUserName()
-        viewModel.fetchMainDate()
+        viewModel.fetchSortedCourses(SortByType.POPULAR)
+        viewModel.fetchSortedCourses(SortByType.LATEST)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

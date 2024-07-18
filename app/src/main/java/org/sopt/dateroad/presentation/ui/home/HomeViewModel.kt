@@ -6,8 +6,10 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
+import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
 import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.SetRemainingPointsUseCase
 import org.sopt.dateroad.domain.usecase.SetUserIdUseCase
@@ -16,6 +18,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val getSortedCoursesUseCase: GetSortedCoursesUseCase,
     private val getUserPointUseCase: GetUserPointUseCase,
     private val setUserIdUseCase: SetUserIdUseCase,
     private val setRemainingPointsUseCase: SetRemainingPointsUseCase,
@@ -32,10 +35,25 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchRemainingPoints -> {
                 setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
             }
-
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
             is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
+        }
+    }
+
+    fun fetchSortedCourses(sortBy: SortByType) {
+        viewModelScope.launch {
+            getSortedCoursesUseCase(sortBy)
+                .onSuccess { responseCoursesDto ->
+                    if (sortBy == SortByType.POPULAR) {
+                        setEvent(HomeContract.HomeEvent.FetchTopLikedCourses(loadState = LoadState.Success, topLikedCourses = responseCoursesDto))
+                    } else {
+                        setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Success, latestCourses = responseCoursesDto))
+                    }
+                }
+                .onFailure {
+                    setState { copy(loadState = LoadState.Error) }
+                }
         }
     }
 
@@ -145,21 +163,6 @@ class HomeViewModel @Inject constructor(
             HomeContract.HomeEvent.FetchUserName(
                 loadState = LoadState.Success,
                 userName = "이현진"
-            )
-        )
-    }
-
-    fun fetchMainDate() {
-        setEvent(
-            HomeContract.HomeEvent.FetchMainDate(
-                loadState = LoadState.Success,
-                mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "성수 데이트",
-                    date = "2023.04.13",
-                    startAt = "14:00 PM"
-                )
             )
         )
     }
