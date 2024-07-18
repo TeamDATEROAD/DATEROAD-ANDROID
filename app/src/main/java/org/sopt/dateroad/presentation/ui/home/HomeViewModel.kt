@@ -57,7 +57,7 @@ class HomeViewModel @Inject constructor(
                     setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = mainDate))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Error, mainDate = MainDate()))
+                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = MainDate()))
                 }
         }
     }
@@ -89,21 +89,6 @@ class HomeViewModel @Inject constructor(
                 }
                 .onFailure {
                     setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
-                }
-        }
-    }
-
-    fun fetchProfile() {
-        viewModelScope.launch {
-            setEvent(
-                HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = currentState.profileImageUrl)
-            )
-            getUserPointUseCase()
-                .onSuccess { userPoint ->
-                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = userPoint.imageUrl))
-                }
-                .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Error, profileImageUrl = currentState.profileImageUrl))
                 }
         }
     }
