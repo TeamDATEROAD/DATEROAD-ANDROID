@@ -121,7 +121,6 @@ class CourseDetailViewModel @Inject constructor(
             setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading))
             postUsePointUseCase(courseId = courseId, usePoint = UsePoint(50, "POINT_USED", "${currentState.courseDetail.title} 코스 열람")).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success))
-
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error))
             }

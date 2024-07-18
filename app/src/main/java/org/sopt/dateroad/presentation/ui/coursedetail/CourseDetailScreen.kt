@@ -443,23 +443,25 @@ fun CourseDetailScreen(
             }
         }
 
-        Box(modifier = Modifier.background(
-            if (isTopBarTransparent) {
-                Brush.verticalGradient(
-                    colors = listOf(
-                        DateRoadTheme.colors.black.copy(alpha = 0.22f),
-                        Color.Transparent
+        Box(
+            modifier = Modifier.background(
+                if (isTopBarTransparent) {
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            DateRoadTheme.colors.black.copy(alpha = 0.22f),
+                            Color.Transparent
+                        )
                     )
-                )
-            } else {
-                Brush.verticalGradient(
-                    colors = listOf(
-                        DateRoadTheme.colors.white,
-                        DateRoadTheme.colors.white
+                } else {
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            DateRoadTheme.colors.white,
+                            DateRoadTheme.colors.white
+                        )
                     )
-                )
-            }
-        )){
+                }
+            )
+        ) {
             DateRoadBasicTopBar(
                 title = "",
                 backGroundColor = if (isTopBarTransparent) Color.Transparent else DateRoadTheme.colors.white,
