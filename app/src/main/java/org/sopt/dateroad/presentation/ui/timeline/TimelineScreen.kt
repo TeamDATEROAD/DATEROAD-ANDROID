@@ -124,21 +124,17 @@ fun TimelineScreen(
         )
         Spacer(modifier = Modifier.height(52.dp))
 
-        if (uiState.dates.isEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+        ) {
+            if (uiState.dates.isEmpty()) {
                 DateRoadEmptyView(
+                    modifier = Modifier.fillMaxWidth(),
                     emptyViewType = EmptyViewType.TIMELINE
                 )
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-            ) {
+            } else {
                 HorizontalPager(
                     count = uiState.dates.size,
                     state = pagerState,
@@ -166,11 +162,11 @@ fun TimelineScreen(
                 )
             }
         }
+
         Column(
             modifier = Modifier
                 .padding(bottom = 40.dp)
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -209,30 +205,7 @@ fun TimelineScreenPreview() {
             uiState = TimelineContract.TimelineUiState(
                 loadState = LoadState.Success,
                 dates = listOf(
-                    Date(
-                        dateId = 1,
-                        dDay = "1",
-                        title = "데이트 일정 1",
-                        date = "JUNE.23",
-                        city = "서울",
-                        tags = listOf(DateTagType.SHOPPING)
-                    ),
-                    Date(
-                        dateId = 2,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 3,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    )
+
                 )
             ),
             pagerState = rememberPagerState(),

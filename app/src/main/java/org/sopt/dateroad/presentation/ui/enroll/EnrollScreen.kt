@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -50,7 +51,7 @@ fun EnrollRoute(
     popBackStack: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     enrollType: EnrollType,
-    courseId: Int?
+    id: Int?
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -65,6 +66,13 @@ fun EnrollRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
+        if (id != null) {
+            Log.e("ㅋㅋ", "fd")
+            when (uiState.enrollType) {
+                EnrollType.COURSE -> viewModel.fetchDateDetail(dateId = id)
+                EnrollType.TIMELINE -> viewModel.fetchCourseDetail(courseId = id)
+            }
+        }
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {

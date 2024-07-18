@@ -16,5 +16,6 @@ data class CourseDetail(
     val free: Int = 0,
     val totalPoint: Int = 0,
     val isCourseMine: Boolean = false,
-    val isUserLiked: Boolean = false
+    val isUserLiked: Boolean = false,
+    val startAt: String = ""
 )
