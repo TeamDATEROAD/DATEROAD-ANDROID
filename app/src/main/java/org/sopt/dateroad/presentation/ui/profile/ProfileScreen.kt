@@ -41,8 +41,6 @@ import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGro
 import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWithButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
-import org.sopt.dateroad.presentation.ui.enroll.EnrollContract
-import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -77,11 +75,10 @@ fun ProfileRoute(
     LaunchedEffect(uiState.signUpLoadState) {
         when (uiState.signUpLoadState) {
             LoadState.Success -> {
-                Log.d("signUpTest","navigateToHome")
+                Log.d("signUpTest", "navigateToHome")
                 navigationToHome()
             }
-            else -> Log.d("signUpTest","SignUpError")
-
+            else -> Log.d("signUpTest", "SignUpError")
         }
     }
 
@@ -103,11 +100,11 @@ fun ProfileRoute(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             }
-            Log.d("image","imageUrl : ${uiState.signUp.image}")
+            Log.d("image", "imageUrl : ${uiState.signUp.image}")
         },
         deletePhoto = {
             viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = ""))
-            Log.d("image","imageUrl : ${uiState.signUp.image}")
+            Log.d("image", "imageUrl : ${uiState.signUp.image}")
         }
     )
 
@@ -117,7 +114,6 @@ fun ProfileRoute(
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
     }
 }
-
 
 @Composable
 fun ProfileScreen(
@@ -154,7 +150,7 @@ fun ProfileScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Image(
-                painter = if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image=="null") {
+                painter = if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
                     painterResource(id = R.drawable.ic_enroll_profile_default)
                 } else {
                     rememberAsyncImagePainter(model = profileUiState.signUp.image)
@@ -218,7 +214,7 @@ fun ProfileScreen(
             }
         ),
         onDismissRequest = { onBottomSheetDismissRequest() },
-        onButtonClick = { onBottomSheetDismissRequest() },
+        onButtonClick = { onBottomSheetDismissRequest() }
 
     )
 }

@@ -9,7 +9,6 @@ import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
-import org.sopt.dateroad.presentation.ui.enroll.EnrollContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 

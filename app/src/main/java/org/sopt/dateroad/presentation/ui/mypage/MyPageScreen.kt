@@ -288,7 +288,7 @@ fun MyPageScreen(
                 setWithdrawalDialog(false)
             },
             onClickDismiss = {
-                Log.d("http","회원탈퇴 되냐??")
+                Log.d("http", "회원탈퇴 되냐??")
                 deleteWithdrawal()
             }
         )

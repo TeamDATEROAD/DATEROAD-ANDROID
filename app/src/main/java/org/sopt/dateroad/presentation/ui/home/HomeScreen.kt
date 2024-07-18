@@ -110,7 +110,7 @@ fun HomeRoute(
 
     when (uiState.loadState) {
         LoadState.Success -> {
-            Log.d("signUpTest","HomeScreenFetchSuccess")
+            Log.d("signUpTest", "HomeScreenFetchSuccess")
             HomeScreen(
                 padding = padding,
                 uiState = uiState,
@@ -122,7 +122,7 @@ fun HomeRoute(
                 navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) }
             )
         }
-        else ->  Log.d("signUpTest","HomeScreenFetchFailed")
+        else -> Log.d("signUpTest", "HomeScreenFetchFailed")
     }
 }
 
@@ -355,11 +355,11 @@ fun HomeScreenPreview() {
         advertisements = listOf(
             Advertisement(
                 advertisementId = 1,
-                thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
+                thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
             ),
             Advertisement(
                 advertisementId = 2,
-                thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp",
+                thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
 
             )
         ),

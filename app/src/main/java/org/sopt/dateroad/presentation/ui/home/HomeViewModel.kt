@@ -153,8 +153,7 @@ class HomeViewModel @Inject constructor(
         setEvent(
             HomeContract.HomeEvent.FetchMainDate(
                 loadState = LoadState.Success,
-                mainDate = MainDate(
-                )
+                mainDate = MainDate()
             )
         )
     }
