@@ -519,7 +519,7 @@ fun CourseDetailScreen(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
             onDismissRequest = { dismissDialogLookedByPoint() },
             onClickConfirm = {
-                onDialogLookedByPoint()
+                dismissDialogLookedByPoint()
                 if (courseDetailUiState.courseDetail.totalPoint < 50) {
                     onDialogPointLack()
                 } else {
