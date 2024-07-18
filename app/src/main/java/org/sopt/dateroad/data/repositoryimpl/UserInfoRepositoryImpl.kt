@@ -12,7 +12,7 @@ class UserInfoRepositoryImpl @Inject constructor(
     }
 
     override fun setUserId(userId: String) {
-        userInfoLocalDataSource.userId = userId
+        userInfoLocalDataSource.nickname = userId
     }
 
     override fun setRemainingPoints(remainingPoints: Int) {
@@ -21,7 +21,7 @@ class UserInfoRepositoryImpl @Inject constructor(
 
     override fun getIsLogin(): Boolean = userInfoLocalDataSource.isLogin
 
-    override fun getUserId(): String = userInfoLocalDataSource.userId
+    override fun getUserId(): String = userInfoLocalDataSource.nickname
 
     override fun getRemainingPoints(): Int = userInfoLocalDataSource.remainingPoints
 

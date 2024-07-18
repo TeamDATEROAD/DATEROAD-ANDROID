@@ -50,14 +50,12 @@ fun SignInRoute(
         onSignInClicked = { viewModel.setSideEffect(SignInContract.SignInSideEffect.NavigateToOnboarding) },
         onWebViewClicked = {
             viewModel.setEvent(
-                SignInContract.SignInEvent.OnWebViewClick,
-                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                SignInContract.SignInEvent.OnWebViewClick
             )
         },
         webViewClose = {
             viewModel.setEvent(
-                SignInContract.SignInEvent.WebViewClose,
-                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                SignInContract.SignInEvent.WebViewClose
             )
         }
     )

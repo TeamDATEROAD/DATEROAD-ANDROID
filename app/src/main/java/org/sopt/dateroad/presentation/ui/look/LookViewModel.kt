@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.usecase.GetFilteredCourses
-import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -54,18 +53,15 @@ class LookViewModel @Inject constructor(
     fun fetchFilteredCourses(country: RegionType?, city: Any?, cost: MoneyTagType?) {
         viewModelScope.launch {
             setEvent(
-                LookContract.LookEvent.FetchCourses(loadState = LoadState.Loading, courses = currentState.courses),
-                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                LookContract.LookEvent.FetchCourses(loadState = LoadState.Loading, courses = currentState.courses)
             )
             getFilteredCourses(country = country, city = city, cost = cost).onSuccess { courses ->
                 setEvent(
-                    LookContract.LookEvent.FetchCourses(loadState = LoadState.Success, courses = courses),
-                    HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    LookContract.LookEvent.FetchCourses(loadState = LoadState.Success, courses = courses)
                 )
             }.onFailure {
                 setEvent(
-                    LookContract.LookEvent.FetchCourses(loadState = LoadState.Error, courses = currentState.courses),
-                    HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    LookContract.LookEvent.FetchCourses(loadState = LoadState.Error, courses = currentState.courses)
                 )
             }
         }

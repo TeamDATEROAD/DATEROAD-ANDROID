@@ -30,7 +30,6 @@ import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabBar
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabTitle
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
-import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.ui.pointhistory.component.PointHistoryCard
 import org.sopt.dateroad.presentation.ui.pointhistory.component.PointHistoryPointBox
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -66,8 +65,7 @@ fun PointHistoryRoute(
                 pointHistoryUiState = uiState,
                 onTabBarClicked = { pointHistoryTabType ->
                     viewModel.setEvent(
-                        PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        PointHistoryContract.PointHistoryEvent.OnTabBarClicked(pointHistoryTabType)
                     )
                 },
                 onTopBarIconClicked = { viewModel.setSideEffect(PointHistoryContract.PointHistorySideEffect.PopBackStack) }

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.presentation.ui.home.HomeContract
 
 abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event : UiEvent>() :
     ViewModel() {
@@ -35,7 +34,7 @@ abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event :
         _uiState.value = currentState.reduce()
     }
 
-    open fun setEvent(event: Event, fetchRemainingPoints: HomeContract.HomeEvent.FetchRemainingPoints) {
+    open fun setEvent(event: Event) {
         dispatchEvent(event)
     }
 

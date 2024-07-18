@@ -6,7 +6,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.DeleteWithdrawUseCase
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
-import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -32,26 +31,26 @@ class MyPageViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Loading, profile = currentState.profile), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+            setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Loading, profile = currentState.profile))
             getUserUseCase().onSuccess { profile ->
-                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = profile), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = profile))
             }.onFailure {
-                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Error, profile = currentState.profile), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Error, profile = currentState.profile))
             }
         }
     }
 
     fun deleteLogout() {
-        setEvent(MyPageContract.MyPageEvent.DeleteLogout(loadState = LoadState.Success, showLogoutDialog = false), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+        setEvent(MyPageContract.MyPageEvent.DeleteLogout(loadState = LoadState.Success, showLogoutDialog = false))
     }
 
     fun withdrawal(authCode: String?) {
         viewModelScope.launch {
-            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+            setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Loading, showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Success, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Success))
             }.onFailure {
-                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error), HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints))
+                setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(loadState = LoadState.Error, showWithdrawalDialog = false, deleteUserLoadState = LoadState.Error))
             }
         }
     }

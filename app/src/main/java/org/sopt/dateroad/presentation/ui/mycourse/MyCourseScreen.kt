@@ -42,8 +42,7 @@ fun MyCourseRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(
-            MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType),
-            org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            MyCourseContract.MyCourseEvent.SetMyCourseType(myCourseType = myCourseType)
         )
     }
 

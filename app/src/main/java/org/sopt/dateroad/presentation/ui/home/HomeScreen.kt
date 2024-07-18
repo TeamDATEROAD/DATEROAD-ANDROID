@@ -65,7 +65,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -136,7 +136,7 @@ fun HomeScreen(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit,
+    onFabClick: (EnrollType, Int?) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -300,96 +300,6 @@ fun HomeScreen(
             paddingVertical = 16.dp,
             modifier = Modifier
                 .padding(16.dp)
-        )
-    }
-}
-
-@OptIn(ExperimentalPagerApi::class)
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    DATEROADTheme {
-        HomeScreen(
-            padding = PaddingValues(0.dp),
-            navigateToPointHistory = {},
-            navigateToLook = {},
-            navigateToTimeline = {},
-            navigateToCourseDetail = { _, _ -> },
-            uiState = HomeContract.HomeUiState(
-                loadState = LoadState.Success,
-                mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "부천 데이트",
-                    month = 6,
-                    day = 23,
-                    startAt = "14:00 PM"
-                ),
-                topLikedCourses = listOf(
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "Seoul",
-                        title = "Beautiful Seoul Tour",
-                        cost = "$100",
-                        duration = "4 hours",
-                        like = "150"
-                    ),
-                    Course(
-                        courseId = 2,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "Busan",
-                        title = "Amazing Busan Trip",
-                        cost = "$120",
-                        duration = "6 hours",
-                        like = "200"
-                    )
-                ),
-                latestCourses = listOf(
-                    Course(
-                        courseId = 3,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "Incheon",
-                        title = "Incheon Day Tour",
-                        cost = "$80",
-                        duration = "5 hours",
-                        like = "100"
-                    ),
-                    Course(
-                        courseId = 4,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "Jeju",
-                        title = "Jeju Island Adventure",
-                        cost = "$150",
-                        duration = "8 hours",
-                        like = "300"
-                    ),
-                    Course(
-                        courseId = 4,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "Jeju",
-                        title = "Jeju Island Adventure",
-                        cost = "$150",
-                        duration = "8 hours",
-                        like = "300"
-                    )
-                ),
-                advertisements = listOf(
-                    Advertisement(
-                        advertisementId = 1,
-                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
-                    ),
-                    Advertisement(
-                        advertisementId = 2,
-                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
-                    )
-                ),
-                userName = "현진",
-                remainingPoints = 100,
-                currentBannerPage = 0
-            ),
-            onFabClick = { _, _ -> },
-            pagerState = rememberPagerState()
         )
     }
 }

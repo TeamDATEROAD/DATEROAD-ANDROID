@@ -25,18 +25,15 @@ class ReadViewModel @Inject constructor(
     fun fetchMyCourseRead() {
         viewModelScope.launch {
             setEvent(
-                ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses),
-                org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Loading, courses = currentState.courses)
             )
             getMyCourseReadUseCase().onSuccess { courses ->
                 setEvent(
-                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses),
-                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Success, courses = courses)
                 )
             }.onFailure {
                 setEvent(
-                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses),
-                    org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                    ReadContract.ReadEvent.FetchMyCourseRead(loadState = LoadState.Error, courses = currentState.courses)
                 )
             }
         }
@@ -44,8 +41,7 @@ class ReadViewModel @Inject constructor(
 
     fun fetchName() {
         setEvent(
-            ReadContract.ReadEvent.FetchName(name = "지현"),
-            org.sopt.dateroad.presentation.ui.home.HomeContract.HomeEvent.FetchRemainingPoints(loadState = org.sopt.dateroad.presentation.util.view.LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            ReadContract.ReadEvent.FetchName(name = "지현")
         )
     }
 }

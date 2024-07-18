@@ -37,7 +37,6 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
-import org.sopt.dateroad.presentation.ui.home.HomeContract
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.TimePicker
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -58,22 +57,19 @@ fun EnrollRoute(
 
     val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         viewModel.setEvent(
-            EnrollContract.EnrollEvent.SetImage(images = listOf(uri.toString())),
-            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            EnrollContract.EnrollEvent.SetImage(images = listOf(uri.toString()))
         )
     }
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_ITEMS)) { uris: List<Uri> ->
         viewModel.setEvent(
-            EnrollContract.EnrollEvent.SetImage(images = uris.map { it.toString() }),
-            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            EnrollContract.EnrollEvent.SetImage(images = uris.map { it.toString() })
         )
     }
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(
-            EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType),
-            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType)
         )
     }
 
@@ -96,56 +92,47 @@ fun EnrollRoute(
                 onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
                 onEnrollButtonClick = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnEnrollButtonClick,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnEnrollButtonClick
                     )
                 },
                 onDateTextFieldClick = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDateTextFieldClick,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDateTextFieldClick
                     )
                 },
                 onTimeTextFieldClick = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnTimeTextFieldClick,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnTimeTextFieldClick
                     )
                 },
                 onRegionTextFieldClick = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnRegionTextFieldClick,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnRegionTextFieldClick
                     )
                 },
                 onSelectedPlaceCourseTimeClick = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnSelectedPlaceCourseTimeClick,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnSelectedPlaceCourseTimeClick
                     )
                 },
                 onDatePickerBottomSheetDismissRequest = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDatePickerBottomSheetDismissRequest,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDatePickerBottomSheetDismissRequest
                     )
                 },
                 onTimePickerBottomSheetDismissRequest = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest
                     )
                 },
                 onRegionBottomSheetDismissRequest = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest
                     )
                 },
                 onDurationBottomSheetDismissRequest = {
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest,
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest
                     )
                 },
                 onPhotoButtonClick = {
@@ -159,98 +146,82 @@ fun EnrollRoute(
                 },
                 onImageDeleteButtonClick = { index ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index)
                     )
                 },
                 onTitleValueChange = { title ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnTitleValueChange(title = title),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnTitleValueChange(title = title)
                     )
                 },
                 onDatePickerBottomSheetButtonClick = { date ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)
                     )
                 },
                 onTimePickerBottomSheetButtonClick = { startAt ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)
                     )
                 },
                 onDateChipClicked = { tag ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag)
                     )
                 },
                 onRegionBottomSheetRegionChipClick = { country ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)
                     )
                 },
                 onRegionBottomSheetAreaChipClick = { city ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)
                     )
                 },
                 onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)
                     )
                 },
                 onAddPlaceButtonClick = { place ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)
                     )
                 },
                 onPlaceCardDragAndDrop = { places ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places)
                     )
                 },
                 onPlaceTitleValueChange = { placeTitle ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)
                     )
                 },
                 onDurationBottomSheetButtonClick = { placeDuration ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration)
                     )
                 },
                 onPlaceEditButtonClick = { editable ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)
                     )
                 },
                 onPlaceCardDeleteButtonClick = { index ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index)
                     )
                 },
                 onDescriptionValueChange = { description ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)
                     )
                 },
                 onCostValueChange = { cost ->
                     viewModel.setEvent(
-                        EnrollContract.EnrollEvent.OnCostValueChange(cost = cost),
-                        HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                        EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)
                     )
                 }
             )
@@ -273,14 +244,12 @@ fun EnrollRoute(
                     EnrollScreenType.SECOND -> place.size >= 2
                     EnrollScreenType.THIRD -> description.length >= 200 && cost.isNotEmpty()
                 }
-            ),
-            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
         )
 
         if (place.isEmpty()) {
             viewModel.setEvent(
-                EnrollContract.EnrollEvent.OnEditableValueChange(editable = true),
-                HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+                EnrollContract.EnrollEvent.OnEditableValueChange(editable = true)
             )
         }
     }
