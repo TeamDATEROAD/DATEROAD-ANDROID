@@ -27,7 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -64,20 +66,17 @@ fun HomeRoute(
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
 
     LaunchedEffect(Unit) {
         viewModel.fetchAdvertisements()
-        viewModel.fetchNearestDate()
-        viewModel.fetchProfile()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
         viewModel.fetchNearestDate()
         viewModel.fetchUserPoint()
-    }
 
-    LaunchedEffect(Unit) {
         while (true) {
             delay(4000)
             coroutineScope.launch {
@@ -89,17 +88,31 @@ fun HomeRoute(
         }
     }
 
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { homeSideEffect ->
+                when (homeSideEffect) {
+                    is HomeContract.HomeSideEffect.NavigateToPointHistory -> navigateToPointHistory()
+                    is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook()
+                    is HomeContract.HomeSideEffect.NavigateToTimeline -> navigateToTimeline()
+                    is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.id)
+                    is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseDetailType, homeSideEffect.id)
+                }
+            }
+    }
+
     when (uiState.loadState) {
         LoadState.Success -> {
             HomeScreen(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                navigateToPointHistory = navigateToPointHistory,
-                navigateToLook = navigateToLook,
-                navigateToTimeline = navigateToTimeline,
-                onFabClick = navigateToEnroll,
-                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> navigateToCourseDetail(courseDetailType, id) }
+                navigateToEnroll = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.TIMELINE, null)) },
+                navigateToPointHistory = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToPointHistory) },
+                navigateToLook = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToLook) },
+                navigateToTimeline = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToTimeline) },
+                onFabClick = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.COURSE, null)) },
+                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToCourseDetail(courseDetailType, id)) }
             )
         }
 
@@ -113,12 +126,12 @@ fun HomeScreen(
     padding: PaddingValues,
     uiState: HomeContract.HomeUiState,
     pagerState: PagerState,
-    onEnrollClick: () -> Unit = {},
+    navigateToEnroll: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit
+    onFabClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -138,7 +151,7 @@ fun HomeScreen(
             HomeTimeLineCard(
                 mainDate = uiState.mainDate,
                 onClick = if (uiState.mainDate == MainDate()) {
-                    onEnrollClick
+                    navigateToEnroll
                 } else {
                     navigateToTimeline
                 }
@@ -275,7 +288,7 @@ fun HomeScreen(
     ) {
         DateRoadImageButton(
             isEnabled = true,
-            onClick = { onFabClick(EnrollType.COURSE, null) },
+            onClick = { onFabClick() },
             cornerRadius = 44.dp,
             paddingHorizontal = 16.dp,
             paddingVertical = 16.dp,
