@@ -5,7 +5,7 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponsePointHistoryDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseUserPointDto
 
 interface UserPointRemoteDataSource {
-    suspend fun getUserPoint(): ResponseUserPointDto
+    suspend fun getUserPoint(userId: Int): ResponseUserPointDto
 
     suspend fun getPointHistory(): ResponsePointHistoryDto
 

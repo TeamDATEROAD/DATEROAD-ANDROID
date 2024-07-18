@@ -12,5 +12,5 @@ data class ResponseProfileDto(
     @SerialName("point")
     val point: Int,
     @SerialName("imageUrl")
-    val imageUrl: String
+    val imageUrl: String?
 )

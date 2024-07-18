@@ -46,5 +46,5 @@ class ContentUriRequestBody(
         }
     }
 
-    fun toFormData() = MultipartBody.Part.createFormData(ApiConstraints.FORM_DATA_IMAGE, getFileName(), this)
+    fun toFormData(name: String = ApiConstraints.COURSE_FORM_DATA_IMAGE) = MultipartBody.Part.createFormData(name, getFileName(), this)
 }

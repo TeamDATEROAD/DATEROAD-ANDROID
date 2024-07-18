@@ -9,6 +9,6 @@ data class ResponseUserPointDto(
     val name: String,
     @SerialName("point")
     val point: Int,
-    @SerialName("imageUrl")
-    val imageUrl: String
+    @SerialName("image")
+    val image: String
 )

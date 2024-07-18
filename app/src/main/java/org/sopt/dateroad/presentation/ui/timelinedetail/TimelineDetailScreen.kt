@@ -64,8 +64,7 @@ fun TimelineDetailRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchTimelineDetail(dateId)
-        viewModel.setSourceScreen(uiState.dateDetail.dDay.isEmpty())
+        viewModel.fetchDateDetail(dateId = dateId)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -89,12 +88,15 @@ fun TimelineDetailRoute(
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
-                onDeleteConfirm = {
-                    viewModel.onDeleteConfirm(dateId)
-                }
+                onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) }
             )
         }
 
+        else -> Unit
+    }
+
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> popBackStack()
         else -> Unit
     }
 }

@@ -4,25 +4,40 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.EditProfile
+import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
-import org.sopt.dateroad.presentation.type.DateTagType
+import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
+import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val getNicknameCheckUseCase: GetNicknameCheckUseCase
+    private val getNicknameCheckUseCase: GetNicknameCheckUseCase,
+    private val postSignUpUseCase: PostSignUpUseCase,
+    private val getRefreshTokenUseCase: GetRefreshTokenUseCase
 ) : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
 
     override fun createInitialState(): ProfileContract.ProfileUiState = ProfileContract.ProfileUiState()
 
     override suspend fun handleEvent(event: ProfileContract.ProfileEvent) {
         when (event) {
-            is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(image = event.image) }
-            is ProfileContract.ProfileEvent.OnEnrollButtonClicked -> postSignUp(event.editProfile)
-            is ProfileContract.ProfileEvent.OnDateChipClicked -> handleDateChipClicked(event.tag)
+            is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
+            is ProfileContract.ProfileEvent.OnDateChipClicked -> setState {
+                copy(
+                    signUp = currentState.signUp.copy(
+                        tag = currentState.signUp.tag.toMutableList().apply {
+                            if (contains(event.tag)) {
+                                remove(event.tag)
+                            } else if (size < 3) {
+                                add(event.tag)
+                            }
+                        }
+                    )
+                )
+            }
+
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
             is ProfileContract.ProfileEvent.GetNicknameCheck -> setState {
                 copy(
@@ -31,49 +46,35 @@ class ProfileViewModel @Inject constructor(
                 )
             }
 
-            is ProfileContract.ProfileEvent.OnNicknameValueChanged -> handleNicknameValueChanged(event.name)
+            is ProfileContract.ProfileEvent.OnNicknameValueChanged -> setState {
+                copy(
+                    signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
+                    isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
+                )
+            }
+
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
+            is ProfileContract.ProfileEvent.PostSignUp -> setState { copy(signUpLoadState = event.signUpLoadState) }
         }
     }
 
-    private fun handleDateChipClicked(dateTagType: DateTagType) {
-        setState {
-            val updatedTags = currentState.tag.toMutableList()
-            when {
-                updatedTags.contains(dateTagType) -> updatedTags -= dateTagType
-                updatedTags.size < 3 -> updatedTags += dateTagType
-            }
-            copy(
-                tag = updatedTags
-            )
-        }
-    }
-
-    private fun handleNicknameValueChanged(name: String) {
-        setState {
-            copy(
-                name = name,
-                isNicknameButtonEnabled = name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
-            )
-        }
-    }
-
-    private fun postSignUp(editProfile: EditProfile) {
+    fun postSignUp(signUp: SignUp) {
         viewModelScope.launch {
-            try {
-                setState { copy(loadState = LoadState.Success) }
-                // TODO: 서버 통신
-                setSideEffect(ProfileContract.ProfileSideEffect.NavigateToHome)
-            } catch (e: Exception) {
-                setState { copy(loadState = LoadState.Error) }
+            setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Loading))
+            postSignUpUseCase(signUp = signUp).onSuccess {
+                setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(ProfileContract.ProfileEvent.PostSignUp(signUpLoadState = LoadState.Error))
             }
         }
     }
 
     fun getNicknameCheck(name: String) {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic))
+            setEvent(
+                ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic)
+            )
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
                     SUCCESS -> setEvent(

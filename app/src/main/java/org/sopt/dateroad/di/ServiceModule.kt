@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.data.dataremote.service.AdvertisementService
 import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.CourseService
@@ -12,7 +13,9 @@ import org.sopt.dateroad.data.dataremote.service.DummyService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService
 import org.sopt.dateroad.data.dataremote.service.ProfileService
 import org.sopt.dateroad.data.dataremote.service.UserPointService
+import org.sopt.dateroad.data.repositoryimpl.UserInfoRepositoryImpl
 import org.sopt.dateroad.di.qualifier.DateRoad
+import org.sopt.dateroad.domain.repository.UserInfoRepository
 import retrofit2.Retrofit
 
 @Module
@@ -45,6 +48,10 @@ object ServiceModule {
     @Provides
     fun providesUserPointService(@DateRoad retrofit: Retrofit): UserPointService =
         retrofit.create(UserPointService::class.java)
+
+    @Provides
+    fun provideUserInfoRepository(userInfoLocalDataSource: UserInfoLocalDataSource): UserInfoRepository =
+        UserInfoRepositoryImpl(userInfoLocalDataSource)
 
     @Provides
     fun providesProfileService(@DateRoad retrofit: Retrofit): ProfileService =

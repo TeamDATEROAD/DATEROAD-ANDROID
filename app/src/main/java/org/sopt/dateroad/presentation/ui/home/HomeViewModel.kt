@@ -10,12 +10,18 @@ import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
 import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
+import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
+import org.sopt.dateroad.domain.usecase.SetRemainingPointsUseCase
+import org.sopt.dateroad.domain.usecase.SetUserIdUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getSortedCoursesUseCase: GetSortedCoursesUseCase,
+    private val getUserPointUseCase: GetUserPointUseCase,
+    private val setUserIdUseCase: SetUserIdUseCase,
+    private val setRemainingPointsUseCase: SetRemainingPointsUseCase,
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
     private val getNearestDateUseCase: GetNearestDateUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
@@ -26,7 +32,10 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.ChangeBannerPage -> setState { copy(currentBannerPage = event.page) }
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
-            is HomeContract.HomeEvent.FetchRemainingPoints -> setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
+            is HomeContract.HomeEvent.FetchRemainingPoints -> {
+                setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
+            }
+
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
             is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
@@ -54,12 +63,22 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchProfile() {
-        setEvent(
-            HomeContract.HomeEvent.FetchUserName(
-                loadState = LoadState.Success,
-                userName = "이현진"
+        viewModelScope.launch {
+            setEvent(
+                HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName)
             )
-        )
+            getUserPointUseCase(userId = 1)
+                .onSuccess { userPoint ->
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point))
+                    setUserIdUseCase(userPoint.name)
+                    setRemainingPointsUseCase(userPoint.point.filter { it.isDigit() }.toIntOrNull() ?: 0)
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName))
+                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Error, remainingPoints = currentState.remainingPoints))
+                }
+        }
     }
 
     fun fetchAdvertisements() {
@@ -80,6 +99,34 @@ class HomeViewModel @Inject constructor(
             HomeContract.HomeEvent.FetchRemainingPoints(
                 loadState = LoadState.Success,
                 remainingPoints = 100
+            )
+        )
+    }
+
+    fun fetchLatestCourses() {
+        setEvent(
+            HomeContract.HomeEvent.FetchLatestCourses(
+                loadState = LoadState.Success,
+                latestCourses = listOf(
+                    Course(
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "부천",
+                        title = "부천에서는 뭐하면서 놀면 좋을까요? 흐음.... 부천에서 놀게 있나?",
+                        cost = "10원",
+                        duration = "1시간",
+                        like = "100"
+                    ),
+                    Course(
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "제주",
+                        title = "제주도에서 한라봉 따먹을 사람?",
+                        cost = "120만원",
+                        duration = "48시간",
+                        like = "999+"
+                    )
+                )
             )
         )
     }
@@ -130,6 +177,21 @@ class HomeViewModel @Inject constructor(
             HomeContract.HomeEvent.FetchUserName(
                 loadState = LoadState.Success,
                 userName = "이현진"
+            )
+        )
+    }
+
+    fun fetchMainDate() {
+        setEvent(
+            HomeContract.HomeEvent.FetchMainDate(
+                loadState = LoadState.Success,
+                mainDate = MainDate(
+                    dateId = 1,
+                    dDay = "3",
+                    dateName = "성수 데이트",
+                    date = "2023.04.13",
+                    startAt = "14:00 PM"
+                )
             )
         )
     }
