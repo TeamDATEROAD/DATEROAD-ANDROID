@@ -8,7 +8,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class SignInContract {
     data class SignInUiState(
         val loadState: LoadState = LoadState.Idle,
-        val isSignedIn: Boolean = false,
+        val authTokenLoadState: LoadState = LoadState.Idle,
         var isWebViewOpened: Boolean = false
     ) : UiState
 
@@ -18,7 +18,8 @@ class SignInContract {
     }
 
     sealed class SignInEvent : UiEvent {
-        data object PostSignIn : SignInEvent()
+        data class PostSignIn(val loadState: LoadState) : SignInEvent()
+        data class SetAuthToken(val authTokenLoadState: LoadState) : SignInEvent()
         data object OnWebViewClick : SignInEvent()
         data object WebViewClose : SignInEvent()
     }

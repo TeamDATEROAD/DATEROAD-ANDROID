@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
+import com.kakao.sdk.auth.Constants.REFRESH_TOKEN
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import org.sopt.dateroad.BuildConfig
@@ -32,6 +34,14 @@ class UserInfoLocalDataSourceImpl @Inject constructor(
     override var isLogin: Boolean
         get() = sharedPreferences.getBoolean(IS_LOGIN, false)
         set(value) = sharedPreferences.edit { putBoolean(IS_LOGIN, value) }
+
+    override var accessToken: String
+        get() = sharedPreferences.getString(ACCESS_TOKEN, "").toString()
+        set(value) = sharedPreferences.edit { putString(ACCESS_TOKEN, value) }
+
+    override var refreshToken: String
+        get() = sharedPreferences.getString(REFRESH_TOKEN, "").toString()
+        set(value) = sharedPreferences.edit { putString(REFRESH_TOKEN, value) }
 
     override fun clear() = sharedPreferences.edit { clear() }
 

@@ -22,7 +22,8 @@ class CourseDetailContract {
         val courseDetail: CourseDetail = CourseDetail(),
         val advertisementDetail: AdvertisementDetail = AdvertisementDetail(),
         val currentImagePage: Int = 0,
-        val deleteLoadState: LoadState = LoadState.Idle
+        val deleteLoadState: LoadState = LoadState.Idle,
+        val usePointLoadState: LoadState = LoadState.Idle
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
@@ -45,6 +46,7 @@ class CourseDetailContract {
         data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
         data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
+        data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
         data class DeleteCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostCourseLike(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()

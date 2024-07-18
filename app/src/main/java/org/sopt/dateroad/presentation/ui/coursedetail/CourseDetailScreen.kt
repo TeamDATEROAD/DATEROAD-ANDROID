@@ -105,6 +105,11 @@ fun CourseDetailRoute(
         LoadState.Success -> popBackStack()
         else -> Unit
     }
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> {
+        }
+        else -> Unit
+    }
 
     when (uiState.loadState) {
         LoadState.Success -> {
@@ -131,7 +136,10 @@ fun CourseDetailRoute(
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.EnrollSchedule) },
                 onTopBarIconClicked = popBackStack,
-                openCourseDetail = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse) }
+                openCourseDetail = {
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
+                    viewModel.postUsePoint(uiState.id)
+                }
             )
         }
 
