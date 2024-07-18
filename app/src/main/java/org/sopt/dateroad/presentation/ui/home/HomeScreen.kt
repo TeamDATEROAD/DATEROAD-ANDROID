@@ -54,6 +54,7 @@ import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColor
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
@@ -64,7 +65,7 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
+    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -77,6 +78,8 @@ fun HomeRoute(
         viewModel.fetchAdvertisements()
         viewModel.fetchLatestCourses()
         viewModel.fetchTopLikedCourses()
+        viewModel.fetchNearestDate()
+        viewModel.fetchUserName()
         viewModel.fetchMainDate()
     }
 
@@ -133,7 +136,7 @@ fun HomeScreen(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
-    onFabClick: (EnrollType, Int?) -> Unit
+    onFabClick: (EnrollType, Int?) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -305,74 +308,88 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val padding = PaddingValues(0.dp)
-    val uiState = HomeContract.HomeUiState(
-        loadState = LoadState.Success,
-        mainDate = MainDate(
-            dateId = 1,
-            dDay = "3",
-            dateName = "성수 데이트",
-            month = 6,
-            day = 23,
-            startAt = "14:00 PM"
-        ),
-        topLikedCourses = listOf(
-            Course(
-                courseId = 1,
-                thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                city = "건대/성수/왕십리",
-                title = "데이트할사람~",
-                cost = "100만원",
-                duration = "21시간",
-                like = "150"
+    DATEROADTheme {
+        HomeScreen(
+            padding = PaddingValues(0.dp),
+            navigateToPointHistory = {},
+            navigateToLook = {},
+            navigateToTimeline = {},
+            navigateToCourseDetail = { _, _ -> },
+            uiState = HomeContract.HomeUiState(
+                loadState = LoadState.Success,
+                mainDate = MainDate(
+                    dateId = 1,
+                    dDay = "3",
+                    dateName = "부천 데이트",
+                    month = 6,
+                    day = 23,
+                    startAt = "14:00 PM"
+                ),
+                topLikedCourses = listOf(
+                    Course(
+                        courseId = 1,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "Seoul",
+                        title = "Beautiful Seoul Tour",
+                        cost = "$100",
+                        duration = "4 hours",
+                        like = "150"
+                    ),
+                    Course(
+                        courseId = 2,
+                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
+                        city = "Busan",
+                        title = "Amazing Busan Trip",
+                        cost = "$120",
+                        duration = "6 hours",
+                        like = "200"
+                    )
+                ),
+                latestCourses = listOf(
+                    Course(
+                        courseId = 3,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "Incheon",
+                        title = "Incheon Day Tour",
+                        cost = "$80",
+                        duration = "5 hours",
+                        like = "100"
+                    ),
+                    Course(
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "Jeju",
+                        title = "Jeju Island Adventure",
+                        cost = "$150",
+                        duration = "8 hours",
+                        like = "300"
+                    ),
+                    Course(
+                        courseId = 4,
+                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
+                        city = "Jeju",
+                        title = "Jeju Island Adventure",
+                        cost = "$150",
+                        duration = "8 hours",
+                        like = "300"
+                    )
+                ),
+                advertisements = listOf(
+                    Advertisement(
+                        advertisementId = 1,
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                    ),
+                    Advertisement(
+                        advertisementId = 2,
+                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
+                    )
+                ),
+                userName = "현진",
+                remainingPoints = 100,
+                currentBannerPage = 0
             ),
-            Course(
-                courseId = 2,
-                thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                city = "건대/성수/왕십리",
-                title = "데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람데이트할사람",
-                cost = "150만원",
-                duration = "6시간",
-                like = "200"
-            )
-        ),
-        latestCourses = listOf(
-            Course(
-                courseId = 3,
-                thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                city = "부천",
-                title = "부천에서는 뭐하면서 놀면 좋을까요? 흐음.... 부천에서 놀게 있나?",
-                cost = "10원",
-                duration = "1시간",
-                like = "100"
-            ),
-            Course(
-                courseId = 4,
-                thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZgZ_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                city = "제주",
-                title = "제주도에서 한라봉 따먹을 사람?",
-                cost = "120만원",
-                duration = "48시간",
-                like = "999+"
-            )
-        ),
-        advertisements = listOf(
-            Advertisement(advertisementId = 1, thumbnail = "https://d2rjs92glrj91n.cloudfront.net/dateroad.png"),
-            Advertisement(advertisementId = 2, thumbnail = "https://d2rjs92glrj91n.cloudfront.net/dateroad.png"),
-            Advertisement(advertisementId = 3, thumbnail = "https://d2rjs92glrj91n.cloudfront.net/dateroad.png")
-        ),
-        userName = "홍길동",
-        remainingPoints = "1800 P"
-    )
-
-    HomeScreen(
-        padding = padding,
-        uiState = uiState,
-        pagerState = rememberPagerState(),
-        navigateToPointHistory = {},
-        navigateToLook = {},
-        navigateToTimeline = {},
-        navigateToCourseDetail = { _, _ -> },
-        onFabClick = { _, _ -> }
-    )
+            onFabClick = { _, _ -> },
+            pagerState = rememberPagerState()
+        )
+    }
 }

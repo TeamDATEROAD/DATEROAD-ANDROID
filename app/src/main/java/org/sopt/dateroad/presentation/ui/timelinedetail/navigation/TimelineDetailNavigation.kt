@@ -31,8 +31,7 @@ fun NavGraphBuilder.timelineDetailGraph(
             padding = padding,
             popBackStack = popBackStack,
             dateId = dateId,
-            dateType = dateType,
-            sourceScreen = true
+            dateType = dateType
         )
     }
 }
@@ -42,5 +41,6 @@ object TimelineDetailRoutes {
     const val DATE_TYPE = "dateType"
     const val DATE_ID = "dateId"
     const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$DATE_TYPE}/{$DATE_ID}"
+
     fun route(dateType: DateType, dateId: Int) = "$ROUTE/${dateType.name}/$dateId"
 }

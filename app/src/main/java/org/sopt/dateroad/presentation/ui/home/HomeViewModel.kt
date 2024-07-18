@@ -10,6 +10,7 @@ import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.SetRemainingPointsUseCase
 import org.sopt.dateroad.domain.usecase.SetUserIdUseCase
+import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -19,6 +20,8 @@ class HomeViewModel @Inject constructor(
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
     private val setUserIdUseCase: SetUserIdUseCase,
     private val setRemainingPointsUseCase: SetRemainingPointsUseCase
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
+    private val getNearestDateUseCase: GetNearestDateUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
@@ -120,11 +123,31 @@ class HomeViewModel @Inject constructor(
                         like = "200"
                     )
                 )
-            ),
-            HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Loading, remainingPoints = currentState.remainingPoints)
+            )
         )
     }
 
+    fun fetchNearestDate() {
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Loading, mainDate = MainDate()))
+            getNearestDateUseCase()
+                .onSuccess { mainDate ->
+                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = mainDate))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Error, mainDate = MainDate()))
+                }
+        }
+    }
+
+    fun fetchUserName() {
+        setEvent(
+            HomeContract.HomeEvent.FetchUserName(
+                loadState = LoadState.Success,
+                userName = "이현진"
+            )
+        )
+    }
     fun fetchMainDate() {
         setEvent(
             HomeContract.HomeEvent.FetchMainDate(
