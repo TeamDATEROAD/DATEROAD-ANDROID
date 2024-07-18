@@ -27,9 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -45,12 +43,12 @@ import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
-import org.sopt.dateroad.presentation.ui.component.item.HomeAdvertisement
-import org.sopt.dateroad.presentation.ui.component.item.HomeHotCourseCard
-import org.sopt.dateroad.presentation.ui.component.item.HomeTimeLineCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
+import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
+import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
+import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 

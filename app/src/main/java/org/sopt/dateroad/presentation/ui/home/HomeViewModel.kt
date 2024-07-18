@@ -30,48 +30,9 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
-            is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
-            is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
             is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
-            is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
-            is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, userName = event.profileImageUrl) }
-        }
-    }
-
-    fun fetchSortedCourses(sortBy: SortByType) {
-        viewModelScope.launch {
-            getSortedCoursesUseCase(sortBy)
-                .onSuccess { responseCoursesDto ->
-                    if (sortBy == SortByType.POPULAR) {
-                        setEvent(HomeContract.HomeEvent.FetchTopLikedCourses(loadState = LoadState.Success, topLikedCourses = responseCoursesDto))
-                    } else {
-                        setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Success, latestCourses = responseCoursesDto))
-                    }
-                }
-                .onFailure {
-                    setState { copy(loadState = LoadState.Error) }
-                }
-        }
-    }
-
-    fun fetchProfile() {
-        viewModelScope.launch {
-            setEvent(
-                HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Loading, userName = currentState.userName)
-            )
-            getUserPointUseCase(userId = 1)
-                .onSuccess { userPoint ->
-                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Success, userName = userPoint.name))
-                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = userPoint.imageUrl))
-                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Success, remainingPoints = userPoint.point))
-                    setUserIdUseCase(userPoint.name)
-                    setRemainingPointsUseCase(userPoint.point.filter { it.isDigit() }.toIntOrNull() ?: 0)
-                }
-                .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchUserName(loadState = LoadState.Error, userName = currentState.userName))
-                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Error, profileImageUrl = currentState.profileImageUrl))
-                    setEvent(HomeContract.HomeEvent.FetchRemainingPoints(loadState = LoadState.Error, remainingPoints = currentState.remainingPoints))
-                }
+            is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
+            is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, profileImageUrl = event.profileImageUrl) }
         }
     }
 
@@ -128,6 +89,21 @@ class HomeViewModel @Inject constructor(
                 }
                 .onFailure {
                     setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
+                }
+        }
+    }
+
+    fun fetchProfile() {
+        viewModelScope.launch {
+            setEvent(
+                HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = currentState.profileImageUrl)
+            )
+            getUserPointUseCase()
+                .onSuccess { userPoint ->
+                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = userPoint.imageUrl))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Error, profileImageUrl = currentState.profileImageUrl))
                 }
         }
     }

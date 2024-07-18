@@ -16,11 +16,9 @@ class HomeContract {
         val topLikedCourses: List<Course> = listOf(),
         val latestCourses: List<Course> = listOf(),
         val advertisements: List<Advertisement> = listOf(),
-        val userName: String = "",
-        val remainingPoints: String = "0",
-        val currentBannerPage: Int = 0,
-        val profileImageUrl: String = ""
         val userPoint: UserPoint = UserPoint(),
+        val currentBannerPage: Int = 0,
+        val profileImageUrl: String? = null
     ) : UiState
 
     sealed interface HomeSideEffect : UiSideEffect
@@ -32,6 +30,6 @@ class HomeContract {
         data class FetchAdvertisements(val loadState: LoadState, val advertisements: List<Advertisement>) : HomeEvent()
         data class FetchUserPoint(val loadState: LoadState, val userPoint: UserPoint) : HomeEvent()
         data class ChangeBannerPage(val page: Int) : HomeEvent()
-        data class FetchProfileImage(val loadState: LoadState, val profileImageUrl: String) : HomeEvent()
+        data class FetchProfileImage(val loadState: LoadState, val profileImageUrl: String?) : HomeEvent()
     }
 }
