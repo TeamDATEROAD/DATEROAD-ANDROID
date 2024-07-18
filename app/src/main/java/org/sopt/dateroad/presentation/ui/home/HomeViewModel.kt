@@ -30,8 +30,9 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
-            is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
+            is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
+            is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, profileImageUrl = event.profileImageUrl) }
         }
     }
 
@@ -50,13 +51,13 @@ class HomeViewModel @Inject constructor(
 
     fun fetchNearestDate() {
         viewModelScope.launch {
-            setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Loading, mainDate = MainDate()))
+            setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Loading, mainDate = MainDate()))
             getNearestDateUseCase()
                 .onSuccess { mainDate ->
-                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Success, mainDate = mainDate))
+                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = mainDate))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchMainDate(loadState = LoadState.Error, mainDate = MainDate()))
+                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Error, mainDate = MainDate()))
                 }
         }
     }
@@ -88,6 +89,21 @@ class HomeViewModel @Inject constructor(
                 }
                 .onFailure {
                     setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
+                }
+        }
+    }
+
+    fun fetchProfile() {
+        viewModelScope.launch {
+            setEvent(
+                HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = currentState.profileImageUrl)
+            )
+            getUserPointUseCase()
+                .onSuccess { userPoint ->
+                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Success, profileImageUrl = userPoint.imageUrl))
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchProfileImage(loadState = LoadState.Error, profileImageUrl = currentState.profileImageUrl))
                 }
         }
     }

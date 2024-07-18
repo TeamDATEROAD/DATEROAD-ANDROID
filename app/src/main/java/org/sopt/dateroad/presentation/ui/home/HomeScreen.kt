@@ -69,6 +69,8 @@ fun HomeRoute(
 
     LaunchedEffect(Unit) {
         viewModel.fetchAdvertisements()
+        viewModel.fetchNearestDate()
+        viewModel.fetchProfile()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
         viewModel.fetchNearestDate()
@@ -127,6 +129,7 @@ fun HomeScreen(
     ) {
         DateRoadHomeTopBar(
             title = uiState.userPoint.point,
+            profileImage = uiState.profileImageUrl,
             onClick = navigateToPointHistory
         )
         Row(
