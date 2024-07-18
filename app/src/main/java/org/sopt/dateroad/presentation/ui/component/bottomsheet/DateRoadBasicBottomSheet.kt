@@ -105,7 +105,7 @@ fun DateRoadBasicBottomSheetPreview() {
         DateRoadBasicBottomSheet(
             isBottomSheetOpen = isBottomSheetOpen,
             title = "프로필 사진 설정",
-            isButtonEnabled = false,
+            isButtonEnabled = true,
             buttonText = "취소",
             itemList = listOf(
                 "사진 등록" to { text = "사진 등록" },
