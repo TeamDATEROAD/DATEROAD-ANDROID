@@ -1,4 +1,4 @@
-package org.sopt.dateroad.data.mapper.todomain
+package org.sopt.dateroad.data.mapper.toEntity
 
 import org.sopt.dateroad.data.dataremote.util.Point
 
