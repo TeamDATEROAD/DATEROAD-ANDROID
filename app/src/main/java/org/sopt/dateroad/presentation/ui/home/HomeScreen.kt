@@ -180,7 +180,7 @@ fun HomeScreen(
                     )
                     DateRoadTextButton(
                         textContent = stringResource(id = R.string.button_more),
-                        textStyle = DateRoadTheme.typography.bodyMed13,
+                        textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
                         paddingVertical = 8.dp,

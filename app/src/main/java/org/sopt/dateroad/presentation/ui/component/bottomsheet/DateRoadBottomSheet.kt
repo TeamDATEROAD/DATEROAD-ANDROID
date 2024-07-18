@@ -68,8 +68,20 @@ fun DateRoadBottomSheet(
                         onButtonClick()
                         coroutineScope.launch { sheetState.hide() }
                     },
-                    enabledBackgroundColor = DateRoadTheme.colors.gray200,
-                    enabledTextColor = DateRoadTheme.colors.gray400
+                    enabledBackgroundColor = (
+                        if (isButtonEnabled) {
+                            DateRoadTheme.colors.purple600
+                        } else {
+                            DateRoadTheme.colors.gray200
+                        }
+                        ),
+                    enabledTextColor = (
+                        if (isButtonEnabled) {
+                            DateRoadTheme.colors.white
+                        } else {
+                            (DateRoadTheme.colors.gray400)
+                        }
+                        )
                 )
                 Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
             }

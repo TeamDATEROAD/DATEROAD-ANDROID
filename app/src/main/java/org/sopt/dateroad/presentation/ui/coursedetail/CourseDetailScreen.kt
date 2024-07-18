@@ -57,9 +57,9 @@ import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
-import org.sopt.dateroad.presentation.ui.component.button.CourseDetailLikeButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
+import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
@@ -494,9 +494,17 @@ fun CourseDetailScreen(
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 Row {
-                    CourseDetailLikeButton(
-                        isLiked = courseDetailUiState.courseDetail.isUserLiked,
-                        onLikeButtonClicked = onLikeButtonClicked
+                    DateRoadImageButton(
+                        iconResId = R.drawable.ic_coures_detail_heart_default,
+                        enabledContentColor = DateRoadTheme.colors.purple600,
+                        disabledContentColor = DateRoadTheme.colors.gray200,
+                        enabledBackgroundColor = DateRoadTheme.colors.gray100,
+                        disabledBackgroundColor = DateRoadTheme.colors.gray100,
+                        isEnabled = courseDetailUiState.courseDetail.isUserLiked,
+                        onClick = onLikeButtonClicked,
+                        cornerRadius = 14.dp,
+                        paddingHorizontal = 23.dp,
+                        paddingVertical = 18.dp
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     DateRoadBasicButton(
