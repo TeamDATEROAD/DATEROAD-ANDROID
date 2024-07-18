@@ -39,6 +39,10 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindsDateRepository(dateRepositoryImpl: DateRepositoryImpl): DateRepository
+
+    @Binds
+    @Singleton
     abstract fun bindsDummyRepository(dummyRepositoryImpl: DummyRepositoryImpl): DummyRepository
 
     @Binds

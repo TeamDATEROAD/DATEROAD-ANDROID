@@ -2,13 +2,16 @@ package org.sopt.dateroad.presentation.ui.timeline
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import org.sopt.dateroad.domain.model.Date
-import org.sopt.dateroad.presentation.type.DateTagType
+import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.type.DateTimeType
+import org.sopt.dateroad.domain.usecase.GetDatesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
-class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.TimelineUiState, TimelineContract.TimelineSideEffect, TimelineContract.TimelineEvent>() {
+class TimelineViewModel @Inject constructor(
+    private val getDatesUseCase: GetDatesUseCase
+) : BaseViewModel<TimelineContract.TimelineUiState, TimelineContract.TimelineSideEffect, TimelineContract.TimelineEvent>() {
     override fun createInitialState(): TimelineContract.TimelineUiState = TimelineContract.TimelineUiState()
 
     override suspend fun handleEvent(event: TimelineContract.TimelineEvent) {
@@ -19,37 +22,16 @@ class TimelineViewModel @Inject constructor() : BaseViewModel<TimelineContract.T
         }
     }
 
-    fun fetchTimeline() {
-        setEvent(
-            TimelineContract.TimelineEvent.FetchTimeline(
-                loadState = LoadState.Success,
-                dates = listOf(
-                    Date(
-                        dateId = 1,
-                        dDay = "1",
-                        title = "데이트 일정 1",
-                        date = "JUNE.23",
-                        city = "서울",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 2,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING, DateTagType.EXHIBITION_POPUP)
-                    ),
-                    Date(
-                        dateId = 3,
-                        dDay = "2",
-                        title = "데이트 일정 2",
-                        date = "JUNE.23",
-                        city = "부산",
-                        tags = listOf(DateTagType.SHOPPING)
-                    )
-                )
-            )
-        )
+    fun fetchTimeline(time: DateTimeType) {
+        viewModelScope.launch {
+            setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Loading, dates = currentState.dates))
+            getDatesUseCase(time = time)
+                .onSuccess { dates ->
+                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Success, dates = dates))
+                }
+                .onFailure {
+                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Error, dates = currentState.dates))
+                }
+        }
     }
 }

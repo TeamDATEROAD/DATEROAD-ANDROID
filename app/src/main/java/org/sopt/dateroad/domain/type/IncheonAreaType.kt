@@ -9,5 +9,7 @@ enum class IncheonAreaType(
         title = Incheon.INCHEON_ENTIRE
     );
 
-    fun String.toIncheonAreaType() = GyeonggiAreaType.entries.find { it.name == this }?.name
+    companion object {
+        fun String.toIncheonAreaType() = GyeonggiAreaType.entries.find { it.name == this }?.name
+    }
 }

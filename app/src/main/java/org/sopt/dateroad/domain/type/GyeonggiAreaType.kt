@@ -57,5 +57,7 @@ enum class GyeonggiAreaType(
         title = Gyeonggi.PYEONGTAEK_OSAN_ANSEONG
     );
 
-    fun String.toGyeonggiAreaType() = entries.find { it.name == this }?.name
+    companion object {
+        fun String.toGyeonggiAreaType() = entries.find { it.name == this }?.name
+    }
 }
