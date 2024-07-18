@@ -32,5 +32,6 @@ class ProfileContract {
         data object OnBottomSheetDismissRequest : ProfileEvent()
         data class CheckEnrollButtonEnable(val isEnrollButtonEnabled: Boolean) : ProfileEvent()
         data class PostSignUp(val signUpLoadState: LoadState) : ProfileEvent()
+        data class SetImage(val image: String) : ProfileEvent()
     }
 }

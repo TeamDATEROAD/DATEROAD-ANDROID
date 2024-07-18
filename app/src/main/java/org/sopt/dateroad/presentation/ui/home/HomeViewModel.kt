@@ -166,4 +166,13 @@ class HomeViewModel @Inject constructor(
             )
         )
     }
+
+    fun fetchMainDate() {
+        setEvent(
+            HomeContract.HomeEvent.FetchMainDate(
+                loadState = LoadState.Success,
+                mainDate = MainDate()
+            )
+        )
+    }
 }

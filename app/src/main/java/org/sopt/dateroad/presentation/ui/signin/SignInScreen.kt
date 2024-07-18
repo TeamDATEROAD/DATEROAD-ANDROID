@@ -1,7 +1,6 @@
 package org.sopt.dateroad.presentation.ui.signin
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,7 +26,7 @@ import com.kakao.sdk.user.UserApiClient
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
-import org.sopt.dateroad.presentation.ui.component.webview.PrivacyPolicyWebView
+import org.sopt.dateroad.presentation.ui.component.webview.DateRoadWebView
 import org.sopt.dateroad.presentation.util.CourseDetail.PRIVACY_POLICY_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -52,7 +51,6 @@ fun SignInRoute(
     val context = LocalContext.current
 
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, message ->
-        Log.e("ㅋㅋ", message?.message.toString())
         if (oAuthToken != null) {
             viewModel.setAccessToken(oAuthToken.accessToken)
         }
@@ -90,12 +88,10 @@ fun SignInRoute(
     when (uiState.loadState) {
         LoadState.Success -> {
             navigateToHome()
-            Log.d("http", "Home")
         }
 
         LoadState.Error -> {
             navigateToOnboarding()
-            Log.d("http", "OnBoarding")
         }
 
         else -> Unit
@@ -110,7 +106,7 @@ fun SignInScreen(
     webViewClose: () -> Unit
 ) {
     if (signInUiState.isWebViewOpened) {
-        PrivacyPolicyWebView(url = PRIVACY_POLICY_URL, onClose = webViewClose)
+        DateRoadWebView(url = PRIVACY_POLICY_URL, onClose = webViewClose)
     } else {
         Column(
             modifier = Modifier

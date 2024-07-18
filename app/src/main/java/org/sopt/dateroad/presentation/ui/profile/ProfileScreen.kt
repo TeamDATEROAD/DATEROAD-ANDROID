@@ -1,5 +1,10 @@
 package org.sopt.dateroad.presentation.ui.profile
 
+import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -47,6 +52,14 @@ fun ProfileRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = uri.toString()))
+    }
+
+    val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+        viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = uri.toString()))
+    }
+
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { profileSideEffect ->
@@ -60,7 +73,9 @@ fun ProfileRoute(
 
     LaunchedEffect(uiState.signUpLoadState) {
         when (uiState.signUpLoadState) {
-            LoadState.Success -> navigationToHome()
+            LoadState.Success -> {
+                navigationToHome()
+            }
             else -> Unit
         }
     }
@@ -74,6 +89,18 @@ fun ProfileRoute(
         onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
         onEnrollButtonClicked = {
             viewModel.postSignUp(uiState.signUp)
+        },
+        selectPhoto = {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                getGalleryLauncher.launch("image/*")
+            } else {
+                getPhotoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            }
+        },
+        deletePhoto = {
+            viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = ""))
         }
     )
 
@@ -92,7 +119,9 @@ fun ProfileScreen(
     onDateChipClicked: (DateTagType) -> Unit,
     onBottomSheetDismissRequest: () -> Unit,
     onNicknameButtonClicked: () -> Unit,
-    onEnrollButtonClicked: () -> Unit
+    onEnrollButtonClicked: () -> Unit,
+    selectPhoto: () -> Unit,
+    deletePhoto: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -117,7 +146,7 @@ fun ProfileScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Image(
-                painter = if (profileUiState.signUp.image.isEmpty()) {
+                painter = if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
                     painterResource(id = R.drawable.ic_enroll_profile_default)
                 } else {
                     rememberAsyncImagePainter(model = profileUiState.signUp.image)
@@ -134,7 +163,6 @@ fun ProfileScreen(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .noRippleClickable(onClick = onImageButtonClicked)
-
             )
         }
         Spacer(modifier = Modifier.height(40.dp))
@@ -175,11 +203,14 @@ fun ProfileScreen(
         buttonText = stringResource(id = R.string.profile_bottom_sheet_button_text),
         itemList = listOf(
             stringResource(id = R.string.profile_bottom_sheet_button_enroll) to {
+                selectPhoto()
             },
             stringResource(id = R.string.profile_bottom_sheet_button_delete) to {
+                deletePhoto()
             }
         ),
         onDismissRequest = { onBottomSheetDismissRequest() },
         onButtonClick = { onBottomSheetDismissRequest() }
+
     )
 }
