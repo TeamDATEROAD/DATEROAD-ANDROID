@@ -25,8 +25,8 @@ class HomeContract {
         data class NavigateToCourseDetailPage(val courseId: Int) : HomeSideEffect
         data class NavigateToEditorPickPage(val courseId: Int) : HomeSideEffect
         data class NavigateToDateDetailPage(val dateId: Int) : HomeSideEffect
-        object NavigateToTimeline : HomeSideEffect
-        object NavigateToPointHistoryPage : HomeSideEffect
+        data object NavigateToTimeline : HomeSideEffect
+        data object NavigateToPointHistoryPage : HomeSideEffect
     }
 
     sealed class HomeEvent : UiEvent {
