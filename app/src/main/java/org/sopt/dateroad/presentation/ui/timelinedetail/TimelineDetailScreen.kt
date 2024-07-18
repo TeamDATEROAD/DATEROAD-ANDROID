@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -62,6 +63,7 @@ fun TimelineDetailRoute(
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.fetchDateDetail(dateId = dateId)
@@ -88,7 +90,8 @@ fun TimelineDetailRoute(
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
-                onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) }
+                onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
+                // onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
             )
         }
 
@@ -112,7 +115,8 @@ fun TimelineDetailScreen(
     setShowKakaoDialog: (Boolean) -> Unit,
     setShowDeleteBottomSheet: (Boolean) -> Unit,
     setShowDeleteDialog: (Boolean) -> Unit,
-    onDeleteConfirm: () -> Unit
+    onDeleteConfirm: () -> Unit,
+    // onKakaoShareConfirm: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -280,7 +284,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                    // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
+                        // .noRippleClickable(onClick = { navigateToEnroll(uiState.dateDetail.dateId, EnrollType.COURSE) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
@@ -299,7 +303,10 @@ fun TimelineDetailScreen(
         DateRoadTwoButtonDialog(
             twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
             onDismissRequest = { setShowKakaoDialog(false) },
-            onClickConfirm = { setShowKakaoDialog(false) },
+            onClickConfirm = {
+                setShowKakaoDialog(false)
+                // onKakaoShareConfirm()
+            },
             onClickDismiss = { setShowKakaoDialog(false) }
         )
     }
