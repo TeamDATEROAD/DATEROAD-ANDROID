@@ -175,6 +175,8 @@ fun CourseDetailScreen(
         }
     var imageHeight by remember { mutableIntStateOf(0) }
 
+    var courseLike by remember { mutableIntStateOf(courseDetailUiState.courseDetail.like) }
+
     val pagerState = rememberPagerState()
     val scrollState = rememberLazyListState()
     val isTopBarTransparent by remember {
@@ -219,7 +221,7 @@ fun CourseDetailScreen(
 
                         if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
                             DateRoadImageTag(
-                                textContent = courseDetailUiState.courseDetail.like.toString(),
+                                textContent = courseLike.toString(),
                                 imageContent = R.drawable.ic_tag_heart,
                                 tagContentType = TagType.HEART,
                                 modifier = Modifier
