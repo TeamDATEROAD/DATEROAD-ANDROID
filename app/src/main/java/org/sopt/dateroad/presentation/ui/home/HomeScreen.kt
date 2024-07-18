@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -38,8 +37,6 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Advertisement
-import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
@@ -55,54 +52,41 @@ import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColor
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
-import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeRoute(
     padding: PaddingValues,
+    viewModel: HomeViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit
 ) {
-    val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchProfile()
         viewModel.fetchAdvertisements()
         viewModel.fetchNearestDate()
         viewModel.fetchProfile()
         viewModel.fetchSortedCourses(SortByType.POPULAR)
         viewModel.fetchSortedCourses(SortByType.LATEST)
-    }
-
-    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
-        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
-            .collect { sideEffect ->
-                when (sideEffect) {
-                    is HomeContract.HomeSideEffect.NavigateToCourseListPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToCourseDetailPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToDateDetailPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToTimeline -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToEditorPickPage -> TODO()
-                    is HomeContract.HomeSideEffect.NavigateToPointHistoryPage -> TODO()
-                }
-            }
+        viewModel.fetchNearestDate()
+        viewModel.fetchUserPoint()
     }
 
     LaunchedEffect(Unit) {
         while (true) {
             delay(4000)
             coroutineScope.launch {
-                val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
-                pagerState.animateScrollToPage(nextPage)
+                if (uiState.advertisements.isNotEmpty()) {
+                    val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
+                    pagerState.animateScrollToPage(nextPage)
+                }
             }
         }
     }
@@ -138,8 +122,6 @@ fun HomeScreen(
     navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
     onFabClick: (EnrollType, Int?) -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier
             .padding(padding)
@@ -148,7 +130,7 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         DateRoadHomeTopBar(
-            title = uiState.remainingPoints,
+            title = uiState.userPoint.point,
             profileImage = uiState.profileImageUrl,
             onClick = navigateToPointHistory
         )
@@ -157,7 +139,7 @@ fun HomeScreen(
         ) {
             HomeTimeLineCard(
                 mainDate = uiState.mainDate,
-                onClick = if (uiState.mainDate == null) {
+                onClick = if (uiState.mainDate == MainDate()) {
                     onEnrollClick
                 } else {
                     navigateToTimeline
@@ -178,7 +160,7 @@ fun HomeScreen(
                 Text(
                     modifier = Modifier.padding(start = 16.dp),
                     text = PartialColorText(
-                        stringResource(id = R.string.home_hot_date_course_title, uiState.userName),
+                        stringResource(id = R.string.home_hot_date_course_title, uiState.userPoint.name),
                         keywords = listOf("오늘은", "이런 데이트 코스 어떠세요?"),
                         color = DateRoadTheme.colors.black
                     ),
@@ -301,87 +283,6 @@ fun HomeScreen(
             paddingVertical = 16.dp,
             modifier = Modifier
                 .padding(16.dp)
-        )
-    }
-}
-
-@OptIn(ExperimentalPagerApi::class)
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    val pagerState = rememberPagerState()
-    DATEROADTheme {
-        HomeScreen(
-            padding = PaddingValues(0.dp),
-            navigateToPointHistory = {},
-            navigateToLook = {},
-            navigateToTimeline = {},
-            uiState = HomeContract.HomeUiState(
-                loadState = LoadState.Success,
-                mainDate = MainDate(
-                    dateId = 1,
-                    dDay = "3",
-                    dateName = "부천 데이트",
-                    date = "2024.06.13",
-                    startAt = "14:00 PM"
-                ),
-                topLikedCourses = listOf(
-                    Course(
-                        courseId = 1,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "Seoul",
-                        title = "Beautiful Seoul Tour",
-                        cost = "$100",
-                        duration = "4 hours",
-                        like = "150"
-                    ),
-                    Course(
-                        courseId = 2,
-                        thumbnail = "https://avatars.githubusercontent.com/u/103172971?v=4",
-                        city = "Busan",
-                        title = "Amazing Busan Trip",
-                        cost = "$120",
-                        duration = "6 hours",
-                        like = "200"
-                    )
-                ),
-                latestCourses = listOf(
-                    Course(
-                        courseId = 3,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZg_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "Incheon",
-                        title = "Incheon Day Tour",
-                        cost = "$80",
-                        duration = "5 hours",
-                        like = "100"
-                    ),
-                    Course(
-                        courseId = 4,
-                        thumbnail = "https://i.namu.wiki/i/gA_FoJIHIwSsBvHRiiR-k11sjIVKV_tibI5c7o4NAGTOS4KHLpJ9sMwm93qc5eH5cL7Vm0j6XQFT_ZdOZg_zJ86fAqfqk24VZivOZMTBUOiO_Tk3oa45R3AQzIYSXOrbvkAMcukVFInmo4d8MvCdA.webp",
-                        city = "Jeju",
-                        title = "Jeju Island Adventure",
-                        cost = "$150",
-                        duration = "8 hours",
-                        like = "300"
-                    )
-                ),
-                advertisements = listOf(
-                    Advertisement(
-                        advertisementId = 1,
-                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
-                    ),
-                    Advertisement(
-                        advertisementId = 2,
-                        thumbnail = "https://i.namu.wiki/i/wXGU6DZbHowc6IB0GYPJpcmdDkLO3TW3MHzjg63jcTJvIzaBKhYqR0l9toBMHTv2OSU4eFKfPOlfrSQpymDJlA.webp"
-                    )
-                ),
-                userName = "현진",
-                remainingPoints = "100",
-                currentBannerPage = 0
-            ),
-            onFabClick = { _, _ -> },
-            navigateToCourseDetail = { _, _ -> },
-            pagerState = pagerState
         )
     }
 }

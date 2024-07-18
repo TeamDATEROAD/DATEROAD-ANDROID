@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.mypage
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -38,10 +37,8 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Loading, profile = currentState.profile))
             getUserUseCase().onSuccess { profile ->
-                Log.i("fetchProfile", "Profile fetched successfully: $profile")
                 setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Success, profile = profile))
-            }.onFailure { e ->
-                Log.e("fetchProfile", "Error fetching profile: ${e.message}")
+            }.onFailure {
                 setEvent(MyPageContract.MyPageEvent.FetchProfile(loadState = LoadState.Error, profile = currentState.profile))
             }
         }
@@ -58,7 +55,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun withdrawal(authCode: String?) {
+    fun withdrawal(authCode: String? = null) {
         viewModelScope.launch {
             setEvent(MyPageContract.MyPageEvent.DeleteWithdrawal(showWithdrawalDialog = true, deleteUserLoadState = LoadState.Loading))
             deleteWithdrawUserUseCase(authCode).onSuccess {

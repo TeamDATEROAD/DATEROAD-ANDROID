@@ -70,7 +70,7 @@ class MainNavigator(
     }
 
     fun navigateToEnroll(enrollType: EnrollType, courseId: Int?) {
-        navHostController.navigationEnroll(enrollType = enrollType)
+        navHostController.navigationEnroll(enrollType = enrollType, courseId = courseId)
     }
 
     fun navigateToHome(navOptions: NavOptions? = null) {

@@ -8,5 +8,5 @@ import org.sopt.dateroad.domain.repository.UserInfoRepository
 class ClearUserInfoUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke() = userInfoRepository.clearUserInfo()
+    operator fun invoke() = userInfoRepository.clear()
 }

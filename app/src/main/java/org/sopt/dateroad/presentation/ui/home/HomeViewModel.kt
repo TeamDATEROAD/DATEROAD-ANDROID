@@ -10,19 +10,17 @@ import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
 import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
 import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
-import org.sopt.dateroad.domain.usecase.SetRemainingPointsUseCase
-import org.sopt.dateroad.domain.usecase.SetUserIdUseCase
+import org.sopt.dateroad.domain.usecase.SetNicknameUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
+    private val getNearestDateUseCase: GetNearestDateUseCase,
     private val getSortedCoursesUseCase: GetSortedCoursesUseCase,
     private val getUserPointUseCase: GetUserPointUseCase,
-    private val setUserIdUseCase: SetUserIdUseCase,
-    private val setRemainingPointsUseCase: SetRemainingPointsUseCase,
-    private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
-    private val getNearestDateUseCase: GetNearestDateUseCase
+    private val setNicknameUseCase: SetNicknameUseCase
 ) : BaseViewModel<HomeContract.HomeUiState, HomeContract.HomeSideEffect, HomeContract.HomeEvent>() {
     override fun createInitialState(): HomeContract.HomeUiState = HomeContract.HomeUiState()
 
@@ -31,10 +29,9 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.ChangeBannerPage -> setState { copy(currentBannerPage = event.page) }
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
-            is HomeContract.HomeEvent.FetchRemainingPoints -> {
-                setState { copy(loadState = event.loadState, remainingPoints = event.remainingPoints) }
-            }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
+            is HomeContract.HomeEvent.FetchMainDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
+            is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
             is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
             is HomeContract.HomeEvent.FetchUserName -> setState { copy(loadState = event.loadState, userName = event.userName) }
             is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, userName = event.profileImageUrl) }
@@ -100,6 +97,37 @@ class HomeViewModel @Inject constructor(
                 }
                 .onFailure {
                     setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Error, mainDate = MainDate()))
+                }
+        }
+    }
+
+    fun fetchSortedCourses(sortBy: SortByType) {
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Loading, latestCourses = currentState.latestCourses))
+            getSortedCoursesUseCase(sortBy)
+                .onSuccess { responseCoursesDto ->
+                    if (sortBy == SortByType.POPULAR) {
+                        setEvent(HomeContract.HomeEvent.FetchTopLikedCourses(loadState = LoadState.Success, topLikedCourses = responseCoursesDto))
+                    } else {
+                        setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Success, latestCourses = responseCoursesDto))
+                    }
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchLatestCourses(loadState = LoadState.Error, latestCourses = currentState.latestCourses))
+                }
+        }
+    }
+
+    fun fetchUserPoint() {
+        viewModelScope.launch {
+            setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Loading, userPoint = currentState.userPoint))
+            getUserPointUseCase()
+                .onSuccess { userPoint ->
+                    setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Success, userPoint = userPoint))
+                    setNicknameUseCase(nickname = userPoint.name)
+                }
+                .onFailure {
+                    setEvent(HomeContract.HomeEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
                 }
         }
     }

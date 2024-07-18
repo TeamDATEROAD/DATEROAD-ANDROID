@@ -7,5 +7,5 @@ import org.sopt.dateroad.domain.repository.UserPointRepository
 class GetUserPointUseCase @Inject constructor(
     private val userPointRepository: UserPointRepository
 ) {
-    suspend operator fun invoke(userId: Int): Result<UserPoint> = userPointRepository.getUserPoint(userId)
+    suspend operator fun invoke(): Result<UserPoint> = userPointRepository.getUserPoint()
 }

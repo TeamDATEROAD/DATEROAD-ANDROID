@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.mycourse.MyCourseRoute
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCoursesRoute.ROUTE_WITH_ARGUMENT
@@ -16,7 +17,8 @@ fun NavController.navigateMyCourses(myCourseType: MyCourseType) {
 
 fun NavGraphBuilder.myCoursesNavGraph(
     padding: PaddingValues,
-    popBackStack: () -> Unit
+    popBackStack: () -> Unit,
+    navigateToEnroll: (EnrollType, Int?) -> Unit
 ) {
     composable(
         route = ROUTE_WITH_ARGUMENT,
@@ -30,7 +32,7 @@ fun NavGraphBuilder.myCoursesNavGraph(
             MyCourseType.valueOf(it)
         } ?: MyCourseType.ENROLL
 
-        MyCourseRoute(padding = padding, popBackStack = popBackStack, myCourseType = myCourseType)
+        MyCourseRoute(padding = padding, popBackStack = popBackStack, myCourseType = myCourseType, navigateToEnroll = navigateToEnroll)
     }
 }
 

@@ -5,11 +5,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.usecase.GetMyCourseReadUseCase
+import org.sopt.dateroad.domain.usecase.GetNicknameUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
 @HiltViewModel
 class ReadViewModel @Inject constructor(
+    private val getNicknameUseCase: GetNicknameUseCase,
     private val getMyCourseReadUseCase: GetMyCourseReadUseCase
 ) : BaseViewModel<ReadContract.ReadUiState, ReadContract.ReadSideEffect, ReadContract.ReadEvent>() {
     override fun createInitialState(): ReadContract.ReadUiState =
@@ -40,8 +42,6 @@ class ReadViewModel @Inject constructor(
     }
 
     fun fetchName() {
-        setEvent(
-            ReadContract.ReadEvent.FetchName(name = "지현")
-        )
+        setEvent(ReadContract.ReadEvent.FetchName(name = getNicknameUseCase()))
     }
 }
