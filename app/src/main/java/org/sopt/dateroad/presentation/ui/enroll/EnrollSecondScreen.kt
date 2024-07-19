@@ -161,7 +161,7 @@ fun EnrollSecondScreen(
                         ),
                     placeCardType = if (enrollUiState.isPlaceEditable) PlaceCardType.COURSE_EDIT else PlaceCardType.COURSE_DELETE,
                     place = enrollUiState.enroll.places[index],
-                    onIconClick = { onPlaceCardDeleteButtonClick(index) }
+                    onIconClick = { if (!enrollUiState.isPlaceEditable) onPlaceCardDeleteButtonClick(index) }
                 )
             }
         }

@@ -194,10 +194,10 @@ fun LookScreen(
                     .padding(8.dp)
                     .noRippleClickable(onClick = onResetButtonClicked),
                 painter = painterResource(id = R.drawable.ic_all_reset),
-                contentDescription = null
+                contentDescription = null,
+                tint = DateRoadTheme.colors.gray300
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
         LazyRow(
             modifier = Modifier
                 .padding(horizontal = 16.dp)

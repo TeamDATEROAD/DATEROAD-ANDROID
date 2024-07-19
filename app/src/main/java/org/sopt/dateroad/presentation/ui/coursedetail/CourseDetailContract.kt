@@ -42,7 +42,6 @@ class CourseDetailContract {
         data object DismissDialogPointLack : CourseDetailEvent()
         data object OnEditBottomSheet : CourseDetailEvent()
         data object DismissEditBottomSheet : CourseDetailEvent()
-        data object EnrollSchedule : CourseDetailEvent()
         data object OpenCourse : CourseDetailEvent()
         data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
         data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()

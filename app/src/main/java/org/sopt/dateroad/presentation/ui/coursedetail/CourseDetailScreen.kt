@@ -123,10 +123,11 @@ fun CourseDetailRoute(
             CourseDetailScreen(
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
-                dismissDialogPointLack = {
+                onDialogPointLackConfirm = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack)
                     viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.COURSE, null))
                 },
+                dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
@@ -162,6 +163,7 @@ fun CourseDetailRoute(
 fun CourseDetailScreen(
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
+    onDialogPointLackConfirm: () -> Unit,
     dismissDialogPointLack: () -> Unit,
     onDialogLookedForFree: () -> Unit,
     dismissDialogLookedForFree: () -> Unit,
@@ -188,8 +190,6 @@ fun CourseDetailScreen(
             stringResource(id = R.string.course_detail_point_read_button_description)
         }
     var imageHeight by remember { mutableIntStateOf(0) }
-
-    var courseLike by remember { mutableIntStateOf(courseDetailUiState.courseDetail.like) }
 
     val pagerState = rememberPagerState()
     val scrollState = rememberLazyListState()
@@ -235,7 +235,7 @@ fun CourseDetailScreen(
 
                         if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
                             DateRoadImageTag(
-                                textContent = courseLike.toString(),
+                                textContent = courseDetailUiState.courseDetail.like.toString(),
                                 imageContent = R.drawable.ic_tag_heart,
                                 tagContentType = TagType.HEART,
                                 modifier = Modifier
@@ -549,8 +549,9 @@ fun CourseDetailScreen(
     if (courseDetailUiState.isPointLackDialogOpen) {
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-            onDismissRequest = { dismissDialogPointLack() },
-            onClickConfirm = { dismissDialogPointLack() }
+            onDismissRequest = dismissDialogPointLack,
+            onClickConfirm = onDialogPointLackConfirm,
+            onClickDismiss = dismissDialogPointLack
         )
     }
 
@@ -569,7 +570,7 @@ fun CourseDetailScreen(
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
         title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-        isButtonEnabled = true,
+        isButtonEnabled = false,
         buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
             stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
@@ -623,6 +624,7 @@ fun CourseDetailScreenP() {
         courseDetailUiState = dummyCourseDetail,
         onDialogPointLack = {},
         dismissDialogPointLack = {},
+        onDialogPointLackConfirm = {},
         onDialogLookedForFree = {},
         dismissDialogLookedForFree = {},
         onDialogLookedByPoint = {},
