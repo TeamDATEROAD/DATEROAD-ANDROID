@@ -48,7 +48,7 @@ fun DateRoadBasicTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(backGroundColor)
-            .padding( vertical = 11.dp)
+            .padding(vertical = 11.dp)
     ) {
         if (iconLeftResource != null) {
             Column(

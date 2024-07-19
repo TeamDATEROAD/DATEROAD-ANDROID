@@ -67,7 +67,6 @@ fun CourseDetailInfoBar(
             style = DateRoadTheme.typography.bodySemi15
         )
     }
-
 }
 
 @Preview
@@ -79,4 +78,3 @@ fun CourseDetailInfoBarPreview() {
         totalCost = "50000"
     )
 }
-

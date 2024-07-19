@@ -62,7 +62,7 @@ fun HomeTimeLineCard(
                     tagContentType = TagType.TIMELINE_D_DAY
                 )
             }
-            if (mainDate.dateName.isNotEmpty()){
+            if (mainDate.dateName.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(7.dp))
             }
             Text(
@@ -77,18 +77,16 @@ fun HomeTimeLineCard(
                     .fillMaxWidth()
             )
 
-
-
             if (mainDate.dateName.isNotEmpty()) {
                 Row {
-                Text(
-                    text =  mainDate.date ,
-                    style = DateRoadTheme.typography.bodyMed15,
-                    color = DateRoadTheme.colors.purple300,
-                    maxLines = 1,
-                    textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start,
-                    overflow = TextOverflow.Ellipsis
-                )
+                    Text(
+                        text = mainDate.date,
+                        style = DateRoadTheme.typography.bodyMed15,
+                        color = DateRoadTheme.colors.purple300,
+                        maxLines = 1,
+                        textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start,
+                        overflow = TextOverflow.Ellipsis
+                    )
 
                     Text(
                         text = mainDate.startAt,
@@ -100,11 +98,9 @@ fun HomeTimeLineCard(
                             .padding(start = 19.dp)
                     )
                 }
-            }
-            else
-            {
+            } else {
                 Text(
-                    text =   stringResource(id = R.string.home_timeline_enroll),
+                    text = stringResource(id = R.string.home_timeline_enroll),
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.purple300,
                     maxLines = 1,
@@ -112,9 +108,7 @@ fun HomeTimeLineCard(
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
-
             }
-
         }
         Canvas(
             modifier = Modifier

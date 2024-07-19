@@ -4,7 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
 import org.sopt.dateroad.data.mapper.toEntity.toCourseDetailDate
 import org.sopt.dateroad.data.mapper.toEntity.toDuration
 import org.sopt.dateroad.domain.model.CourseDetail
-import org.sopt.dateroad.domain.type.MoneyTagType.Companion.toCostTagTitle
 
 fun ResponseCourseDetailDto.toDomain(): CourseDetail = CourseDetail(
     courseId = this.courseId,

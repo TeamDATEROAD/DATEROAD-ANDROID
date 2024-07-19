@@ -61,7 +61,6 @@ fun DateRoadTextArea(
             Spacer(
                 modifier = Modifier.padding(top = 8.dp)
             )
-
         }
         BasicTextField(
             modifier = Modifier
@@ -88,7 +87,6 @@ fun DateRoadTextArea(
             }
         )
         Spacer(modifier = Modifier.height(6.dp))
-
     }
 }
 
