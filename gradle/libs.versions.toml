@@ -59,6 +59,7 @@ v2Share = "2.20.3"
 v2ShareVersion = "2.20.3"
 v2Talk = "2.20.3"
 v2User = "2.20.3"
+media3Common = "1.3.1"
 
 [libraries]
 # Test
@@ -117,6 +118,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3Common" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
