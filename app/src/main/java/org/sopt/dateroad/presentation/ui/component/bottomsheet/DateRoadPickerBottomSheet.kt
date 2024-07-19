@@ -49,6 +49,7 @@ fun DateRoadPickerBottomSheet(
                         modifier = Modifier
                             .weight(1f),
                         items = item.items,
+                        startIndex = item.startIndex,
                         pickerState = item.pickerState
                     )
                     if (index != pickers.size - 1) {

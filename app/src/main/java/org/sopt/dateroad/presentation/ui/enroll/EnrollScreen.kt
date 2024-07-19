@@ -394,10 +394,8 @@ fun EnrollScreen(
     )
 
     if (enrollUiState.isEnrollSuccessDialogOpen) {
-        Log.e("ㅋㅋ", "되나용")
         when (enrollUiState.enrollType) {
             EnrollType.TIMELINE -> {
-                Log.e("ㅋㅋ", "되나")
                 DateRoadOneButtonDialog(
                     oneButtonDialogType = OneButtonDialogType.ENROLL_TIMELINE,
                     onDismissRequest = onEnrollSuccessDialogButtonClick,
@@ -406,7 +404,6 @@ fun EnrollScreen(
             }
 
             EnrollType.COURSE -> {
-                Log.e("ㅋㅋ", "되나")
                 DateRoadOneButtonDialogWithDescription(
                     oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.ENROLL_COURSE,
                     onDismissRequest = onEnrollSuccessDialogButtonClick,
