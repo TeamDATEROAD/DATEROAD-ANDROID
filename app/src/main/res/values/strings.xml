@@ -238,7 +238,7 @@
     <string name="enroll_profile_button">프로필 등록하기</string>
 
     <!-- Onboarding Button -->
-    <string name="onboarding_profile_enroll">프로필 등록하기</string>
+    <string name="onboarding_profile_enroll">프로필 생성하기</string>
     <string name="onboarding_next">다음</string>
 
     <!-- Enroll -->
