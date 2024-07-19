@@ -173,7 +173,6 @@ fun TimelineCard(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 25.dp)
             ) {
-                Log.e("zz", dateCard.city)
                 Text(
                     text = dateCard.city,
                     style = DateRoadTheme.typography.bodyMed15,
