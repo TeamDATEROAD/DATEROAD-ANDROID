@@ -91,7 +91,7 @@ fun DateRoadFilledButtonPreview() {
             )
             DateRoadFilledButton(
                 isEnabled = true,
-                textContent = "데이트 코스 받고 50P 받기",
+                textContent = "데이트 코스 받고 100P 받기",
                 onClick = {},
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 enabledBackgroundColor = DateRoadTheme.colors.purple600,
