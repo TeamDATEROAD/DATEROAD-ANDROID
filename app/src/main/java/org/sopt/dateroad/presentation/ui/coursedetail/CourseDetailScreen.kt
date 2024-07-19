@@ -421,7 +421,7 @@ fun CourseDetailScreen(
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
                                 text = formatCostString(courseDetailUiState.courseDetail.totalCost),
-                                style = DateRoadTheme.typography.titleBold18,
+                                style = DateRoadTheme.typography.bodyBold15,
                                 color = DateRoadTheme.colors.black,
                                 modifier = Modifier
                                     .fillMaxWidth()
