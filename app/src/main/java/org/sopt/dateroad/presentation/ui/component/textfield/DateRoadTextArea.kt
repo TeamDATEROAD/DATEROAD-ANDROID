@@ -50,9 +50,18 @@ fun DateRoadTextArea(
                 color = DateRoadTheme.colors.black,
                 style = DateRoadTheme.typography.bodyBold17
             )
-            Spacer(
-                modifier = Modifier.padding(top = 12.dp)
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start,
+                text = stringResource(id = R.string.text_area_length_content, value.length, minLength),
+                color = DateRoadTheme.colors.gray300,
+                style = DateRoadTheme.typography.bodyMed13
             )
+            Spacer(
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
         }
         BasicTextField(
             modifier = Modifier
@@ -79,13 +88,7 @@ fun DateRoadTextArea(
             }
         )
         Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.End,
-            text = stringResource(id = R.string.text_area_length_content, value.length, minLength),
-            color = DateRoadTheme.colors.gray300,
-            style = DateRoadTheme.typography.bodyMed13
-        )
+
     }
 }
 
