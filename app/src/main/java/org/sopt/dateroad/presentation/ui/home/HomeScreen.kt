@@ -256,7 +256,6 @@ fun HomeScreen(
                         .padding(start = 16.dp)
                         .fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(3.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -266,7 +265,7 @@ fun HomeScreen(
                         text = stringResource(id = R.string.home_new_date_course_description),
                         style = DateRoadTheme.typography.bodyMed13,
                         color = DateRoadTheme.colors.gray400,
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     DateRoadTextButton(
                         textContent = stringResource(id = R.string.button_more),
