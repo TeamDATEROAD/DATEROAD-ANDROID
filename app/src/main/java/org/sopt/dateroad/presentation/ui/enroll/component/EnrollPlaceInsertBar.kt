@@ -84,7 +84,7 @@ fun EnrollPlaceInsertBar(
             paddingVertical = 15.dp,
             disabledBackgroundColor = DateRoadTheme.colors.gray100,
             disabledContentColor = DateRoadTheme.colors.gray300,
-            onClick = onAddCourseButtonClick
+            onClick = {if (duration.isNotEmpty() && title.isNotEmpty()) onAddCourseButtonClick() else Unit}
         )
     }
 }

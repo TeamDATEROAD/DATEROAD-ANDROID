@@ -33,7 +33,7 @@ fun DateRoadImageButton(
         cornerRadius = cornerRadius,
         paddingHorizontal = paddingHorizontal,
         paddingVertical = paddingVertical,
-        onClick = { if (isEnabled) onClick() }
+        onClick = onClick
     ) {
         Icon(
             painter = painterResource(id = iconResId),

@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.component.textfield
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -70,7 +71,7 @@ fun DateRoadBasicTextField(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .noRippleClickable(onClick = onClick)
+                .clickable(onClick = onClick)
                 .background(color = DateRoadTheme.colors.gray100, shape = RoundedCornerShape(14.dp))
                 .border(width = 1.dp, color = if (validateState == TextFieldValidateResult.ValidationError) DateRoadTheme.colors.alertRed else Color.Transparent, shape = RoundedCornerShape(14.dp))
                 .padding(horizontal = 15.dp),
