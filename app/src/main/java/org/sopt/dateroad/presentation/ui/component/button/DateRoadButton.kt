@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.util.modifier.noRippleDebounceClickable
 
 @Composable
 fun DateRoadButton(
@@ -30,7 +30,7 @@ fun DateRoadButton(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(color = backgroundColor)
-            .noRippleClickable(onClick = onClick)
+            .noRippleDebounceClickable(onClick = onClick)
             .border(width = borderWidth, color = borderColor, shape = RoundedCornerShape(cornerRadius))
             .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         contentAlignment = Alignment.Center

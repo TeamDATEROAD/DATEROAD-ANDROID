@@ -27,7 +27,7 @@ class EnrollContract {
         val dateValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val isDatePickerBottomSheetOpen: Boolean = false,
         val datePickers: List<Picker> = listOf(
-            Picker(items = (2000..2024).map { it.toString() }),
+            Picker(items = (2000..2024).map { it.toString() }, startIndex = 24),
             Picker(items = (1..12).map { it.toString() }),
             Picker(items = (1..31).map { it.toString() })
         ),
@@ -53,6 +53,7 @@ class EnrollContract {
     }
 
     sealed class EnrollEvent : UiEvent {
+        data object OnTopBarBackButtonClick : EnrollEvent()
         data object OnEnrollButtonClick : EnrollEvent()
         data object OnDateTextFieldClick : EnrollEvent()
         data object OnSelectedPlaceCourseTimeClick : EnrollEvent()

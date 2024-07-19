@@ -2,11 +2,11 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -128,7 +130,7 @@ fun EnrollRoute(
     EnrollScreen(
         padding = padding,
         enrollUiState = uiState,
-        onTopBarBackButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack) },
+        onTopBarBackButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick) },
         onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
         onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
         onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
@@ -171,7 +173,9 @@ fun EnrollRoute(
     )
 
     when (uiState.loadState) {
-        LoadState.Success -> { viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = true)) }
+        LoadState.Success -> {
+            viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = true))
+        }
 
         LoadState.Error -> DateRoadErrorView()
 
@@ -233,11 +237,18 @@ fun EnrollScreen(
     onCostValueChange: (String) -> Unit,
     onEnrollSuccessDialogButtonClick: () -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     Column(
         modifier = Modifier
             .padding(padding)
             .fillMaxSize()
             .background(color = DateRoadTheme.colors.white)
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            }
     ) {
         when (enrollUiState.enrollType) {
             EnrollType.COURSE -> {
@@ -382,10 +393,8 @@ fun EnrollScreen(
     )
 
     if (enrollUiState.isEnrollSuccessDialogOpen) {
-        Log.e("ㅋㅋ", "되나용")
         when (enrollUiState.enrollType) {
             EnrollType.TIMELINE -> {
-                Log.e("ㅋㅋ", "되나")
                 DateRoadOneButtonDialog(
                     oneButtonDialogType = OneButtonDialogType.ENROLL_TIMELINE,
                     onDismissRequest = onEnrollSuccessDialogButtonClick,
@@ -394,7 +403,6 @@ fun EnrollScreen(
             }
 
             EnrollType.COURSE -> {
-                Log.e("ㅋㅋ", "되나")
                 DateRoadOneButtonDialogWithDescription(
                     oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.ENROLL_COURSE,
                     onDismissRequest = onEnrollSuccessDialogButtonClick,

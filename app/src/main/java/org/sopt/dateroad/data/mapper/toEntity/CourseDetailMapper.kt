@@ -5,7 +5,6 @@ import org.sopt.dateroad.domain.model.Enroll
 
 fun CourseDetail.toEnroll() = Enroll(
     title = this.title,
-    date = this.date.fromCourseDetailToEnrollDate(),
     startAt = this.startAt,
     tags = this.tags,
     country = this.city.toRegionType(),

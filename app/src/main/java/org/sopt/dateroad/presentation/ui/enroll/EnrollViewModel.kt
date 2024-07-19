@@ -26,6 +26,25 @@ class EnrollViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: EnrollContract.EnrollEvent) {
         when (event) {
+            is EnrollContract.EnrollEvent.OnTopBarBackButtonClick -> {
+                when (currentState.enrollType) {
+                    EnrollType.COURSE -> {
+                        when (currentState.page) {
+                            EnrollScreenType.FIRST -> setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack)
+                            EnrollScreenType.SECOND -> setState { copy(page = EnrollScreenType.FIRST) }
+                            EnrollScreenType.THIRD -> setState { copy(page = EnrollScreenType.SECOND) }
+                        }
+                    }
+
+                    EnrollType.TIMELINE -> {
+                        when (currentState.page) {
+                            EnrollScreenType.FIRST -> setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack)
+                            EnrollScreenType.SECOND -> setState { copy(page = EnrollScreenType.FIRST) }
+                            EnrollScreenType.THIRD -> Unit
+                        }
+                    }
+                }
+            }
             is EnrollContract.EnrollEvent.OnEnrollButtonClick -> {
                 when (currentState.enrollType) {
                     EnrollType.COURSE -> {

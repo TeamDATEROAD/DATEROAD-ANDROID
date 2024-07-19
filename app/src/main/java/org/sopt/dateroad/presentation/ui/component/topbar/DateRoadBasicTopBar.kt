@@ -76,7 +76,6 @@ fun DateRoadBasicTopBar(
                     .onGloballyPositioned { coordinates ->
                         contentWidth = coordinates.size.width
                     }
-                    .noRippleClickable(onClick = onIconClick)
             ) {
                 buttonContent()
             }
