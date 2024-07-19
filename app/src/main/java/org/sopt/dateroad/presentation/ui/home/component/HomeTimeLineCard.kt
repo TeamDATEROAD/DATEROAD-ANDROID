@@ -71,7 +71,6 @@ fun HomeTimeLineCard(
                 color = DateRoadTheme.colors.white,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start, // Add text alignment conditionally
                 modifier = Modifier
                     .padding(bottom = 2.dp)
                     .fillMaxWidth()
@@ -104,7 +103,6 @@ fun HomeTimeLineCard(
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.purple300,
                     maxLines = 1,
-                    textAlign = TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
