@@ -34,6 +34,9 @@ import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -64,6 +67,10 @@ fun ReadRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             ReadScreen(
                 padding = padding,
@@ -73,7 +80,7 @@ fun ReadRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

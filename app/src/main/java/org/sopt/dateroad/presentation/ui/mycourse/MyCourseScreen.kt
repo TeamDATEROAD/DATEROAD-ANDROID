@@ -27,6 +27,9 @@ import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -63,6 +66,10 @@ fun MyCourseRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             MyCourseScreen(
                 padding = padding,
@@ -72,7 +79,7 @@ fun MyCourseRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

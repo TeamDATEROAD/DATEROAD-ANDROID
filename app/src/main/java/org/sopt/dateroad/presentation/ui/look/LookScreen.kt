@@ -45,6 +45,8 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.look.component.LookCourseCard
 import org.sopt.dateroad.presentation.util.Default
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -86,6 +88,10 @@ fun LookRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadLoadingView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             LookScreen(
                 padding = padding,
@@ -130,7 +136,7 @@ fun LookRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

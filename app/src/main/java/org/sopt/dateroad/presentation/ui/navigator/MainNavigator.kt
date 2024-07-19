@@ -24,7 +24,7 @@ import org.sopt.dateroad.presentation.ui.mycourse.navigation.navigateMyCourses
 import org.sopt.dateroad.presentation.ui.mypage.navigation.navigationMyPage
 import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboarding
 import org.sopt.dateroad.presentation.ui.past.navigation.navigationPast
-import org.sopt.dateroad.presentation.ui.pointguide.navigationPointGuide
+import org.sopt.dateroad.presentation.ui.pointguide.navigation.navigationPointGuide
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
 import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead

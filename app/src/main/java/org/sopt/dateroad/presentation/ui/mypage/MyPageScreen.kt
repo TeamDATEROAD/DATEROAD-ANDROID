@@ -52,6 +52,9 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialo
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadWebView
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPagePointBox
@@ -101,6 +104,10 @@ fun MyPageRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             MyPageScreen(
                 padding = padding,
@@ -137,7 +144,7 @@ fun MyPageRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

@@ -60,12 +60,15 @@ import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBott
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
-import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -112,6 +115,10 @@ fun CourseDetailRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             CourseDetailScreen(
                 courseDetailUiState = uiState,
@@ -146,7 +153,7 @@ fun CourseDetailRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

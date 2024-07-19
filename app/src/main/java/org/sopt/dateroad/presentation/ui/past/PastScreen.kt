@@ -24,6 +24,9 @@ import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.past.component.PastCard
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -53,6 +56,10 @@ fun PastRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             PastScreen(
                 padding = padding,
@@ -62,7 +69,7 @@ fun PastRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

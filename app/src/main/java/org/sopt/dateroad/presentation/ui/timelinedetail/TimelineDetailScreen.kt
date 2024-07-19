@@ -44,12 +44,15 @@ import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialog
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
-import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -81,6 +84,10 @@ fun TimelineDetailRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             TimelineDetailScreen(
                 uiState = uiState,
@@ -97,7 +104,7 @@ fun TimelineDetailRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 
     when (uiState.deleteLoadState) {

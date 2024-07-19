@@ -31,6 +31,9 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabBar
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabTitle
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.pointhistory.component.PointHistoryCard
 import org.sopt.dateroad.presentation.ui.pointhistory.component.PointHistoryPointBox
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -61,6 +64,10 @@ fun PointHistoryRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             PointHistoryScreen(
                 padding = padding,
@@ -74,7 +81,7 @@ fun PointHistoryRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 
