@@ -153,7 +153,7 @@ fun HomeScreen(
             onClick = navigateToPointHistory
         )
         Row(
-            modifier = Modifier.padding(start = 17.dp, end = 17.dp, top = 10.dp, bottom = 15.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 15.dp)
         ) {
             HomeTimeLineCard(
                 mainDate = uiState.mainDate,
@@ -208,14 +208,16 @@ fun HomeScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(13.dp))
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(uiState.topLikedCourses) { topLikedCourses ->
-                        HomeHotCourseCard(
-                            course = topLikedCourses,
-                            onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
-                        )
+                Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(uiState.topLikedCourses) { topLikedCourses ->
+                            HomeHotCourseCard(
+                                course = topLikedCourses,
+                                onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
+                            )
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))

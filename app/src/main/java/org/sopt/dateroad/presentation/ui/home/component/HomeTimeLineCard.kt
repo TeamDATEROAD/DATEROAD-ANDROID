@@ -23,6 +23,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,7 +52,7 @@ fun HomeTimeLineCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(start = if (mainDate.dateName.isNotEmpty()) 16.dp else 23.dp, end = 9.dp, top = 3.dp)
+                .padding(start = if (mainDate.dateName.isNotEmpty()) 16.dp else 23.dp, end = 9.dp)
                 .weight(4.5f),
             verticalArrangement = Arrangement.Center
         ) {
@@ -61,25 +62,32 @@ fun HomeTimeLineCard(
                     tagContentType = TagType.TIMELINE_D_DAY
                 )
             }
+            if (mainDate.dateName.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(7.dp))
+            }
             Text(
                 text = if (mainDate.dateName.isNotEmpty()) mainDate.dateName else stringResource(id = R.string.home_timeline_is_not),
                 style = DateRoadTheme.typography.titleBold20,
                 color = DateRoadTheme.colors.white,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start, // Add text alignment conditionally
                 modifier = Modifier
-                    .padding(top = 7.dp, bottom = 2.dp)
+                    .padding(bottom = 2.dp)
+                    .fillMaxWidth()
             )
-            Row {
-                Text(
-                    text = if (mainDate.dateName.isNotEmpty()) mainDate.date else stringResource(id = R.string.home_timeline_enroll),
-                    style = DateRoadTheme.typography.bodyMed15,
-                    color = DateRoadTheme.colors.purple300,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
 
-                if (mainDate.dateName.isNotEmpty()) {
+            if (mainDate.dateName.isNotEmpty()) {
+                Row {
+                    Text(
+                        text = mainDate.date,
+                        style = DateRoadTheme.typography.bodyMed15,
+                        color = DateRoadTheme.colors.purple300,
+                        maxLines = 1,
+                        textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
                     Text(
                         text = mainDate.startAt,
                         style = DateRoadTheme.typography.bodyMed15,
@@ -90,6 +98,16 @@ fun HomeTimeLineCard(
                             .padding(start = 19.dp)
                     )
                 }
+            } else {
+                Text(
+                    text = stringResource(id = R.string.home_timeline_enroll),
+                    style = DateRoadTheme.typography.bodyMed15,
+                    color = DateRoadTheme.colors.purple300,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
         Canvas(

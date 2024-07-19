@@ -11,16 +11,22 @@ import androidx.compose.ui.text.withStyle
 fun PartialColorText(text: String, keywords: List<String>, color: Color): AnnotatedString {
     return buildAnnotatedString {
         var currentIndex = 0
-        keywords.forEach { keyword ->
-            val keywordIndex = text.indexOf(keyword, currentIndex, ignoreCase = true)
-            if (keywordIndex >= 0) {
-                append(text.substring(currentIndex, keywordIndex))
+        while (currentIndex < text.length) {
+            val keywordIndex = keywords
+                .map { keyword -> text.indexOf(keyword, currentIndex, ignoreCase = true) to keyword }
+                .filter { it.first >= 0 }
+                .minByOrNull { it.first }
+
+            if (keywordIndex != null && keywordIndex.first >= 0) {
+                append(text.substring(currentIndex, keywordIndex.first))
                 withStyle(style = SpanStyle(color)) {
-                    append(text.substring(keywordIndex, keywordIndex + keyword.length))
+                    append(keywordIndex.second)
                 }
-                currentIndex = keywordIndex + keyword.length
+                currentIndex = keywordIndex.first + keywordIndex.second.length
+            } else {
+                append(text.substring(currentIndex))
+                break
             }
         }
-        append(text.substring(currentIndex))
     }
 }

@@ -46,6 +46,8 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import java.text.NumberFormat
+import java.util.Locale
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Place
@@ -156,6 +158,11 @@ fun CourseDetailRoute(
 
         LoadState.Error -> DateRoadErrorView()
     }
+}
+
+fun formatCostString(totalCost: String): String {
+    val cost = totalCost.toIntOrNull() ?: return totalCost
+    return NumberFormat.getNumberInstance(Locale.US).format(cost) + "원"
 }
 
 @OptIn(ExperimentalPagerApi::class)
@@ -413,7 +420,7 @@ fun CourseDetailScreen(
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
-                                text = courseDetailUiState.courseDetail.totalCost,
+                                text = formatCostString(courseDetailUiState.courseDetail.totalCost),
                                 style = DateRoadTheme.typography.titleBold18,
                                 color = DateRoadTheme.colors.black,
                                 modifier = Modifier

@@ -4,7 +4,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
 import org.sopt.dateroad.data.mapper.toEntity.toCourseDetailDate
 import org.sopt.dateroad.data.mapper.toEntity.toDuration
 import org.sopt.dateroad.domain.model.CourseDetail
-import org.sopt.dateroad.domain.type.MoneyTagType.Companion.toCostTagTitle
 
 fun ResponseCourseDetailDto.toDomain(): CourseDetail = CourseDetail(
     courseId = this.courseId,
@@ -16,7 +15,7 @@ fun ResponseCourseDetailDto.toDomain(): CourseDetail = CourseDetail(
     title = this.title,
     description = this.description,
     places = this.places.sortedBy { responsePlaceDto -> responsePlaceDto.sequence }.map { responsePlaceDto -> responsePlaceDto.toDomain() },
-    totalCost = totalCost.toCostTagTitle(),
+    totalCost = totalCost.toString(),
     tags = this.tags.map { responseTagDto -> responseTagDto.tag },
     isAccess = this.isAccess,
     free = this.free,
