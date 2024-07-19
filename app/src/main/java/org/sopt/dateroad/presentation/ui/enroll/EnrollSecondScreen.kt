@@ -37,7 +37,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
-import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPlaceInsertBar
 import org.sopt.dateroad.presentation.util.Time
 import org.sopt.dateroad.presentation.util.draganddrop.rememberDragAndDropListState

@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.emptyview
+package org.sopt.dateroad.presentation.ui.component.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

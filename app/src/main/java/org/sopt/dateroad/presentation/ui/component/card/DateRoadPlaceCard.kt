@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.placecard
+package org.sopt.dateroad.presentation.ui.component.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

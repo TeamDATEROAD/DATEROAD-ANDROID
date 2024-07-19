@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.numberpicker
+package org.sopt.dateroad.presentation.ui.component.numberpicker.state
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

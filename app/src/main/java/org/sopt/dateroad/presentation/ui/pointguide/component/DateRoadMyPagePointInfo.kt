@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.mypage
+package org.sopt.dateroad.presentation.ui.pointguide.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

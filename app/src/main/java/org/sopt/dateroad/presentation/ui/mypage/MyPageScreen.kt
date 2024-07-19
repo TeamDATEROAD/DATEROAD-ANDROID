@@ -52,7 +52,7 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialo
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
-import org.sopt.dateroad.presentation.ui.component.webview.DateRoadWebView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadWebView
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPagePointBox
 import org.sopt.dateroad.presentation.util.CourseDetail.ASK_URL

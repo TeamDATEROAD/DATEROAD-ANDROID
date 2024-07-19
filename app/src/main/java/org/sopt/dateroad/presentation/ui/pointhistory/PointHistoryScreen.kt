@@ -27,7 +27,7 @@ import org.sopt.dateroad.domain.model.PointHistory
 import org.sopt.dateroad.domain.model.UserPoint
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.PointHistoryTabType
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabBar
 import org.sopt.dateroad.presentation.ui.component.tabbar.DateRoadTabTitle
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar

@@ -24,8 +24,8 @@ import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
-import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme

@@ -34,7 +34,7 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
 import org.sopt.dateroad.presentation.util.view.LoadState

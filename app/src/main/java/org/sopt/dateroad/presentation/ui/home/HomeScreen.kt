@@ -44,7 +44,7 @@ import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
-import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar

@@ -22,7 +22,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.type.DateTimeType
 import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EmptyViewType
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.past.component.PastCard
 import org.sopt.dateroad.presentation.util.view.LoadState

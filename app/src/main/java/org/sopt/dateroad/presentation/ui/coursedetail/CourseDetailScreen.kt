@@ -62,7 +62,7 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
-import org.sopt.dateroad.presentation.ui.component.placecard.DateRoadPlaceCard
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar

@@ -31,8 +31,8 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
-import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
