@@ -11,7 +11,9 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadLoadingView(
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier
-        .fillMaxSize()
-        .background(color = DateRoadTheme.colors.white))
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = DateRoadTheme.colors.white)
+    )
 }

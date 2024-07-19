@@ -17,9 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.MyPagePointInfoType
-import org.sopt.dateroad.presentation.ui.pointguide.component.DateRoadMyPagePointInfo
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.pointguide.component.DateRoadMyPagePointInfo
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
