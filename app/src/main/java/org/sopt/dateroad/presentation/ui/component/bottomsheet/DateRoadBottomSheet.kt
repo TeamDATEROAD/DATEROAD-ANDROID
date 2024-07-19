@@ -38,7 +38,7 @@ fun DateRoadBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     isBottomSheetOpen: Boolean,
-    isButtonEnabled: Boolean,
+    isButtonEnabled: Boolean = true,
     buttonText: String,
     onButtonClick: () -> Unit = {},
     onDismissRequest: () -> Unit = {},
@@ -62,12 +62,26 @@ fun DateRoadBottomSheet(
             ) {
                 content()
                 DateRoadBasicButton(
-                    isEnabled = isButtonEnabled,
+                    isEnabled = true,
                     textContent = buttonText,
                     onClick = {
                         onButtonClick()
                         coroutineScope.launch { sheetState.hide() }
-                    }
+                    },
+                    enabledBackgroundColor = (
+                        if (isButtonEnabled) {
+                            DateRoadTheme.colors.purple600
+                        } else {
+                            DateRoadTheme.colors.gray200
+                        }
+                        ),
+                    enabledTextColor = (
+                        if (isButtonEnabled) {
+                            DateRoadTheme.colors.white
+                        } else {
+                            (DateRoadTheme.colors.gray400)
+                        }
+                        )
                 )
                 Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
             }
