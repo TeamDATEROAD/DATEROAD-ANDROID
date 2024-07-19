@@ -51,18 +51,22 @@ fun DateRoadBasicTopBar(
             .padding(horizontal = 16.dp, vertical = 11.dp)
     ) {
         if (iconLeftResource != null) {
-            Icon(
-                painter = painterResource(id = iconLeftResource),
-                contentDescription = null,
-                tint = leftTint,
-                modifier = Modifier
+            Column(
+                Modifier
                     .align(Alignment.CenterStart)
                     .onGloballyPositioned { coordinates ->
                         iconWidth = coordinates.size.width
                     }
-                    .padding(start = 16.dp, top = 16.dp, bottom = 16.dp, end = 16.dp)
                     .noRippleClickable(onClick = onIconClick)
-            )
+            ) {
+                Icon(
+                    painter = painterResource(id = iconLeftResource),
+                    contentDescription = null,
+                    tint = leftTint,
+                    modifier = Modifier
+                        .padding(16.dp)
+                )
+            }
         }
 
         if (buttonContent != null) {
