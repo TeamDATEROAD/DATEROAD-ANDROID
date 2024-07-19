@@ -7,7 +7,16 @@
 
 데이트로드는 ‘장소 중심’이 아닌 ‘코스 중심’ 데이트 공유 서비스로 사용자가 직접 데이트 코스를 등록하고 공유합니다.
 
-## 목차
+
+## 💟 Contributors
+
+|                                                    [배지현](https://github.com/jihyunniiii)                                                     |                                                 [신민석](https://github.com/t1nm1ksun)                                                  |                                                  [이현진](https://github.com/2hyunjinn)                                                  |
+|:-------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://github.com/user-attachments/assets/b5f2b36e-4875-4de0-b1b2-b5f36ffef093" width="200px"  height="200dp"> | <img src="https://github.com/user-attachments/assets/31310105-159e-4447-ab09-cd34970151f1" width="200px" height="200dp"> | <img src="https://github.com/2hyunjinn/2hyunjinn/assets/95455569/6b6a33a0-d215-4b7c-a519-0c0958cd6473](https://github.com/user-attachments/assets/aade9cdc-8312-4ac6-88d8-410e781993ce" width="200px" height="200dp"> |
+|                                                                 포인트내역/내가열람한코스+내가등록한코스/코스둘러보기/코스등록하기+일정등록하기/코스수정하기                                                                 |                                                             로그인+온보딩/스플래시/프로필등록하기/코스상세/마이페이지                                                              |                                                            메인페이지/다가올 데이트일정/지난데이트일정/다가올데이트 상세페이지+지난데이트 상세페이지                                                            
+
+
+|## 목차
 
 ---
 
@@ -77,3 +86,126 @@
 > **입점처를 통한 수익 모델**
 > 
 - 입점 가게는 매장을 홍보하고 유저 방문으로 매출을 증가시키며, 광고주는 유저에게 광고를 노출하여 제품이나 서비스를 홍보합니다. 데이트로드는 이를 통해 수익을 창출하고, 모든 참여자가 상호 이익을 얻는 생태계를 구축합니다.
+
+
+### **`👋 서비스명`**
+
+<aside>
+🍀 럭키 럭키 체인지 a.k.a. 럭럭체
+
+</aside>
+
+### **`서비스 설명`**
+
+<aside>
+🍀 불행한 상황들을 적으면 럭키한 초긍정적 사고로 변환해주는 서비스
+
+</aside>
+
+
+## 👋 주요 기능
+### 부정적 감정이 쌓여가는 것을 다시 원래 상태로 (0으로) 돌려놓을 수 있다면?
+부정적인 감정을 털어 놓고, 이를 긍정적인 사고를 통해 긍정적인 상황, 긍정적인 감정으로 변환시켜줄 수 있는 기능을 통해, 페인포인트를 해결할 수 있습니다.
+
+솔루션은 다음과 같습니다.
+
+#### ✅ 온보딩 / 내 정보 입력
+유저는 닉네임과 나이를 입력하여 회원가입을 진행
+#### ✅ 홈 - 불행하거나 부정적인 상황 입력
+본인이 오늘 하루 느낀 부정적인 감정이나 불행했던 순간들을 텍스트로 입력
+#### ✅ 로딩화면 / 원영적 사고 - 원영적 사고로의 변환
+초긍정적 사고로 상황을 긍정적으로 만들어줌
+#### ✅ 인스타그램 공유 - 결과 화면 공유
+스크린샷, 인스타그램 공유를 통해 결과 화면을 공유함
+#### ✅ 마이페이지 - 아카이빙
+본인의 럭키럭키체인지 결과를 모아볼 수 있음
+
+
+## 👋 커밋 컨벤션
+https://www.notion.so/hooooooni/Git-Convention-Branch-Strategy-fdcac833649d41beaea4fc5c4f7250a8
+
+
+## 👋 코드 컨벤션
+https://www.notion.so/hooooooni/Android-Coding-Convention-019d81b86cdb44cf8ab3ffa55c10c64d
+
+
+## 👋 브랜치전략
+**브랜치 유형**
+- **main** : 완성된 버전의 코드를 저장하는 브랜치
+- **develop** : 개발이 진행되는 동안 완성된 코드를 저장하는 브랜치
+- **feature** : 작은 단위의 작업이 진행되는 브랜치
+- **hotfix** : 긴급한 오류를 해결하는 브랜치
+
+- 해당 작업을 위한 브랜치를 파서 작업합니다.
+- 작업 완료 후 PR을 날리고 팀원들에게 크로스체크 후 머지합니다.
+
+예시)
+
+- dev/feat-main-view
+- dev/add-font-res
+
+## 📷 **시연영상**
+
+
+
+
+## 📁 *****Foldering*****
+```
+📂 app
+┣ 📂 manifests
+┃ ┣ 📜 AndroidManifest.xml
+┣ 📂 kotlin+java
+┃ ┣ 📂 org.sopt.dateroad
+┃ ┃ ┣ 📂 data
+┃ ┃ ┃ ┣ 📂 datalocal
+┃ ┃ ┃ ┃ ┣ 📂 datasource
+┃ ┃ ┃ ┃ ┣ 📂 datasourceimpl
+┃ ┃ ┃ ┣ 📂 dataremote
+┃ ┃ ┃ ┃ ┣ 📂 datasource
+┃ ┃ ┃ ┃ ┣ 📂 datasourceimpl
+┃ ┃ ┃ ┃ ┣ 📂 interceptor
+┃ ┃ ┃ ┃ ┣ 📂 model
+┃ ┃ ┃ ┃ ┃ ┣ 📂 base
+┃ ┃ ┃ ┃ ┃ ┣ 📂 request
+┃ ┃ ┃ ┃ ┃ ┣ 📂 response
+┃ ┃ ┃ ┃ ┣ 📂 service
+┃ ┃ ┃ ┃ ┣ 📂 util
+┃ ┃ ┃ ┣ 📂 mapper
+┃ ┃ ┃ ┃ ┣ 📂 todata
+┃ ┃ ┃ ┃ ┣ 📂 todomain
+┃ ┃ ┃ ┃ ┣ 📂 toEntity
+┃ ┃ ┃ ┣ 📂 repositoryimpl
+┃ ┃ ┣ 📂 di
+┃ ┃ ┣ 📂 domain
+┃ ┃ ┃ ┣ 📂 model
+┃ ┃ ┃ ┣ 📂 repository
+┃ ┃ ┃ ┣ 📂 type
+┃ ┃ ┃ ┣ 📂 usecase
+┃ ┃ ┃ ┣ 📂 util
+┃ ┃ ┣ 📂 presentation
+┃ ┃ ┃ ┣ 📂 model
+┃ ┃ ┃ ┣ 📂 type
+┃ ┃ ┃ ┣ 📂 ui
+┃ ┃ ┃ ┃ ┣ 📂 component
+┃ ┃ ┃ ┃ ┃ 📂 coursedetail
+┃ ┃ ┃ ┃ ┣ 📂 enroll
+┃ ┃ ┃ ┃ ┣ 📂 home
+┃ ┃ ┃ ┃ ┣ 📂 look
+┃ ┃ ┃ ┃ ┣ 📂 mycourse
+┃ ┃ ┃ ┃ ┣ 📂 mypage
+┃ ┃ ┃ ┃ ┣ 📂 navigator
+┃ ┃ ┃ ┃ ┣ 📂 onboarding
+┃ ┃ ┃ ┃ ┣ 📂 past
+┃ ┃ ┃ ┃ ┣ 📂 pointguide
+┃ ┃ ┃ ┃ ┣ 📂 pointhistory
+┃ ┃ ┃ ┃ ┣ 📂 profile
+┃ ┃ ┃ ┃ ┣ 📂 read
+┃ ┃ ┃ ┃ ┣ 📂 signin
+┃ ┃ ┃ ┃ ┣ 📂 splash
+┃ ┃ ┃ ┃ ┣ 📂 timeline
+┃ ┃ ┃ ┃ ┣ 📂 timelinedetail
+┃ ┃ ┃ ┣ 📂 util
+┃ ┣ 📂 ui.theme
+┃ ┣ 📄 DateRoadApp.kt
+
+```
