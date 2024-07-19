@@ -123,10 +123,11 @@ fun CourseDetailRoute(
             CourseDetailScreen(
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
-                dismissDialogPointLack = {
+                onDialogPointLackConfirm = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack)
                     viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.COURSE, null))
                 },
+                dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
@@ -162,6 +163,7 @@ fun CourseDetailRoute(
 fun CourseDetailScreen(
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
+    onDialogPointLackConfirm: () -> Unit,
     dismissDialogPointLack: () -> Unit,
     onDialogLookedForFree: () -> Unit,
     dismissDialogLookedForFree: () -> Unit,
@@ -547,8 +549,9 @@ fun CourseDetailScreen(
     if (courseDetailUiState.isPointLackDialogOpen) {
         DateRoadTwoButtonDialogWithDescription(
             twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-            onDismissRequest = { dismissDialogPointLack() },
-            onClickConfirm = { dismissDialogPointLack() }
+            onDismissRequest = dismissDialogPointLack,
+            onClickConfirm = onDialogPointLackConfirm,
+            onClickDismiss = dismissDialogPointLack
         )
     }
 
@@ -621,6 +624,7 @@ fun CourseDetailScreenP() {
         courseDetailUiState = dummyCourseDetail,
         onDialogPointLack = {},
         dismissDialogPointLack = {},
+        onDialogPointLackConfirm = {},
         onDialogLookedForFree = {},
         dismissDialogLookedForFree = {},
         onDialogLookedByPoint = {},
