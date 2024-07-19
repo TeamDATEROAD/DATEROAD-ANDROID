@@ -14,11 +14,11 @@
 
 ---
 ## 👋 커밋 컨벤션
-https://www.notion.so/hooooooni/Git-Convention-Branch-Strategy-fdcac833649d41beaea4fc5c4f7250a8
+[Git Convention & Branch Strategy](https://www.notion.so/hooooooni/Git-Convention-Branch-Strategy-fdcac833649d41beaea4fc5c4f7250a8)
 
 
 ## 👋 코드 컨벤션
-https://www.notion.so/hooooooni/Android-Coding-Convention-019d81b86cdb44cf8ab3ffa55c10c64d
+[Android Coding Convention](https://www.notion.so/hooooooni/Android-Coding-Convention-019d81b86cdb44cf8ab3ffa55c10c64d)
 
 
 ## 👋 브랜치전략
