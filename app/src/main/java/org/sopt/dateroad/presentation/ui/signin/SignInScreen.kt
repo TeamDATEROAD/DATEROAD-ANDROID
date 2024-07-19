@@ -26,7 +26,8 @@ import com.kakao.sdk.user.UserApiClient
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadKakaoLoginButton
-import org.sopt.dateroad.presentation.ui.component.webview.DateRoadWebView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadWebView
 import org.sopt.dateroad.presentation.util.CourseDetail.PRIVACY_POLICY_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -80,25 +81,23 @@ fun SignInRoute(
         }
     }
 
-    SignInScreen(
-        signInUiState = uiState,
-        onSignInClicked = {
-            setLayoutLoginKakaoClickListener(context = context, callback = callback)
-        },
-        onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
-        webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
-    )
-
     when (uiState.loadState) {
-        LoadState.Success -> {
-            navigateToHome()
+        LoadState.Idle -> {
+            SignInScreen(
+                signInUiState = uiState,
+                onSignInClicked = {
+                    setLayoutLoginKakaoClickListener(context = context, callback = callback)
+                },
+                onWebViewClicked = { viewModel.setEvent(SignInContract.SignInEvent.OnWebViewClick) },
+                webViewClose = { viewModel.setEvent(SignInContract.SignInEvent.WebViewClose) }
+            )
         }
 
-        LoadState.Error -> {
-            navigateToOnboarding()
-        }
+        LoadState.Loading -> DateRoadLoadingView()
 
-        else -> Unit
+        LoadState.Success -> navigateToHome()
+
+        LoadState.Error -> navigateToOnboarding()
     }
 }
 

@@ -34,8 +34,11 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
-import org.sopt.dateroad.presentation.ui.component.emptyview.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadLeftTitleTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -73,6 +76,10 @@ fun TimelineRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             TimelineScreen(
                 padding = padding,
@@ -85,7 +92,7 @@ fun TimelineRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 

@@ -47,6 +47,9 @@
     <string name="empty_view_my_course_read">아직 열람한 코스가 없어요!</string>
     <string name="empty_view_my_course_enroll">아직 등록한 코스가 없어요!</string>
 
+    <!-- ErrorViewType -->
+    <string name="erro_view_server">서버 점검 중..!</string>
+
     <!-- GyeonggiAreaType -->
     <string name="gyeonggi_area_whole">경기 전체</string>
     <string name="gyeonggi_area_seongnam">성남</string>

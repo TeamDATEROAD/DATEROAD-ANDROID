@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.webview
+package org.sopt.dateroad.presentation.ui.component.view
 
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler

@@ -38,6 +38,8 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
@@ -163,9 +165,11 @@ fun EnrollRoute(
             )
         }
 
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> popBackStack()
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 
     with(uiState) {

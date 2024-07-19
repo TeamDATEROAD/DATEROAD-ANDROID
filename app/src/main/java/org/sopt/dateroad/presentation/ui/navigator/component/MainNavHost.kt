@@ -16,7 +16,7 @@ import org.sopt.dateroad.presentation.ui.mypage.navigation.myPageNavGraph
 import org.sopt.dateroad.presentation.ui.navigator.MainNavigator
 import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGraph
 import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
-import org.sopt.dateroad.presentation.ui.pointguide.pointGuideGraph
+import org.sopt.dateroad.presentation.ui.pointguide.navigation.pointGuideGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
 import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph

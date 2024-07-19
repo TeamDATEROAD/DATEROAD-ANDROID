@@ -44,10 +44,13 @@ import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
-import org.sopt.dateroad.presentation.ui.component.item.DateRoadCourseCard
+import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
@@ -102,6 +105,10 @@ fun HomeRoute(
     }
 
     when (uiState.loadState) {
+        LoadState.Idle -> DateRoadIdleView()
+
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> {
             HomeScreen(
                 padding = padding,
@@ -116,7 +123,7 @@ fun HomeRoute(
             )
         }
 
-        else -> Unit
+        LoadState.Error -> DateRoadErrorView()
     }
 }
 
