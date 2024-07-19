@@ -75,6 +75,8 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun CourseDetailRoute(
@@ -157,6 +159,14 @@ fun CourseDetailRoute(
         LoadState.Error -> DateRoadErrorView()
     }
 }
+
+
+fun formatCostString(totalCost: String): String {
+    val cost = totalCost.toIntOrNull() ?: return totalCost
+    return NumberFormat.getNumberInstance(Locale.US).format(cost) + "원"
+}
+
+
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -413,7 +423,7 @@ fun CourseDetailScreen(
                             )
                             Spacer(modifier = Modifier.height(12.dp))
                             Text(
-                                text = courseDetailUiState.courseDetail.totalCost,
+                                text = formatCostString(courseDetailUiState.courseDetail.totalCost),
                                 style = DateRoadTheme.typography.titleBold18,
                                 color = DateRoadTheme.colors.black,
                                 modifier = Modifier
