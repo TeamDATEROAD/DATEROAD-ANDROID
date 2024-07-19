@@ -246,7 +246,7 @@ fun HomeScreen(
                         tagContentType = TagType.ADVERTISEMENT_PAGE_NUMBER,
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
-                            .padding(end = 23.dp, bottom = 4.dp)
+                            .padding(end = 23.dp, bottom = 6.dp)
                     )
                 }
                 Spacer(modifier = Modifier.height(32.dp))
