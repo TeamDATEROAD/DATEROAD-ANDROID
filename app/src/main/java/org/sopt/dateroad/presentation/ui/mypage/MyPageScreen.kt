@@ -114,7 +114,6 @@ fun MyPageRoute(
                 myPageUiState = uiState,
                 deleteLogout = {
                     viewModel.deleteLogout()
-                    viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
                 },
                 deleteWithdrawal = {
                     viewModel.withdrawal()

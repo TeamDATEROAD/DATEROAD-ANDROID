@@ -29,7 +29,7 @@ import retrofit2.http.Query
 
 interface AuthService {
     @DELETE("$API/$VERSION/$USERS/$SIGN_OUT")
-    suspend fun deleteSignOut(): BaseResponse<Unit>
+    suspend fun deleteSignOut()
 
     @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")
     suspend fun deleteWithdraw(
