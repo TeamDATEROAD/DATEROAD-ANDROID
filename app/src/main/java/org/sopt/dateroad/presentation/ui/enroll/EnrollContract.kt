@@ -43,7 +43,8 @@ class EnrollContract {
         val place: Place = Place(),
         val isPlaceEditable: Boolean = true,
         val isDurationBottomSheetOpen: Boolean = false,
-        val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() }))
+        val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() })),
+        val isEnrollSuccessDialogOpen: Boolean = false
     ) : UiState
 
     sealed interface EnrollSideEffect : UiSideEffect {
@@ -85,5 +86,6 @@ class EnrollContract {
         data class Enroll(val loadState: LoadState) : EnrollEvent()
         data class SetTitleValidationState(val titleValidationState: TextFieldValidateResult) : EnrollEvent()
         data class SetDateValidationState(val dateValidationState: TextFieldValidateResult) : EnrollEvent()
+        data class SetIsEnrollSuccessDialogOpen(val isEnrollSuccessDialogOpen: Boolean) : EnrollEvent()
     }
 }

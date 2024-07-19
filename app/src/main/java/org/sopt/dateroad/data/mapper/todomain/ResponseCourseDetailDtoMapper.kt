@@ -1,7 +1,6 @@
 package org.sopt.dateroad.data.mapper.todomain
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
-import org.sopt.dateroad.data.mapper.toEntity.toCost
 import org.sopt.dateroad.data.mapper.toEntity.toCourseDetailDate
 import org.sopt.dateroad.data.mapper.toEntity.toDuration
 import org.sopt.dateroad.domain.model.CourseDetail

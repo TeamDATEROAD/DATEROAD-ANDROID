@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,14 +33,17 @@ import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.type.OneButtonDialogType
+import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadPickerBottomSheet
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialog
+import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
-import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
@@ -121,55 +125,57 @@ fun EnrollRoute(
         )
     }
 
-    when (uiState.loadState) {
-        LoadState.Idle -> {
-            EnrollScreen(
-                padding = padding,
-                enrollUiState = uiState,
-                onTopBarBackButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack) },
-                onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
-                onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
-                onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
-                onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
-                onRegionTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionTextFieldClick) },
-                onSelectedPlaceCourseTimeClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnSelectedPlaceCourseTimeClick) },
-                onDatePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetDismissRequest) },
-                onTimePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest) },
-                onRegionBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest) },
-                onDurationBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest) },
-                onPhotoButtonClick = {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                        getGalleryLauncher.launch("image/*")
-                    } else {
-                        getPhotoPickerLauncher.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        )
-                    }
-                },
-                onImageDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index)) },
-                onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
-                onDatePickerBottomSheetButtonClick = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
-                onTimePickerBottomSheetButtonClick = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
-                onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag.name)) },
-                onRegionBottomSheetRegionChipClick = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)) },
-                onRegionBottomSheetAreaChipClick = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
-                onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
-                onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
-                onPlaceCardDragAndDrop = { places -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places)) },
-                onPlaceTitleValueChange = { placeTitle -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)) },
-                onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration)) },
-                onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)) },
-                onPlaceCardDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index)) },
-                onDescriptionValueChange = { description -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)) },
-                onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) }
-            )
+    EnrollScreen(
+        padding = padding,
+        enrollUiState = uiState,
+        onTopBarBackButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack) },
+        onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
+        onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
+        onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
+        onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
+        onRegionTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionTextFieldClick) },
+        onSelectedPlaceCourseTimeClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnSelectedPlaceCourseTimeClick) },
+        onDatePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetDismissRequest) },
+        onTimePickerBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetDismissRequest) },
+        onRegionBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetDismissRequest) },
+        onDurationBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest) },
+        onPhotoButtonClick = {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                getGalleryLauncher.launch("image/*")
+            } else {
+                getPhotoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            }
+        },
+        onImageDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnImageDeleteButtonClick(index = index)) },
+        onTitleValueChange = { title -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTitleValueChange(title = title)) },
+        onDatePickerBottomSheetButtonClick = { date -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDatePickerBottomSheetButtonClick(date = date)) },
+        onTimePickerBottomSheetButtonClick = { startAt -> viewModel.setEvent(EnrollContract.EnrollEvent.OnTimePickerBottomSheetButtonClick(startAt = startAt)) },
+        onDateChipClicked = { tag -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDateChipClicked(tag = tag.name)) },
+        onRegionBottomSheetRegionChipClick = { country -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetRegionChipClick(country = country)) },
+        onRegionBottomSheetAreaChipClick = { city -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetAreaChipClick(city = city)) },
+        onRegionBottomSheetButtonClick = { region: RegionType?, area: Any? -> viewModel.setEvent(EnrollContract.EnrollEvent.OnRegionBottomSheetButtonClick(region = region, area = area)) },
+        onAddPlaceButtonClick = { place -> viewModel.setEvent(EnrollContract.EnrollEvent.OnAddPlaceButtonClick(place = place)) },
+        onPlaceCardDragAndDrop = { places -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDragAndDrop(places = places)) },
+        onPlaceTitleValueChange = { placeTitle -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceTitleValueChange(placeTitle = placeTitle)) },
+        onDurationBottomSheetButtonClick = { placeDuration -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetButtonClick(placeDuration = placeDuration)) },
+        onPlaceEditButtonClick = { editable -> viewModel.setEvent(EnrollContract.EnrollEvent.OnEditableValueChange(editable = editable)) },
+        onPlaceCardDeleteButtonClick = { index -> viewModel.setEvent(EnrollContract.EnrollEvent.OnPlaceCardDeleteButtonClick(index = index)) },
+        onDescriptionValueChange = { description -> viewModel.setEvent(EnrollContract.EnrollEvent.OnDescriptionValueChange(description = description)) },
+        onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) },
+        onEnrollSuccessDialogButtonClick = {
+            viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack)
+            viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = false))
         }
+    )
 
-        LoadState.Loading -> DateRoadLoadingView()
-
-        LoadState.Success -> popBackStack()
+    when (uiState.loadState) {
+        LoadState.Success -> { viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = true)) }
 
         LoadState.Error -> DateRoadErrorView()
+
+        else -> Unit
     }
 
     with(uiState) {
@@ -224,7 +230,8 @@ fun EnrollScreen(
     onPlaceEditButtonClick: (Boolean) -> Unit,
     onPlaceCardDeleteButtonClick: (Int) -> Unit,
     onDescriptionValueChange: (String) -> Unit,
-    onCostValueChange: (String) -> Unit
+    onCostValueChange: (String) -> Unit,
+    onEnrollSuccessDialogButtonClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -373,6 +380,29 @@ fun EnrollScreen(
         onDismissRequest = onDurationBottomSheetDismissRequest,
         pickers = enrollUiState.durationPicker
     )
+
+    if (enrollUiState.isEnrollSuccessDialogOpen) {
+        Log.e("ㅋㅋ", "되나용")
+        when (enrollUiState.enrollType) {
+            EnrollType.TIMELINE -> {
+                Log.e("ㅋㅋ", "되나")
+                DateRoadOneButtonDialog(
+                    oneButtonDialogType = OneButtonDialogType.ENROLL_TIMELINE,
+                    onDismissRequest = onEnrollSuccessDialogButtonClick,
+                    onClickConfirm = onEnrollSuccessDialogButtonClick
+                )
+            }
+
+            EnrollType.COURSE -> {
+                Log.e("ㅋㅋ", "되나")
+                DateRoadOneButtonDialogWithDescription(
+                    oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.ENROLL_COURSE,
+                    onDismissRequest = onEnrollSuccessDialogButtonClick,
+                    onClickConfirm = onEnrollSuccessDialogButtonClick
+                )
+            }
+        }
+    }
 }
 
 fun formatTime(time: List<String>): String {
@@ -418,7 +448,8 @@ fun EnrollScreenPreview() {
             onPlaceCardDeleteButtonClick = {},
             onPlaceCardDragAndDrop = {},
             onDescriptionValueChange = {},
-            onCostValueChange = {}
+            onCostValueChange = {},
+            onEnrollSuccessDialogButtonClick = {}
         )
     }
 }

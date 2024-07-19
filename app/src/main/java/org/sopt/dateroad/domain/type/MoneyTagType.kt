@@ -13,9 +13,9 @@ enum class MoneyTagType(
         costParameter = 3
     ),
     LESS_THAN_50000(
-    title = Cost.LESS_THAN_50000_TITLE,
-    threshold = 50000,
-    costParameter = 5
+        title = Cost.LESS_THAN_50000_TITLE,
+        threshold = 50000,
+        costParameter = 5
     ),
     LESS_THAN_100000(
         title = Cost.LESS_THAN_100000_TITLE,

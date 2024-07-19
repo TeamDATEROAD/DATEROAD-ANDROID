@@ -29,7 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import androidx.media3.common.util.Log
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.type.GyeonggiAreaType
 import org.sopt.dateroad.domain.type.IncheonAreaType

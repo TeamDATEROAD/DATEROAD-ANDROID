@@ -93,6 +93,7 @@ class EnrollViewModel @Inject constructor(
             is EnrollContract.EnrollEvent.Enroll -> setState { copy(loadState = event.loadState) }
             is EnrollContract.EnrollEvent.SetTitleValidationState -> setState { copy(titleValidateState = event.titleValidationState) }
             is EnrollContract.EnrollEvent.SetDateValidationState -> setState { copy(dateValidateState = event.dateValidationState) }
+            is EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen -> setState { copy(isEnrollSuccessDialogOpen = event.isEnrollSuccessDialogOpen) }
         }
     }
 
