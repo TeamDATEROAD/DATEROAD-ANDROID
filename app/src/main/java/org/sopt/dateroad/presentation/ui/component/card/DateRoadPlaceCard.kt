@@ -25,6 +25,7 @@ import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
+import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -80,7 +81,7 @@ fun DateRoadPlaceCard(
                         end = placeCardType.iconEndPadding,
                         bottom = placeCardType.iconBottomPadding
                     )
-                    .clickable {
+                    .noRippleClickable {
                         onIconClick?.invoke()
                     }
             )
