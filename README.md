@@ -4,6 +4,7 @@
 데이트로드는 ‘장소 중심’이 아닌 ‘코스 중심’ 데이트 공유 서비스로 사용자가 직접 데이트 코스를 등록하고 공유합니다.
 
 
+
 ## 💟 Contributors
 
 |                                                    [🐸배지현 Lead](https://github.com/jihyunniiii)                                                     |                                                 [신민석](https://github.com/t1nm1ksun)                                                  |                                                  [이현진](https://github.com/2hyunjinn)                                                  |
@@ -37,12 +38,6 @@
 - dev/add-font-res
 ---
 
-# 쉽고 빠른 데이트로 가는 지름길, 데이트로드 👩🏻‍❤️‍👨🏻
-
-![50](https://github.com/user-attachments/assets/e7be4151-26e4-4f0e-b5c4-5010f5962e1f)
-
-
-데이트로드는 ‘장소 중심’이 아닌 ‘코스 중심’ 데이트 공유 서비스로 사용자가 직접 데이트 코스를 등록하고 공유합니다.
 
 ## 목차
 
