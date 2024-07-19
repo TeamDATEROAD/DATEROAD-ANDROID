@@ -1,10 +1,6 @@
-![50](https://github.com/user-attachments/assets/3e0c4678-25de-4e48-8939-581733a9ec5b)# DATEROAD-ANDROID
-우리랑 더미데이트 하러 갈래? 🤍
-
 # 쉽고 빠른 데이트로 가는 지름길, 데이트로드 👩🏻‍❤️‍👨🏻
 
-![50.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/2e1647f9-ce64-4b47-b1d8-1c072cd56707/a18c484a-d51e-4ce9-8117-cad8f7e85234/50.png)
-
+![50](https://github.com/user-attachments/assets/3e0c4678-25de-4e48-8939-581733a9ec5b)
 데이트로드는 ‘장소 중심’이 아닌 ‘코스 중심’ 데이트 공유 서비스로 사용자가 직접 데이트 코스를 등록하고 공유합니다.
 
 
@@ -12,7 +8,7 @@
 
 |                                                    [배지현](https://github.com/jihyunniiii)                                                     |                                                 [신민석](https://github.com/t1nm1ksun)                                                  |                                                  [이현진](https://github.com/2hyunjinn)                                                  |
 |:-------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://github.com/user-attachments/assets/b5f2b36e-4875-4de0-b1b2-b5f36ffef093" width="200px"  height="300dp"> | <img src="https://github.com/user-attachments/assets/31310105-159e-4447-ab09-cd34970151f1" width="200px" height="300dp"> | <img src="https://github.com/user-attachments/assets/fd1f8c1d-209b-48a6-9d40-01b5465a420e" width="200px" height="300dp"> |
+| <img src="https://github.com/user-attachments/assets/b5f2b36e-4875-4de0-b1b2-b5f36ffef093" width="200px"  height="320dp"> | <img src="https://github.com/user-attachments/assets/31310105-159e-4447-ab09-cd34970151f1" width="200px" height="320dp"> | <img src="https://github.com/user-attachments/assets/fd1f8c1d-209b-48a6-9d40-01b5465a420e" width="200px" height="320dp"> |
 |                                                                 포인트내역/내가열람한코스+내가등록한코스/코스둘러보기/코스등록하기+일정등록하기/코스수정하기                                                                 |                                                             로그인+온보딩/스플래시/프로필등록하기/코스상세/마이페이지                                                              |                                                            메인페이지/다가올 데이트일정/지난데이트일정/다가올데이트 상세페이지+지난데이트 상세페이지                                                            
 
 
