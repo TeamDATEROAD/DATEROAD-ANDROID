@@ -570,7 +570,7 @@ fun CourseDetailScreen(
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
         title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-        isButtonEnabled = true,
+        isButtonEnabled = false,
         buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
         itemList = listOf(
             stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
