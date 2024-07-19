@@ -53,6 +53,7 @@ class EnrollContract {
     }
 
     sealed class EnrollEvent : UiEvent {
+        data object OnTopBarBackButtonClick: EnrollEvent()
         data object OnEnrollButtonClick : EnrollEvent()
         data object OnDateTextFieldClick : EnrollEvent()
         data object OnSelectedPlaceCourseTimeClick : EnrollEvent()

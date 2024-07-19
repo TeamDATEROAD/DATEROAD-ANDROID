@@ -131,7 +131,7 @@ fun EnrollRoute(
     EnrollScreen(
         padding = padding,
         enrollUiState = uiState,
-        onTopBarBackButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack) },
+        onTopBarBackButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick) },
         onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
         onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
         onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
