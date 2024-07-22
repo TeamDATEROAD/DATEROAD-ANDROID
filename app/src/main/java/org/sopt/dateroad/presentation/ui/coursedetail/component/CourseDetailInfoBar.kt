@@ -15,15 +15,6 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
-fun getCostString(totalCost: Int): String {
-    return when {
-        totalCost > 100000 -> "10만원 초과"
-        totalCost > 50000 -> "10만원 이하"
-        totalCost > 30000 -> "5만원 이하"
-        else -> "3만원 이하"
-    }
-}
-
 @Composable
 fun CourseDetailInfoBar(
     totalCost: String,
@@ -40,7 +31,7 @@ fun CourseDetailInfoBar(
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = getCostString(totalCost.toInt()),
+            text = totalCost,
             color = DateRoadTheme.colors.gray400,
             style = DateRoadTheme.typography.bodySemi15
         )
