@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.courseDetailGraph
 import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
@@ -18,7 +19,8 @@ import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGrap
 import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
 import org.sopt.dateroad.presentation.ui.pointguide.navigation.pointGuideGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
-import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
+import org.sopt.dateroad.presentation.ui.profile.navigation.editProfileNavGraph
+import org.sopt.dateroad.presentation.ui.profile.navigation.enrollProfileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
@@ -77,7 +79,8 @@ fun MainNavHost(
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToMyCourse = navigator::navigateToMyCourse,
                 navigateToPointGuide = navigator::navigateToPointGuide,
-                navigateToLogin = navigator::navigateToSignIn
+                navigateToLogin = navigator::navigateToSignIn,
+                navigateToEditProfile = navigator::navigateToProfile
             )
 
             onboardingNavGraph(navigateToProfile = navigator::navigateToProfile)
@@ -98,8 +101,15 @@ fun MainNavHost(
                 popBackStack = navigator::popBackStackIfNotHome
             )
 
-            profileNavGraph(
-                navigateToHome = navigator::navigateToHome
+            enrollProfileNavGraph(
+                navigateToHome = navigator::navigateToHome,
+                navigateToMyPage = navigator::navigateToMyPage,
+                profileType = ProfileType.Enroll
+            )
+            editProfileNavGraph(
+                navigateToHome = navigator::navigateToHome,
+                navigateToMyPage = navigator::navigateToMyPage,
+                profileType = ProfileType.Edit
             )
 
             readNavGraph(

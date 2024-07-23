@@ -12,13 +12,13 @@ class MyPageContract {
         val profile: Profile = Profile(),
         val showLogoutDialog: Boolean = false,
         val showWithdrawalDialog: Boolean = false,
-        val showSoonDialog: Boolean = false,
         val showWebView: Boolean = false,
         val deleteUserLoadState: LoadState = LoadState.Idle,
         val deleteSignOutLoadState: LoadState = LoadState.Idle
     ) : UiState
 
     sealed interface MyPageSideEffect : UiSideEffect {
+        data object NavigateToEditProfile : MyPageSideEffect
         data object NavigateToPointHistory : MyPageSideEffect
         data object NavigateToMyCourse : MyPageSideEffect
         data object NavigateToPointGuide : MyPageSideEffect
@@ -31,7 +31,6 @@ class MyPageContract {
         data class DeleteWithdrawal(val showWithdrawalDialog: Boolean, val deleteUserLoadState: LoadState) : MyPageEvent()
         data class SetLogoutDialog(val showLogoutDialog: Boolean) : MyPageEvent()
         data class SetWithdrawalDialog(val showWithdrawalDialog: Boolean) : MyPageEvent()
-        data class SetSoonDialog(val showSoonDialog: Boolean) : MyPageEvent()
         data object OnWebViewClick : MyPageEvent()
         data object WebViewClose : MyPageEvent()
     }

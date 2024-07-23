@@ -236,6 +236,8 @@
 
     <!-- Enroll Button -->
     <string name="enroll_profile_button">프로필 등록하기</string>
+    <string name="edit_profile_button">프로필 변경하기</string>
+
 
     <!-- Onboarding Button -->
     <string name="onboarding_profile_enroll">프로필 생성하기</string>
@@ -268,7 +270,8 @@
     <string name="button_past_date">지난 데이트 보기</string>
 
     <!-- Profile -->
-    <string name="profile_top_bar_title">내 프로필</string>
+    <string name="profile_enroll_top_bar_title">내 프로필</string>
+    <string name="profile_edit_top_bar_title">프로필 변경</string>
     <string name="profile_text_field_title">닉네임</string>
     <string name="profile_text_field_placeholder">닉네임을 입력해 주세요</string>
     <string name="profile_text_field_success_description">사용가능한 닉네임입니다.</string>
