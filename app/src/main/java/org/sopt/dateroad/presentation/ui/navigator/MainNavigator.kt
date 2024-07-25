@@ -26,7 +26,8 @@ import org.sopt.dateroad.presentation.ui.onboarding.navigation.navigationOnboard
 import org.sopt.dateroad.presentation.ui.past.navigation.navigationPast
 import org.sopt.dateroad.presentation.ui.pointguide.navigation.navigationPointGuide
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.navigationPointHistory
-import org.sopt.dateroad.presentation.ui.profile.navigation.navigationProfile
+import org.sopt.dateroad.presentation.ui.profile.navigation.navigationEditProfile
+import org.sopt.dateroad.presentation.ui.profile.navigation.navigationEnrollProfile
 import org.sopt.dateroad.presentation.ui.read.navigation.navigationRead
 import org.sopt.dateroad.presentation.ui.signin.navigation.SignInRoute
 import org.sopt.dateroad.presentation.ui.signin.navigation.navigationSignIn
@@ -126,8 +127,12 @@ class MainNavigator(
         navHostController.navigationPointHistory()
     }
 
-    fun navigateToProfile() {
-        navHostController.navigationProfile()
+    fun navigateToEnrollProfile() {
+        navHostController.navigationEnrollProfile()
+    }
+
+    fun navigateToEditProfile() {
+        navHostController.navigationEditProfile()
     }
 
     fun navigateToSignIn() {

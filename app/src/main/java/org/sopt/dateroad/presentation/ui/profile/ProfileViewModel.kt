@@ -1,15 +1,21 @@
 package org.sopt.dateroad.presentation.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.domain.model.EditProfile
+import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
+import org.sopt.dateroad.domain.usecase.GetUserUseCase
+import org.sopt.dateroad.domain.usecase.PatchEditProfileUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.ui.mypage.MyPageContract
 import org.sopt.dateroad.presentation.util.Token
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -19,7 +25,9 @@ class ProfileViewModel @Inject constructor(
     private val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     private val postSignUpUseCase: PostSignUpUseCase,
     private val setAccessTokenUseCase: SetAccessTokenUseCase,
-    private val setRefreshTokenUseCase: SetRefreshTokenUseCase
+    private val setRefreshTokenUseCase: SetRefreshTokenUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val patchEditProfileUseCase: PatchEditProfileUseCase
 ) : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
 
     override fun createInitialState(): ProfileContract.ProfileUiState = ProfileContract.ProfileUiState()
@@ -59,8 +67,12 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is ProfileContract.ProfileEvent.PostSignUp -> setState { copy(signUpLoadState = event.signUpLoadState) }
-            is ProfileContract.ProfileEvent.SetImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
-            is ProfileContract.ProfileEvent.InitProfile -> setState { copy(profileType = event.profileType) }
+            is ProfileContract.ProfileEvent.SetSignUpImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
+            is ProfileContract.ProfileEvent.SetEditProfileImage -> setState { copy(editProfile = currentState.editProfile.copy(image = event.image)) }
+            is ProfileContract.ProfileEvent.InitProfileType -> setState { copy(profileType = event.profileType) }
+            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState =event.fetchProfileLoadState, editProfile = event.editProfile) }
+            is ProfileContract.ProfileEvent.PatchEditProfile -> setState { copy(editProfileLoadState = event.editProfileLoadState) }
+
         }
     }
 
@@ -94,9 +106,14 @@ class ProfileViewModel @Inject constructor(
                     CONFLICT -> setEvent(
                         ProfileContract.ProfileEvent.GetNicknameCheck(
                             loadState = LoadState.Success,
-                            nicknameValidateResult = TextFieldValidateResult.ConflictError
+                            nicknameValidateResult = if (currentState.editProfile.name == name) {
+                                TextFieldValidateResult.Success
+                            } else {
+                                TextFieldValidateResult.ConflictError
+                            }
                         )
                     )
+
                 }
             }.onFailure {
                 setEvent(
@@ -105,6 +122,39 @@ class ProfileViewModel @Inject constructor(
                         nicknameValidateResult = TextFieldValidateResult.ValidationError
                     )
                 )
+            }
+        }
+    }
+
+    fun fetchProfile() {
+        viewModelScope.launch {
+            setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Loading, editProfile = currentState.editProfile))
+            getUserUseCase().onSuccess { profile ->
+                val editProfile = profile.toEditProfile()
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = editProfile))
+                Log.d("http", "fetch 성공")
+            }.onFailure {
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile))
+                Log.d("http", "fetch 실패")
+            }
+        }
+    }
+
+    private fun Profile.toEditProfile(): EditProfile {
+        return EditProfile(
+            name = this.name,
+            tags = this.tag,
+            image = this.imageUrl ?: ""
+        )
+    }
+
+    fun patchEditProfile(editProfile: EditProfile) {
+        viewModelScope.launch {
+            setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Loading))
+            patchEditProfileUseCase(editProfile = editProfile).onSuccess {
+                setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
+            }.onFailure {
+                setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
             }
         }
     }

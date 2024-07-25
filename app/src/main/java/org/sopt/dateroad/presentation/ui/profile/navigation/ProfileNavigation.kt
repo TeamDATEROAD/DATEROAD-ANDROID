@@ -6,9 +6,15 @@ import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.profile.ProfileRoute
 
-fun NavController.navigationProfile() {
+fun NavController.navigationEnrollProfile() {
     navigate(
-        route = ProfileRoute.ROUTE
+        route = EnrollProfileRoute.ROUTE
+    )
+}
+
+fun NavController.navigationEditProfile() {
+    navigate(
+        route = EditProfileRoute.ROUTE
     )
 }
 
@@ -17,7 +23,7 @@ fun NavGraphBuilder.enrollProfileNavGraph(
     navigateToMyPage: () -> Unit,
     profileType: ProfileType
 ) {
-    composable(route = ProfileRoute.ROUTE) {
+    composable(route = EnrollProfileRoute.ROUTE) {
         ProfileRoute(
             navigationToHome = navigateToHome,
             navigationToMyPage = navigateToMyPage,
@@ -31,7 +37,7 @@ fun NavGraphBuilder.editProfileNavGraph(
     navigateToMyPage: () -> Unit,
     profileType: ProfileType
 ) {
-    composable(route = ProfileRoute.ROUTE) {
+    composable(route = EditProfileRoute.ROUTE) {
         ProfileRoute(
             navigationToHome = navigateToHome,
             navigationToMyPage = navigateToMyPage,
@@ -40,6 +46,10 @@ fun NavGraphBuilder.editProfileNavGraph(
     }
 }
 
-object ProfileRoute {
-    const val ROUTE = "profile"
+object EnrollProfileRoute {
+    const val ROUTE = "enrollProfile"
+}
+
+object EditProfileRoute {
+    const val ROUTE = "editProfile"
 }

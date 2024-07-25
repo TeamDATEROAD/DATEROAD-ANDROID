@@ -26,4 +26,9 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postSignUp(image: MultipartBody.Part?, userSignUpData: RequestBody, tags: RequestBody): ResponseAuthDto =
         authService.postSignUp(image = image, userSignUpData = userSignUpData, tags = tags)
+
+    override suspend fun patchEditProfile(name: RequestBody, image: MultipartBody.Part?, tags: RequestBody): Unit =
+        authService.patchProfile(name=name,image=image,tags=tags)
+
 }
+
