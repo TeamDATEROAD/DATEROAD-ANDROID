@@ -47,7 +47,6 @@ class AuthRepositoryImpl @Inject constructor(
         ).toDomain()
     }
 
-
     override suspend fun patchEditProfile(editProfile: EditProfile): Result<Unit> = runCatching {
         authRemoteDataSource.patchEditProfile(
             name = editProfile.name.toRequestBody(),
@@ -55,5 +54,4 @@ class AuthRepositoryImpl @Inject constructor(
             tags = (Json.encodeToString(editProfile.tags.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType())
         )
     }
-
 }

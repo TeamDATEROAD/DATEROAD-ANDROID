@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,7 +14,6 @@ import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
-import org.sopt.dateroad.presentation.ui.mypage.MyPageContract
 import org.sopt.dateroad.presentation.util.Token
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -70,9 +68,8 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.SetSignUpImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.SetEditProfileImage -> setState { copy(editProfile = currentState.editProfile.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.InitProfileType -> setState { copy(profileType = event.profileType) }
-            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState =event.fetchProfileLoadState, editProfile = event.editProfile) }
+            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState = event.fetchProfileLoadState, editProfile = event.editProfile) }
             is ProfileContract.ProfileEvent.PatchEditProfile -> setState { copy(editProfileLoadState = event.editProfileLoadState) }
-
         }
     }
 
@@ -113,7 +110,6 @@ class ProfileViewModel @Inject constructor(
                             }
                         )
                     )
-
                 }
             }.onFailure {
                 setEvent(
@@ -132,10 +128,8 @@ class ProfileViewModel @Inject constructor(
             getUserUseCase().onSuccess { profile ->
                 val editProfile = profile.toEditProfile()
                 setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = editProfile))
-                Log.d("http", "fetch 성공")
             }.onFailure {
                 setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile))
-                Log.d("http", "fetch 실패")
             }
         }
     }

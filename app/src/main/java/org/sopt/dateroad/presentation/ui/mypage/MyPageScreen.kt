@@ -74,7 +74,6 @@ fun MyPageRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-
     LaunchedEffect(Unit) {
         viewModel.fetchProfile()
     }

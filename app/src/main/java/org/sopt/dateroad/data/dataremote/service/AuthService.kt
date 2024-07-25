@@ -59,8 +59,8 @@ interface AuthService {
     @Multipart
     @PATCH("$API/$VERSION/$USERS")
     suspend fun patchProfile(
-        @Part (NAME) name : RequestBody,
-        @Part (IMAGE) image: MultipartBody.Part?,
+        @Part(NAME) name: RequestBody,
+        @Part(IMAGE) image: MultipartBody.Part?,
         @Part(TAGS) tags: RequestBody
     )
 }

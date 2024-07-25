@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.profile
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -46,7 +45,6 @@ import org.sopt.dateroad.presentation.ui.component.textfield.DateRoadTextFieldWi
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
-import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -65,21 +63,17 @@ fun ProfileRoute(
     val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = uri.toString()))
         viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = uri.toString()))
-
     }
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
         viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = uri.toString()))
         viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = uri.toString()))
-
     }
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(ProfileContract.ProfileEvent.InitProfileType(profileType = profileType))
-        Log.d("http", profileType.toString())
         if (profileType == ProfileType.Edit) {
             viewModel.fetchProfile()
-            Log.d("http", "fetch 실행")
         }
     }
 
@@ -93,68 +87,61 @@ fun ProfileRoute(
             }
     }
 
-
-
-        if (profileType==ProfileType.Enroll){
-            when (uiState.signUpLoadState) {
-                LoadState.Idle -> {
-                    ProfileScreen(
-                        profileUiState = uiState,
-                        onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-                        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
-                        onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                        onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
-                        onEnrollButtonClicked = {
-                            viewModel.postSignUp(uiState.signUp)
-                            Log.d("http","등록버튼")
-                        },
-                        selectPhoto = {
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                                getGalleryLauncher.launch("image/*")
-                            } else {
-                                getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                            }
-                        },
-                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = "")) }
-                    )
-                }
-                LoadState.Loading -> DateRoadLoadingView()
-                LoadState.Success -> navigationToHome()
-                LoadState.Error -> DateRoadErrorView()
+    if (profileType == ProfileType.Enroll) {
+        when (uiState.signUpLoadState) {
+            LoadState.Idle -> {
+                ProfileScreen(
+                    profileUiState = uiState,
+                    onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                    onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
+                    onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+                    onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
+                    onEnrollButtonClicked = {
+                        viewModel.postSignUp(uiState.signUp)
+                    },
+                    selectPhoto = {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                            getGalleryLauncher.launch("image/*")
+                        } else {
+                            getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                        }
+                    },
+                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = "")) }
+                )
             }
-        }else{
-
-            when (uiState.editProfileLoadState) {
-                LoadState.Idle -> {
-                    ProfileScreen(
-                        profileUiState = uiState,
-                        onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-                        onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
-                        onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                        onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.editProfile.name) },
-                        onEnrollButtonClicked = {
-                            viewModel.patchEditProfile(uiState.editProfile)
-                            Log.d("http","변경버튼")
-                        },
-                        selectPhoto = {
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                                getGalleryLauncher.launch("image/*")
-                            } else {
-                                getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                            }
-                        },
-                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) }
-                    )
-                }
-                LoadState.Loading -> DateRoadLoadingView()
-                LoadState.Success -> navigationToMyPage()
-                LoadState.Error -> DateRoadErrorView()
-            }
+            LoadState.Loading -> DateRoadLoadingView()
+            LoadState.Success -> navigationToHome()
+            LoadState.Error -> DateRoadErrorView()
         }
-
-
+    } else {
+        when (uiState.editProfileLoadState) {
+            LoadState.Idle -> {
+                ProfileScreen(
+                    profileUiState = uiState,
+                    onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                    onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
+                    onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+                    onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.editProfile.name) },
+                    onEnrollButtonClicked = {
+                        viewModel.patchEditProfile(uiState.editProfile)
+                    },
+                    selectPhoto = {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                            getGalleryLauncher.launch("image/*")
+                        } else {
+                            getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                        }
+                    },
+                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) }
+                )
+            }
+            LoadState.Loading -> DateRoadLoadingView()
+            LoadState.Success -> navigationToMyPage()
+            LoadState.Error -> DateRoadErrorView()
+        }
+    }
 
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.signUp.tag.isNotEmpty()) {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
@@ -162,7 +149,6 @@ fun ProfileRoute(
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
     }
 }
-
 
 @Composable
 fun ProfileScreen(
@@ -211,7 +197,6 @@ fun ProfileScreen(
                     } else {
                         rememberAsyncImagePainter(model = profileUiState.editProfile.image)
                     }
-
                 },
                 contentDescription = null,
                 modifier = Modifier

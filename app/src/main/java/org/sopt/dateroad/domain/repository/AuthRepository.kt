@@ -16,5 +16,5 @@ interface AuthRepository {
 
     suspend fun postSignUp(signUp: SignUp): Result<Auth>
 
-    suspend fun patchEditProfile(editProfile: EditProfile):Result<Unit>
+    suspend fun patchEditProfile(editProfile: EditProfile): Result<Unit>
 }

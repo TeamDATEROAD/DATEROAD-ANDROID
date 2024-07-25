@@ -5,7 +5,6 @@ import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
-import org.sopt.dateroad.presentation.ui.mypage.MyPageContract.MyPageEvent
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -19,7 +18,7 @@ class ProfileContract {
         val editProfileLoadState: LoadState = LoadState.Idle,
         val profileType: ProfileType = ProfileType.Enroll,
         val signUp: SignUp = SignUp(),
-        val editProfile: EditProfile=EditProfile(),
+        val editProfile: EditProfile = EditProfile(),
         val isNicknameButtonEnabled: Boolean = false,
         val isEnrollButtonEnabled: Boolean = false,
         val isNicknameChecked: Boolean = false,
@@ -48,6 +47,5 @@ class ProfileContract {
 
         data class InitProfileType(val profileType: ProfileType) : ProfileEvent()
         data class FetchProfile(val fetchProfileLoadState: LoadState, val editProfile: EditProfile) : ProfileEvent()
-
     }
 }
