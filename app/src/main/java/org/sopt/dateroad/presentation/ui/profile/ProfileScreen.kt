@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.profile
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -93,7 +94,10 @@ fun ProfileRoute(
                 ProfileScreen(
                     profileUiState = uiState,
                     onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                    onNicknameValueChanged = {
+                            name ->
+                        viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name))
+                    },
                     onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                     onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                     onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
@@ -123,7 +127,10 @@ fun ProfileRoute(
                     onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                     onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                     onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                    onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.editProfile.name) },
+                    onNicknameButtonClicked = {
+                        viewModel.getNicknameCheck(uiState.editProfile.name)
+                        Log.d("http", uiState.editProfile.name)
+                    },
                     onEnrollButtonClicked = {
                         viewModel.patchEditProfile(uiState.editProfile)
                     },
@@ -143,10 +150,17 @@ fun ProfileRoute(
         }
     }
 
-    if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.signUp.tag.isNotEmpty()) {
-        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
-    } else {
-        viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+    when (uiState.profileType) {
+        ProfileType.Enroll -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.signUp.tag.isNotEmpty())) {
+            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+        } else {
+            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+        }
+        ProfileType.Edit -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
+            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+        } else {
+            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+        }
     }
 }
 
@@ -228,7 +242,11 @@ fun ProfileScreen(
             conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
             buttonText = stringResource(id = R.string.profile_text_field_button_text),
             isButtonEnabled = profileUiState.isNicknameButtonEnabled,
-            value = profileUiState.signUp.userSignUpInfo.name,
+            value = if (profileUiState.profileType == ProfileType.Enroll) {
+                profileUiState.signUp.userSignUpInfo.name
+            } else {
+                profileUiState.editProfile.name
+            },
             onValueChange = onNicknameValueChanged,
             onButtonClick = { onNicknameButtonClicked() }
         )
@@ -236,7 +254,11 @@ fun ProfileScreen(
 
         DateRoadDateChipGroup(
             dateChipGroupType = DateChipGroupType.PROFILE,
-            selectedDateTags = profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() },
+            selectedDateTags = if (profileUiState.profileType == ProfileType.Enroll) {
+                profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() }
+            } else {
+                profileUiState.editProfile.tags.mapNotNull { it.getDateTagTypeByName() }
+            },
             onSelectedDateTagsChanged = onDateChipClicked
         )
 

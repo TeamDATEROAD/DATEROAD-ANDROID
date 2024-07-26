@@ -7,7 +7,6 @@ import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
-import org.sopt.dateroad.data.dataremote.util.ApiConstraints.IMAGE
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGNUP
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGN_IN
@@ -60,7 +59,7 @@ interface AuthService {
     @PATCH("$API/$VERSION/$USERS")
     suspend fun patchProfile(
         @Part(NAME) name: RequestBody,
-        @Part(IMAGE) image: MultipartBody.Part?,
-        @Part(TAGS) tags: RequestBody
+        @Part(TAGS) tags: RequestBody,
+        @Part image: MultipartBody.Part?
     )
 }

@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,6 +14,7 @@ import org.sopt.dateroad.domain.usecase.PatchEditProfileUseCase
 import org.sopt.dateroad.domain.usecase.PostSignUpUseCase
 import org.sopt.dateroad.domain.usecase.SetAccessTokenUseCase
 import org.sopt.dateroad.domain.usecase.SetRefreshTokenUseCase
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.Token
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -34,19 +36,32 @@ class ProfileViewModel @Inject constructor(
         when (event) {
             is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.OnDateChipClicked -> setState {
-                copy(
-                    signUp = currentState.signUp.copy(
-                        tag = currentState.signUp.tag.toMutableList().apply {
-                            if (contains(event.tag)) {
-                                remove(event.tag)
-                            } else if (size < 3) {
-                                add(event.tag)
+                if (currentState.profileType == ProfileType.Enroll) {
+                    copy(
+                        signUp = currentState.signUp.copy(
+                            tag = currentState.signUp.tag.toMutableList().apply {
+                                if (contains(event.tag)) {
+                                    remove(event.tag)
+                                } else if (size < 3) {
+                                    add(event.tag)
+                                }
                             }
-                        }
+                        )
                     )
-                )
+                } else {
+                    copy(
+                        editProfile = currentState.editProfile.copy(
+                            tags = currentState.editProfile.tags.toMutableList().apply {
+                                if (contains(event.tag)) {
+                                    remove(event.tag)
+                                } else if (size < 3) {
+                                    add(event.tag)
+                                }
+                            }
+                        )
+                    )
+                }
             }
-
             is ProfileContract.ProfileEvent.OnImageButtonClicked -> setState { copy(isBottomSheetOpen = true) }
             is ProfileContract.ProfileEvent.GetNicknameCheck -> setState {
                 copy(
@@ -56,10 +71,17 @@ class ProfileViewModel @Inject constructor(
             }
 
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> setState {
-                copy(
-                    signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
-                    isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
-                )
+                if (currentState.profileType == ProfileType.Enroll) {
+                    copy(
+                        signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
+                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
+                    )
+                } else {
+                    copy(
+                        editProfile = currentState.editProfile.copy(name = event.name),
+                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
+                    )
+                }
             }
 
             is ProfileContract.ProfileEvent.OnBottomSheetDismissRequest -> setState { copy(isBottomSheetOpen = false) }
@@ -147,8 +169,10 @@ class ProfileViewModel @Inject constructor(
             setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Loading))
             patchEditProfileUseCase(editProfile = editProfile).onSuccess {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
-            }.onFailure {
+                Log.d("http", "서버통신 성공")
+            }.onFailure { e ->
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
+                Log.d("http", e.message.toString())
             }
         }
     }

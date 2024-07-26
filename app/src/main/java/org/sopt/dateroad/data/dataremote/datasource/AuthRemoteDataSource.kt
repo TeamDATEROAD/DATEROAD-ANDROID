@@ -17,5 +17,5 @@ interface AuthRemoteDataSource {
 
     suspend fun postSignUp(image: MultipartBody.Part?, userSignUpData: RequestBody, tags: RequestBody): ResponseAuthDto
 
-    suspend fun patchEditProfile(name: RequestBody, image: MultipartBody.Part?, tags: RequestBody)
+    suspend fun patchEditProfile(name: RequestBody, tags: RequestBody, image: MultipartBody.Part?)
 }
