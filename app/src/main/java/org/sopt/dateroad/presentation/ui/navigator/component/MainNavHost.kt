@@ -79,7 +79,7 @@ fun MainNavHost(
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToMyCourse = navigator::navigateToMyCourse,
                 navigateToPointGuide = navigator::navigateToPointGuide,
-                navigateToLogin = navigator::navigateToSignIn,
+                navigateToSignIn = navigator::navigateToSignIn,
                 navigateToEditProfile = navigator::navigateToEditProfile
             )
 

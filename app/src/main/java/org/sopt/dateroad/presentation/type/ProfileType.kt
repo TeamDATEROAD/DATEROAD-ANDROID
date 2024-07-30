@@ -1,10 +1,11 @@
 package org.sopt.dateroad.presentation.type
 
+import androidx.annotation.StringRes
 import org.sopt.dateroad.R
 
 enum class ProfileType(
-    val topAppBarTitleRes: Int,
-    val buttonTextRes: Int
+    @StringRes val topAppBarTitleRes: Int,
+    @StringRes val buttonTextRes: Int
 ) {
     ENROLL(
         topAppBarTitleRes = R.string.profile_enroll_top_bar_title,
