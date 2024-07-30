@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -36,7 +35,7 @@ class ProfileViewModel @Inject constructor(
         when (event) {
             is ProfileContract.ProfileEvent.OnImageValueChanged -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.OnDateChipClicked -> setState {
-                if (currentState.profileType == ProfileType.Enroll) {
+                if (currentState.profileType == ProfileType.ENROLL) {
                     copy(
                         signUp = currentState.signUp.copy(
                             tag = currentState.signUp.tag.toMutableList().apply {
@@ -71,7 +70,7 @@ class ProfileViewModel @Inject constructor(
             }
 
             is ProfileContract.ProfileEvent.OnNicknameValueChanged -> setState {
-                if (currentState.profileType == ProfileType.Enroll) {
+                if (currentState.profileType == ProfileType.ENROLL) {
                     copy(
                         signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
                         isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
@@ -169,10 +168,8 @@ class ProfileViewModel @Inject constructor(
             setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Loading))
             patchEditProfileUseCase(editProfile = editProfile).onSuccess {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
-                Log.d("http", "서버통신 성공")
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
-                Log.d("http", e.message.toString())
             }
         }
     }

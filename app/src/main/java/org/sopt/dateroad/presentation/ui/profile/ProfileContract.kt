@@ -16,7 +16,7 @@ class ProfileContract {
         val signUpLoadState: LoadState = LoadState.Idle,
         val fetchProfileLoadState: LoadState = LoadState.Idle,
         val editProfileLoadState: LoadState = LoadState.Idle,
-        val profileType: ProfileType = ProfileType.Enroll,
+        val profileType: ProfileType = ProfileType.ENROLL,
         val signUp: SignUp = SignUp(),
         val editProfile: EditProfile = EditProfile(),
         val isNicknameButtonEnabled: Boolean = false,
@@ -44,7 +44,6 @@ class ProfileContract {
         data class PatchEditProfile(val editProfileLoadState: LoadState) : ProfileEvent()
         data class SetSignUpImage(val image: String) : ProfileEvent()
         data class SetEditProfileImage(val image: String) : ProfileEvent()
-
         data class InitProfileType(val profileType: ProfileType) : ProfileEvent()
         data class FetchProfile(val fetchProfileLoadState: LoadState, val editProfile: EditProfile) : ProfileEvent()
     }

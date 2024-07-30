@@ -10,5 +10,5 @@ data class RequestEditProfileDto(
     @SerialName("image")
     val image: String,
     @SerialName("tags")
-    val tag: List<String>
+    val tags: List<String>
 )

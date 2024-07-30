@@ -6,11 +6,11 @@ enum class ProfileType(
     val topAppBarTitleRes: Int,
     val buttonTextRes: Int
 ) {
-    Enroll(
+    ENROLL(
         topAppBarTitleRes = R.string.profile_enroll_top_bar_title,
         buttonTextRes = R.string.enroll_profile_button
     ),
-    Edit(
+    EDIT(
         topAppBarTitleRes = R.string.profile_edit_top_bar_title,
         buttonTextRes = R.string.edit_profile_button
     )

@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.profile
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -73,7 +72,7 @@ fun ProfileRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(ProfileContract.ProfileEvent.InitProfileType(profileType = profileType))
-        if (profileType == ProfileType.Edit) {
+        if (profileType == ProfileType.EDIT) {
             viewModel.fetchProfile()
         }
     }
@@ -88,7 +87,7 @@ fun ProfileRoute(
             }
     }
 
-    if (profileType == ProfileType.Enroll) {
+    if (profileType == ProfileType.ENROLL) {
         when (uiState.signUpLoadState) {
             LoadState.Idle -> {
                 ProfileScreen(
@@ -129,7 +128,6 @@ fun ProfileRoute(
                     onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                     onNicknameButtonClicked = {
                         viewModel.getNicknameCheck(uiState.editProfile.name)
-                        Log.d("http", uiState.editProfile.name)
                     },
                     onEnrollButtonClicked = {
                         viewModel.patchEditProfile(uiState.editProfile)
@@ -151,12 +149,12 @@ fun ProfileRoute(
     }
 
     when (uiState.profileType) {
-        ProfileType.Enroll -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.signUp.tag.isNotEmpty())) {
+        ProfileType.ENROLL -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.signUp.tag.isNotEmpty())) {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
         } else {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
         }
-        ProfileType.Edit -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
+        ProfileType.EDIT -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
         } else {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
@@ -200,13 +198,13 @@ fun ProfileScreen(
         ) {
             Image(
                 painter = when (profileUiState.profileType) {
-                    ProfileType.Enroll -> if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
+                    ProfileType.ENROLL -> if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
                         painterResource(id = R.drawable.ic_enroll_profile_default)
                     } else {
                         rememberAsyncImagePainter(model = profileUiState.signUp.image)
                     }
 
-                    ProfileType.Edit -> if (profileUiState.editProfile.image.isEmpty() || profileUiState.editProfile.image == "null") {
+                    ProfileType.EDIT -> if (profileUiState.editProfile.image.isEmpty() || profileUiState.editProfile.image == "null") {
                         painterResource(id = R.drawable.ic_enroll_profile_default)
                     } else {
                         rememberAsyncImagePainter(model = profileUiState.editProfile.image)
@@ -233,7 +231,7 @@ fun ProfileScreen(
         DateRoadTextFieldWithButton(
             validateState = profileUiState.nicknameValidateResult,
             title = stringResource(id = R.string.profile_text_field_title),
-            placeholder = if (profileUiState.profileType == ProfileType.Enroll) {
+            placeholder = if (profileUiState.profileType == ProfileType.ENROLL) {
                 stringResource(id = R.string.profile_text_field_placeholder)
             } else {
                 profileUiState.editProfile.name
@@ -242,7 +240,7 @@ fun ProfileScreen(
             conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
             buttonText = stringResource(id = R.string.profile_text_field_button_text),
             isButtonEnabled = profileUiState.isNicknameButtonEnabled,
-            value = if (profileUiState.profileType == ProfileType.Enroll) {
+            value = if (profileUiState.profileType == ProfileType.ENROLL) {
                 profileUiState.signUp.userSignUpInfo.name
             } else {
                 profileUiState.editProfile.name
@@ -254,7 +252,7 @@ fun ProfileScreen(
 
         DateRoadDateChipGroup(
             dateChipGroupType = DateChipGroupType.PROFILE,
-            selectedDateTags = if (profileUiState.profileType == ProfileType.Enroll) {
+            selectedDateTags = if (profileUiState.profileType == ProfileType.ENROLL) {
                 profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() }
             } else {
                 profileUiState.editProfile.tags.mapNotNull { it.getDateTagTypeByName() }
