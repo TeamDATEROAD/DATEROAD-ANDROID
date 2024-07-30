@@ -6,7 +6,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.mapper.todata.toEditProfile
 import org.sopt.dateroad.domain.model.EditProfile
-import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
@@ -155,7 +154,6 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
-
 
     fun patchEditProfile(editProfile: EditProfile) {
         viewModelScope.launch {
