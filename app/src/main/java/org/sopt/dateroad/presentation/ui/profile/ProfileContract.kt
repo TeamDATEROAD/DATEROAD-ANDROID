@@ -13,7 +13,7 @@ class ProfileContract {
         val loadState: LoadState = LoadState.Idle,
         val signUpLoadState: LoadState = LoadState.Idle,
         val editLoadState: LoadState = LoadState.Idle,
-        val profileType: ProfileType = ProfileType.Enroll,
+        val profileType: ProfileType = ProfileType.ENROLL,
         val signUp: SignUp = SignUp(),
         val isNicknameButtonEnabled: Boolean = false,
         val isEnrollButtonEnabled: Boolean = false,

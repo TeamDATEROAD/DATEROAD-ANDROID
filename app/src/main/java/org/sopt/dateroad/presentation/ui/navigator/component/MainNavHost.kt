@@ -79,7 +79,7 @@ fun MainNavHost(
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToMyCourse = navigator::navigateToMyCourse,
                 navigateToPointGuide = navigator::navigateToPointGuide,
-                navigateToLogin = navigator::navigateToSignIn,
+                navigateToSignIn = navigator::navigateToSignIn,
                 navigateToEditProfile = navigator::navigateToProfile
             )
 
@@ -104,12 +104,12 @@ fun MainNavHost(
             enrollProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.Enroll
+                profileType = ProfileType.ENROLL
             )
             editProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.Edit
+                profileType = ProfileType.EDIT
             )
 
             readNavGraph(

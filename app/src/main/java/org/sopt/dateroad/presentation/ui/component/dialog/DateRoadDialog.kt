@@ -73,7 +73,7 @@ fun DateRoadDialogPreview(modifier: Modifier = Modifier) {
 
     if (showOneButtonDialogWithDescription.value) {
         DateRoadOneButtonDialogWithDescription(
-            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.SOON,
+            oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.ENROLL_COURSE,
             onDismissRequest = { showOneButtonDialogWithDescription.value = false },
             onClickConfirm = { showOneButtonDialogWithDescription.value = false }
         )

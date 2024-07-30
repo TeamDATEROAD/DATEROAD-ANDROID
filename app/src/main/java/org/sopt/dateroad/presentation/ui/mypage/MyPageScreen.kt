@@ -61,6 +61,7 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
@@ -69,7 +70,7 @@ fun MyPageRoute(
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
-    navigateToLogin: () -> Unit
+    navigateToSignIn: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -86,19 +87,19 @@ fun MyPageRoute(
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
-                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
+                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToSignIn()
                 }
             }
     }
 
     when (uiState.deleteUserLoadState) {
-        LoadState.Success -> navigateToLogin()
+        LoadState.Success -> navigateToSignIn()
         else -> Unit
     }
 
     when (uiState.deleteSignOutLoadState) {
         LoadState.Success -> {
-            navigateToLogin()
+            navigateToSignIn()
         }
         else -> Unit
     }

@@ -21,7 +21,7 @@ fun NavGraphBuilder.myPageNavGraph(
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
-    navigateToLogin: () -> Unit,
+    navigateToSignIn: () -> Unit,
     navigateToEditProfile: () -> Unit
 ) {
     composable(route = MainNavigationBarRoute.MyPage::class.simpleName.orEmpty()) {
@@ -30,7 +30,7 @@ fun NavGraphBuilder.myPageNavGraph(
             navigateToPointHistory = navigateToPointHistory,
             navigateToMyCourse = navigateToMyCourse,
             navigateToPointGuide = navigateToPointGuide,
-            navigateToLogin = navigateToLogin,
+            navigateToSignIn = navigateToSignIn,
             navigateToEditProfile = navigateToEditProfile
         )
     }
