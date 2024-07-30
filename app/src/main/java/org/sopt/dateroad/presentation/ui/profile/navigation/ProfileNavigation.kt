@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.profile.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.profile.ProfileRoute
 
 fun NavController.navigationProfile() {
@@ -11,11 +12,31 @@ fun NavController.navigationProfile() {
     )
 }
 
-fun NavGraphBuilder.profileNavGraph(
-    navigateToHome: () -> Unit
+fun NavGraphBuilder.enrollProfileNavGraph(
+    navigateToHome: () -> Unit,
+    navigateToMyPage: () -> Unit,
+    profileType: ProfileType
 ) {
     composable(route = ProfileRoute.ROUTE) {
-        ProfileRoute(navigationToHome = navigateToHome)
+        ProfileRoute(
+            navigationToHome = navigateToHome,
+            navigationToMyPage = navigateToMyPage,
+            profileType = profileType
+        )
+    }
+}
+
+fun NavGraphBuilder.editProfileNavGraph(
+    navigateToHome: () -> Unit,
+    navigateToMyPage: () -> Unit,
+    profileType: ProfileType
+) {
+    composable(route = ProfileRoute.ROUTE) {
+        ProfileRoute(
+            navigationToHome = navigateToHome,
+            navigationToMyPage = navigateToMyPage,
+            profileType = profileType
+        )
     }
 }
 

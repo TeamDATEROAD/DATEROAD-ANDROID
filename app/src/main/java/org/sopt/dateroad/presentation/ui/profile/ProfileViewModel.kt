@@ -60,6 +60,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.CheckEnrollButtonEnable -> setState { copy(isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is ProfileContract.ProfileEvent.PostSignUp -> setState { copy(signUpLoadState = event.signUpLoadState) }
             is ProfileContract.ProfileEvent.SetImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
+            is ProfileContract.ProfileEvent.InitProfile -> setState { copy(profileType = event.profileType) }
         }
     }
 

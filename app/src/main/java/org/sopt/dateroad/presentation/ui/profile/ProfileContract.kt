@@ -1,6 +1,7 @@
 package org.sopt.dateroad.presentation.ui.profile
 
 import org.sopt.dateroad.domain.model.SignUp
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
@@ -11,6 +12,8 @@ class ProfileContract {
     data class ProfileUiState(
         val loadState: LoadState = LoadState.Idle,
         val signUpLoadState: LoadState = LoadState.Idle,
+        val editLoadState: LoadState = LoadState.Idle,
+        val profileType: ProfileType = ProfileType.ENROLL,
         val signUp: SignUp = SignUp(),
         val isNicknameButtonEnabled: Boolean = false,
         val isEnrollButtonEnabled: Boolean = false,
@@ -33,5 +36,6 @@ class ProfileContract {
         data class CheckEnrollButtonEnable(val isEnrollButtonEnabled: Boolean) : ProfileEvent()
         data class PostSignUp(val signUpLoadState: LoadState) : ProfileEvent()
         data class SetImage(val image: String) : ProfileEvent()
+        data class InitProfile(val profileType: ProfileType) : ProfileEvent()
     }
 }

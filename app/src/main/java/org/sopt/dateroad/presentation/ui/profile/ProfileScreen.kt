@@ -37,6 +37,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateChipGroupType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
 import org.sopt.dateroad.presentation.ui.component.chipgroup.DateRoadDateChipGroup
@@ -52,7 +53,9 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun ProfileRoute(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigationToHome: () -> Unit
+    navigationToHome: () -> Unit,
+    navigationToMyPage: () -> Unit,
+    profileType: ProfileType
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -63,6 +66,10 @@ fun ProfileRoute(
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
         viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = uri.toString()))
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(ProfileContract.ProfileEvent.InitProfile(profileType = profileType))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -110,6 +117,40 @@ fun ProfileRoute(
         LoadState.Error -> DateRoadErrorView()
     }
 
+    when (uiState.editLoadState) {
+        LoadState.Idle -> {
+            ProfileScreen(
+                profileUiState = uiState,
+                onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+                onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
+                onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+                onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
+                onEnrollButtonClicked = {
+                    viewModel.postSignUp(uiState.signUp)
+                },
+                selectPhoto = {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                        getGalleryLauncher.launch("image/*")
+                    } else {
+                        getPhotoPickerLauncher.launch(
+                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                        )
+                    }
+                },
+                deletePhoto = {
+                    viewModel.setEvent(ProfileContract.ProfileEvent.SetImage(image = ""))
+                }
+            )
+        }
+
+        LoadState.Loading -> DateRoadLoadingView()
+
+        LoadState.Success -> navigationToMyPage()
+
+        LoadState.Error -> DateRoadErrorView()
+    }
+
     if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && uiState.signUp.tag.isNotEmpty()) {
         viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
     } else {
@@ -144,9 +185,10 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DateRoadBasicTopBar(
-            title = stringResource(id = R.string.profile_top_bar_title),
+            title = stringResource(id = profileUiState.profileType.topAppBarTitleRes),
             backGroundColor = DateRoadTheme.colors.white
         )
+
         Spacer(modifier = Modifier.height(40.dp))
         Box(
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -199,7 +241,7 @@ fun ProfileScreen(
 
         DateRoadBasicButton(
             isEnabled = profileUiState.isEnrollButtonEnabled,
-            textContent = stringResource(id = R.string.enroll_profile_button),
+            textContent = stringResource(id = profileUiState.profileType.buttonTextRes),
             onClick = onEnrollButtonClicked
         )
         Spacer(modifier = Modifier.height(16.dp))

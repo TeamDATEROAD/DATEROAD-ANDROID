@@ -73,6 +73,17 @@ class MainNavigator(
         navHostController.navigationEnroll(enrollType = enrollType, courseId = courseId)
     }
 
+    fun navigateToMyPage(navOptions: NavOptions? = null) {
+        navHostController.navigationMyPage(
+            navOptions ?: navOptions {
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        )
+    }
+
     fun navigateToHome(navOptions: NavOptions? = null) {
         navHostController.navigationHome(
             navOptions ?: navOptions {

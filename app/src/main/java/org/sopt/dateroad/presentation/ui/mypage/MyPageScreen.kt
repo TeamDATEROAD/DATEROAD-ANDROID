@@ -42,12 +42,10 @@ import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.type.MyPageMenuType
-import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
-import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialog
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
@@ -63,14 +61,16 @@ import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+
 @Composable
 fun MyPageRoute(
     padding: PaddingValues,
     viewModel: MyPageViewModel = hiltViewModel(),
+    navigateToEditProfile: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
-    navigateToLogin: () -> Unit
+    navigateToSignIn: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -83,22 +83,23 @@ fun MyPageRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { myPageSideEffect ->
                 when (myPageSideEffect) {
+                    is MyPageContract.MyPageSideEffect.NavigateToEditProfile -> navigateToEditProfile()
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()
-                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
+                    is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToSignIn()
                 }
             }
     }
 
     when (uiState.deleteUserLoadState) {
-        LoadState.Success -> navigateToLogin()
+        LoadState.Success -> navigateToSignIn()
         else -> Unit
     }
 
     when (uiState.deleteSignOutLoadState) {
         LoadState.Success -> {
-            navigateToLogin()
+            navigateToSignIn()
         }
         else -> Unit
     }
@@ -118,14 +119,12 @@ fun MyPageRoute(
                 deleteWithdrawal = {
                     viewModel.withdrawal()
                 },
+                navigateToEditProfile = {
+                    viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToEditProfile)
+                },
                 navigateToPointHistory = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointHistory) },
                 navigateToMyCourse = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToMyCourse) },
                 navigateToPointGuide = { viewModel.setSideEffect(MyPageContract.MyPageSideEffect.NavigateToPointGuide) },
-                setSoonDialog = { showSoonDialog ->
-                    viewModel.setEvent(
-                        MyPageContract.MyPageEvent.SetSoonDialog(showSoonDialog = showSoonDialog)
-                    )
-                },
                 setLogoutDialog = { showLogoutDialog ->
                     viewModel.setEvent(
                         MyPageContract.MyPageEvent.SetLogoutDialog(showLogoutDialog = showLogoutDialog)
@@ -153,10 +152,10 @@ fun MyPageScreen(
     myPageUiState: MyPageContract.MyPageUiState = MyPageContract.MyPageUiState(),
     deleteLogout: () -> Unit,
     deleteWithdrawal: () -> Unit,
+    navigateToEditProfile: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: () -> Unit,
     navigateToPointGuide: () -> Unit,
-    setSoonDialog: (Boolean) -> Unit,
     setLogoutDialog: (Boolean) -> Unit,
     setWithdrawalDialog: (Boolean) -> Unit,
     showWebView: (Boolean) -> Unit,
@@ -219,7 +218,9 @@ fun MyPageScreen(
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Icon(
-                        modifier = Modifier.noRippleClickable(onClick = { setSoonDialog(true) }),
+                        modifier = Modifier.noRippleClickable(onClick = {
+                            navigateToEditProfile()
+                        }),
                         painter = painterResource(id = R.drawable.ic_my_page_pencil),
                         contentDescription = null
                     )
@@ -274,14 +275,6 @@ fun MyPageScreen(
             Spacer(modifier = Modifier.height(30.dp))
         }
 
-        if (myPageUiState.showSoonDialog) {
-            DateRoadOneButtonDialogWithDescription(
-                oneButtonDialogWithDescriptionType = OneButtonDialogWithDescriptionType.SOON,
-                onDismissRequest = { setSoonDialog(false) },
-                onClickConfirm = { setSoonDialog(false) }
-            )
-        }
-
         if (myPageUiState.showLogoutDialog) {
             DateRoadTwoButtonDialog(
                 twoButtonDialogType = TwoButtonDialogType.LOGOUT,
@@ -313,10 +306,10 @@ fun MyPageScreenPreview() {
             ),
             deleteLogout = {},
             deleteWithdrawal = {},
+            navigateToEditProfile = {},
             navigateToPointHistory = {},
             navigateToMyCourse = {},
             navigateToPointGuide = {},
-            setSoonDialog = {},
             setLogoutDialog = {},
             setWithdrawalDialog = {},
             showWebView = {},
