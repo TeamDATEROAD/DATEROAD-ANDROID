@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.data.mapper.todata.toEditProfile
 import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.model.SignUp
@@ -155,13 +156,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun Profile.toEditProfile(): EditProfile {
-        return EditProfile(
-            name = this.name,
-            tags = this.tag,
-            image = this.imageUrl ?: ""
-        )
-    }
 
     fun patchEditProfile(editProfile: EditProfile) {
         viewModelScope.launch {
