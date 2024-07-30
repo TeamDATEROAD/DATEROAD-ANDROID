@@ -48,7 +48,7 @@ class MainNavigator(
 
     fun navigateMainNavigation(mainNavigationBarItemType: MainNavigationBarItemType) {
         navOptions {
-            popUpTo(navHostController.graph.findStartDestination().id) {
+            popUpTo(MainNavigationBarRoute.Home::class.simpleName.orEmpty()) {
                 saveState = true
             }
             launchSingleTop = true
