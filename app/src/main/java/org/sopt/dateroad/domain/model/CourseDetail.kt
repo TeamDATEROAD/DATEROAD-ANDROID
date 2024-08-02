@@ -10,6 +10,7 @@ data class CourseDetail(
     val title: String = "",
     val description: String = "",
     val places: List<Place> = listOf(),
+    val totalCostTag: String = "",
     val totalCost: String = "",
     val tags: List<String> = listOf(),
     val isAccess: Boolean = false,
