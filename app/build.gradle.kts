@@ -44,20 +44,33 @@ android {
         }
 
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true // 코드 최적화
+            isShrinkResources = true // 리소스 최적화
             buildConfigField("String", "BASE_URL", properties["prod.base.url"].toString())
+            // proguard 적용규칙 적용
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
+
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${rootProject.file(".").absolutePath}/report/compose-metrics"
+        )
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${rootProject.file(".").absolutePath}/report/compose-reports"
+        )
     }
     buildFeatures {
         viewBinding = true

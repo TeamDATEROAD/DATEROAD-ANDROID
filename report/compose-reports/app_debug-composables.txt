@@ -1,0 +1,1023 @@
+scheme("[0, [0]]") fun find(
+  stable predicate: Function3<MainNavigationBarRoute, Composer, Int, Boolean>
+  unused stable <this>: Companion
+): MainNavigationBarItemType?
+scheme("[0, [0]]") fun contains(
+  stable predicate: Function3<Route, Composer, Int, Boolean>
+  unused stable <this>: Companion
+): Boolean
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicBottomSheet(
+  stable isBottomSheetOpen: Boolean
+  stable title: String
+  stable isButtonEnabled: Boolean
+  stable buttonText: String
+  stable onButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable onDismissRequest: Function0<Unit>? = @static {
+
+}
+
+  unstable itemList: List<Pair<String, Function0<Unit>>>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicBottomSheetContent(
+  stable text: String
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicBottomSheetPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadBottomSheet(
+  stable modifier: Modifier? = @static Companion
+  stable sheetState: SheetState? = @dynamic rememberModalBottomSheetState(true, null, $composer, 0b0110, 0b0010)
+  stable isBottomSheetOpen: Boolean
+  stable isButtonEnabled: Boolean = @static true
+  stable buttonText: String
+  stable onButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable onDismissRequest: Function0<Unit>? = @static {
+
+}
+
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBottomSheetPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPickerBottomSheet(
+  stable isBottomSheetOpen: Boolean
+  stable isButtonEnabled: Boolean
+  stable buttonText: String
+  stable onButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable onDismissRequest: Function0<Unit>? = @static {
+
+}
+
+  unstable pickers: List<Picker>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPickerBottomSheetPreview()
+restartable skippable fun DateRoadRegionBottomSheet(
+  stable isBottomSheetOpen: Boolean
+  stable isButtonEnabled: Boolean
+  stable titleText: String? = @dynamic stringResource(string.region_bottom_sheet_title, $composer, 0)
+  stable buttonText: String? = @dynamic stringResource(string.apply, $composer, 0)
+  stable selectedRegion: RegionType? = @static null
+  stable onSelectedRegionChanged: Function1<RegionType, Unit>? = @static { it: RegionType ->
+
+}
+
+  unstable selectedArea: Any? = @static null
+  stable onSelectedAreaChanged: Function1<Any, Unit>? = @static { it: Any ->
+
+}
+
+  stable onButtonClick: Function2<RegionType?, Any?, Unit>? = @static { <unused var>: RegionType?, <unused var>: Any? ->
+
+}
+
+  stable onDismissRequest: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadRegionBottomSheetPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadAreaButton(
+  stable modifier: Modifier? = @static Companion
+  stable isSelected: Boolean
+  stable textContent: String
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadAreaButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicButton(
+  stable modifier: Modifier? = @static Companion
+  stable isEnabled: Boolean = @static true
+  stable enabledBackgroundColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).purple600
+  stable enabledTextColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).white
+  stable textContent: String
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadButton(
+  stable modifier: Modifier? = @static Companion
+  stable backgroundColor: Color
+  stable borderColor: Color = @static Companion.Unspecified
+  stable borderWidth: Dp = @static 0.dp
+  stable cornerRadius: Dp = @static 0.dp
+  stable paddingHorizontal: Dp = @static 0.dp
+  stable paddingVertical: Dp = @static 0.dp
+  stable onClick: Function0<Unit>
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadFilledButton(
+  stable modifier: Modifier? = @static Companion
+  stable isEnabled: Boolean = @static true
+  stable textContent: String
+  stable textStyle: TextStyle
+  stable enabledBackgroundColor: Color
+  stable enabledTextColor: Color
+  stable disabledBackgroundColor: Color
+  stable disabledTextColor: Color
+  stable cornerRadius: Dp
+  stable paddingHorizontal: Dp
+  stable paddingVertical: Dp
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadFilledButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageButton(
+  stable modifier: Modifier? = @static Companion
+  stable isEnabled: Boolean = @static false
+  stable enabledBackgroundColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).purple600
+  stable enabledContentColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).white
+  stable disabledBackgroundColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).gray200
+  stable disabledContentColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).gray400
+  stable iconResId: Int = @dynamic drawable.ic_all_plus_white
+  stable cornerRadius: Dp
+  stable paddingHorizontal: Dp
+  stable paddingVertical: Dp
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadKakaoLoginButton(
+  stable modifier: Modifier? = @static Companion
+  stable backgroundColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).kakaoYellow
+  stable contentColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).black
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadKakaoLoginButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadOutlinedButton(
+  stable modifier: Modifier? = @static Companion
+  stable textContent: String
+  stable textStyle: TextStyle
+  stable backgroundColor: Color
+  stable contentColor: Color
+  stable borderWidth: Dp
+  stable cornerRadius: Dp
+  stable paddingHorizontal: Dp = @static 0.dp
+  stable paddingVertical: Dp = @static 0.dp
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadOutlinedButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextButton(
+  stable modifier: Modifier? = @static Companion
+  stable textContent: String
+  stable textStyle: TextStyle
+  stable textColor: Color
+  stable paddingHorizontal: Dp
+  stable paddingVertical: Dp
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadCourseCard(
+  stable modifier: Modifier? = @static Companion
+  stable course: Course
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadCourseCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPlaceCard(
+  stable modifier: Modifier? = @static Companion
+  stable placeCardType: PlaceCardType
+  stable sequence: Int? = @static null
+  stable place: Place
+  stable onIconClick: Function0<Unit>? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPlaceCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadChip(
+  stable modifier: Modifier? = @static Companion
+  stable chipType: ChipType
+  stable isSelected: Boolean = @static false
+  stable onSelectedChange: Function1<Boolean, Unit>? = @static { it: Boolean ->
+
+}
+
+  stable content: Function3<Boolean, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageChip(
+  stable modifier: Modifier? = @static Companion
+  stable textId: Int
+  stable imageRes: Int
+  stable chipType: ChipType
+  stable spaceValue: Dp = @static 2.dp
+  stable isSelected: Boolean = @static false
+  stable onSelectedChange: Function1<Boolean, Unit>? = @static { it: Boolean ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageChipPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextChip(
+  stable modifier: Modifier? = @static Companion
+  stable text: String
+  stable chipType: ChipType
+  stable isSelected: Boolean = @static false
+  stable onSelectedChange: Function1<Boolean, Unit>? = @static { it: Boolean ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextChipPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadDateChipGroup(
+  stable modifier: Modifier? = @static Companion
+  stable dateChipGroupType: DateChipGroupType
+  unstable selectedDateTags: List<DateTagType>
+  stable onSelectedDateTagsChanged: Function1<DateTagType, Unit>? = @static { it: DateTagType ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadDateChipGroupPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadDialog(
+  stable onDismissRequest: Function0<Unit>
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadDialogPreview(
+  unused stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadOneButtonDialog(
+  stable oneButtonDialogType: OneButtonDialogType
+  stable onDismissRequest: Function0<Unit>
+  stable onClickConfirm: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadOneButtonDialogWithDescription(
+  stable oneButtonDialogWithDescriptionType: OneButtonDialogWithDescriptionType
+  stable onDismissRequest: Function0<Unit>
+  stable onClickConfirm: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTwoButtonDialog(
+  stable twoButtonDialogType: TwoButtonDialogType
+  stable onDismissRequest: Function0<Unit>
+  stable onClickConfirm: Function0<Unit>
+  stable onClickDismiss: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTwoButtonDialogWithDescription(
+  stable twoButtonDialogWithDescriptionType: TwoButtonDialogWithDescriptionType
+  stable onDismissRequest: Function0<Unit>? = @static {
+
+}
+
+  stable onClickConfirm: Function0<Unit>
+  stable onClickDismiss: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DotsIndicator(
+  stable totalDots: Int
+  stable selectedIndex: Int
+  stable modifier: Modifier? = @static Companion
+  stable indicatorSize: Dp
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadNumberPicker(
+  stable modifier: Modifier? = @static Companion
+  stable pickerState: PickerState? = @dynamic rememberPickerState($composer, 0)
+  unstable items: List<String>
+  stable startIndex: Int = @static 0
+  stable visibleItemCount: Int = @static 3
+  stable dividerColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).gray400
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadNumberPickerContent(
+  stable modifier: Modifier? = @static Companion
+  stable color: Color
+  stable text: String
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadNumberPickerPreview()
+fun rememberPickerState()
+fun PartialColorText(
+  stable text: String
+  unstable keywords: List<String>
+  stable color: Color
+): AnnotatedString
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [_]]") fun DateRoadTabBar(
+  stable dividerColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).gray300
+  stable indicatorColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).black
+  unstable animationSpec: AnimationSpec<Dp>? = @dynamic tween(
+  durationMillis   =   250  , 
+  easing   =   FastOutSlowInEasing
+)
+  stable selectedTabPosition: Int = @static 0
+  stable tabItem: Function2<Composer, Int, Unit>
+)
+fun tabIndicator(
+  stable <this>: Modifier
+  stable tabPosition: TabPosition
+  unstable animationSpec: AnimationSpec<Dp>
+): Modifier
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTabTitle(
+  stable title: String
+  stable selected: Boolean
+  stable selectedTextColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).black
+  stable unselectedTextColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).gray300
+  stable textStyle: TextStyle? = @dynamic DateRoadTheme.<get-typography>($composer, 0b0110).bodyBold17
+  stable position: Int
+  stable padding: PaddingValues? = @static PaddingValues(
+  vertical   =   15  .  dp
+)
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTabBarPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageTag(
+  stable modifier: Modifier? = @static Companion
+  stable textContent: String
+  stable imageContent: Int
+  stable spaceValue: Int = @static 5
+  stable tagContentType: TagType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadImageTagPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPointTag(
+  stable modifier: Modifier? = @static Companion
+  stable text: String
+  unstable profileImage: Painter
+  stable backgroundColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).purple500
+  stable contentColor: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).white
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadPointTagPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadTag(
+  stable modifier: Modifier? = @static Companion
+  stable tagType: TagType
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextTag(
+  stable modifier: Modifier? = @static Companion
+  stable textContent: String
+  stable tagContentType: TagType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextTagPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicTextField(
+  stable modifier: Modifier? = @static Companion
+  stable validateState: TextFieldValidateResult? = @static Basic
+  stable title: String? = @static null
+  stable placeholder: String? = @static ""
+  stable iconResourceId: Int? = @static null
+  stable iconContentDescription: String? = @static ""
+  stable successDescription: String? = @static ""
+  stable errorDescription: String? = @static ""
+  stable readOnly: Boolean = @static false
+  stable value: String? = @static ""
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+  stable visualTransformation: VisualTransformation? = @static Companion.None
+  stable onValueChange: Function1<String, Unit>? = @static { <unused var>: String ->
+
+}
+
+  stable keyboardOptions: KeyboardOptions? = @dynamic Companion.Default.copy(
+  imeAction   =   Companion  .  Default
+)
+  stable keyboardActions: KeyboardActions? = @static Companion.Default
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicTextFieldPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextArea(
+  stable modifier: Modifier? = @static Companion
+  stable title: String? = @static null
+  stable placeholder: String? = @static ""
+  stable minLength: Int = @static 200
+  stable value: String? = @static ""
+  stable visualTransformation: VisualTransformation? = @static Companion.None
+  stable onValueChange: Function1<String, Unit>? = @static { <unused var>: String ->
+
+}
+
+  stable keyboardOptions: KeyboardOptions? = @dynamic Companion.Default.copy(
+  imeAction   =   Companion  .  Default
+)
+  stable keyboardActions: KeyboardActions? = @static Companion.Default
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicTextAreaPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextFieldWithButton(
+  stable modifier: Modifier? = @static Companion
+  stable validateState: TextFieldValidateResult? = @static Basic
+  stable title: String? = @static null
+  stable placeholder: String? = @static ""
+  stable successDescription: String? = @static ""
+  stable validationErrorDescription: String? = @static ""
+  stable conflictErrorDescription: String? = @static ""
+  stable buttonText: String
+  stable isButtonEnabled: Boolean
+  stable maxLength: Int = @static 5
+  stable value: String? = @static ""
+  stable visualTransformation: VisualTransformation? = @static Companion.None
+  stable onValueChange: Function1<String, Unit>? = @static { <unused var>: String ->
+
+}
+
+  stable onButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable keyboardOptions: KeyboardOptions? = @dynamic Companion.Default.copy(
+  imeAction   =   Companion  .  Default
+)
+  stable keyboardActions: KeyboardActions? = @static Companion.Default
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadTextFieldWithButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadBasicTopBar(
+  stable title: String
+  stable backGroundColor: Color = @static Companion.Transparent
+  stable onIconClick: Function0<Unit>? = @static {
+
+}
+
+  stable iconLeftResource: Int? = @static null
+  stable buttonContent: Function2<Composer, Int, Unit>? = @static null
+  stable leftTint: Color = @dynamic DateRoadTheme.<get-colors>($composer, 0b0110).black
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadBasicTopBarPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadHomeTopBar(
+  stable title: String? = @static "0 P"
+  stable profileImage: String? = @static null
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadHomeTopBarPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun DateRoadLeftTitleTopBar(
+  stable title: String
+  stable buttonContent: Function2<Composer, Int, Unit>? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadLeftTitlePreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadIdleView(
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadEmptyView(
+  stable modifier: Modifier? = @static Companion
+  stable emptyViewType: EmptyViewType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadEmptyViewPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadErrorView(
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadLoadingView(
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadWebView(
+  stable url: String
+  stable onClose: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailRoute(
+  viewModel: CourseDetailViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable popBackStack: Function0<Unit>
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable courseDetailType: CourseDetailType
+  stable id: Int
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailScreen(
+  unstable courseDetailUiState: CourseDetailUiState
+  stable onDialogPointLack: Function0<Unit>
+  stable onDialogPointLackConfirm: Function0<Unit>
+  stable dismissDialogPointLack: Function0<Unit>
+  stable onDialogLookedForFree: Function0<Unit>
+  stable dismissDialogLookedForFree: Function0<Unit>
+  stable onDialogLookedByPoint: Function0<Unit>
+  stable dismissDialogLookedByPoint: Function0<Unit>
+  stable onLikeButtonClicked: Function0<Unit>
+  stable onDeleteButtonClicked: Function0<Unit>
+  stable onEditBottomSheet: Function0<Unit>
+  stable dismissEditBottomSheet: Function0<Unit>
+  stable enrollSchedule: Function0<Unit>
+  stable onTopBarIconClicked: Function0<Unit>
+  stable openCourseDetail: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailScreenP()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun GradientBoxWithText(
+  stable text: String
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailInfoBar(
+  stable totalCost: String
+  stable totalTime: String
+  stable city: String
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CourseDetailInfoBarPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollFirstScreen(
+  unstable enrollUiState: EnrollUiState? = @dynamic EnrollUiState()
+  stable onDateTextFieldClick: Function0<Unit>
+  stable onTimeTextFieldClick: Function0<Unit>
+  stable onRegionTextFieldClick: Function0<Unit>
+  stable onTitleValueChange: Function1<String, Unit>
+  stable onDateChipClicked: Function1<DateTagType, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollFirstScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollRoute(
+  stable padding: PaddingValues
+  viewModel: EnrollViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable popBackStack: Function0<Unit>
+  stable navigateToMyCourse: Function1<MyCourseType, Unit>
+  stable enrollType: EnrollType
+  stable id: Int?
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollScreen(
+  stable padding: PaddingValues
+  unstable enrollUiState: EnrollUiState? = @dynamic EnrollUiState()
+  stable onTopBarBackButtonClick: Function0<Unit>
+  stable onTopBarLoadButtonClick: Function0<Unit>
+  stable onEnrollButtonClick: Function0<Unit>
+  stable onDateTextFieldClick: Function0<Unit>
+  stable onTimeTextFieldClick: Function0<Unit>
+  stable onRegionTextFieldClick: Function0<Unit>
+  stable onSelectedPlaceCourseTimeClick: Function0<Unit>
+  stable onDatePickerBottomSheetDismissRequest: Function0<Unit>
+  stable onTimePickerBottomSheetDismissRequest: Function0<Unit>
+  stable onRegionBottomSheetDismissRequest: Function0<Unit>
+  stable onDurationBottomSheetDismissRequest: Function0<Unit>
+  stable onPhotoButtonClick: Function0<Unit>
+  stable onImageDeleteButtonClick: Function1<Int, Unit>
+  stable onTitleValueChange: Function1<String, Unit>
+  stable onDatePickerBottomSheetButtonClick: Function1<String, Unit>
+  stable onTimePickerBottomSheetButtonClick: Function1<String, Unit>
+  stable onDateChipClicked: Function1<DateTagType, Unit>
+  stable onRegionBottomSheetRegionChipClick: Function1<RegionType, Unit>
+  stable onRegionBottomSheetAreaChipClick: Function1<Any?, Unit>
+  stable onRegionBottomSheetButtonClick: Function2<RegionType?, Any?, Unit>
+  stable onAddPlaceButtonClick: Function1<Place, Unit>
+  stable onPlaceCardDragAndDrop: Function1<List<Place>, Unit>
+  stable onPlaceTitleValueChange: Function1<String, Unit>
+  stable onDurationBottomSheetButtonClick: Function1<String, Unit>
+  stable onPlaceEditButtonClick: Function1<Boolean, Unit>
+  stable onPlaceCardDeleteButtonClick: Function1<Int, Unit>
+  stable onDescriptionValueChange: Function1<String, Unit>
+  stable onCostValueChange: Function1<String, Unit>
+  stable onEnrollSuccessDialogButtonClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollSecondScreen(
+  unstable enrollUiState: EnrollUiState? = @dynamic EnrollUiState()
+  stable onSelectedPlaceCourseTimeClick: Function0<Unit>
+  stable onAddPlaceButtonClick: Function1<Place, Unit>
+  stable onPlaceTitleValueChange: Function1<String, Unit>
+  stable onPlaceEditButtonClick: Function1<Boolean, Unit>
+  stable onPlaceCardDeleteButtonClick: Function1<Int, Unit>
+  stable onPlaceCardDragAndDrop: Function1<List<Place>, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollSecondScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollThirdScreen(
+  unstable enrollUiState: EnrollUiState? = @dynamic EnrollUiState()
+  stable onDescriptionValueChange: Function1<String, Unit>
+  stable onCostValueChange: Function1<String, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollSecondThirdPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollAddPhotoButton(
+  stable modifier: Modifier? = @static Companion
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollAddPhotoButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPhotoPreviewCard(
+  stable modifier: Modifier? = @static Companion
+  unstable context: Context? = @dynamic LocalContext.<get-current>($composer, 0)
+  stable id: Int
+  stable isDeletable: Boolean
+  stable image: String
+  stable onDeleteButtonClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPhotoPreviewCardPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPhotos(
+  stable modifier: Modifier? = @static Companion
+  stable isDeletable: Boolean
+  unstable images: List<String>
+  stable onPhotoButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable onDeleteButtonClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPhotosPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPlaceInsertBar(
+  stable modifier: Modifier? = @static Companion
+  stable title: String? = @static ""
+  stable duration: String? = @static ""
+  stable onSelectedCourseTimeClick: Function0<Unit>? = @static {
+
+}
+
+  stable onTitleChange: Function1<String, Unit>? = @static { it: String ->
+
+}
+
+  stable onAddCourseButtonClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EnrollPlaceInsertBarPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeRoute(
+  stable padding: PaddingValues
+  viewModel: HomeViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToPointHistory: Function0<Unit>
+  stable navigateToLook: Function0<Unit>
+  stable navigateToTimeline: Function0<Unit>
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable navigateToCourseDetail: Function2<CourseDetailType, Int, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun HomeScreen(
+  stable padding: PaddingValues
+  unstable uiState: HomeUiState
+  stable pagerState: PagerState
+  stable navigateToEnroll: Function0<Unit>
+  stable navigateToPointHistory: Function0<Unit>
+  stable navigateToLook: Function0<Unit>
+  stable navigateToTimeline: Function0<Unit>
+  stable navigateToCourseDetail: Function2<CourseDetailType, Int, Unit>
+  stable onFabClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeAdvertisement(
+  stable advertisement: Advertisement
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeAdvertisementPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeHotCourseCard(
+  stable course: Course
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeHotCourseCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HomeTimeLineCard(
+  stable mainDate: MainDate? = @dynamic MainDate()
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadDateSchedulePreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LookRoute(
+  stable padding: PaddingValues
+  viewModel: LookViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable navigateToCourseDetail: Function2<CourseDetailType, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LookScreen(
+  stable padding: PaddingValues
+  unstable lookUiState: LookUiState? = @dynamic LookUiState()
+  stable onAreaButtonClicked: Function0<Unit>? = @static {
+
+}
+
+  stable onResetButtonClicked: Function0<Unit>? = @static {
+
+}
+
+  stable onRegionBottomSheetDismissRequest: Function0<Unit>? = @static {
+
+}
+
+  stable onMoneyChipClicked: Function1<MoneyTagType?, Unit>? = @static { it: MoneyTagType? ->
+
+}
+
+  stable onRegionBottomSheetButtonClicked: Function2<RegionType?, Any?, Unit>? = @static { <unused var>: RegionType?, <unused var>: Any? ->
+
+}
+
+  stable onRegionBottomSheetRegionClicked: Function1<RegionType?, Unit>? = @static { it: RegionType? ->
+
+}
+
+  stable onRegionBottomSheetAreaClicked: Function1<Any?, Unit>? = @static { it: Any? ->
+
+}
+
+  stable onEnrollButtonClicked: Function0<Unit>? = @static {
+
+}
+
+  stable onCourseCardClicked: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LookScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LookCourseCard(
+  stable modifier: Modifier? = @static Companion
+  unstable context: Context? = @dynamic LocalContext.<get-current>($composer, 0)
+  stable course: Course
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LookCourseCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyCourseRoute(
+  stable padding: PaddingValues
+  viewModel: MyCourseViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable popBackStack: Function0<Unit>
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable myCourseType: MyCourseType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyCourseScreen(
+  stable padding: PaddingValues
+  unstable myCourseUiState: MyCourseUiState? = @dynamic MyCourseUiState()
+  stable onIconClick: Function0<Unit>
+  stable onCourseCardClick: Function2<EnrollType, Int?, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyCourseScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyPageRoute(
+  stable padding: PaddingValues
+  viewModel: MyPageViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToEditProfile: Function0<Unit>
+  stable navigateToPointHistory: Function0<Unit>
+  stable navigateToMyCourse: Function1<MyCourseType, Unit>
+  stable navigateToPointGuide: Function0<Unit>
+  stable navigateToSignIn: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyPageScreen(
+  stable padding: PaddingValues
+  unstable myPageUiState: MyPageUiState? = @dynamic MyPageUiState()
+  stable deleteLogout: Function0<Unit>
+  stable deleteWithdrawal: Function0<Unit>
+  stable navigateToEditProfile: Function0<Unit>
+  stable navigateToPointHistory: Function0<Unit>
+  stable navigateToMyCourse: Function0<Unit>
+  stable navigateToPointGuide: Function0<Unit>
+  stable setLogoutDialog: Function1<Boolean, Unit>
+  stable setWithdrawalDialog: Function1<Boolean, Unit>
+  stable showWebView: Function1<Boolean, Unit>
+  stable webViewClose: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyPageScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyPageButton(
+  stable modifier: Modifier? = @static Companion
+  stable myPageMenuType: MyPageMenuType
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadMyPageButtonPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MyPagePointBox(
+  stable modifier: Modifier? = @static Companion
+  stable nickname: String
+  stable point: String
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadMyPagePointBoxPreview()
+fun <get-currentDestination>(
+  unstable <this>: MainNavigator
+): NavDestination?
+fun <get-currentMainNavigationBarItem>(
+  unstable <this>: MainNavigator
+): MainNavigationBarItemType?
+fun showBottomBar(
+  unstable <this>: MainNavigator
+): Boolean
+fun rememberMainNavigator(
+  unstable navHostController: NavHostController? = @dynamic rememberNavController(
+  $composer   =   $composer  , 
+  $changed   =   8
+)
+): MainNavigator
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MainScreen(
+  unstable navigator: MainNavigator? = @dynamic rememberMainNavigator(null, $composer, 0, 0b0001)
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun MainScreenContent(
+  stable modifier: Modifier? = @static Companion
+  unstable navigator: MainNavigator
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MainPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CustomNavigationBarItem(
+  unstable context: Context
+  stable mainNavigationBarItemType: MainNavigationBarItemType
+  stable isSelected: Boolean
+  stable onClick: Function0<Unit>
+  stable modifier: Modifier? = @static Companion
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun MainBottomBar(
+  stable modifier: Modifier? = @static Companion
+  unstable context: Context? = @dynamic LocalContext.<get-current>($composer, 0)
+  stable isVisible: Boolean
+  unstable navigationBarItems: List<MainNavigationBarItemType>
+  stable currentNavigationBarItem: MainNavigationBarItemType?
+  stable onNavigationBarItemSelected: Function1<MainNavigationBarItemType, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MainBottomBarPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun MainNavHost(
+  stable modifier: Modifier? = @static Companion
+  unstable navigator: MainNavigator
+  stable padding: PaddingValues
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OnboardingRoute(
+  stable viewModel: OnBoardingViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToProfile: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OnboardingScreen(
+  stable pagerState: PagerState? = @dynamic rememberPagerState(0, $composer, 0, 0b0001)
+  stable onEnrollProfileButtonClicked: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastRoute(
+  stable padding: PaddingValues
+  viewModel: PastViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable popBackStack: Function0<Unit>
+  stable navigateToTimelineDetail: Function2<DateType, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastScreen(
+  stable padding: PaddingValues
+  unstable pastUiState: PastUiState? = @dynamic PastUiState()
+  stable popBackStack: Function0<Unit>
+  stable navigateToTimelineDetail: Function2<DateType, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastScreenPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun PastCard(
+  unstable date: Date
+  stable dateType: DateType
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ProfileGuideRoute(
+  stable padding: PaddingValues
+  stable popBackStack: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointGuideScreen(
+  stable padding: PaddingValues
+  stable onIconClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointGuideScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadMyPagePointInfo(
+  stable myPagePointInfoType: MyPagePointInfoType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRoadMyPagePointInfoPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryRoute(
+  stable padding: PaddingValues
+  viewModel: PointHistoryViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable popBackStack: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryScreen(
+  stable padding: PaddingValues
+  unstable pointHistoryUiState: PointHistoryUiState? = @dynamic PointHistoryUiState()
+  stable onTabBarClicked: Function1<PointHistoryTabType, Unit>
+  stable onTopBarIconClicked: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryCard(
+  stable modifier: Modifier? = @static Companion
+  stable point: Point
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryPointBox(
+  stable modifier: Modifier? = @static Companion
+  stable userPoint: UserPoint
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PointHistoryPointBoxPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ProfileRoute(
+  viewModel: ProfileViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigationToHome: Function0<Unit>
+  stable navigationToMyPage: Function0<Unit>
+  stable profileType: ProfileType
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ProfileScreen(
+  unstable profileUiState: ProfileUiState? = @dynamic ProfileUiState()
+  stable onImageButtonClicked: Function0<Unit>
+  stable onNicknameValueChanged: Function1<String, Unit>
+  stable onDateChipClicked: Function1<DateTagType, Unit>
+  stable onBottomSheetDismissRequest: Function0<Unit>
+  stable onNicknameButtonClicked: Function0<Unit>
+  stable onEnrollButtonClicked: Function0<Unit>
+  stable selectPhoto: Function0<Unit>
+  stable deletePhoto: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ReadRoute(
+  stable padding: PaddingValues
+  viewModel: ReadViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable navigateToCourseDetail: Function2<CourseDetailType, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ReadScreen(
+  stable padding: PaddingValues
+  unstable readUiState: ReadUiState? = @dynamic ReadUiState()
+  stable navigateToEnroll: Function0<Unit>
+  stable navigateToCourseDetail: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ReadScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SignInRoute(
+  viewModel: SignInViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToOnboarding: Function0<Unit>
+  stable navigateToHome: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SignInScreen(
+  unstable signInUiState: SignInUiState? = @dynamic SignInUiState()
+  stable onSignInClicked: Function0<Unit>
+  stable onWebViewClicked: Function0<Unit>
+  stable webViewClose: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SplashScreen()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SplashScreenPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TimelineRoute(
+  stable padding: PaddingValues
+  viewModel: TimelineViewModel? = @dynamic hiltViewModel(null, null, $composer, 0, 0b0011)
+  stable navigateToPast: Function0<Unit>
+  stable navigateToEnroll: Function2<EnrollType, Int?, Unit>
+  stable navigateToTimelineDetail: Function2<DateType, Int, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun TimelineScreen(
+  stable padding: PaddingValues
+  unstable uiState: TimelineUiState
+  stable pagerState: PagerState
+  stable navigateToTimelineDetail: Function2<DateType, Int, Unit>
+  stable onAddDateCardClick: Function0<Unit>
+  stable onDismissMaxDateCardDialog: Function0<Unit>
+  stable onPastButtonClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TimelineScreenPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun TimelineCard(
+  stable modifier: Modifier
+  unstable dateCard: Date
+  stable dateType: DateType
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TimelineCardPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TimelineDetailRoute(
+  stable popBackStack: Function0<Unit>
+  stable navigateToEnroll: Function2<EnrollType, Int, Unit>
+  stable dateId: Int
+  stable dateType: DateType
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun TimelineDetailScreen(
+  unstable uiState: TimelineDetailUiState
+  stable dateType: DateType
+  stable onTopBarItemClick: Function0<Unit>? = @static {
+
+}
+
+  stable onButtonClick: Function0<Unit>? = @static {
+
+}
+
+  stable showKakaoClicked: Function0<Unit>? = @static {
+
+}
+
+  stable setShowKakaoDialog: Function1<Boolean, Unit>
+  stable setShowDeleteBottomSheet: Function1<Boolean, Unit>
+  stable setShowDeleteDialog: Function1<Boolean, Unit>
+  stable onDeleteConfirm: Function0<Unit>
+  stable onKakaoShareConfirm: Function0<Unit>
+  stable onEnrollButtonClick: Function1<Int, Unit>
+)
+fun rememberDragAndDropListState(
+  stable lazyListState: LazyListState? = @dynamic rememberLazyListState(0, 0, $composer, 0, 0b0011)
+  stable onMove: Function2<Int, Int, Unit>
+): DragAndDropListState
+fun noRippleDebounceClickable(
+  stable <this>: Modifier
+  stable onClick: Function0<Unit>
+): Modifier
+readonly fun <get-colors>(
+  unused stable <this>: DateRoadTheme
+): DateRoadColors
+readonly fun <get-typography>(
+  unused stable <this>: DateRoadTheme
+): DateRoadTypography
+restartable skippable scheme("[0, [0]]") fun ProvideDateRoadColorsAndTypography(
+  stable colors: DateRoadColors
+  stable typography: DateRoadTypography
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[0, [0]]") fun DATEROADTheme(
+  stable backgroundColor: Color = @static defaultDateRoadColors.white
+  stable content: Function2<Composer, Int, Unit>
+)
