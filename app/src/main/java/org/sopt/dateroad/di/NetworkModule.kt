@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import java.util.concurrent.TimeUnit
+import javax.inject.Provider
 import javax.inject.Singleton
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -16,8 +17,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.dateroad.BuildConfig
 import org.sopt.dateroad.BuildConfig.DEBUG
 import org.sopt.dateroad.data.dataremote.interceptor.AuthInterceptor
+import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.di.qualifier.Auth
 import org.sopt.dateroad.di.qualifier.DateRoad
+import org.sopt.dateroad.domain.usecase.GetAccessTokenUseCase
+import org.sopt.dateroad.domain.usecase.GetRefreshTokenUseCase
+import org.sopt.dateroad.domain.usecase.RefreshTokenUseCase
+import org.sopt.dateroad.domain.usecase.SaveAccessTokenUseCase
 import retrofit2.Retrofit
 
 @Module
@@ -36,6 +42,26 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+    @Provides
+    @Singleton
+    @Auth
+    fun provideAuthInterceptor(
+        getAccessTokenUseCase: GetAccessTokenUseCase,
+        getRefreshTokenUseCase: GetRefreshTokenUseCase,
+        refreshTokenUseCase: RefreshTokenUseCase,
+        saveAccessTokenUseCase: SaveAccessTokenUseCase,
+        authServiceProvider: Provider<AuthService>
+    ): AuthInterceptor {
+        return AuthInterceptor(getAccessTokenUseCase, getRefreshTokenUseCase, refreshTokenUseCase, saveAccessTokenUseCase, authServiceProvider)
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         @Auth authInterceptor: Interceptor
@@ -47,18 +73,6 @@ object NetworkModule {
             addInterceptor(authInterceptor)
             if (DEBUG) addInterceptor(loggingInterceptor)
         }.build()
-
-    @Provides
-    @Singleton
-    fun providesLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-    @Provides
-    @Singleton
-    @Auth
-    fun provideAuthInterceptor(interceptor: AuthInterceptor): Interceptor = interceptor
 
     @ExperimentalSerializationApi
     @Provides
