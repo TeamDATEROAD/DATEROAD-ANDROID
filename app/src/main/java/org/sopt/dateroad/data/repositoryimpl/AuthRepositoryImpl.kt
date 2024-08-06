@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.sopt.dateroad.data.dataremote.datasource.AuthRemoteDataSource
+import org.sopt.dateroad.data.dataremote.model.request.RequestReissueDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.PROFILE_FORM_DATA_IMAGE
 import org.sopt.dateroad.data.dataremote.util.ContentUriRequestBody
@@ -44,5 +45,9 @@ class AuthRepositoryImpl @Inject constructor(
             userSignUpData = Json.encodeToString(signUp.userSignUpInfo.toData()).toRequestBody("application/json".toMediaType()),
             tags = (Json.encodeToString(signUp.tag.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType())
         ).toDomain()
+    }
+
+    override suspend fun reissueToken(refreshToken: String): Result<Auth> = runCatching {
+        authRemoteDataSource.reissueToken(refreshToken = RequestReissueDto(refreshToken)).toDomain()
     }
 }

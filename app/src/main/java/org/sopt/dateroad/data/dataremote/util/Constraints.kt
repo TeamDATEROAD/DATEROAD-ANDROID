@@ -31,6 +31,7 @@ object ApiConstraints {
     const val WITHDRAW = "withdraw"
     const val ADVERTISEMENTS = "advertisements"
     const val SIGN_IN = "signin"
+    const val REISSUE = "reissue"
     const val SIGN_OUT = "signout"
     const val SIGNUP = "signup"
     const val USER_SIGN_UP_DATA = "userSignUpReq"

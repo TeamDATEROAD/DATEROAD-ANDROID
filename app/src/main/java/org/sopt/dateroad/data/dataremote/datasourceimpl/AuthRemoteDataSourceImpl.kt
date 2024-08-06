@@ -4,6 +4,7 @@ import javax.inject.Inject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.sopt.dateroad.data.dataremote.datasource.AuthRemoteDataSource
+import org.sopt.dateroad.data.dataremote.model.request.RequestReissueDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestSignInDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
@@ -26,4 +27,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postSignUp(image: MultipartBody.Part?, userSignUpData: RequestBody, tags: RequestBody): ResponseAuthDto =
         authService.postSignUp(image = image, userSignUpData = userSignUpData, tags = tags)
+
+    override suspend fun reissueToken(refreshToken: RequestReissueDto): ResponseAuthDto =
+        authService.reissueToken(refreshToken = refreshToken)
 }

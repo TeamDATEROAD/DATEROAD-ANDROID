@@ -2,6 +2,7 @@ package org.sopt.dateroad.data.dataremote.datasource
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.sopt.dateroad.data.dataremote.model.request.RequestReissueDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestSignInDto
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
@@ -16,4 +17,6 @@ interface AuthRemoteDataSource {
     suspend fun postSignIn(authorization: String, requestSignInDto: RequestSignInDto): ResponseAuthDto
 
     suspend fun postSignUp(image: MultipartBody.Part?, userSignUpData: RequestBody, tags: RequestBody): ResponseAuthDto
+
+    suspend fun reissueToken(refreshToken: RequestReissueDto): ResponseAuthDto
 }

@@ -14,4 +14,6 @@ interface AuthRepository {
     suspend fun postSignIn(authorization: String, signIn: SignIn): Result<Auth>
 
     suspend fun postSignUp(signUp: SignUp): Result<Auth>
+
+    suspend fun reissueToken(refreshToken: String): Result<Auth>
 }
