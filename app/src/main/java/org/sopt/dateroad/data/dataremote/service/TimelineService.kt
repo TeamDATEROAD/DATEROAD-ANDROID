@@ -1,9 +1,9 @@
 package org.sopt.dateroad.data.dataremote.service
 
-import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseDatesDto
-import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
+import org.sopt.dateroad.data.dataremote.model.request.RequestTimelineDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DATES
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NEAREST
@@ -17,27 +17,27 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface DateService {
+interface TimelineService {
     @DELETE("$API/$VERSION/$DATES/{$DATE_ID}")
-    suspend fun deleteDate(
+    suspend fun deleteTimeline(
         @Path(DATE_ID) dateId: Int
     )
 
     @GET("$API/$VERSION/$DATES/{$DATE_ID}")
-    suspend fun getDateDetail(
+    suspend fun getTimelineDetail(
         @Path(DATE_ID) dateId: Int
-    ): ResponseDateDetailDto
+    ): ResponseTimelineDetailDto
 
     @GET("$API/$VERSION/$DATES")
-    suspend fun getDates(
+    suspend fun getTimelines(
         @Query(TIME) time: String
-    ): ResponseDatesDto
+    ): ResponseTimelinesDto
 
     @GET("$API/$VERSION/$DATES/$NEAREST")
-    suspend fun getNearestDate(): ResponseNearestDateDto
+    suspend fun getNearestTimeline(): ResponseNearestTimelineDto
 
     @POST("$API/$VERSION/$DATES")
-    suspend fun postDate(
-        @Body requestDateDto: RequestDateDto
+    suspend fun postTimeline(
+        @Body requestTimelineDto: RequestTimelineDto
     )
 }

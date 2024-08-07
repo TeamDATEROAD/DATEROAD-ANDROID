@@ -37,10 +37,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
-import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
+import org.sopt.dateroad.presentation.type.TimelineBackgroundType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
@@ -62,7 +62,7 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int) -> Unit,
     dateId: Int,
-    dateType: DateType
+    timelineBackgroundType: TimelineBackgroundType
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,7 +91,7 @@ fun TimelineDetailRoute(
         LoadState.Success -> {
             TimelineDetailScreen(
                 uiState = uiState,
-                dateType = dateType,
+                timelineBackgroundType = timelineBackgroundType,
                 onTopBarItemClick = popBackStack,
                 onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(true)) },
                 showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
@@ -100,7 +100,7 @@ fun TimelineDetailRoute(
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
                 onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) },
-                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
+                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.timelineDetail)) }
             )
         }
 
@@ -116,7 +116,7 @@ fun TimelineDetailRoute(
 @Composable
 fun TimelineDetailScreen(
     uiState: TimelineDetailContract.TimelineDetailUiState,
-    dateType: DateType,
+    timelineBackgroundType: TimelineBackgroundType,
     onTopBarItemClick: () -> Unit = {},
     onButtonClick: () -> Unit = {},
     showKakaoClicked: () -> Unit = {},
@@ -130,7 +130,7 @@ fun TimelineDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = dateType.backgroundColor)
+            .background(color = timelineBackgroundType.backgroundColor)
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_timeline),
@@ -147,12 +147,12 @@ fun TimelineDetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(dateType.backgroundColor)
+                .background(timelineBackgroundType.backgroundColor)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.bg_past_card),
                 contentDescription = null,
-                tint = dateType.lineColor,
+                tint = timelineBackgroundType.lineColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp)
@@ -168,13 +168,13 @@ fun TimelineDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = uiState.dateDetail.date,
+                        text = uiState.timelineDetail.date,
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
-                    if (uiState.dateDetail.dDay != "") {
+                    if (uiState.timelineDetail.dDay != "") {
                         DateRoadTextTag(
-                            textContent = uiState.dateDetail.dDay,
+                            textContent = uiState.timelineDetail.dDay,
                             tagContentType = TagType.TIMELINE_D_DAY
                         )
                     }
@@ -182,7 +182,7 @@ fun TimelineDetailScreen(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
-                    text = uiState.dateDetail.title,
+                    text = uiState.timelineDetail.title,
                     style = DateRoadTheme.typography.titleExtra24,
                     color = DateRoadTheme.colors.black,
                     minLines = 2,
@@ -193,7 +193,7 @@ fun TimelineDetailScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = uiState.dateDetail.city,
+                    text = uiState.timelineDetail.city,
                     style = DateRoadTheme.typography.bodySemi15,
                     color = DateRoadTheme.colors.gray500
                 )
@@ -202,12 +202,12 @@ fun TimelineDetailScreen(
                         .padding(top = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
-                    items(uiState.dateDetail.tags) { tag ->
+                    items(uiState.timelineDetail.tags) { tag ->
                         tag.getDateTagTypeByName()?.let { tagType ->
                             DateRoadImageTag(
                                 textContent = stringResource(id = tagType.titleRes),
                                 imageContent = tagType.imageRes,
-                                tagContentType = dateType.tagType
+                                tagContentType = timelineBackgroundType.tagType
                             )
                         }
                     }
@@ -234,7 +234,7 @@ fun TimelineDetailScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = uiState.dateDetail.startAt,
+                        text = uiState.timelineDetail.startAt,
                         style = DateRoadTheme.typography.bodySemi15,
                         color = DateRoadTheme.colors.black
                     )
@@ -242,17 +242,17 @@ fun TimelineDetailScreen(
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(uiState.dateDetail.places.size) { index ->
+                    items(uiState.timelineDetail.places.size) { index ->
                         DateRoadPlaceCard(
                             placeCardType = PlaceCardType.COURSE_NORMAL,
                             sequence = index,
-                            place = uiState.dateDetail.places[index]
+                            place = uiState.timelineDetail.places[index]
                         )
                     }
                 }
             }
 
-            if (uiState.dateDetail.dDay.isNotEmpty()) {
+            if (uiState.timelineDetail.dDay.isNotEmpty()) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -295,7 +295,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.dateDetail.dateId) })
+                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.timelineDetail.dateId) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),

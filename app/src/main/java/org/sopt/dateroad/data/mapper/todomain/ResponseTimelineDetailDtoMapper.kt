@@ -1,11 +1,11 @@
 package org.sopt.dateroad.data.mapper.todomain
 
-import org.sopt.dateroad.data.dataremote.model.response.ResponseDateDetailDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.mapper.toEntity.toBasicDates
 import org.sopt.dateroad.data.mapper.toEntity.toDDayString
-import org.sopt.dateroad.domain.model.DateDetail
+import org.sopt.dateroad.domain.model.TimelineDetail
 
-fun ResponseDateDetailDto.toDomain(): DateDetail = DateDetail(
+fun ResponseTimelineDetailDto.toDomain(): TimelineDetail = TimelineDetail(
     dateId = this.dateId,
     title = this.title,
     startAt = this.startAt,

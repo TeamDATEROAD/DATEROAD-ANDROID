@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseDateDto(
+data class ResponseTimelineDto(
     @SerialName("dateId")
     val dateId: Int,
     @SerialName("title")

@@ -7,9 +7,9 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.mapper.toEntity.toEnroll
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
-import org.sopt.dateroad.domain.usecase.GetDateDetailUseCase
+import org.sopt.dateroad.domain.usecase.GetTimelineDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseUseCase
-import org.sopt.dateroad.domain.usecase.PostDateUseCase
+import org.sopt.dateroad.domain.usecase.PostTimelineUseCase
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
@@ -18,9 +18,9 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
-    private val getDateDetailUseCase: GetDateDetailUseCase,
+    private val getTimelineDetailUseCase: GetTimelineDetailUseCase,
     private val postCourseUseCase: PostCourseUseCase,
-    private val postDateUseCase: PostDateUseCase
+    private val postTimelineUseCase: PostTimelineUseCase
 ) : BaseViewModel<EnrollContract.EnrollUiState, EnrollContract.EnrollSideEffect, EnrollContract.EnrollEvent>() {
     override fun createInitialState(): EnrollContract.EnrollUiState = EnrollContract.EnrollUiState()
 
@@ -129,7 +129,7 @@ class EnrollViewModel @Inject constructor(
     fun fetchDateDetail(dateId: Int) {
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Loading, dateDetail = null))
-            getDateDetailUseCase(dateId = dateId).onSuccess { dateDetail ->
+            getTimelineDetailUseCase(dateId = dateId).onSuccess { dateDetail ->
                 setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Success, dateDetail = dateDetail))
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Error, dateDetail = null))
@@ -151,7 +151,7 @@ class EnrollViewModel @Inject constructor(
     private fun postTimeline() {
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
-            postDateUseCase(date = currentState.enroll).onSuccess {
+            postTimelineUseCase(timeline = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))

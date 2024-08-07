@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.MainDate
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
-import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
+import org.sopt.dateroad.domain.usecase.GetNearestTimelineUseCase
 import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
 import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.SetNicknameUseCase
@@ -17,7 +17,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
-    private val getNearestDateUseCase: GetNearestDateUseCase,
+    private val getNearestTimelineUseCase: GetNearestTimelineUseCase,
     private val getSortedCoursesUseCase: GetSortedCoursesUseCase,
     private val getUserPointUseCase: GetUserPointUseCase,
     private val setNicknameUseCase: SetNicknameUseCase
@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
     fun fetchNearestDate() {
         viewModelScope.launch {
             setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Loading, mainDate = MainDate()))
-            getNearestDateUseCase()
+            getNearestTimelineUseCase()
                 .onSuccess { mainDate ->
                     setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = mainDate))
                 }

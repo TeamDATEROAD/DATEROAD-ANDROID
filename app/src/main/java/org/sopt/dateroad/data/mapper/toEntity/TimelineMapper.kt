@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestDateDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineDto
 import org.sopt.dateroad.data.dataremote.util.Date
 import org.sopt.dateroad.domain.type.MonthType
 
@@ -26,7 +26,7 @@ fun String.toStartAtString(): String = "$this${Date.NEAREST_DATE_START_OUTPUT_FO
 
 fun String.toAdvertisementDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.ADVERTISEMENT_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
 
-fun ResponseNearestDateDto.toFormattedDate(): String = String.format(Date.MAIN_DATE_OUTPUT_FORMAT, this.month, this.day)
+fun ResponseNearestTimelineDto.toFormattedDate(): String = String.format(Date.MAIN_DATE_OUTPUT_FORMAT, this.month, this.day)
 
 fun String.toFormattedDate(): String = String.format(
     Date.TIMELINE_OUTPUT_FORMAT,

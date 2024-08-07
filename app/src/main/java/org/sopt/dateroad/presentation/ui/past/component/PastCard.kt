@@ -26,9 +26,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Date
+import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.presentation.type.TimelineBackgroundType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -36,8 +36,8 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
 @Composable
 fun PastCard(
-    date: Date,
-    dateType: DateType,
+    timeline: Timeline,
+    timelineBackgroundType: TimelineBackgroundType,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
@@ -45,13 +45,13 @@ fun PastCard(
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(328 / 203f)
-            .background(dateType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(date.dateId) })
+            .background(timelineBackgroundType.backgroundColor)
+            .noRippleClickable(onClick = { onClick(timeline.dateId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_past_card),
             contentDescription = null,
-            tint = dateType.lineColor,
+            tint = timelineBackgroundType.lineColor,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -66,7 +66,7 @@ fun PastCard(
                     .padding(top = 14.dp, start = 16.dp, end = 16.dp)
             ) {
                 Text(
-                    text = date.date,
+                    text = timeline.date,
                     style = DateRoadTheme.typography.bodySemi13,
                     color = DateRoadTheme.colors.black,
                     modifier = Modifier
@@ -75,7 +75,7 @@ fun PastCard(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = date.title,
+                    text = timeline.title,
                     style = DateRoadTheme.typography.titleExtra20,
                     color = DateRoadTheme.colors.black,
                     minLines = 2,
@@ -126,18 +126,18 @@ fun PastCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = date.city,
+                    text = timeline.city,
                     style = DateRoadTheme.typography.bodyMed13,
                     color = DateRoadTheme.colors.black
                 )
                 LazyRow(
                     modifier = Modifier.padding(top = 10.dp)
                 ) {
-                    itemsIndexed(date.tags) { index, tag ->
+                    itemsIndexed(timeline.tags) { index, tag ->
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
-                            tagContentType = dateType.tagType,
+                            tagContentType = timelineBackgroundType.tagType,
                             modifier = Modifier.padding(start = if (index > 0) 6.dp else 0.dp)
                         )
                     }
@@ -153,8 +153,8 @@ fun PastCard(
 fun PastCardPreview() {
     Column {
         PastCard(
-            dateType = DateType.PINK,
-            date = Date(
+            timelineBackgroundType = TimelineBackgroundType.PINK,
+            timeline = Timeline(
                 dateId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
