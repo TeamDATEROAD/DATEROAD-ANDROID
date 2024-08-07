@@ -1,6 +1,5 @@
 package org.sopt.dateroad.data.repositoryimpl
 
-import android.content.ContentResolver
 import javax.inject.Inject
 import org.sopt.dateroad.data.dataremote.datasource.TimelineRemoteDataSource
 import org.sopt.dateroad.data.mapper.todata.toTimelineData
