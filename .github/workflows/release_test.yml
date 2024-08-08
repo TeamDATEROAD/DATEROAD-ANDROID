@@ -68,15 +68,16 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
-      - name: Extract version from Gradle
-        id: get_version
-        run: echo "VERSION=$(./gradlew -q printVersion)" >> $GITHUB_ENV
+      - name: Read Version from file
+        id: read_version
+        run: echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
 
       - name: Create Tag
         id: create_tag
         run: |
           git tag ${{ env.VERSION }}
           git push origin ${{ env.VERSION }}
+          echo "::set-output name=TAG::${{ env.VERSION }}"
 
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
