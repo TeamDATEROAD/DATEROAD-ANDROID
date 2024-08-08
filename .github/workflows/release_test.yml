@@ -68,6 +68,16 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
+      - name: Extract version from Gradle
+        id: get_version
+        run: echo "VERSION=$(./gradlew -q printVersion)" >> $GITHUB_ENV
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          git tag ${{ env.VERSION }}
+          git push origin ${{ env.VERSION }}
+
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
@@ -96,7 +106,7 @@ jobs:
 
       - name: Discord Notify - Success
         if: ${{ success() }}
-        uses: MeilCli/slack-upload-file@v3
+        uses: sarisia/actions-status-discord@v1
         with:
           title: ✅ Release Test가 완료되었습니다! 🔥
           webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}

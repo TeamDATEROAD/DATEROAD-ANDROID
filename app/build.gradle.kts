@@ -124,3 +124,10 @@ ktlint {
     verbose = true
     outputToConsole = true
 }
+
+tasks.register("printVersion") {
+    doLast {
+        val versionFile = file("version.txt")
+        versionFile.writeText(project.version.toString())
+    }
+}
