@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - develop
+
 defaults:
   run:
     shell: bash
@@ -67,6 +71,18 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
+      - name: Upload APK to GitHub Releases
+        if: ${{ success() }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get APK URL
+        id: get_apk_url
+        run: echo "apk_url=$(gh release view --json assets --jq '.assets[0].browser_download_url')" >> $GITHUB_ENV
+
       - name: Slack Notify - Success
         if: ${{ success() }}
         uses: MeilCli/slack-upload-file@v3
@@ -78,6 +94,18 @@ jobs:
           file_type: 'apk'
           initial_comment: 'Release Test가 완료되었습니다! 🔥'
 
+      - name: Discord Notify - Success
+        if: ${{ success() }}
+        uses: MeilCli/slack-upload-file@v3
+        with:
+          title: ✅ Release Test가 완료되었습니다! 🔥
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          color: B7FF1D
+          username: DATEROAD-ANDROID 🍫
+          content: |
+            Release Test가 완료되었습니다! 🔥
+            [APK 파일 다운로드](${{ env.apk_url }})
+
       - name: Slack Notify - Failure
         if: ${{ failure() }}
         uses: rtCamp/action-slack-notify@v2
@@ -87,3 +115,13 @@ jobs:
           SLACK_TITLE: '❌ Release Test Failed ❌'
           SLACK_USERNAME: DATEROAD-ANDROID 🍫
           SLACK_MESSAGE: '에러를 확인해 주세요 🫨'
+
+      - name: Discord Notify - Failure
+        if: ${{ failure() }}
+        uses: sarisia/actions-status-discord@v1
+        with:
+          title: ❌ Release Test Failed ❌
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          color: FF0000
+          username: DATEROAD-ANDROID 🍫
+          content: 에러를 확인해 주세요 🫨
