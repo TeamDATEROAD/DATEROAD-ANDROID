@@ -81,6 +81,16 @@ jobs:
           SLACK_USERNAME: DATEROAD-ANDROID 🍫
           SLACK_MESSAGE: 'PR이 완료되었습니다! 👩‍❤️‍👨'
 
+      - name: Discord Notify - Success
+        if: ${{ success() }}
+        uses: sarisia/actions-status-discord@v1
+        with:
+          title: ✅ PR Success ✅
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          color: D3EB77
+          username: DATEROAD-ANDROID 🍫
+          content: PR이 완료되었습니다! 👩‍❤️‍👨
+
       - name: Slack Notify - Failure
         if: ${{ failure() }}
         uses: rtCamp/action-slack-notify@v2
@@ -90,3 +100,13 @@ jobs:
           SLACK_TITLE: '❌ PR Failed ❌'
           SLACK_USERNAME: DATEROAD-ANDROID 🍫
           SLACK_MESSAGE: '에러를 확인해 주세요 🫨'
+
+      - name: Discord Notify - Failure
+        if: ${{ failure() }}
+        uses: sarisia/actions-status-discord@v1
+        with:
+          title: ❌ PR Failed ❌
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          color: FF0000
+          username: DATEROAD-ANDROID 🍫
+          content: 에러를 확인해 주세요 🫨
