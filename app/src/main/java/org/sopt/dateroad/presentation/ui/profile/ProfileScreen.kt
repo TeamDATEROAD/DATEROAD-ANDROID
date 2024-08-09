@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
@@ -188,7 +189,6 @@ fun ProfileScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(DateRoadTheme.colors.white)
-            .padding(horizontal = 16.dp)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
@@ -206,82 +206,84 @@ fun ProfileScreen(
             title = stringResource(id = profileUiState.profileType.topAppBarTitleRes),
             backGroundColor = DateRoadTheme.colors.white
         )
-        Spacer(modifier = Modifier.height(40.dp))
-        Box(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Image(
-                painter = when (profileUiState.profileType) {
-                    ProfileType.ENROLL -> if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
-                        painterResource(id = R.drawable.ic_enroll_profile_default)
-                    } else {
-                        rememberAsyncImagePainter(model = profileUiState.signUp.image)
-                    }
+        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+            Spacer(modifier = Modifier.height(40.dp))
+            Box(
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Image(
+                    painter = when (profileUiState.profileType) {
+                        ProfileType.ENROLL -> if (profileUiState.signUp.image.isEmpty() || profileUiState.signUp.image == "null") {
+                            painterResource(id = R.drawable.ic_enroll_profile_default)
+                        } else {
+                            rememberAsyncImagePainter(model = profileUiState.signUp.image)
+                        }
 
-                    ProfileType.EDIT -> if (profileUiState.editProfile.image.isEmpty() || profileUiState.editProfile.image == "null") {
-                        painterResource(id = R.drawable.ic_enroll_profile_default)
-                    } else {
-                        rememberAsyncImagePainter(model = profileUiState.editProfile.image)
-                    }
+                        ProfileType.EDIT -> if (profileUiState.editProfile.image.isEmpty() || profileUiState.editProfile.image == "null") {
+                            painterResource(id = R.drawable.ic_enroll_profile_default)
+                        } else {
+                            rememberAsyncImagePainter(model = profileUiState.editProfile.image)
+                        }
+                    },
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(128.dp)
+                        .aspectRatio(1f)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.btn_my_profile_plus),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .noRippleClickable(onClick = onImageButtonClicked)
+                )
+            }
+            Spacer(modifier = Modifier.height(40.dp))
+
+            DateRoadTextFieldWithButton(
+                validateState = profileUiState.nicknameValidateResult,
+                title = stringResource(id = R.string.profile_text_field_title),
+                placeholder = if (profileUiState.profileType == ProfileType.ENROLL) {
+                    stringResource(id = R.string.profile_text_field_placeholder)
+                } else {
+                    profileUiState.editProfile.name
                 },
-                contentDescription = null,
-                modifier = Modifier
-                    .height(128.dp)
-                    .aspectRatio(1f)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
+                successDescription = stringResource(id = R.string.profile_text_field_success_description),
+                conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
+                buttonText = stringResource(id = R.string.profile_text_field_button_text),
+                isButtonEnabled = profileUiState.isNicknameButtonEnabled,
+                value = if (profileUiState.profileType == ProfileType.ENROLL) {
+                    profileUiState.signUp.userSignUpInfo.name
+                } else {
+                    profileUiState.editProfile.name
+                },
+                onValueChange = onNicknameValueChanged,
+                onButtonClick = { onNicknameButtonClicked() }
+            )
+            Spacer(modifier = Modifier.height(23.dp))
+
+            DateRoadDateChipGroup(
+                dateChipGroupType = DateChipGroupType.PROFILE,
+                selectedDateTags = if (profileUiState.profileType == ProfileType.ENROLL) {
+                    profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() }
+                } else {
+                    profileUiState.editProfile.tags.mapNotNull { it.getDateTagTypeByName() }
+                },
+                onSelectedDateTagsChanged = onDateChipClicked
             )
 
-            Image(
-                painter = painterResource(id = R.drawable.btn_my_profile_plus),
-                contentDescription = null,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .noRippleClickable(onClick = onImageButtonClicked)
+            Spacer(modifier = Modifier.weight(1f))
+
+            DateRoadBasicButton(
+                isEnabled = profileUiState.isEnrollButtonEnabled,
+                textContent = stringResource(id = profileUiState.profileType.buttonTextRes),
+                onClick = onEnrollButtonClicked
             )
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.height(40.dp))
-
-        DateRoadTextFieldWithButton(
-            validateState = profileUiState.nicknameValidateResult,
-            title = stringResource(id = R.string.profile_text_field_title),
-            placeholder = if (profileUiState.profileType == ProfileType.ENROLL) {
-                stringResource(id = R.string.profile_text_field_placeholder)
-            } else {
-                profileUiState.editProfile.name
-            },
-            successDescription = stringResource(id = R.string.profile_text_field_success_description),
-            conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
-            buttonText = stringResource(id = R.string.profile_text_field_button_text),
-            isButtonEnabled = profileUiState.isNicknameButtonEnabled,
-            value = if (profileUiState.profileType == ProfileType.ENROLL) {
-                profileUiState.signUp.userSignUpInfo.name
-            } else {
-                profileUiState.editProfile.name
-            },
-            onValueChange = onNicknameValueChanged,
-            onButtonClick = { onNicknameButtonClicked() }
-        )
-        Spacer(modifier = Modifier.height(23.dp))
-
-        DateRoadDateChipGroup(
-            dateChipGroupType = DateChipGroupType.PROFILE,
-            selectedDateTags = if (profileUiState.profileType == ProfileType.ENROLL) {
-                profileUiState.signUp.tag.mapNotNull { it.getDateTagTypeByName() }
-            } else {
-                profileUiState.editProfile.tags.mapNotNull { it.getDateTagTypeByName() }
-            },
-            onSelectedDateTagsChanged = onDateChipClicked
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        DateRoadBasicButton(
-            isEnabled = profileUiState.isEnrollButtonEnabled,
-            textContent = stringResource(id = profileUiState.profileType.buttonTextRes),
-            onClick = onEnrollButtonClicked
-        )
-        Spacer(modifier = Modifier.height(16.dp))
     }
     DateRoadBasicBottomSheet(
         isBottomSheetOpen = profileUiState.isBottomSheetOpen,
