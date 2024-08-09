@@ -21,13 +21,17 @@ fun NavController.navigationEditProfile() {
 fun NavGraphBuilder.enrollProfileNavGraph(
     navigateToHome: () -> Unit,
     navigateToMyPage: () -> Unit,
-    profileType: ProfileType
+    profileType: ProfileType,
+    popBackStack: () -> Unit
+
 ) {
     composable(route = EnrollProfileRoute.ROUTE) {
         ProfileRoute(
             navigationToHome = navigateToHome,
             navigationToMyPage = navigateToMyPage,
-            profileType = profileType
+            profileType = profileType,
+            popBackStack = popBackStack
+
         )
     }
 }
@@ -35,13 +39,16 @@ fun NavGraphBuilder.enrollProfileNavGraph(
 fun NavGraphBuilder.editProfileNavGraph(
     navigateToHome: () -> Unit,
     navigateToMyPage: () -> Unit,
-    profileType: ProfileType
+    profileType: ProfileType,
+    popBackStack: () -> Unit
+
 ) {
     composable(route = EditProfileRoute.ROUTE) {
         ProfileRoute(
             navigationToHome = navigateToHome,
             navigationToMyPage = navigateToMyPage,
-            profileType = profileType
+            profileType = profileType,
+            popBackStack = popBackStack
         )
     }
 }

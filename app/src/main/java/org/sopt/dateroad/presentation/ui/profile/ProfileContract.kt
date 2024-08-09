@@ -30,6 +30,7 @@ class ProfileContract {
     sealed interface ProfileSideEffect : UiSideEffect {
         data object NavigateToHome : ProfileSideEffect
         data object NavigateToMyPage : ProfileSideEffect
+        data object PopBackStack : ProfileSideEffect
     }
 
     sealed class ProfileEvent : UiEvent {

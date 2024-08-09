@@ -55,7 +55,8 @@ fun ProfileRoute(
     viewModel: ProfileViewModel = hiltViewModel(),
     navigationToHome: () -> Unit,
     navigationToMyPage: () -> Unit,
-    profileType: ProfileType
+    profileType: ProfileType,
+    popBackStack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -83,6 +84,7 @@ fun ProfileRoute(
                 when (profileSideEffect) {
                     is ProfileContract.ProfileSideEffect.NavigateToHome -> navigationToHome()
                     is ProfileContract.ProfileSideEffect.NavigateToMyPage -> navigationToMyPage()
+                    else -> {}
                 }
             }
     }
@@ -93,8 +95,7 @@ fun ProfileRoute(
                 ProfileScreen(
                     profileUiState = uiState,
                     onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                    onNicknameValueChanged = {
-                            name ->
+                    onNicknameValueChanged = { name ->
                         viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name))
                     },
                     onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
@@ -110,9 +111,12 @@ fun ProfileRoute(
                             getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                         }
                     },
-                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = "")) }
+                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = "")) },
+                    popUpBackStack = { Unit }
+
                 )
             }
+
             LoadState.Loading -> DateRoadLoadingView()
             LoadState.Success -> navigationToHome()
             LoadState.Error -> DateRoadErrorView()
@@ -139,9 +143,11 @@ fun ProfileRoute(
                             getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                         }
                     },
-                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) }
+                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) },
+                    popUpBackStack = { popBackStack() }
                 )
             }
+
             LoadState.Loading -> DateRoadLoadingView()
             LoadState.Success -> navigationToMyPage()
             LoadState.Error -> DateRoadErrorView()
@@ -154,6 +160,7 @@ fun ProfileRoute(
         } else {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
         }
+
         ProfileType.EDIT -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
         } else {
@@ -172,7 +179,8 @@ fun ProfileScreen(
     onNicknameButtonClicked: () -> Unit,
     onEnrollButtonClicked: () -> Unit,
     selectPhoto: () -> Unit,
-    deletePhoto: () -> Unit
+    deletePhoto: () -> Unit,
+    popUpBackStack: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -189,6 +197,12 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DateRoadBasicTopBar(
+            iconLeftResource = if (profileUiState.profileType == ProfileType.EDIT) {
+                R.drawable.ic_top_bar_back_white
+            } else {
+                null
+            },
+            onIconClick = popUpBackStack,
             title = stringResource(id = profileUiState.profileType.topAppBarTitleRes),
             backGroundColor = DateRoadTheme.colors.white
         )

@@ -104,12 +104,14 @@ fun MainNavHost(
             enrollProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.ENROLL
+                profileType = ProfileType.ENROLL,
+                popBackStack = navigator::popBackStackIfNotHome
             )
             editProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.EDIT
+                profileType = ProfileType.EDIT,
+                popBackStack = navigator::popBackStackIfNotHome
             )
 
             readNavGraph(
