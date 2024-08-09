@@ -10,6 +10,7 @@ object ApiConstraints {
     const val COURSES = "courses"
     const val DATE_ACCESS = "date-access"
     const val USERS = "users"
+    const val REISSUE = "reissue"
     const val PAGE = "page"
     const val CONTENT = "content"
     const val CHECK = "check"
