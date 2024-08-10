@@ -82,12 +82,17 @@ jobs:
       - name: Get Release APK Download URL
         id: get-artifact-url
         run: |
-          ARTIFACT_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
-            | jq -r '.artifacts[] | select(.name=="release") | .id')
+          ARTIFACTS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts")
+
+          ARTIFACT_ID=$(echo "$ARTIFACTS" | jq -r '.artifacts[] | select(.name=="release") | .id')
+
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "Artifact ID not found. Exiting."
+            exit 1
+          fi
 
           DOWNLOAD_URL="https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${ARTIFACT_ID}/zip"
-
           echo "::set-output name=url::$DOWNLOAD_URL"
 
       - name: Discord Notify - Success
