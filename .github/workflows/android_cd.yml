@@ -1,4 +1,4 @@
-name: DATEROAD Release Test
+name: DATEROAD CD
 
 on:
   push:
@@ -16,7 +16,7 @@ defaults:
 
 jobs:
   build:
-    name: Release Test
+    name: CD
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -68,43 +68,6 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
-      - name: Read Version from file
-        id: read_version
-        run: echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
-
-      - name: Create Tag
-        id: create_tag
-        run: |
-          git tag ${{ env.VERSION }}
-          git push origin ${{ env.VERSION }}
-          echo "::set-output name=TAG::${{ env.VERSION }}"
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK to GitHub Releases
-        if: ${{ success() }}
-        uses: softprops/action-gh-release@v1
-        with:
-          files: app/build/outputs/apk/debug/app-debug.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get APK URL
-        id: get_apk_url
-        run: echo "apk_url=$(gh release view --json assets --jq '.assets[0].browser_download_url')" >> $GITHUB_ENV
-
-      - name: Slack Notify - Success
-        if: ${{ success() }}
-        uses: MeilCli/slack-upload-file@v3
-        with:
-          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel_id: ${{ secrets.SLACK_CHANNEL_DEPLOY }}
-          file_path: 'app/build/outputs/apk/debug/app-debug.apk'
-          file_name: 'DATEROAD-ANDROID.apk'
-          file_type: 'apk'
-          initial_comment: 'Release Test가 완료되었습니다! 🔥'
-
       - name: Discord Notify - Success
         if: ${{ success() }}
         uses: sarisia/actions-status-discord@v1
@@ -114,18 +77,7 @@ jobs:
           color: B7FF1D
           username: DATEROAD-ANDROID 🍫
           content: |
-            Release Test가 완료되었습니다! 🔥
-            [APK 파일 다운로드](${{ env.apk_url }})
-
-      - name: Slack Notify - Failure
-        if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: '#FF9254'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_TITLE: '❌ Release Test Failed ❌'
-          SLACK_USERNAME: DATEROAD-ANDROID 🍫
-          SLACK_MESSAGE: '에러를 확인해 주세요 🫨'
+            Release Test가 완료되었습니다! 
 
       - name: Discord Notify - Failure
         if: ${{ failure() }}
