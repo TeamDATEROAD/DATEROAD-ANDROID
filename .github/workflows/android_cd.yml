@@ -69,9 +69,9 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
-      -   name: Build Release APK
-          run: |
-            ./gradlew :app:assembleRelease
+      - name: Build Release APK
+        run: |
+          ./gradlew :app:assembleRelease
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v3
@@ -88,7 +88,8 @@ jobs:
           color: B7FF1D
           username: DATEROAD-ANDROID 🍫
           content: |
-            Release Test가 완료되었습니다! 
+            Release Test가 완료되었습니다!
+            [APK를 다운로드해 보세요!](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts)
 
       - name: Discord Notify - Failure
         if: ${{ failure() }}
