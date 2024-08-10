@@ -1,4 +1,4 @@
-name: DATEROAD PR Builder
+name: DATEROAD CI
 on:
   pull_request:
     branches: [ develop, main ]
@@ -10,7 +10,7 @@ defaults:
 
 jobs:
   build:
-    name: PR Checker
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -71,16 +71,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -PcompileSdkVersion=34
 
-      - name: Slack Notify - Success
-        if: ${{ success() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: '#B7FF1D'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_TITLE: '✅ PR Success ✅'
-          SLACK_USERNAME: DATEROAD-ANDROID 🍫
-          SLACK_MESSAGE: 'PR이 완료되었습니다! 👩‍❤️‍👨'
-
       - name: Discord Notify - Success
         if: ${{ success() }}
         uses: sarisia/actions-status-discord@v1
@@ -90,16 +80,6 @@ jobs:
           color: D3EB77
           username: DATEROAD-ANDROID 🍫
           content: PR이 완료되었습니다! 👩‍❤️‍👨
-
-      - name: Slack Notify - Failure
-        if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: '#FF9254'
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_TITLE: '❌ PR Failed ❌'
-          SLACK_USERNAME: DATEROAD-ANDROID 🍫
-          SLACK_MESSAGE: '에러를 확인해 주세요 🫨'
 
       - name: Discord Notify - Failure
         if: ${{ failure() }}
