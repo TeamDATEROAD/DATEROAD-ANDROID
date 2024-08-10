@@ -68,6 +68,18 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: debug
+          path: ./app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: ./app/build/outputs/apk/release/app-release-unsigned.apk
+
       - name: Discord Notify - Success
         if: ${{ success() }}
         uses: sarisia/actions-status-discord@v1
