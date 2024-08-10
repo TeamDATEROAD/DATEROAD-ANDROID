@@ -89,7 +89,7 @@ jobs:
           username: DATEROAD-ANDROID 🍫
           content: |
             Release Test가 완료되었습니다!
-            [❇️ APK를 다운로드해 보세요! ❇️](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            [❇️ APK를 다운로드해 보세요! ❇️](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.upload-artifact.outputs.artifact-id }})
 
       - name: Discord Notify - Failure
         if: ${{ failure() }}
