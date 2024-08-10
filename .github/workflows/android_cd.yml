@@ -68,11 +68,9 @@ jobs:
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
 
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: debug
-          path: ./app/build/outputs/apk/debug/app-debug.apk
+      -   name: Build Release APK
+          run: |
+            ./gradlew :app:assembleRelease
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v3
