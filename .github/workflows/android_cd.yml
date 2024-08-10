@@ -79,6 +79,17 @@ jobs:
           name: release
           path: ./app/build/outputs/apk/release/app-release-unsigned.apk
 
+      - name: Get Release APK Download URL
+        id: get-artifact-url
+        run: |
+          ARTIFACT_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
+            | jq -r '.artifacts[] | select(.name=="release") | .id')
+
+          DOWNLOAD_URL="https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${ARTIFACT_ID}/zip"
+
+          echo "::set-output name=url::$DOWNLOAD_URL"
+
       - name: Discord Notify - Success
         if: ${{ success() }}
         uses: sarisia/actions-status-discord@v1
@@ -89,7 +100,7 @@ jobs:
           username: DATEROAD-ANDROID 🍫
           content: |
             Release Test가 완료되었습니다!
-            [APK를 다운로드해 보세요!](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts)
+            [❇️ APK를 다운로드해 보세요! ❇️](${{ steps.get-artifact-url.outputs.url }})
 
       - name: Discord Notify - Failure
         if: ${{ failure() }}
