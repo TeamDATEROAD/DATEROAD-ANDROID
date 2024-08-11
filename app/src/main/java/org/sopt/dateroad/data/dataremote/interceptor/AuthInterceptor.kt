@@ -42,7 +42,6 @@ class AuthInterceptor @Inject constructor(
                 val refreshTokenRequest = originalRequest.newBuilder().get()
                     .url("${BuildConfig.BASE_URL}$API/$VERSION/$USERS/$REISSUE")
                     .patch("".toRequestBody(null))
-                    .addHeader(CONTENT_TYPE, APPLICATION_JSON)
                     .addHeader(AUTHORIZATION, localStorage.refreshToken)
                     .build()
                 val refreshTokenResponse = chain.proceed(refreshTokenRequest)
