@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -37,7 +37,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 @Composable
 fun PastCard(
     timeline: Timeline,
-    timelineBackgroundType: TimelineBackgroundType,
+    timelineType: TimelineType,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
@@ -45,13 +45,13 @@ fun PastCard(
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(328 / 203f)
-            .background(timelineBackgroundType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(timeline.dateId) })
+            .background(timelineType.backgroundColor)
+            .noRippleClickable(onClick = { onClick(timeline.timelineId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_past_card),
             contentDescription = null,
-            tint = timelineBackgroundType.lineColor,
+            tint = timelineType.lineColor,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -137,7 +137,7 @@ fun PastCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = tag.titleRes),
                             imageContent = tag.imageRes,
-                            tagContentType = timelineBackgroundType.tagType,
+                            tagContentType = timelineType.tagType,
                             modifier = Modifier.padding(start = if (index > 0) 6.dp else 0.dp)
                         )
                     }
@@ -145,23 +145,5 @@ fun PastCard(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-    }
-}
-
-@Preview
-@Composable
-fun PastCardPreview() {
-    Column {
-        PastCard(
-            timelineBackgroundType = TimelineBackgroundType.PINK,
-            timeline = Timeline(
-                dateId = 0,
-                dDay = "3",
-                title = "성수동 당일치기 데이트가볼까요?\n이정도 어떠신지?",
-                date = "2024년 6월 23일",
-                city = "건대/성수/왕십리",
-                tags = listOf(DateTagType.SHOPPING, DateTagType.DRIVE, DateTagType.EXHIBITION_POPUP)
-            )
-        )
     }
 }

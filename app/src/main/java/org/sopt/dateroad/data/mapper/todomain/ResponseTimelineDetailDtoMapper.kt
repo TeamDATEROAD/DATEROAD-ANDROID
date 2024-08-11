@@ -6,7 +6,7 @@ import org.sopt.dateroad.data.mapper.toEntity.toDDayString
 import org.sopt.dateroad.domain.model.TimelineDetail
 
 fun ResponseTimelineDetailDto.toDomain(): TimelineDetail = TimelineDetail(
-    dateId = this.dateId,
+    timelineId = this.timelineId,
     title = this.title,
     startAt = this.startAt,
     city = this.city,

@@ -11,11 +11,11 @@ import org.sopt.dateroad.data.dataremote.service.TimelineService
 class TimelineRemoteDataSourceImpl @Inject constructor(
     private val timelineService: TimelineService
 ) : TimelineRemoteDataSource {
-    override suspend fun deleteTimeline(dateId: Int) = timelineService.deleteTimeline(dateId)
+    override suspend fun deleteTimeline(timelineId: Int) = timelineService.deleteTimeline(timelineId = timelineId)
 
-    override suspend fun getTimelineDetail(dateId: Int): ResponseTimelineDetailDto = timelineService.getTimelineDetail(dateId)
+    override suspend fun getTimelineDetail(timelineId: Int): ResponseTimelineDetailDto = timelineService.getTimelineDetail(timelineId = timelineId)
 
-    override suspend fun getTimelines(time: String): ResponseTimelinesDto = timelineService.getTimelines(time)
+    override suspend fun getTimelines(time: String): ResponseTimelinesDto = timelineService.getTimelines(time = time)
 
     override suspend fun getNearestTimeline(): ResponseNearestTimelineDto = timelineService.getNearestTimeline()
 

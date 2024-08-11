@@ -6,9 +6,9 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDt
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
 
 interface TimelineRemoteDataSource {
-    suspend fun deleteTimeline(dateId: Int)
+    suspend fun deleteTimeline(timelineId: Int)
 
-    suspend fun getTimelineDetail(dateId: Int): ResponseTimelineDetailDto
+    suspend fun getTimelineDetail(timelineId: Int): ResponseTimelineDetailDto
 
     suspend fun getTimelines(time: String): ResponseTimelinesDto
 

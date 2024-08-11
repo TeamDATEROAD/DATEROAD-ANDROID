@@ -15,7 +15,7 @@ import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.MyCourseType
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.navigationCourseDetail
 import org.sopt.dateroad.presentation.ui.enroll.navigation.navigationEnroll
 import org.sopt.dateroad.presentation.ui.home.navigation.navigationHome
@@ -145,8 +145,8 @@ class MainNavigator(
         )
     }
 
-    fun navigateToTimelineDetail(timelineBackgroundType: TimelineBackgroundType, dateId: Int) {
-        navHostController.navigateToTimelineDetail(timelineBackgroundType, dateId)
+    fun navigateToTimelineDetail(timelineType: TimelineType, dateId: Int) {
+        navHostController.navigateToTimelineDetail(timelineType, dateId)
     }
 
     private fun popBackStack() {

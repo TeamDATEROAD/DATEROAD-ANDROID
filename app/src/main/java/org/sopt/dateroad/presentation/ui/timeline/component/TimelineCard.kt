@@ -33,7 +33,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.TagType
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -44,20 +44,20 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 fun TimelineCard(
     modifier: Modifier,
     timelineCard: Timeline,
-    timelineBackgroundType: TimelineBackgroundType,
+    timelineType: TimelineType,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(291 / 406f)
-            .background(timelineBackgroundType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(timelineCard.dateId) })
+            .background(timelineType.backgroundColor)
+            .noRippleClickable(onClick = { onClick(timelineCard.timelineId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_timeline_card),
             contentDescription = null,
-            tint = timelineBackgroundType.lineColor,
+            tint = timelineType.lineColor,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -105,7 +105,7 @@ fun TimelineCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = timelineCard.tags[2].titleRes),
                             imageContent = timelineCard.tags[2].imageRes,
-                            tagContentType = timelineBackgroundType.tagType,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = -12f)
@@ -116,7 +116,7 @@ fun TimelineCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = timelineCard.tags[1].titleRes),
                             imageContent = timelineCard.tags[1].imageRes,
-                            tagContentType = timelineBackgroundType.tagType,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = 15f)
@@ -127,7 +127,7 @@ fun TimelineCard(
                         DateRoadImageTag(
                             textContent = stringResource(id = timelineCard.tags[0].titleRes),
                             imageContent = timelineCard.tags[0].imageRes,
-                            tagContentType = timelineBackgroundType.tagType,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2
                         )
                     }
@@ -199,9 +199,9 @@ fun TimelineCardPreview() {
     Column {
         TimelineCard(
             modifier = Modifier,
-            timelineBackgroundType = TimelineBackgroundType.PURPLE,
+            timelineType = TimelineType.PURPLE,
             timelineCard = Timeline(
-                dateId = 0,
+                timelineId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트\n가볼까요?",
                 date = "JUNE.23",

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseNearestTimelineDto(
     @SerialName("dateId")
-    val dateId: Int,
+    val timelineId: Int,
     @SerialName("dDay")
     val dDay: Int,
     @SerialName("dateName")

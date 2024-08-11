@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseTimelineDetailDto(
     @SerialName("dateId")
-    val dateId: Int,
+    val timelineId: Int,
     @SerialName("title")
     val title: String,
     @SerialName("startAt")

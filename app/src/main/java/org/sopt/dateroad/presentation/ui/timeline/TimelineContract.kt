@@ -1,7 +1,7 @@
 package org.sopt.dateroad.presentation.ui.timeline
 
 import org.sopt.dateroad.domain.model.Timeline
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -18,7 +18,7 @@ class TimelineContract {
     sealed interface TimelineSideEffect : UiSideEffect {
         data object NavigateToPast : TimelineSideEffect
         data object NavigateToEnroll : TimelineSideEffect
-        data class NavigateToTimelineDetail(val timelineBackgroundType: TimelineBackgroundType, val dateId: Int) : TimelineSideEffect
+        data class NavigateToTimelineDetail(val timelineType: TimelineType, val dateId: Int) : TimelineSideEffect
     }
 
     sealed class TimelineEvent : UiEvent {

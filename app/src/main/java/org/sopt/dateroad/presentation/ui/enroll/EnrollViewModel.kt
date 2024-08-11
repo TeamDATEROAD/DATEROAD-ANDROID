@@ -126,10 +126,10 @@ class EnrollViewModel @Inject constructor(
         }
     }
 
-    fun fetchDateDetail(dateId: Int) {
+    fun fetchDateDetail(timelineId: Int) {
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Loading, dateDetail = null))
-            getTimelineDetailUseCase(dateId = dateId).onSuccess { dateDetail ->
+            getTimelineDetailUseCase(timelineId = timelineId).onSuccess { dateDetail ->
                 setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Success, dateDetail = dateDetail))
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.FetchDateDetail(fetchEnrollState = LoadState.Error, dateDetail = null))

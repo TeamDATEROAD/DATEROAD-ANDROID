@@ -4,7 +4,7 @@ import androidx.annotation.ColorRes
 import androidx.compose.ui.graphics.Color
 import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
-enum class TimelineBackgroundType(
+enum class TimelineType(
     val index: Int,
     @ColorRes val backgroundColor: Color,
     @ColorRes val lineColor: Color,
@@ -30,6 +30,6 @@ enum class TimelineBackgroundType(
     );
 
     companion object {
-        fun getDateTypeByIndex(index: Int): TimelineBackgroundType = entries.first { it.index == index % entries.size }
+        fun getDateTypeByIndex(index: Int): TimelineType = entries.first { it.index == index % entries.size }
     }
 }

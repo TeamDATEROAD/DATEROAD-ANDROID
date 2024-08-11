@@ -1,7 +1,7 @@
 package org.sopt.dateroad.domain.model
 
 data class TimelineDetail(
-    val dateId: Int = 0,
+    val timelineId: Int = 0,
     val title: String = "",
     val startAt: String = "",
     val city: String = "",

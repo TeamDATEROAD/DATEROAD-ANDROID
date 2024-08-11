@@ -9,7 +9,7 @@ import org.sopt.dateroad.data.mapper.toEntity.toFormattedDate
 import org.sopt.dateroad.domain.model.Timeline
 
 fun ResponseTimelineDto.toTimelineCardDomain(): Timeline = Timeline(
-    dateId = this.dateId,
+    timelineId = this.timelineId,
     dDay = this.dDay.toDDayString(),
     title = this.title,
     date = this.date.toFormattedDate(),
@@ -18,7 +18,7 @@ fun ResponseTimelineDto.toTimelineCardDomain(): Timeline = Timeline(
 )
 
 fun ResponseTimelineDto.toTimelinesDomain(): Timeline = Timeline(
-    dateId = this.dateId,
+    timelineId = this.timelineId,
     dDay = this.dDay.toDDayString(),
     title = this.title,
     date = this.date.toBasicDates(),

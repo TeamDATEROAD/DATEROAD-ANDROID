@@ -1,6 +1,6 @@
 package org.sopt.dateroad.domain.type
 
-enum class TimelineType {
+enum class TimelineTimeType {
     FUTURE,
     PAST
 }

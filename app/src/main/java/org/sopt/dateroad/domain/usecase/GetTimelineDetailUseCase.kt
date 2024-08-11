@@ -7,7 +7,7 @@ import org.sopt.dateroad.domain.repository.TimelineRepository
 class GetTimelineDetailUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
-    suspend operator fun invoke(dateId: Int): Result<TimelineDetail> = runCatching {
-        timelineRepository.getTimelineDetail(dateId)
+    suspend operator fun invoke(timelineId: Int): Result<TimelineDetail> = runCatching {
+        timelineRepository.getTimelineDetail(timelineId)
     }
 }

@@ -25,11 +25,11 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.type.TimelineType
+import org.sopt.dateroad.domain.type.TimelineTimeType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.OneButtonDialogWithDescriptionType
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialogWithDescription
@@ -51,14 +51,14 @@ fun TimelineRoute(
     viewModel: TimelineViewModel = hiltViewModel(),
     navigateToPast: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToTimelineDetail: (TimelineBackgroundType, Int) -> Unit
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val pagerState = rememberPagerState()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchTimeline(TimelineType.FUTURE)
+        viewModel.fetchTimeline(TimelineTimeType.FUTURE)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -66,7 +66,7 @@ fun TimelineRoute(
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
                 is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
-                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineBackgroundType, sideEffect.dateId)
+                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineType, sideEffect.dateId)
             }
         }
     }
@@ -87,7 +87,7 @@ fun TimelineRoute(
                 pagerState = pagerState,
                 onAddDateCardClick = { if (uiState.timelines.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
                 onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxTimelineCardModal = false) } },
-                navigateToTimelineDetail = { timelineBackgroundType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(timelineBackgroundType = timelineBackgroundType, dateId = dateId)) },
+                navigateToTimelineDetail = { timelineType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(timelineType = timelineType, dateId = dateId)) },
                 onPastButtonClick = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToPast) }
             )
         }
@@ -102,7 +102,7 @@ fun TimelineScreen(
     padding: PaddingValues,
     uiState: TimelineContract.TimelineUiState,
     pagerState: PagerState,
-    navigateToTimelineDetail: (TimelineBackgroundType, Int) -> Unit,
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit,
     onAddDateCardClick: () -> Unit,
     onDismissMaxDateCardDialog: () -> Unit,
     onPastButtonClick: () -> Unit
@@ -146,11 +146,11 @@ fun TimelineScreen(
                     contentPadding = PaddingValues(horizontal = 35.dp)
                 ) { page ->
                     val date = uiState.timelines[page]
-                    val timelineBackgroundType = TimelineBackgroundType.getDateTypeByIndex(page)
+                    val timelineType = TimelineType.getDateTypeByIndex(page)
                     TimelineCard(
                         timelineCard = date,
-                        timelineBackgroundType = timelineBackgroundType,
-                        onClick = { navigateToTimelineDetail(timelineBackgroundType, date.dateId) },
+                        timelineType = timelineType,
+                        onClick = { navigateToTimelineDetail(timelineType, date.timelineId) },
                         modifier = Modifier
                             .padding(end = 16.dp)
                     )

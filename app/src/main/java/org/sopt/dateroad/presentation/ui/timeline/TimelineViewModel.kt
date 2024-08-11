@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.type.TimelineType
+import org.sopt.dateroad.domain.type.TimelineTimeType
 import org.sopt.dateroad.domain.usecase.GetTimelinesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -23,7 +23,7 @@ class TimelineViewModel @Inject constructor(
         }
     }
 
-    fun fetchTimeline(time: TimelineType) {
+    fun fetchTimeline(time: TimelineTimeType) {
         viewModelScope.launch {
             setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Loading, timelines = currentState.timelines))
             getTimelinesUseCase(time = time)

@@ -20,12 +20,12 @@ import retrofit2.http.Query
 interface TimelineService {
     @DELETE("$API/$VERSION/$DATES/{$DATE_ID}")
     suspend fun deleteTimeline(
-        @Path(DATE_ID) dateId: Int
+        @Path(DATE_ID) timelineId: Int
     )
 
     @GET("$API/$VERSION/$DATES/{$DATE_ID}")
     suspend fun getTimelineDetail(
-        @Path(DATE_ID) dateId: Int
+        @Path(DATE_ID) timelineId: Int
     ): ResponseTimelineDetailDto
 
     @GET("$API/$VERSION/$DATES")

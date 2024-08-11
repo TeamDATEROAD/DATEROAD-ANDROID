@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.model.MainTimeline
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
 import org.sopt.dateroad.domain.usecase.GetNearestTimelineUseCase
@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
-            is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
+            is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainTimeline = event.mainTimeline) }
             is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
             is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, profileImageUrl = event.profileImageUrl) }
         }
@@ -51,13 +51,13 @@ class HomeViewModel @Inject constructor(
 
     fun fetchNearestDate() {
         viewModelScope.launch {
-            setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Loading, mainDate = MainDate()))
+            setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Loading, mainTimeline = MainTimeline()))
             getNearestTimelineUseCase()
-                .onSuccess { mainDate ->
-                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = mainDate))
+                .onSuccess { mainTimeline ->
+                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainTimeline = mainTimeline))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = MainDate()))
+                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainTimeline = MainTimeline()))
                 }
         }
     }

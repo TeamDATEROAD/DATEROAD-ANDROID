@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.type.TimelineType
+import org.sopt.dateroad.domain.type.TimelineTimeType
 import org.sopt.dateroad.domain.usecase.GetTimelinesUseCase
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -22,7 +22,7 @@ class PastViewModel @Inject constructor(
         }
     }
 
-    fun fetchPastDate(time: TimelineType) {
+    fun fetchPastDate(time: TimelineTimeType) {
         viewModelScope.launch {
             setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, dates = currentState.dates))
             getDatesUseCase(time = time).onSuccess { dates ->

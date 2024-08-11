@@ -40,7 +40,7 @@ import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeB
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
-import org.sopt.dateroad.presentation.type.TimelineBackgroundType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
@@ -62,7 +62,7 @@ fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int) -> Unit,
     dateId: Int,
-    timelineBackgroundType: TimelineBackgroundType
+    timelineType: TimelineType
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,7 +91,7 @@ fun TimelineDetailRoute(
         LoadState.Success -> {
             TimelineDetailScreen(
                 uiState = uiState,
-                timelineBackgroundType = timelineBackgroundType,
+                timelineType = timelineType,
                 onTopBarItemClick = popBackStack,
                 onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(true)) },
                 showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
@@ -116,7 +116,7 @@ fun TimelineDetailRoute(
 @Composable
 fun TimelineDetailScreen(
     uiState: TimelineDetailContract.TimelineDetailUiState,
-    timelineBackgroundType: TimelineBackgroundType,
+    timelineType: TimelineType,
     onTopBarItemClick: () -> Unit = {},
     onButtonClick: () -> Unit = {},
     showKakaoClicked: () -> Unit = {},
@@ -130,7 +130,7 @@ fun TimelineDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = timelineBackgroundType.backgroundColor)
+            .background(color = timelineType.backgroundColor)
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_timeline),
@@ -147,12 +147,12 @@ fun TimelineDetailScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(timelineBackgroundType.backgroundColor)
+                .background(timelineType.backgroundColor)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.bg_past_card),
                 contentDescription = null,
-                tint = timelineBackgroundType.lineColor,
+                tint = timelineType.lineColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp)
@@ -207,7 +207,7 @@ fun TimelineDetailScreen(
                             DateRoadImageTag(
                                 textContent = stringResource(id = tagType.titleRes),
                                 imageContent = tagType.imageRes,
-                                tagContentType = timelineBackgroundType.tagType
+                                tagContentType = timelineType.tagType
                             )
                         }
                     }
@@ -295,7 +295,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.timelineDetail.dateId) })
+                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.timelineDetail.timelineId) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
