@@ -22,84 +22,66 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.REISSUE
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
+import java.lang.IllegalStateException
 
 class AuthInterceptor @Inject constructor(
     private val json: Json,
     private val localStorage: UserInfoLocalDataSource,
     private val context: Application
 ) : Interceptor {
-    private val mutex = Mutex()
-    private var isRefreshing = false
-    private var newAccessToken: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val authRequest = originalRequest.newAuthBuilder()
+        val authRequest =
+            if (localStorage.accessToken.isNotBlank()) originalRequest.newAuthBuilder() else originalRequest
+        val response = chain.proceed(authRequest)
 
-        var response = chain.proceed(authRequest)
-        if (response.code == CODE_TOKEN_EXPIRE) {
-            val refreshTokenDeferred = CompletableDeferred<Unit>()
-            runBlocking {
-                mutex.withLock {
-                    if (!isRefreshing) {
-                        isRefreshing = true
-                        try {
-                            val refreshToken = localStorage.refreshToken
-                            if (refreshToken.isBlank()) {
-                                throw IllegalStateException("\"refreshTokenResponse is null $refreshToken\"")
-                            }
+        when (response.code) {
+            CODE_TOKEN_EXPIRE -> {
+                response.close()
+                val refreshTokenRequest = originalRequest.newBuilder().get()
+                    .url("${BuildConfig.BASE_URL}$API/$VERSION/$USERS/$REISSUE")
+                    .patch("".toRequestBody(null))
+                    .addHeader(CONTENT_TYPE, APPLICATION_JSON)
+                    .addHeader(AUTHORIZATION, localStorage.refreshToken)
+                    .build()
+                val refreshTokenResponse = chain.proceed(refreshTokenRequest)
 
-                            val refreshTokenRequest = Request.Builder()
-                                .url("${BuildConfig.BASE_URL}$API/$VERSION/$USERS/$REISSUE")
-                                .patch("".toRequestBody(null))
-                                .addHeader(CONTENT_TYPE, APPLICATION_JSON)
-                                .addHeader(AUTHORIZATION, refreshToken)
-                                .build()
+                if (refreshTokenResponse.isSuccessful) {
+                    val responseRefresh =
+                        json.decodeFromString<ResponseRefreshTokenDto>(
+                        refreshTokenResponse.body?.string()
+                                ?: throw IllegalStateException("\"refreshTokenResponse is null $refreshTokenResponse\"")
+                        )
 
-                            val refreshTokenResponse = chain.proceed(refreshTokenRequest)
-                            if (refreshTokenResponse.isSuccessful) {
-                                val responseBody = refreshTokenResponse.body?.string()
-                                if (responseBody != null) {
-                                    val responseRefresh = json.decodeFromString<ResponseRefreshTokenDto>(responseBody)
+                    with(localStorage) {
+                        accessToken = "$BEARER${responseRefresh.accessToken}"
+                        refreshToken = "$BEARER${responseRefresh.refreshToken}"
+                    }
 
-                                    localStorage.accessToken = responseRefresh.accessToken
-                                    localStorage.refreshToken = responseRefresh.refreshToken
-                                    newAccessToken = responseRefresh.accessToken
-                                }
-                            }
-                        } finally {
-                            isRefreshing = false
+                    refreshTokenResponse.close()
+
+                    val newRequest = originalRequest.newAuthBuilder()
+                    return chain.proceed(newRequest)
+                } else {
+                    with(context) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            startActivity(
+                                Intent.makeRestartActivityTask(
+                                    packageManager.getLaunchIntentForPackage(packageName)?.component
+                                )
+                            )
+                            localStorage.clear()
                         }
-                    } else {
-                        refreshTokenDeferred.await()
                     }
                 }
             }
-
-            if (newAccessToken != null) {
-                val newRequest = originalRequest.newAuthBuilder()
-                return chain.proceed(newRequest)
-            }
-
-            with(context) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    startActivity(
-                        Intent.makeRestartActivityTask(
-                            packageManager.getLaunchIntentForPackage(packageName)?.component
-                        )
-                    )
-                    localStorage.clear()
-                }
-            }
         }
-
         return response
     }
 
     private fun Request.newAuthBuilder() =
-        this.newBuilder()
-            .addHeader(AUTHORIZATION, "$BEARER${localStorage.accessToken}")
-            .build()
+        this.newBuilder().addHeader(AUTHORIZATION, localStorage.accessToken).build()
 
     companion object {
         const val CODE_TOKEN_EXPIRE = 401
