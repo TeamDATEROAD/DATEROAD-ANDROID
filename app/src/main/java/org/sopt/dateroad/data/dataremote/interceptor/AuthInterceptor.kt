@@ -2,14 +2,11 @@ package org.sopt.dateroad.data.dataremote.interceptor
 
 import android.app.Application
 import android.content.Intent
+import java.lang.IllegalStateException
 import javax.inject.Inject
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -22,7 +19,6 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.REISSUE
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
-import java.lang.IllegalStateException
 
 class AuthInterceptor @Inject constructor(
     private val json: Json,
@@ -49,7 +45,7 @@ class AuthInterceptor @Inject constructor(
                 if (refreshTokenResponse.isSuccessful) {
                     val responseRefresh =
                         json.decodeFromString<ResponseRefreshTokenDto>(
-                        refreshTokenResponse.body?.string()
+                            refreshTokenResponse.body?.string()
                                 ?: throw IllegalStateException("\"refreshTokenResponse is null $refreshTokenResponse\"")
                         )
 
