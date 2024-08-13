@@ -50,7 +50,6 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.presentation.type.ChipType
-import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
@@ -81,15 +80,10 @@ fun CourseDetailRoute(
     viewModel: CourseDetailViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    courseDetailType: CourseDetailType,
-    id: Int
+    courseId: Int
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
-
-    LaunchedEffect(Unit) {
-        viewModel.setEvent(CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType))
-    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -101,17 +95,8 @@ fun CourseDetailRoute(
             }
     }
 
-    LaunchedEffect(uiState.id) {
-        if (uiState.id != 0) {
-            when (uiState.courseDetailType) {
-                CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
-                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail(uiState.id)
-            }
-        }
-    }
-    when (uiState.deleteLoadState) {
-        LoadState.Success -> popBackStack()
-        else -> Unit
+    LaunchedEffect(Unit) {
+        viewModel.fetchCourseDetail(courseId = courseId)
     }
 
     when (uiState.loadState) {
@@ -121,6 +106,7 @@ fun CourseDetailRoute(
 
         LoadState.Success -> {
             CourseDetailScreen(
+                courseId = courseId,
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
                 onDialogPointLackConfirm = {
@@ -133,34 +119,38 @@ fun CourseDetailRoute(
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
                 onLikeButtonClicked = {
-                    if (uiState.id != 0) {
-                        when (uiState.courseDetail.isUserLiked) {
-                            true -> viewModel.deleteCourseLike(uiState.id)
-                            false -> viewModel.postCourseLike(uiState.id)
-                        }
+                    when (uiState.courseDetail.isUserLiked) {
+                        true -> viewModel.deleteCourseLike(courseId = courseId)
+                        false -> viewModel.postCourseLike(courseId = courseId)
                     }
                 },
                 onDeleteButtonClicked = {
-                    viewModel.deleteCourse(uiState.id)
+                    viewModel.deleteCourse(courseId = courseId)
                 },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
-                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, uiState.id)) },
+                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
                 onTopBarIconClicked = popBackStack,
                 openCourseDetail = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
-                    viewModel.postUsePoint(uiState.id)
+                    viewModel.postUsePoint(courseId = courseId)
                 }
             )
         }
 
         LoadState.Error -> DateRoadErrorView()
     }
+
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> popBackStack()
+        else -> Unit
+    }
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
+    courseId: Int,
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
     onDialogPointLackConfirm: () -> Unit,
@@ -211,15 +201,15 @@ fun CourseDetailScreen(
                 item {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         HorizontalPager(
-                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images.size else courseDetailUiState.advertisementDetail.images.size,
+                            count = courseDetailUiState.courseDetail.images.size,
                             state = pagerState,
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
+                            userScrollEnabled = courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
                         ) { page ->
                             AsyncImage(
                                 model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images[page] else courseDetailUiState.advertisementDetail.images[page])
+                                    .data(courseDetailUiState.courseDetail.images[page])
                                     .crossfade(true)
                                     .build(),
                                 contentDescription = null,
@@ -233,16 +223,14 @@ fun CourseDetailScreen(
                             )
                         }
 
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
-                            DateRoadImageTag(
-                                textContent = courseDetailUiState.courseDetail.like.toString(),
-                                imageContent = R.drawable.ic_tag_heart,
-                                tagContentType = TagType.HEART,
-                                modifier = Modifier
-                                    .padding(start = 10.dp, bottom = 10.dp)
-                                    .align(Alignment.BottomStart)
-                            )
-                        }
+                        DateRoadImageTag(
+                            textContent = courseDetailUiState.courseDetail.like.toString(),
+                            imageContent = R.drawable.ic_tag_heart,
+                            tagContentType = TagType.HEART,
+                            modifier = Modifier
+                                .padding(start = 10.dp, bottom = 10.dp)
+                                .align(Alignment.BottomStart)
+                        )
 
                         DateRoadTextTag(
                             textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, pagerState.pageCount),
@@ -260,35 +248,24 @@ fun CourseDetailScreen(
                             .padding(horizontal = 16.dp)
                             .padding(top = 18.dp)
                     ) {
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
-                            DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.advertisementTagTitle,
-                                tagContentType = TagType.ADVERTISEMENT_TITLE
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
                         Text(
-                            text = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.date else courseDetailUiState.advertisementDetail.createAt,
+                            text = courseDetailUiState.courseDetail.date,
                             style = DateRoadTheme.typography.bodySemi15,
                             color = DateRoadTheme.colors.gray400
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.title else courseDetailUiState.advertisementDetail.title,
+                            text = courseDetailUiState.courseDetail.title,
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
                             CourseDetailInfoBar(
                                 totalTime = courseDetailUiState.courseDetail.totalTime,
                                 totalCost = courseDetailUiState.courseDetail.totalCostTag,
                                 city = courseDetailUiState.courseDetail.city
                             )
                             Spacer(modifier = Modifier.height(16.dp))
-                        }
-                        when (courseDetailUiState.courseDetailType) {
-                            CourseDetailType.COURSE -> {
                                 when (courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
                                     true -> {
                                         Text(
@@ -353,21 +330,10 @@ fun CourseDetailScreen(
                                             }
                                         }
                                     }
-                                }
-                            }
-
-                            CourseDetailType.ADVERTISEMENT -> {
-                                Text(
-                                    text = courseDetailUiState.advertisementDetail.description,
-                                    style = DateRoadTheme.typography.bodyMed13Context,
-                                    color = DateRoadTheme.colors.black
-                                )
-                                Spacer(modifier = Modifier.height(80.dp))
-                            }
                         }
                     }
                 }
-                if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE && courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
+                if (courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
                     item {
                         Column(
                             modifier = Modifier
@@ -484,7 +450,7 @@ fun CourseDetailScreen(
                 iconLeftResource = R.drawable.ic_top_bar_back_white,
                 onIconClick = { onTopBarIconClicked() },
                 buttonContent = {
-                    if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
+                    if (courseDetailUiState.courseDetail.isCourseMine) {
                         Icon(
                             painterResource(id = R.drawable.btn_course_detail_more_white),
                             contentDescription = null,
@@ -588,7 +554,6 @@ fun CourseDetailScreen(
 fun CourseDetailScreenP() {
     val dummyCourseDetail = CourseDetailContract.CourseDetailUiState(
         loadState = LoadState.Success,
-        courseDetailType = CourseDetailType.COURSE,
         courseDetail = CourseDetail(
             courseId = 1,
             title = "Sample Course",
@@ -621,6 +586,7 @@ fun CourseDetailScreenP() {
     )
 
     CourseDetailScreen(
+        courseId = 1,
         courseDetailUiState = dummyCourseDetail,
         onDialogPointLack = {},
         dismissDialogPointLack = {},
