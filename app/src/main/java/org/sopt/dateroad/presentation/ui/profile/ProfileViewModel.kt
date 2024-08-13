@@ -1,11 +1,13 @@
 package org.sopt.dateroad.presentation.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.mapper.todata.toEditProfile
 import org.sopt.dateroad.domain.model.EditProfile
+import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.usecase.GetNicknameCheckUseCase
 import org.sopt.dateroad.domain.usecase.GetUserUseCase
@@ -26,7 +28,7 @@ class ProfileViewModel @Inject constructor(
     private val setAccessTokenUseCase: SetAccessTokenUseCase,
     private val setRefreshTokenUseCase: SetRefreshTokenUseCase,
     private val getUserUseCase: GetUserUseCase,
-    private val patchEditProfileUseCase: PatchEditProfileUseCase
+    private val patchEditProfileUseCase: PatchEditProfileUseCase,
 ) : BaseViewModel<ProfileContract.ProfileUiState, ProfileContract.ProfileSideEffect, ProfileContract.ProfileEvent>() {
 
     override fun createInitialState(): ProfileContract.ProfileUiState = ProfileContract.ProfileUiState()
@@ -108,10 +110,14 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun getNicknameCheck(name: String) {
+        var currentName =""
         viewModelScope.launch {
             setEvent(
                 ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic)
             )
+            getUserUseCase().onSuccess { profile ->
+                currentName = profile.name
+            }
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
                     SUCCESS -> setEvent(
@@ -120,11 +126,10 @@ class ProfileViewModel @Inject constructor(
                             nicknameValidateResult = TextFieldValidateResult.Success
                         )
                     )
-
                     CONFLICT -> setEvent(
                         ProfileContract.ProfileEvent.GetNicknameCheck(
                             loadState = LoadState.Success,
-                            nicknameValidateResult = if (currentState.editProfile.name == name) {
+                            nicknameValidateResult = if ( currentName == name) {
                                 TextFieldValidateResult.Success
                             } else {
                                 TextFieldValidateResult.ConflictError
@@ -132,6 +137,7 @@ class ProfileViewModel @Inject constructor(
                         )
                     )
                 }
+                Log.d("http","currentName: ${currentName}, name: $name same?? ${currentName==name}")
             }.onFailure {
                 setEvent(
                     ProfileContract.ProfileEvent.GetNicknameCheck(
