@@ -19,7 +19,6 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class CourseDetailViewModel @Inject constructor(
     private val deleteCourseUseCase: DeleteCourseUseCase,
     private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
-    private val getAdvertisementDetailUseCase: GetAdvertisementDetailUseCase,
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
     private val postCourseLikeUseCase: PostCourseLikeUseCase,
     private val postUsePointUseCase: PostUsePointUseCase
@@ -45,23 +44,6 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
             is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(usePointLoadState = usePointLoadState) }
-        }
-    }
-
-    fun fetchAdvertisementDetail(advertisementId: Int) {
-        viewModelScope.launch {
-            setEvent(
-                CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Loading, advertisementDetail = currentState.advertisementDetail)
-            )
-            getAdvertisementDetailUseCase(advertisementId = advertisementId).onSuccess { advertisementDetail ->
-                setEvent(
-                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Success, advertisementDetail = advertisementDetail)
-                )
-            }.onFailure {
-                setEvent(
-                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Error, advertisementDetail = currentState.advertisementDetail)
-                )
-            }
         }
     }
 

@@ -12,8 +12,6 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class CourseDetailContract {
     data class CourseDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val id: Int = 0,
-        val courseDetailType: CourseDetailType = CourseDetailType.COURSE,
         val isEditBottomSheetOpen: Boolean = false,
         val isRegionBottomSheetOpen: Boolean = false,
         val isPointReadDialogOpen: Boolean = false,
@@ -21,7 +19,6 @@ class CourseDetailContract {
         val isFreeReadDialogOpen: Boolean = false,
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
-        val advertisementDetail: AdvertisementDetail = AdvertisementDetail(),
         val currentImagePage: Int = 0,
         val deleteLoadState: LoadState = LoadState.Idle,
         val usePointLoadState: LoadState = LoadState.Idle
@@ -43,8 +40,6 @@ class CourseDetailContract {
         data object OnEditBottomSheet : CourseDetailEvent()
         data object DismissEditBottomSheet : CourseDetailEvent()
         data object OpenCourse : CourseDetailEvent()
-        data class InitCourseDetail(val id: Int, val courseDetailType: CourseDetailType) : CourseDetailEvent()
-        data class FetchAdvertisementDetail(val loadState: LoadState, val advertisementDetail: AdvertisementDetail) : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
         data class DeleteCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
