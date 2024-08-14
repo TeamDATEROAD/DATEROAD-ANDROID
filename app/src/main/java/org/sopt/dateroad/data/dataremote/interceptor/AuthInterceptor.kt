@@ -50,8 +50,8 @@ class AuthInterceptor @Inject constructor(
                         )
 
                     with(localStorage) {
-                        accessToken = "$BEARER${responseRefresh.accessToken}"
-                        refreshToken = "$BEARER${responseRefresh.refreshToken}"
+                        accessToken = BEARER + responseRefresh.accessToken
+                        refreshToken = BEARER + responseRefresh.refreshToken
                     }
 
                     refreshTokenResponse.close()
@@ -80,8 +80,6 @@ class AuthInterceptor @Inject constructor(
 
     companion object {
         const val CODE_TOKEN_EXPIRE = 401
-        const val CONTENT_TYPE = "Content-Type"
-        const val APPLICATION_JSON = "application/json"
         const val AUTHORIZATION = "Authorization"
         const val BEARER = "Bearer "
     }
