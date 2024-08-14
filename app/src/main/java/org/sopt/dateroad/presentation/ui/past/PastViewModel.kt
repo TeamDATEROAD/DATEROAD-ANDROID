@@ -18,17 +18,17 @@ class PastViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: PastContract.PastEvent) {
         when (event) {
-            is PastContract.PastEvent.FetchPastDate -> setState { copy(loadState = event.loadState, dates = event.dates) }
+            is PastContract.PastEvent.FetchPastDate -> setState { copy(loadState = event.loadState, timelines = event.timelines) }
         }
     }
 
-    fun fetchPastDate(time: TimelineTimeType) {
+    fun fetchPastDate(timelineTimeType: TimelineTimeType) {
         viewModelScope.launch {
-            setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, dates = currentState.dates))
-            getDatesUseCase(time = time).onSuccess { dates ->
-                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Success, dates = dates))
+            setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Loading, timelines = currentState.timelines))
+            getDatesUseCase(timelineTimeType = timelineTimeType).onSuccess { timelines ->
+                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Success, timelines = timelines))
             }.onFailure {
-                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Error, dates = currentState.dates))
+                setEvent(PastContract.PastEvent.FetchPastDate(loadState = LoadState.Error, timelines = currentState.timelines))
             }
         }
     }

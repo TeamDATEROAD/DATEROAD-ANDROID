@@ -8,7 +8,5 @@ import org.sopt.dateroad.domain.type.TimelineTimeType
 class GetTimelinesUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
-    suspend operator fun invoke(time: TimelineTimeType): Result<List<Timeline>> = runCatching {
-        timelineRepository.getTimelines(time = time)
-    }
+    suspend operator fun invoke(timelineTimeType: TimelineTimeType): Result<List<Timeline>> = timelineRepository.getTimelines(timelineTimeType = timelineTimeType)
 }

@@ -9,5 +9,5 @@ import org.sopt.dateroad.domain.repository.TimelineRepository
 class PostTimelineUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
-    suspend operator fun invoke(timeline: Enroll): Result<Unit> = timelineRepository.postTimeline(timeline = timeline)
+    suspend operator fun invoke(enroll: Enroll): Result<Unit> = timelineRepository.postTimeline(enroll = enroll)
 }

@@ -66,7 +66,7 @@ fun TimelineRoute(
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
                 is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
-                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineType, sideEffect.dateId)
+                is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineType, sideEffect.timelineId)
             }
         }
     }
@@ -87,7 +87,7 @@ fun TimelineRoute(
                 pagerState = pagerState,
                 onAddDateCardClick = { if (uiState.timelines.size >= 5) viewModel.setEvent(TimelineContract.TimelineEvent.ShowMaxItemsModal) else viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToEnroll) },
                 onDismissMaxDateCardDialog = { viewModel.setState { copy(showMaxTimelineCardModal = false) } },
-                navigateToTimelineDetail = { timelineType, dateId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(timelineType = timelineType, dateId = dateId)) },
+                navigateToTimelineDetail = { timelineType, timelineId -> viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToTimelineDetail(timelineType = timelineType, timelineId = timelineId)) },
                 onPastButtonClick = { viewModel.setSideEffect(TimelineContract.TimelineSideEffect.NavigateToPast) }
             )
         }
@@ -146,7 +146,7 @@ fun TimelineScreen(
                     contentPadding = PaddingValues(horizontal = 35.dp)
                 ) { page ->
                     val date = uiState.timelines[page]
-                    val timelineType = TimelineType.getDateTypeByIndex(page)
+                    val timelineType = TimelineType.getTimelineTypeByIndex(page)
                     TimelineCard(
                         timelineCard = date,
                         timelineType = timelineType,

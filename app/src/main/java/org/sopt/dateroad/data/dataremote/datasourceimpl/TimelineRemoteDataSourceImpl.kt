@@ -7,6 +7,7 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineD
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
 import org.sopt.dateroad.data.dataremote.service.TimelineService
+import org.sopt.dateroad.domain.type.TimelineTimeType
 
 class TimelineRemoteDataSourceImpl @Inject constructor(
     private val timelineService: TimelineService
@@ -15,7 +16,7 @@ class TimelineRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getTimelineDetail(timelineId: Int): ResponseTimelineDetailDto = timelineService.getTimelineDetail(timelineId = timelineId)
 
-    override suspend fun getTimelines(time: String): ResponseTimelinesDto = timelineService.getTimelines(time = time)
+    override suspend fun getTimelines(timelineTimeType: String): ResponseTimelinesDto = timelineService.getTimelines(timelineTimeType = timelineTimeType)
 
     override suspend fun getNearestTimeline(): ResponseNearestTimelineDto = timelineService.getNearestTimeline()
 

@@ -27,7 +27,7 @@ class TimelineDetailContract {
         data class SetShowDeleteBottomSheet(val showDeleteBottomSheet: Boolean) : TimelineDetailEvent()
         data class SetShowDeleteDialog(val showDeleteDialog: Boolean) : TimelineDetailEvent()
         data class SetShowKakaoDialog(val showKakaoDialog: Boolean) : TimelineDetailEvent()
-        data class DeleteDate(val deleteLoadState: LoadState) : TimelineDetailEvent()
+        data class DeleteTimeline(val deleteLoadState: LoadState) : TimelineDetailEvent()
         data class SetLoadState(val loadState: LoadState) : TimelineDetailEvent()
         data class SetSideEffect(val sideEffect: TimelineDetailSideEffect) : TimelineDetailEvent()
         data class ShareKakao(val context: Context, val timelineDetail: TimelineDetail) : TimelineDetailEvent()

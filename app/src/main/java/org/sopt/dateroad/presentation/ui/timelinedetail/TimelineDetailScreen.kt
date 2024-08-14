@@ -61,7 +61,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int) -> Unit,
-    dateId: Int,
+    timelineId: Int,
     timelineType: TimelineType
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
@@ -70,7 +70,7 @@ fun TimelineDetailRoute(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchDateDetail(dateId = dateId)
+        viewModel.fetchTimelineDetail(timelineId = timelineId)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -98,7 +98,7 @@ fun TimelineDetailRoute(
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
-                onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
+                onDeleteConfirm = { viewModel.deleteTimeline(timelineId = timelineId) },
                 onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) },
                 onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.timelineDetail)) }
             )

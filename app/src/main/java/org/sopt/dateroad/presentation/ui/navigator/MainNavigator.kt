@@ -145,8 +145,8 @@ class MainNavigator(
         )
     }
 
-    fun navigateToTimelineDetail(timelineType: TimelineType, dateId: Int) {
-        navHostController.navigateToTimelineDetail(timelineType, dateId)
+    fun navigateToTimelineDetail(timelineType: TimelineType, timelineId: Int) {
+        navHostController.navigateToTimelineDetail(timelineType, timelineId)
     }
 
     private fun popBackStack() {

@@ -6,10 +6,10 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDt
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DATES
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DATE_ID
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NEAREST
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.TIME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
-import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.TimelineDetailRoutes.DATE_ID
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -30,7 +30,7 @@ interface TimelineService {
 
     @GET("$API/$VERSION/$DATES")
     suspend fun getTimelines(
-        @Query(TIME) time: String
+        @Query(TIME) timelineTimeType: String
     ): ResponseTimelinesDto
 
     @GET("$API/$VERSION/$DATES/$NEAREST")

@@ -4,9 +4,9 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineD
 import org.sopt.dateroad.data.mapper.toEntity.toDDayString
 import org.sopt.dateroad.data.mapper.toEntity.toFormattedDate
 import org.sopt.dateroad.data.mapper.toEntity.toStartAtString
-import org.sopt.dateroad.domain.model.MainTimeline
+import org.sopt.dateroad.domain.model.NearestTimeline
 
-fun ResponseNearestTimelineDto.toDomain(): MainTimeline = MainTimeline(
+fun ResponseNearestTimelineDto.toDomain(): NearestTimeline = NearestTimeline(
     timelineId = this.timelineId,
     dDay = this.dDay.toDDayString(),
     dateName = this.dateName,

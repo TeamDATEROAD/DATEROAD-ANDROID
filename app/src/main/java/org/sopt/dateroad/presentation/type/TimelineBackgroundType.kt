@@ -30,6 +30,6 @@ enum class TimelineType(
     );
 
     companion object {
-        fun getDateTypeByIndex(index: Int): TimelineType = entries.first { it.index == index % entries.size }
+        fun getTimelineTypeByIndex(index: Int): TimelineType = entries.first { it.index == index % entries.size }
     }
 }

@@ -50,7 +50,7 @@ fun PastRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { pastSideEffect ->
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
-                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.timelineType, pastSideEffect.dateId)
+                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.timelineType, pastSideEffect.timelineId)
             }
         }
     }
@@ -65,7 +65,7 @@ fun PastRoute(
                 padding = padding,
                 pastUiState = uiState,
                 popBackStack = { viewModel.setSideEffect(PastContract.PastSideEffect.PopBackStack) },
-                navigateToTimelineDetail = { timelineType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(timelineType = timelineType, dateId = dateId)) }
+                navigateToTimelineDetail = { timelineType, timelineId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(timelineType = timelineType, timelineId = timelineId)) }
             )
         }
 
@@ -92,18 +92,18 @@ fun PastScreen(
             backGroundColor = DateRoadTheme.colors.white,
             onIconClick = popBackStack
         )
-        if (pastUiState.dates.isEmpty()) {
+        if (pastUiState.timelines.isEmpty()) {
             DateRoadEmptyView(emptyViewType = EmptyViewType.PAST)
         } else {
             LazyColumn(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 6.dp, bottom = 11.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(pastUiState.dates.size) { index ->
+                items(pastUiState.timelines.size) { index ->
                     PastCard(
-                        timeline = pastUiState.dates[index],
-                        timelineType = TimelineType.getDateTypeByIndex(index),
-                        onClick = { navigateToTimelineDetail(TimelineType.getDateTypeByIndex(index), pastUiState.dates[index].timelineId) }
+                        timeline = pastUiState.timelines[index],
+                        timelineType = TimelineType.getTimelineTypeByIndex(index),
+                        onClick = { navigateToTimelineDetail(TimelineType.getTimelineTypeByIndex(index), pastUiState.timelines[index].timelineId) }
                     )
                 }
             }

@@ -18,7 +18,7 @@ class TimelineContract {
     sealed interface TimelineSideEffect : UiSideEffect {
         data object NavigateToPast : TimelineSideEffect
         data object NavigateToEnroll : TimelineSideEffect
-        data class NavigateToTimelineDetail(val timelineType: TimelineType, val dateId: Int) : TimelineSideEffect
+        data class NavigateToTimelineDetail(val timelineType: TimelineType, val timelineId: Int) : TimelineSideEffect
     }
 
     sealed class TimelineEvent : UiEvent {

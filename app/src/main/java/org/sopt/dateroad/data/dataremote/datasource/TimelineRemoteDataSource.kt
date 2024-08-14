@@ -10,7 +10,7 @@ interface TimelineRemoteDataSource {
 
     suspend fun getTimelineDetail(timelineId: Int): ResponseTimelineDetailDto
 
-    suspend fun getTimelines(time: String): ResponseTimelinesDto
+    suspend fun getTimelines(timelineTimeType: String): ResponseTimelinesDto
 
     suspend fun getNearestTimeline(): ResponseNearestTimelineDto
 

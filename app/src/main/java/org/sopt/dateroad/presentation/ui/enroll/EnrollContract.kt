@@ -65,7 +65,7 @@ class EnrollContract {
         data object OnRegionTextFieldClick : EnrollEvent()
         data class FetchEnrollCourseType(val enrollType: EnrollType) : EnrollEvent()
         data class FetchCourseDetail(val fetchEnrollState: LoadState, val courseDetail: CourseDetail?) : EnrollEvent()
-        data class FetchDateDetail(val fetchEnrollState: LoadState, val dateDetail: TimelineDetail?) : EnrollEvent()
+        data class FetchTimelineDetail(val fetchEnrollState: LoadState, val timelineDetail: TimelineDetail?) : EnrollEvent()
         data class SetEnrollButtonEnabled(val isEnrollButtonEnabled: Boolean) : EnrollEvent()
         data class SetImage(val images: List<String>) : EnrollEvent()
         data class OnImageDeleteButtonClick(val index: Int) : EnrollEvent()

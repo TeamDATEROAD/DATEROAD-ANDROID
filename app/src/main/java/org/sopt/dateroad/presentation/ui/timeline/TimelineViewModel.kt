@@ -23,10 +23,10 @@ class TimelineViewModel @Inject constructor(
         }
     }
 
-    fun fetchTimeline(time: TimelineTimeType) {
+    fun fetchTimeline(timelineTimeType: TimelineTimeType) {
         viewModelScope.launch {
             setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Loading, timelines = currentState.timelines))
-            getTimelinesUseCase(time = time)
+            getTimelinesUseCase(timelineTimeType = timelineTimeType)
                 .onSuccess { timelines ->
                     setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Success, timelines = timelines))
                 }

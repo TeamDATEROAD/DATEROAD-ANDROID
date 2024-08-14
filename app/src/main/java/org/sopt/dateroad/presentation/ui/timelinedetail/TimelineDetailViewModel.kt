@@ -29,17 +29,17 @@ class TimelineDetailViewModel @Inject constructor(
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet -> setState { copy(showDeleteBottomSheet = event.showDeleteBottomSheet) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog -> setState { copy(showDeleteDialog = event.showDeleteDialog) }
             is TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog -> setState { copy(showKakaoDialog = event.showKakaoDialog) }
-            is TimelineDetailContract.TimelineDetailEvent.DeleteDate -> setState { copy(deleteLoadState = event.deleteLoadState) }
+            is TimelineDetailContract.TimelineDetailEvent.DeleteTimeline -> setState { copy(deleteLoadState = event.deleteLoadState) }
             is TimelineDetailContract.TimelineDetailEvent.SetLoadState -> setState { copy(loadState = event.loadState) }
             is TimelineDetailContract.TimelineDetailEvent.SetSideEffect -> setSideEffect(event.sideEffect)
             is TimelineDetailContract.TimelineDetailEvent.ShareKakao -> shareKakao(event.context, event.timelineDetail)
         }
     }
 
-    fun fetchDateDetail(dateId: Int) {
+    fun fetchTimelineDetail(timelineId: Int) {
         viewModelScope.launch {
             setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(loadState = LoadState.Loading, timelineDetail = currentState.timelineDetail))
-            getTimelineDetailUseCase(dateId).onSuccess { timelineDetail ->
+            getTimelineDetailUseCase(timelineId).onSuccess { timelineDetail ->
                 setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(loadState = LoadState.Success, timelineDetail = timelineDetail))
             }.onFailure {
                 setEvent(TimelineDetailContract.TimelineDetailEvent.SetTimelineDetail(loadState = LoadState.Error, timelineDetail = currentState.timelineDetail))
@@ -47,13 +47,13 @@ class TimelineDetailViewModel @Inject constructor(
         }
     }
 
-    fun deleteDate(dateId: Int) {
+    fun deleteTimeline(timelineId: Int) {
         viewModelScope.launch {
-            setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteDate(deleteLoadState = LoadState.Loading))
-            deleteTimelineUseCase(dateId).onSuccess {
-                setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteDate(deleteLoadState = LoadState.Success))
+            setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteTimeline(deleteLoadState = LoadState.Loading))
+            deleteTimelineUseCase(timelineId).onSuccess {
+                setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteTimeline(deleteLoadState = LoadState.Success))
             }.onFailure {
-                setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteDate(deleteLoadState = LoadState.Error))
+                setEvent(TimelineDetailContract.TimelineDetailEvent.DeleteTimeline(deleteLoadState = LoadState.Error))
             }
         }
     }
