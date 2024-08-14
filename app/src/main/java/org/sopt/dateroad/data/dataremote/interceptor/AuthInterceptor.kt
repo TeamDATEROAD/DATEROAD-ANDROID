@@ -3,6 +3,7 @@ package org.sopt.dateroad.data.dataremote.interceptor
 import android.app.Application
 import android.content.Intent
 import java.lang.IllegalStateException
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,52 +27,60 @@ class AuthInterceptor @Inject constructor(
     private val context: Application
 ) : Interceptor {
 
+    private val isRefreshing = AtomicBoolean(false)
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val authRequest =
             if (localStorage.accessToken.isNotBlank()) originalRequest.newAuthBuilder() else originalRequest
-        val response = chain.proceed(authRequest)
+        var response = chain.proceed(authRequest)
 
-        when (response.code) {
-            CODE_TOKEN_EXPIRE -> {
-                response.close()
-                val refreshTokenRequest = originalRequest.newBuilder().get()
-                    .url("${BuildConfig.BASE_URL}$API/$VERSION/$USERS/$REISSUE")
-                    .patch("".toRequestBody(null))
-                    .addHeader(AUTHORIZATION, localStorage.refreshToken)
-                    .build()
-                val refreshTokenResponse = chain.proceed(refreshTokenRequest)
+        if (response.code == CODE_TOKEN_EXPIRE) {
+            response.close()
 
-                if (refreshTokenResponse.isSuccessful) {
-                    val responseRefresh =
-                        json.decodeFromString<ResponseRefreshTokenDto>(
-                            refreshTokenResponse.body?.string()
-                                ?: throw IllegalStateException("\"refreshTokenResponse is null $refreshTokenResponse\"")
-                        )
+            if (isRefreshing.compareAndSet(false, true)) {
+                try {
+                    val refreshTokenRequest = originalRequest.newBuilder().get()
+                        .url("${BuildConfig.BASE_URL}$API/$VERSION/$USERS/$REISSUE")
+                        .patch("".toRequestBody(null))
+                        .addHeader(AUTHORIZATION, localStorage.refreshToken)
+                        .build()
+                    val refreshTokenResponse = chain.proceed(refreshTokenRequest)
 
-                    with(localStorage) {
-                        accessToken = BEARER + responseRefresh.accessToken
-                        refreshToken = BEARER + responseRefresh.refreshToken
-                    }
-
-                    refreshTokenResponse.close()
-
-                    val newRequest = originalRequest.newAuthBuilder()
-                    return chain.proceed(newRequest)
-                } else {
-                    with(context) {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            startActivity(
-                                Intent.makeRestartActivityTask(
-                                    packageManager.getLaunchIntentForPackage(packageName)?.component
-                                )
+                    if (refreshTokenResponse.isSuccessful) {
+                        val responseRefresh =
+                            json.decodeFromString<ResponseRefreshTokenDto>(
+                                refreshTokenResponse.body?.string()
+                                    ?: throw IllegalStateException("\"refreshTokenResponse is null $refreshTokenResponse\"")
                             )
-                            localStorage.clear()
+
+                        with(localStorage) {
+                            accessToken = BEARER + responseRefresh.accessToken
+                            refreshToken = BEARER + responseRefresh.refreshToken
+                        }
+
+                        refreshTokenResponse.close()
+                    } else {
+                        with(context) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                startActivity(
+                                    Intent.makeRestartActivityTask(
+                                        packageManager.getLaunchIntentForPackage(packageName)?.component
+                                    )
+                                )
+                                localStorage.clear()
+                            }
                         }
                     }
+                } finally {
+                    isRefreshing.set(false)
                 }
             }
+
+            val newRequest = originalRequest.newAuthBuilder()
+            return chain.proceed(newRequest)
         }
+
         return response
     }
 
