@@ -7,7 +7,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineD
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
 import org.sopt.dateroad.data.dataremote.service.TimelineService
-import org.sopt.dateroad.domain.type.TimelineTimeType
 
 class TimelineRemoteDataSourceImpl @Inject constructor(
     private val timelineService: TimelineService
