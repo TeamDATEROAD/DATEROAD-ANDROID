@@ -2,7 +2,6 @@ package org.sopt.dateroad.data.repositoryimpl
 
 import android.content.ContentResolver
 import android.net.Uri
-import javax.inject.Inject
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -22,6 +21,7 @@ import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.domain.type.SortByType
+import javax.inject.Inject
 
 class CourseRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
@@ -41,12 +41,12 @@ class CourseRepositoryImpl @Inject constructor(
 
     override suspend fun getFilteredCourses(country: RegionType?, city: Any?, cost: MoneyTagType?): Result<List<Course>> = runCatching {
         courseRemoteDataSource.getFilteredCourses(
-            country = country?.name,
+            country = country?.title,
             city = city?.let {
                 when (it) {
-                    is SeoulAreaType -> it.name
-                    is GyeonggiAreaType -> it.name
-                    is IncheonAreaType -> it.name
+                    is SeoulAreaType -> it.title
+                    is GyeonggiAreaType -> it.title
+                    is IncheonAreaType -> it.title
                     else -> null
                 }
             },
