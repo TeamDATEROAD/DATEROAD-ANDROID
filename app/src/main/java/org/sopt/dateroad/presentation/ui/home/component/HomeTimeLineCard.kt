@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -36,7 +36,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun HomeTimeLineCard(
-    mainDate: MainDate = MainDate(),
+    nearestTimeline: NearestTimeline = NearestTimeline(),
     onClick: () -> Unit = {}
 ) {
     val purple600 = DateRoadTheme.colors.purple600
@@ -52,21 +52,21 @@ fun HomeTimeLineCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(start = if (mainDate.dateName.isNotEmpty()) 16.dp else 23.dp, end = 9.dp)
+                .padding(start = if (nearestTimeline.dateName.isNotEmpty()) 16.dp else 23.dp, end = 9.dp)
                 .weight(4.5f),
             verticalArrangement = Arrangement.Center
         ) {
-            if (mainDate.dateName.isNotEmpty()) {
+            if (nearestTimeline.dateName.isNotEmpty()) {
                 DateRoadTextTag(
-                    textContent = mainDate.dDay,
+                    textContent = nearestTimeline.dDay,
                     tagContentType = TagType.TIMELINE_D_DAY
                 )
             }
-            if (mainDate.dateName.isNotEmpty()) {
+            if (nearestTimeline.dateName.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(7.dp))
             }
             Text(
-                text = if (mainDate.dateName.isNotEmpty()) mainDate.dateName else stringResource(id = R.string.home_timeline_is_not),
+                text = if (nearestTimeline.dateName.isNotEmpty()) nearestTimeline.dateName else stringResource(id = R.string.home_timeline_is_not),
                 style = DateRoadTheme.typography.titleBold20,
                 color = DateRoadTheme.colors.white,
                 maxLines = 1,
@@ -76,19 +76,19 @@ fun HomeTimeLineCard(
                     .fillMaxWidth()
             )
 
-            if (mainDate.dateName.isNotEmpty()) {
+            if (nearestTimeline.dateName.isNotEmpty()) {
                 Row {
                     Text(
-                        text = mainDate.date,
+                        text = nearestTimeline.date,
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.purple300,
                         maxLines = 1,
-                        textAlign = if (mainDate.dateName.isEmpty()) TextAlign.Center else TextAlign.Start,
+                        textAlign = if (nearestTimeline.dateName.isEmpty()) TextAlign.Center else TextAlign.Start,
                         overflow = TextOverflow.Ellipsis
                     )
 
                     Text(
-                        text = mainDate.startAt,
+                        text = nearestTimeline.startAt,
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.purple300,
                         maxLines = 1,
@@ -148,7 +148,7 @@ fun HomeTimeLineCard(
         ) {
             Spacer(modifier = Modifier.height(30.dp))
             Image(
-                painter = painterResource(id = if (mainDate.dateName.isNotEmpty()) R.drawable.ic_home_right_arrow_purple else R.drawable.ic_home_plus_purple),
+                painter = painterResource(id = if (nearestTimeline.dateName.isNotEmpty()) R.drawable.ic_home_right_arrow_purple else R.drawable.ic_home_plus_purple),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
@@ -165,8 +165,8 @@ fun HomeTimeLineCard(
 fun DateRoadDateSchedulePreview() {
     Column {
         HomeTimeLineCard(
-            mainDate = MainDate(
-                dateId = 1,
+            nearestTimeline = NearestTimeline(
+                timelineId = 1,
                 dDay = "3",
                 dateName = "성수 데이트",
                 date = "2024.06.13",
@@ -174,7 +174,7 @@ fun DateRoadDateSchedulePreview() {
             )
         )
         HomeTimeLineCard(
-            mainDate = MainDate()
+            nearestTimeline = NearestTimeline()
         )
     }
 }

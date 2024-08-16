@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseDatesDto(
+data class ResponseTimelinesDto(
     @SerialName("dates")
-    val dates: List<ResponseDateDto>
+    val timelines: List<ResponseTimelineDto>
 )

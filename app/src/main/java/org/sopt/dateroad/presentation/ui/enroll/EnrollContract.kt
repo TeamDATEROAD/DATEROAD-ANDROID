@@ -1,9 +1,9 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
 import org.sopt.dateroad.domain.model.CourseDetail
-import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Enroll
 import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -65,7 +65,7 @@ class EnrollContract {
         data object OnRegionTextFieldClick : EnrollEvent()
         data class FetchEnrollCourseType(val enrollType: EnrollType) : EnrollEvent()
         data class FetchCourseDetail(val fetchEnrollState: LoadState, val courseDetail: CourseDetail?) : EnrollEvent()
-        data class FetchDateDetail(val fetchEnrollState: LoadState, val dateDetail: DateDetail?) : EnrollEvent()
+        data class FetchTimelineDetail(val fetchEnrollState: LoadState, val timelineDetail: TimelineDetail?) : EnrollEvent()
         data class SetEnrollButtonEnabled(val isEnrollButtonEnabled: Boolean) : EnrollEvent()
         data class SetImage(val images: List<String>) : EnrollEvent()
         data class OnImageDeleteButtonClick(val index: Int) : EnrollEvent()

@@ -37,7 +37,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -156,8 +156,8 @@ fun HomeScreen(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 15.dp)
         ) {
             HomeTimeLineCard(
-                mainDate = uiState.mainDate,
-                onClick = if (uiState.mainDate == MainDate()) {
+                nearestTimeline = uiState.nearestTimeline,
+                onClick = if (uiState.nearestTimeline == NearestTimeline()) {
                     navigateToEnroll
                 } else {
                     navigateToTimeline
