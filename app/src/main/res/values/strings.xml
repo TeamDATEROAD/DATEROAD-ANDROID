@@ -72,6 +72,9 @@
     <!-- IncheonAreaType -->
     <string name="incheon_area_whole">인천 전체</string>
 
+    <!-- LoadingViewType -->
+    <string name="loading_view_server">잠시만 기다려 주세요\n로딩 중이에요</string>
+
     <!-- MainNavigationBarItemType -->
     <string name="main_navigation_bar_item_home">홈</string>
     <string name="main_navigation_bar_item_look">코스 둘러보기</string>
