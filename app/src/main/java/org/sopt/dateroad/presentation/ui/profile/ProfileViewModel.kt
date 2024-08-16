@@ -136,7 +136,7 @@ class ProfileViewModel @Inject constructor(
                         )
                     )
                 }
-                Log.d("http", "currentName: $currentName, name: $name same?? ${currentName == name}")
+                Log.d("http", "currentName: $currentName, name: $name same= ${currentName == name}")
             }.onFailure {
                 setEvent(
                     ProfileContract.ProfileEvent.GetNicknameCheck(
@@ -165,10 +165,12 @@ class ProfileViewModel @Inject constructor(
             setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Loading))
             patchEditProfileUseCase(editProfile = editProfile).onSuccess {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
-            }.onFailure {
+            }.onFailure { error ->
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
+                Log.e("http image", error.message.toString())
             }
         }
+        Log.d("http image","image: ${editProfile.image}")
     }
 
     companion object {
