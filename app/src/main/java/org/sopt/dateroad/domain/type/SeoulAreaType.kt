@@ -24,7 +24,7 @@ enum class SeoulAreaType(
         title = Seoul.JONGNO_JUNGRO
     ),
     EUNPYEONG_SEODAEMUN(
-      title = Seoul.EUNPYEONG_SEODAEMUN
+        title = Seoul.EUNPYEONG_SEODAEMUN
     ),
     HONGDAE_HAPJEONG_MAPO(
         title = Seoul.HONGDAE_HAPJEONG_MAPO

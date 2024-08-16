@@ -2,6 +2,7 @@ package org.sopt.dateroad.data.repositoryimpl
 
 import android.content.ContentResolver
 import android.net.Uri
+import javax.inject.Inject
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -21,7 +22,6 @@ import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.domain.type.SortByType
-import javax.inject.Inject
 
 class CourseRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
