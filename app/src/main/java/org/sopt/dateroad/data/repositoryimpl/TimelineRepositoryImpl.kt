@@ -20,7 +20,9 @@ class TimelineRepositoryImpl @Inject constructor(
         timelineRemoteDataSource.deleteTimeline(timelineId)
     }
 
-    override suspend fun getTimelineDetail(timelineId: Int): TimelineDetail = timelineRemoteDataSource.getTimelineDetail(timelineId).toDomain()
+    override suspend fun getTimelineDetail(timelineId: Int): Result<TimelineDetail> = runCatching {
+        timelineRemoteDataSource.getTimelineDetail(timelineId).toDomain()
+    }
 
     override suspend fun getTimelines(timelineTimeType: TimelineTimeType): Result<List<Timeline>> = runCatching {
         timelineRemoteDataSource.getTimelines(timelineTimeType.name).timelines.map {
@@ -31,7 +33,9 @@ class TimelineRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getNearestTimeline(): NearestTimeline = timelineRemoteDataSource.getNearestTimeline().toDomain()
+    override suspend fun getNearestTimeline(): Result<NearestTimeline> = runCatching {
+        timelineRemoteDataSource.getNearestTimeline().toDomain()
+    }
 
     override suspend fun postTimeline(enroll: Enroll) = runCatching {
         timelineRemoteDataSource.postTimeline(requestTimelineDto = enroll.toTimelineData())
