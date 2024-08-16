@@ -38,6 +38,7 @@ import org.sopt.dateroad.domain.type.IncheonAreaType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.ChipType
+import org.sopt.dateroad.presentation.type.DateRoadRegionBottomSheetType
 import org.sopt.dateroad.presentation.ui.component.chip.DateRoadTextChip
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -47,6 +48,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun DateRoadRegionBottomSheet(
     isBottomSheetOpen: Boolean,
     isButtonEnabled: Boolean,
+    dateRoadRegionBottomSheetType: DateRoadRegionBottomSheetType = DateRoadRegionBottomSheetType.LOOK,
     titleText: String = stringResource(id = R.string.region_bottom_sheet_title),
     buttonText: String = stringResource(id = R.string.apply),
     selectedRegion: RegionType? = null,
@@ -139,27 +141,31 @@ fun DateRoadRegionBottomSheet(
                             )
                         }
 
-                        RegionType.GYEONGGI -> GyeonggiAreaType.entries.forEach { areaType ->
-                            DateRoadTextChip(
-                                text = areaType.title,
-                                chipType = ChipType.AREA,
-                                isSelected = selectedArea == areaType,
-                                onSelectedChange = {
-                                    onSelectedAreaChanged(areaType)
-                                }
-                            )
-                        }
+                        RegionType.GYEONGGI -> GyeonggiAreaType.entries
+                            .filterNot { gyeonggiAreaType -> dateRoadRegionBottomSheetType == DateRoadRegionBottomSheetType.ENROLL && gyeonggiAreaType == GyeonggiAreaType.GYEONGGI_ENTIRE }
+                            .forEach { areaType ->
+                                DateRoadTextChip(
+                                    text = areaType.title,
+                                    chipType = ChipType.AREA,
+                                    isSelected = selectedArea == areaType,
+                                    onSelectedChange = {
+                                        onSelectedAreaChanged(areaType)
+                                    }
+                                )
+                            }
 
-                        else -> SeoulAreaType.entries.forEach { areaType ->
-                            DateRoadTextChip(
-                                text = areaType.title,
-                                chipType = ChipType.AREA,
-                                isSelected = selectedArea == areaType,
-                                onSelectedChange = {
-                                    onSelectedAreaChanged(areaType)
-                                }
-                            )
-                        }
+                        else -> SeoulAreaType.entries
+                            .filterNot { seoulAreaType -> dateRoadRegionBottomSheetType == DateRoadRegionBottomSheetType.ENROLL && seoulAreaType == SeoulAreaType.SEOUL_ENTIRE }
+                            .forEach { areaType ->
+                                DateRoadTextChip(
+                                    text = areaType.title,
+                                    chipType = ChipType.AREA,
+                                    isSelected = selectedArea == areaType,
+                                    onSelectedChange = {
+                                        onSelectedAreaChanged(areaType)
+                                    }
+                                )
+                            }
                     }
                 }
             }
