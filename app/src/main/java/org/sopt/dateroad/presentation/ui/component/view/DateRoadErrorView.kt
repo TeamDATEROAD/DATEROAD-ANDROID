@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.component.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +29,7 @@ fun DateRoadErrorView(
         modifier = modifier
             .fillMaxSize()
             .background(color = DateRoadTheme.colors.white),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(193.dp))
         Image(

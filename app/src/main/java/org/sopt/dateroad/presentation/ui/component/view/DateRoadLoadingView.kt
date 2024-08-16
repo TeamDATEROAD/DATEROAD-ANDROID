@@ -9,16 +9,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadLoadingView(
-) {
+fun DateRoadLoadingView() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = DateRoadTheme.colors.white)
-    ){
-
+    ) {
     }
 }
+
 @Preview
 @Composable
 fun DateLoadLoadingViewPreview() {
