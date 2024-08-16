@@ -45,6 +45,8 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
             is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(usePointLoadState = usePointLoadState) }
+            is CourseDetailContract.CourseDetailEvent.OnReportWebViewClick -> setState { copy(isWebViewOpened = true) }
+            is CourseDetailContract.CourseDetailEvent.WebViewClose -> setState { copy(isWebViewOpened = true) }
         }
     }
 

@@ -24,6 +24,10 @@ object DatePicker {
 
 object CourseDetail {
     const val PRIVACY_POLICY_URL = "https://www.notion.so/hooooooni/04da4aa279ca4b599193784091a52859"
+    const val REPORT_URL = "https://tally.so/r/w4L1a5"
+}
+
+object MyPage {
     const val ASK_URL = "https://dateroad.notion.site/1055d2f7bfe94b3fa6c03709448def21?pvs=4"
 }
 
