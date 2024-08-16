@@ -31,7 +31,7 @@ fun DateRoadErrorView(
             .background(color = DateRoadTheme.colors.white),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(193.dp))
+        Spacer(modifier = Modifier.weight(193f))
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -49,6 +49,7 @@ fun DateRoadErrorView(
             style = DateRoadTheme.typography.titleBold18,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.weight(186f))
     }
 }
 
