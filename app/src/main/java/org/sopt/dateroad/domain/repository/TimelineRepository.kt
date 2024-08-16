@@ -9,11 +9,11 @@ import org.sopt.dateroad.domain.type.TimelineTimeType
 interface TimelineRepository {
     suspend fun deleteTimeline(timelineId: Int)
 
-    suspend fun getTimelineDetail(timelineId: Int): TimelineDetail
+    suspend fun getTimelineDetail(timelineId: Int): Result<TimelineDetail>
 
     suspend fun getTimelines(timelineTimeType: TimelineTimeType): Result<List<Timeline>>
 
-    suspend fun getNearestTimeline(): NearestTimeline
+    suspend fun getNearestTimeline(): Result<NearestTimeline>
 
     suspend fun postTimeline(enroll: Enroll): Result<Unit>
 }

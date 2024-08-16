@@ -7,7 +7,5 @@ import org.sopt.dateroad.domain.repository.TimelineRepository
 class GetNearestTimelineUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
-    suspend operator fun invoke(): Result<NearestTimeline> = runCatching {
-        timelineRepository.getNearestTimeline()
-    }
+    suspend operator fun invoke(): Result<NearestTimeline> = timelineRepository.getNearestTimeline()
 }
