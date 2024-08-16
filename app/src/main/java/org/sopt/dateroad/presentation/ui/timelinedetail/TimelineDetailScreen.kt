@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -30,12 +29,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
@@ -55,6 +57,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -228,13 +231,7 @@ fun TimelineDetailScreen(
                     modifier = Modifier.padding(bottom = 14.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.start_time),
-                        style = DateRoadTheme.typography.bodySemi15,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = uiState.timelineDetail.startAt,
+                        text = stringResource(id = R.string.start_time, uiState.timelineDetail.startAt),
                         style = DateRoadTheme.typography.bodySemi15,
                         color = DateRoadTheme.colors.black
                     )
@@ -342,6 +339,51 @@ fun TimelineDetailScreen(
             onDismissRequest = { setShowDeleteDialog(false) },
             onClickConfirm = onDeleteConfirm,
             onClickDismiss = { setShowDeleteDialog(false) }
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TimelineDetailScreenPreview() {
+    DATEROADTheme {
+        TimelineDetailScreen(
+            uiState = TimelineDetailContract.TimelineDetailUiState(
+                loadState = LoadState.Success,
+                timelineDetail = TimelineDetail(
+                    date = "2024-08-17",
+                    dDay = "D-3",
+                    title = "Seoul City Tour",
+                    city = "Seoul",
+                    startAt = "10:00 AM",
+                    places = listOf(
+                        Place(
+                            title = "1번 데이트",
+                            duration = "1.5"
+                        ),
+                        Place(
+                            title = "2번 데이트",
+                            duration = "2.5"
+                        )
+                    ),
+                    tags = listOf("History", "Culture"),
+                    timelineId = 123
+                ),
+                showKakaoDialog = false,
+                showDeleteBottomSheet = false,
+                showDeleteDialog = false,
+                deleteLoadState = LoadState.Idle
+            ),
+            timelineType = TimelineType.getTimelineTypeByIndex(1),
+            onTopBarItemClick = {},
+            onButtonClick = {},
+            showKakaoClicked = {},
+            setShowKakaoDialog = {},
+            setShowDeleteBottomSheet = {},
+            setShowDeleteDialog = {},
+            onDeleteConfirm = {},
+            onKakaoShareConfirm = {},
+            onEnrollButtonClick = {}
         )
     }
 }
