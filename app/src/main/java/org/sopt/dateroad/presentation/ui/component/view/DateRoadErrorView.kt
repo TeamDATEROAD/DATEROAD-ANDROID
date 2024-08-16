@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -26,26 +27,34 @@ fun DateRoadErrorView(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
             .background(color = DateRoadTheme.colors.white),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
+        Spacer(modifier = Modifier.height(193.dp))
         Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.ic_empty_default),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 64.dp),
+            painter = painterResource(id = R.drawable.ic_error_view),
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Text(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+                .fillMaxWidth(),
             text = stringResource(id = R.string.erro_view_server),
             color = DateRoadTheme.colors.gray500,
             style = DateRoadTheme.typography.titleBold18,
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Preview
+@Composable
+fun ErrorPreview() {
+    DateRoadErrorView()
 }
