@@ -153,7 +153,7 @@ fun HomeScreen(
             onClick = navigateToPointHistory
         )
         Row(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 15.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 16.dp)
         ) {
             HomeTimeLineCard(
                 nearestTimeline = uiState.nearestTimeline,
