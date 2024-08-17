@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun CourseDetailUnopenedDetail(
     text: String,
+    free: Int,
     courseDetailUnopenedDetailType: CourseDetailUnopenedDetailType,
     onButtonClicked: () -> Unit
 ) {
@@ -31,13 +33,18 @@ fun CourseDetailUnopenedDetail(
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = text,
-                style = DateRoadTheme.typography.bodyMed13Context,
-                color = DateRoadTheme.colors.black,
-                maxLines = 3,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Column {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = text,
+                    style = DateRoadTheme.typography.bodyMed13Context,
+                    color = DateRoadTheme.colors.black,
+                    maxLines = 3,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                )
+            }
 
             Box(
                 modifier = Modifier
@@ -80,7 +87,10 @@ fun CourseDetailUnopenedDetail(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             isEnabled = true,
-            textContent = stringResource(id = courseDetailUnopenedDetailType.buttonTextStringRes),
+            textContent = when(courseDetailUnopenedDetailType) {
+                CourseDetailUnopenedDetailType.FREE -> stringResource(id = courseDetailUnopenedDetailType.buttonTextStringRes, free)
+                CourseDetailUnopenedDetailType.POINT -> stringResource(id = courseDetailUnopenedDetailType.buttonTextStringRes)
+            },
             onClick = onButtonClicked,
             textStyle = DateRoadTheme.typography.bodyBold15,
             enabledBackgroundColor = DateRoadTheme.colors.purple600,

@@ -29,7 +29,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun DateRoadImagePager(
     modifier: Modifier = Modifier,
-    pagerState: PagerState = PagerState(),
+    pagerState: PagerState,
     images: List<String>,
     userScrollEnabled: Boolean,
     like: String?,

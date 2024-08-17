@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.coursedetail.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ fun LazyListScope.courseDetailOpenedDetail(
     item {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
+            modifier = Modifier.padding(horizontal = 16.dp),
             text = description,
             style = DateRoadTheme.typography.bodyMed13Context,
             color = DateRoadTheme.colors.black
