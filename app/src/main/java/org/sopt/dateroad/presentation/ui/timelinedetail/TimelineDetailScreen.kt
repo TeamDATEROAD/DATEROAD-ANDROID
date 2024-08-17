@@ -231,7 +231,7 @@ fun TimelineDetailScreen(
                     modifier = Modifier.padding(bottom = 14.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.start_time, uiState.timelineDetail.startAt),
+                        text = uiState.timelineDetail.startAt,
                         style = DateRoadTheme.typography.bodySemi15,
                         color = DateRoadTheme.colors.black
                     )
