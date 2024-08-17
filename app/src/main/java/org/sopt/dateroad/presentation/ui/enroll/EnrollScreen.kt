@@ -254,9 +254,9 @@ fun EnrollScreen(
             EnrollType.COURSE -> {
                 DateRoadBasicTopBar(
                     title = stringResource(id = R.string.top_bar_title_enroll_course),
-                    iconLeftResource = R.drawable.ic_top_bar_back_white,
+                    leftIconResource = R.drawable.ic_top_bar_back_white,
                     backGroundColor = DateRoadTheme.colors.white,
-                    onIconClick = onTopBarBackButtonClick
+                    onLeftIconClick = onTopBarBackButtonClick
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 EnrollPhotos(
@@ -270,8 +270,8 @@ fun EnrollScreen(
             EnrollType.TIMELINE -> {
                 DateRoadBasicTopBar(
                     title = stringResource(id = R.string.top_bar_title_enroll_timeline),
-                    iconLeftResource = R.drawable.ic_top_bar_back_white,
-                    onIconClick = onTopBarBackButtonClick,
+                    leftIconResource = R.drawable.ic_top_bar_back_white,
+                    onLeftIconClick = onTopBarBackButtonClick,
                     buttonContent = {
                         DateRoadFilledButton(
                             isEnabled = true,
