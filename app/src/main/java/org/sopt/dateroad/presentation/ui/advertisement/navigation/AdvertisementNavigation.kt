@@ -32,6 +32,6 @@ fun NavGraphBuilder.advertisementGraph(
 object AdvertisementRoute {
     private const val ROUTE = "advertisement"
     const val ID = "id"
-    const val ROUTE_WITH_ARGUMENT = "${ROUTE}/${ID}"
-    fun route(advertisementId: Int) = "${ROUTE}/$advertisementId"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ID}"
+    fun route(advertisementId: Int) = "$ROUTE/$advertisementId"
 }
