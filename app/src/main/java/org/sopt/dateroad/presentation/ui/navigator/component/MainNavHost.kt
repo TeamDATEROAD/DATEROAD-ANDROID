@@ -44,7 +44,7 @@ fun MainNavHost(
             startDestination = navigator.startDestination
         ) {
             advertisementGraph(
-                popBackStack = navigator:: popBackStackIfNotHome
+                popBackStack = navigator::popBackStackIfNotHome
             )
 
             courseDetailGraph(

@@ -27,7 +27,7 @@ class HomeContract {
         data object NavigateToLook : HomeSideEffect
         data object NavigateToTimeline : HomeSideEffect
         data class NavigateToEnroll(val enrollType: EnrollType, val id: Int?) : HomeSideEffect
-        data class NavigateToAdvertisementDetail(val advertisementId: Int): HomeSideEffect
+        data class NavigateToAdvertisementDetail(val advertisementId: Int) : HomeSideEffect
         data class NavigateToCourseDetail(val courseId: Int) : HomeSideEffect
     }
 

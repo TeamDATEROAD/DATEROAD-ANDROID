@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
-import org.sopt.dateroad.domain.model.AdvertisementDetail
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.UiEvent

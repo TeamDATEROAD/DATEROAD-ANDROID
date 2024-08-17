@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.UsePoint
 import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase
-import org.sopt.dateroad.domain.usecase.GetAdvertisementDetailUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.PostUsePointUseCase

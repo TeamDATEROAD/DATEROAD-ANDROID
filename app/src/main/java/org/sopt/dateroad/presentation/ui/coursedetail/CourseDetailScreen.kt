@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.coursedetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -104,7 +103,7 @@ fun CourseDetailRoute(
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
                 enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
-                onTopBarIconClicked = popBackStack,
+                onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
                 openCourseDetail = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
                     viewModel.postUsePoint(courseId = courseId)
@@ -154,68 +153,62 @@ fun CourseDetailScreen(
     val courseDetailUnopenedType = if (courseDetailUiState.courseDetail.free > 0) CourseDetailUnopenedDetailType.FREE else CourseDetailUnopenedDetailType.POINT
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Column(
+        LazyColumn(
+            state = scrollState,
             modifier = Modifier
                 .fillMaxSize()
                 .background(DateRoadTheme.colors.white)
         ) {
-            LazyColumn(
-                state = scrollState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(DateRoadTheme.colors.white)
-            ) {
-                with(courseDetailUiState.courseDetail) {
-                    item {
-                        DateRoadImagePager(
-                            modifier = Modifier
-                                .onGloballyPositioned { coordinates ->
-                                    imageHeight = coordinates.size.height
-                                },
-                            pagerState = PagerState(),
-                            images = courseDetailUiState.courseDetail.images,
-                            userScrollEnabled = isViewable,
-                            like = courseDetailUiState.courseDetail.like.toString()
-                        )
-                    }
+            with(courseDetailUiState.courseDetail) {
+                item {
+                    DateRoadImagePager(
+                        modifier = Modifier
+                            .onGloballyPositioned { coordinates ->
+                                imageHeight = coordinates.size.height
+                            },
+                        pagerState = PagerState(),
+                        images = courseDetailUiState.courseDetail.images,
+                        userScrollEnabled = isViewable,
+                        like = courseDetailUiState.courseDetail.like.toString()
+                    )
+                }
 
-                    item {
-                        CourseDetailBasicInfo(
-                            date = date,
-                            title = title,
-                            totalTime = totalTime,
+                item {
+                    CourseDetailBasicInfo(
+                        date = date,
+                        title = title,
+                        totalTime = totalTime,
+                        totalCost = totalCost,
+                        city = city
+                    )
+                }
+
+                when (isViewable) {
+                    true -> {
+                        courseDetailOpenedDetail(
+                            description = description,
+                            places = places,
                             totalCost = totalCost,
-                            city = city
+                            tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
                         )
-                    }
-
-                    when (isViewable) {
-                        true -> {
-                            courseDetailOpenedDetail(
-                                description = description,
-                                places = places,
-                                totalCost = totalCost,
-                                tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
-                            )
-                            if (!isCourseMine) {
-                                item {
-                                    Spacer(modifier = Modifier.height(86.dp))
-                                }
+                        if (!isCourseMine) {
+                            item {
+                                Spacer(modifier = Modifier.height(86.dp))
                             }
                         }
+                    }
 
-                        false -> {
-                            item {
-                                CourseDetailUnopenedDetail(
-                                    text = description,
-                                    free = free,
-                                    courseDetailUnopenedDetailType = courseDetailUnopenedType,
-                                    onButtonClicked = when(courseDetailUnopenedType) {
-                                        CourseDetailUnopenedDetailType.FREE -> onDialogLookedForFree
-                                        CourseDetailUnopenedDetailType.POINT -> onDialogLookedByPoint
-                                    }
-                                )
-                            }
+                    false -> {
+                        item {
+                            CourseDetailUnopenedDetail(
+                                text = description,
+                                free = free,
+                                courseDetailUnopenedDetailType = courseDetailUnopenedType,
+                                onButtonClicked = when (courseDetailUnopenedType) {
+                                    CourseDetailUnopenedDetailType.FREE -> onDialogLookedForFree
+                                    CourseDetailUnopenedDetailType.POINT -> onDialogLookedByPoint
+                                }
+                            )
                         }
                     }
                 }
@@ -229,7 +222,7 @@ fun CourseDetailScreen(
             rightIconResource = if (isViewable) R.drawable.btn_course_detail_more_white else null
         )
 
-        if (isViewable && !courseDetailUiState.courseDetail.isCourseMine){
+        if (isViewable && !courseDetailUiState.courseDetail.isCourseMine) {
             CourseDetailBottomBar(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 isUserLiked = courseDetailUiState.courseDetail.isUserLiked,

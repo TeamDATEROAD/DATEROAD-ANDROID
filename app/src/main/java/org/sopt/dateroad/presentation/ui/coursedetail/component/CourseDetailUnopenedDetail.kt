@@ -42,7 +42,7 @@ fun CourseDetailUnopenedDetail(
                     maxLines = 3,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
                 )
             }
 
@@ -87,7 +87,7 @@ fun CourseDetailUnopenedDetail(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             isEnabled = true,
-            textContent = when(courseDetailUnopenedDetailType) {
+            textContent = when (courseDetailUnopenedDetailType) {
                 CourseDetailUnopenedDetailType.FREE -> stringResource(id = courseDetailUnopenedDetailType.buttonTextStringRes, free)
                 CourseDetailUnopenedDetailType.POINT -> stringResource(id = courseDetailUnopenedDetailType.buttonTextStringRes)
             },

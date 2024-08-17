@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.component.pager
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -23,7 +20,6 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
-import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -32,7 +28,7 @@ fun DateRoadImagePager(
     pagerState: PagerState,
     images: List<String>,
     userScrollEnabled: Boolean,
-    like: String?,
+    like: String?
 ) {
     Box(modifier = Modifier.fillMaxWidth()) {
         HorizontalPager(
