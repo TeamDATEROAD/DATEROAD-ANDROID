@@ -1,4 +1,4 @@
-package org.sopt.dateroad.presentation.ui.component.topbar
+package org.sopt.dateroad.presentation.ui.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

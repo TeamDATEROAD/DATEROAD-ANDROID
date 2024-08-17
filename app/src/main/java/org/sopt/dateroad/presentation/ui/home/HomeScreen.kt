@@ -46,7 +46,7 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
-import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
+import org.sopt.dateroad.presentation.ui.home.component.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
