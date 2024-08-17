@@ -57,6 +57,8 @@ class AuthInterceptor @Inject constructor(
                                 accessToken = BEARER + responseRefresh.accessToken
                                 refreshToken = responseRefresh.refreshToken
                             }
+                            refreshTokenResponse.close()
+
                             val newRequest = originalRequest.newAuthBuilder()
                             return chain.proceed(newRequest)
                         } else {
