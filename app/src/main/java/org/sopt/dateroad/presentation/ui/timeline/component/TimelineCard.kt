@@ -30,10 +30,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Date
+import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.presentation.type.DateTagType
-import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.TagType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
@@ -43,21 +43,21 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 @Composable
 fun TimelineCard(
     modifier: Modifier,
-    dateCard: Date,
-    dateType: DateType,
+    timelineCard: Timeline,
+    timelineType: TimelineType,
     onClick: (Int) -> Unit = {}
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(291 / 406f)
-            .background(dateType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(dateCard.dateId) })
+            .background(timelineType.backgroundColor)
+            .noRippleClickable(onClick = { onClick(timelineCard.timelineId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_timeline_card),
             contentDescription = null,
-            tint = dateType.lineColor,
+            tint = timelineType.lineColor,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -80,7 +80,7 @@ fun TimelineCard(
                             .weight(1f)
                     ) {
                         Text(
-                            text = dateCard.date,
+                            text = timelineCard.date,
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 2,
@@ -89,7 +89,7 @@ fun TimelineCard(
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     DateRoadTextTag(
-                        textContent = dateCard.dDay,
+                        textContent = timelineCard.dDay,
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }
@@ -101,33 +101,33 @@ fun TimelineCard(
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.Start
                 ) {
-                    if (dateCard.tags.size >= 3) {
+                    if (timelineCard.tags.size >= 3) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[2].titleRes),
-                            imageContent = dateCard.tags[2].imageRes,
-                            tagContentType = dateType.tagType,
+                            textContent = stringResource(id = timelineCard.tags[2].titleRes),
+                            imageContent = timelineCard.tags[2].imageRes,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = -12f)
                                 .padding(start = 19.dp, bottom = 5.dp)
                         )
                     }
-                    if (dateCard.tags.size >= 2) {
+                    if (timelineCard.tags.size >= 2) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[1].titleRes),
-                            imageContent = dateCard.tags[1].imageRes,
-                            tagContentType = dateType.tagType,
+                            textContent = stringResource(id = timelineCard.tags[1].titleRes),
+                            imageContent = timelineCard.tags[1].imageRes,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
                                 .graphicsLayer(rotationZ = 15f)
                                 .padding(start = 60.dp, bottom = 10.dp)
                         )
                     }
-                    if (dateCard.tags.isNotEmpty()) {
+                    if (timelineCard.tags.isNotEmpty()) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = dateCard.tags[0].titleRes),
-                            imageContent = dateCard.tags[0].imageRes,
-                            tagContentType = dateType.tagType,
+                            textContent = stringResource(id = timelineCard.tags[0].titleRes),
+                            imageContent = timelineCard.tags[0].imageRes,
+                            tagContentType = timelineType.tagType,
                             spaceValue = 2
                         )
                     }
@@ -173,14 +173,14 @@ fun TimelineCard(
                     .padding(horizontal = 20.dp, vertical = 25.dp)
             ) {
                 Text(
-                    text = dateCard.city,
+                    text = timelineCard.city,
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.gray500,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = dateCard.title,
+                    text = timelineCard.title,
                     style = DateRoadTheme.typography.titleExtra24,
                     color = DateRoadTheme.colors.black,
                     maxLines = 2,
@@ -199,9 +199,9 @@ fun TimelineCardPreview() {
     Column {
         TimelineCard(
             modifier = Modifier,
-            dateType = DateType.PURPLE,
-            dateCard = Date(
-                dateId = 0,
+            timelineType = TimelineType.PURPLE,
+            timelineCard = Timeline(
+                timelineId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트\n가볼까요?",
                 date = "JUNE.23",
