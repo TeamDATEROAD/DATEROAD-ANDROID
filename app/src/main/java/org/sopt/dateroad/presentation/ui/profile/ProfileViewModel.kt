@@ -114,8 +114,10 @@ class ProfileViewModel @Inject constructor(
             setEvent(
                 ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic)
             )
-            getUserUseCase().onSuccess { profile ->
-                currentName = profile.name
+            if (currentState.profileType == ProfileType.EDIT) {
+                getUserUseCase().onSuccess { profile ->
+                    currentName = profile.name
+                }
             }
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
@@ -170,7 +172,7 @@ class ProfileViewModel @Inject constructor(
                 Log.e("http image", error.message.toString())
             }
         }
-        Log.d("http image","image: ${editProfile.image}")
+        Log.d("http image", "image: ${editProfile.image}")
     }
 
     companion object {
