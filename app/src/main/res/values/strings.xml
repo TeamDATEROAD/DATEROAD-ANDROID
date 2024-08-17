@@ -48,7 +48,7 @@
     <string name="empty_view_my_course_enroll">아직 등록한 코스가 없어요!</string>
 
     <!-- ErrorViewType -->
-    <string name="erro_view_server">현재 서버 점검 중이에요\n곧 다시 만나요!</string>
+    <string name="error_view_server">현재 서버 점검 중이에요\n곧 다시 만나요!</string>
 
     <!-- GyeonggiAreaType -->
     <string name="gyeonggi_area_whole">경기 전체</string>
