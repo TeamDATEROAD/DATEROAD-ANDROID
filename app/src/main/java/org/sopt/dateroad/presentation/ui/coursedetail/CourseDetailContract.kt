@@ -51,7 +51,7 @@ class CourseDetailContract {
         data class DeleteCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
-        data object OnReportWebViewClick : CourseDetailEvent()
-        data object WebViewClose : CourseDetailEvent()
+        data object OnReportWebViewClicked : CourseDetailEvent()
+        data object DismissReportWebView : CourseDetailEvent()
     }
 }

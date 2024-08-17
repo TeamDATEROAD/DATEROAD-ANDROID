@@ -154,9 +154,9 @@ fun CourseDetailRoute(
                     viewModel.postUsePoint(uiState.id)
                 },
                 onReportButtonClicked = {
-                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClick)
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked)
                 },
-                onReportWebViewClose = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.WebViewClose) }
+                onReportWebViewClose = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportWebView) }
             )
         }
 
