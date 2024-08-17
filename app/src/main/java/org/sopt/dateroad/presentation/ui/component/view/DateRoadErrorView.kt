@@ -38,7 +38,7 @@ fun DateRoadErrorView(
                 .padding(horizontal = 64.dp),
             painter = painterResource(id = R.drawable.ic_error_view),
             contentDescription = null,
-            contentScale = ContentScale.FillWidth
+
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
