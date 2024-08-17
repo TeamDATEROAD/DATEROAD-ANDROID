@@ -16,6 +16,7 @@ object ApiConstraints {
     const val CHECK = "check"
     const val NAME = "name"
     const val COURSE_ID = "courseId"
+    const val DATE_ID = "dateId"
     const val LIKES = "likes"
     const val SORT = "sort"
     const val COUNTRY = "country"

@@ -8,9 +8,9 @@ import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
 import org.sopt.dateroad.data.dataremote.service.AdvertisementService
 import org.sopt.dateroad.data.dataremote.service.AuthService
 import org.sopt.dateroad.data.dataremote.service.CourseService
-import org.sopt.dateroad.data.dataremote.service.DateService
 import org.sopt.dateroad.data.dataremote.service.MyCourseService
 import org.sopt.dateroad.data.dataremote.service.ProfileService
+import org.sopt.dateroad.data.dataremote.service.TimelineService
 import org.sopt.dateroad.data.dataremote.service.UserPointService
 import org.sopt.dateroad.data.repositoryimpl.UserInfoRepositoryImpl
 import org.sopt.dateroad.di.qualifier.DateRoad
@@ -33,8 +33,8 @@ object ServiceModule {
         retrofit.create(CourseService::class.java)
 
     @Provides
-    fun provideDateService(@DateRoad retrofit: Retrofit): DateService =
-        retrofit.create(DateService::class.java)
+    fun provideTimelineService(@DateRoad retrofit: Retrofit): TimelineService =
+        retrofit.create(TimelineService::class.java)
 
     @Provides
     fun providesMyCourseService(@DateRoad retrofit: Retrofit): MyCourseService =

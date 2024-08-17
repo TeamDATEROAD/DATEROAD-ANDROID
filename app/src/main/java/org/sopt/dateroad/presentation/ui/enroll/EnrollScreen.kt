@@ -83,7 +83,7 @@ fun EnrollRoute(
         if (id != null) {
             when (enrollType) {
                 EnrollType.COURSE -> {
-                    viewModel.fetchDateDetail(dateId = id)
+                    viewModel.fetchTimelineDetail(timelineId = id)
                 }
 
                 EnrollType.TIMELINE -> {

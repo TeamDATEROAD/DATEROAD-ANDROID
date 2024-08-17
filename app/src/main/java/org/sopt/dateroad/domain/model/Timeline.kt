@@ -2,8 +2,8 @@ package org.sopt.dateroad.domain.model
 
 import org.sopt.dateroad.presentation.type.DateTagType
 
-data class Date(
-    val dateId: Int = 0,
+data class Timeline(
+    val timelineId: Int = 0,
     val dDay: String = "",
     val title: String = "",
     val date: String = "",

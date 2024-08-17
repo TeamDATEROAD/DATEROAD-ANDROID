@@ -1,9 +1,9 @@
 package org.sopt.dateroad.data.mapper.toEntity
 
-import org.sopt.dateroad.domain.model.DateDetail
 import org.sopt.dateroad.domain.model.Enroll
+import org.sopt.dateroad.domain.model.TimelineDetail
 
-fun DateDetail.toEnroll() = Enroll(
+fun TimelineDetail.toEnroll() = Enroll(
     title = this.title,
     startAt = this.startAt,
     country = this.city.toRegionType(),
