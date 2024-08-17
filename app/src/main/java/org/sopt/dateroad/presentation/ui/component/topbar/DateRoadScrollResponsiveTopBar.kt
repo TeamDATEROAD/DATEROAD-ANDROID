@@ -1,9 +1,13 @@
 package org.sopt.dateroad.presentation.ui.component.topbar
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import org.sopt.dateroad.R
@@ -22,20 +26,36 @@ fun DateRoadScrollResponsiveTopBar(
     @DrawableRes rightIconResource: Int? = null,
     onRightIconClick: () -> Unit = {}
 ) {
-    DateRoadBasicTopBar(
-        backGroundColor = if (isDefault) defaultBackgroundColor else scrolledBackgroundColor,
-        leftIconResource = leftIconResource,
-        onLeftIconClick = onLeftIconClick,
-        leftIconTint = if (isDefault) defaultIconTintColor else scrolledIconTintColor,
-        buttonContent = {
-            if (rightIconResource != null) {
-                Icon(
-                    painter = painterResource(id = rightIconResource),
-                    contentDescription = null,
-                    tint = if (isDefault) defaultIconTintColor else scrolledIconTintColor,
-                    modifier = Modifier.noRippleClickable(onRightIconClick)
+    Box {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            DateRoadTheme.colors.black.copy(alpha = 0.6f),
+                            Color.Transparent
+                        )
+                    )
                 )
+                .matchParentSize()
+        )
+
+        DateRoadBasicTopBar(
+            backGroundColor = if (isDefault) defaultBackgroundColor else scrolledBackgroundColor,
+            leftIconResource = leftIconResource,
+            onLeftIconClick = onLeftIconClick,
+            leftIconTint = if (isDefault) defaultIconTintColor else scrolledIconTintColor,
+            buttonContent = {
+                if (rightIconResource != null) {
+                    Icon(
+                        painter = painterResource(id = rightIconResource),
+                        contentDescription = null,
+                        tint = if (isDefault) defaultIconTintColor else scrolledIconTintColor,
+                        modifier = Modifier.noRippleClickable(onRightIconClick)
+                    )
+                }
             }
-        }
-    )
+        )
+    }
 }
