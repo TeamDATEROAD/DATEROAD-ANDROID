@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +35,7 @@ fun DateRoadErrorView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 64.dp),
-            painter = painterResource(id = R.drawable.ic_error_view),
+            painter = painterResource(id = R.drawable.ic_error_server),
             contentDescription = null,
 
         )
@@ -44,7 +43,7 @@ fun DateRoadErrorView(
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = stringResource(id = R.string.erro_view_server),
+            text = stringResource(id = R.string.error_view_server),
             color = DateRoadTheme.colors.gray500,
             style = DateRoadTheme.typography.titleBold18,
             textAlign = TextAlign.Center
