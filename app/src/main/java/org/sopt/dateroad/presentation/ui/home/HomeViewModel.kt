@@ -4,10 +4,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.domain.usecase.GetAdvertisementsUseCase
-import org.sopt.dateroad.domain.usecase.GetNearestDateUseCase
+import org.sopt.dateroad.domain.usecase.GetNearestTimelineUseCase
 import org.sopt.dateroad.domain.usecase.GetSortedCoursesUseCase
 import org.sopt.dateroad.domain.usecase.GetUserPointUseCase
 import org.sopt.dateroad.domain.usecase.SetNicknameUseCase
@@ -17,7 +17,7 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAdvertisementsUseCase: GetAdvertisementsUseCase,
-    private val getNearestDateUseCase: GetNearestDateUseCase,
+    private val getNearestTimelineUseCase: GetNearestTimelineUseCase,
     private val getSortedCoursesUseCase: GetSortedCoursesUseCase,
     private val getUserPointUseCase: GetUserPointUseCase,
     private val setNicknameUseCase: SetNicknameUseCase
@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
             is HomeContract.HomeEvent.FetchAdvertisements -> setState { copy(loadState = event.loadState, advertisements = event.advertisements) }
             is HomeContract.HomeEvent.FetchLatestCourses -> setState { copy(loadState = event.loadState, latestCourses = event.latestCourses) }
             is HomeContract.HomeEvent.FetchTopLikedCourses -> setState { copy(loadState = event.loadState, topLikedCourses = event.topLikedCourses) }
-            is HomeContract.HomeEvent.FetchNearestDate -> setState { copy(loadState = event.loadState, mainDate = event.mainDate) }
+            is HomeContract.HomeEvent.FetchNearestTimeline -> setState { copy(loadState = event.loadState, nearestTimeline = event.nearestTimeline) }
             is HomeContract.HomeEvent.FetchUserPoint -> setState { copy(loadState = event.loadState, userPoint = event.userPoint) }
             is HomeContract.HomeEvent.FetchProfileImage -> setState { copy(loadState = loadState, profileImageUrl = event.profileImageUrl) }
         }
@@ -51,13 +51,13 @@ class HomeViewModel @Inject constructor(
 
     fun fetchNearestDate() {
         viewModelScope.launch {
-            setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Loading, mainDate = MainDate()))
-            getNearestDateUseCase()
-                .onSuccess { mainDate ->
-                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = mainDate))
+            setEvent(HomeContract.HomeEvent.FetchNearestTimeline(loadState = LoadState.Loading, nearestTimeline = NearestTimeline()))
+            getNearestTimelineUseCase()
+                .onSuccess { nearestTimeline ->
+                    setEvent(HomeContract.HomeEvent.FetchNearestTimeline(loadState = LoadState.Success, nearestTimeline = nearestTimeline))
                 }
                 .onFailure {
-                    setEvent(HomeContract.HomeEvent.FetchNearestDate(loadState = LoadState.Success, mainDate = MainDate()))
+                    setEvent(HomeContract.HomeEvent.FetchNearestTimeline(loadState = LoadState.Success, nearestTimeline = NearestTimeline()))
                 }
         }
     }

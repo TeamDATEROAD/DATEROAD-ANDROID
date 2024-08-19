@@ -1,11 +1,11 @@
 package org.sopt.dateroad.data.mapper.todata
 
 import org.sopt.dateroad.data.dataremote.model.request.RequestCourseDto
-import org.sopt.dateroad.data.dataremote.model.request.RequestDateDto
+import org.sopt.dateroad.data.dataremote.model.request.RequestTimelineDto
 import org.sopt.dateroad.data.mapper.toEntity.toAreaName
 import org.sopt.dateroad.domain.model.Enroll
 
-fun Enroll.toDateData(): RequestDateDto = RequestDateDto(
+fun Enroll.toTimelineData(): RequestTimelineDto = RequestTimelineDto(
     title = this.title,
     date = this.date,
     startAt = this.startAt,
