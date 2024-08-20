@@ -20,13 +20,6 @@ fun Any?.toAreaTitle(): String = when (this) {
     else -> ""
 }
 
-fun Any?.toAreaName(): String = when (this) {
-    is SeoulAreaType -> this.name
-    is GyeonggiAreaType -> this.name
-    is IncheonAreaType -> this.name
-    else -> ""
-}
-
 fun String.toAreaType(): Any? =
     when {
         this.toSeoulAreaTitle().isNotEmpty() -> this.toSeoulAreaType()
