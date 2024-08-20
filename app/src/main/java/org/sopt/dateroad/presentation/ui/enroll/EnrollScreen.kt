@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
+import org.sopt.dateroad.presentation.type.DateRoadRegionBottomSheetType
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
@@ -367,6 +368,7 @@ fun EnrollScreen(
     DateRoadRegionBottomSheet(
         isBottomSheetOpen = enrollUiState.isRegionBottomSheetOpen,
         isButtonEnabled = enrollUiState.onRegionBottomSheetRegionSelected != null && enrollUiState.onRegionBottomSheetAreaSelected != null,
+        dateRoadRegionBottomSheetType = DateRoadRegionBottomSheetType.ENROLL,
         selectedRegion = enrollUiState.onRegionBottomSheetRegionSelected,
         onSelectedRegionChanged = { regionType ->
             onRegionBottomSheetRegionChipClick(regionType)
