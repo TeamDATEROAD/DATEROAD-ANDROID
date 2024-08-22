@@ -227,15 +227,12 @@ fun TimelineDetailScreen(
             Column(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 90.dp)
             ) {
-                Row(
-                    modifier = Modifier.padding(bottom = 14.dp)
-                ) {
-                    Text(
-                        text = uiState.timelineDetail.startAt,
-                        style = DateRoadTheme.typography.bodySemi15,
-                        color = DateRoadTheme.colors.black
-                    )
-                }
+                Text(
+                    text = uiState.timelineDetail.startAt,
+                    style = DateRoadTheme.typography.bodySemi15,
+                    color = DateRoadTheme.colors.black
+                )
+                Spacer(modifier = Modifier.height(14.dp))
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {

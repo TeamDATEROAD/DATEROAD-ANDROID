@@ -11,7 +11,6 @@
     <string name="complete">완료</string>
     <string name="apply">적용하기</string>
     <string name="duration">%s시간</string>
-    <string name="start_time">%s 시작</string>
 
     <!-- Dialog All -->
     <string name="dialog_cancel">취소</string>
