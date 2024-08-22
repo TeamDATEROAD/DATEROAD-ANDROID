@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.sopt.dateroad.presentation.type.ProfileType
+import org.sopt.dateroad.presentation.ui.advertisement.navigation.advertisementGraph
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.courseDetailGraph
 import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollNavGraph
 import org.sopt.dateroad.presentation.ui.home.navigation.homeNavGraph
@@ -42,6 +43,10 @@ fun MainNavHost(
             navController = navigator.navHostController,
             startDestination = navigator.startDestination
         ) {
+            advertisementGraph(
+                popBackStack = navigator::popBackStackIfNotHome
+            )
+
             courseDetailGraph(
                 popBackStack = navigator::popBackStackIfNotHome,
                 navigateToEnroll = navigator::navigateToEnroll
@@ -59,6 +64,7 @@ fun MainNavHost(
                 navigateToLook = navigator::navigateToLook,
                 navigateToTimeline = navigator::navigateTimeline,
                 navigateToEnroll = navigator::navigateToEnroll,
+                navigateToAdvertisement = navigator::navigateToAdvertisement,
                 navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 

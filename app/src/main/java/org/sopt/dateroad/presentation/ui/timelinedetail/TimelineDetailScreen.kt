@@ -137,7 +137,7 @@ fun TimelineDetailScreen(
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_timeline),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             buttonContent = {
                 Icon(
                     painterResource(id = R.drawable.btn_course_detail_more_black),
@@ -145,7 +145,7 @@ fun TimelineDetailScreen(
                     modifier = Modifier.noRippleClickable(onClick = onButtonClick)
                 )
             },
-            onIconClick = onTopBarItemClick
+            onLeftIconClick = onTopBarItemClick
         )
         Box(
             modifier = Modifier

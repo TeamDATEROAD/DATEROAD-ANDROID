@@ -88,9 +88,9 @@ fun PastScreen(
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_past),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = popBackStack
+            onLeftIconClick = popBackStack
         )
         if (pastUiState.timelines.isEmpty()) {
             DateRoadEmptyView(emptyViewType = EmptyViewType.PAST)
