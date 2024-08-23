@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.sopt.dateroad.domain.model.UsePoint
 import org.sopt.dateroad.domain.usecase.DeleteCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase
-import org.sopt.dateroad.domain.usecase.GetAdvertisementDetailUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
@@ -19,7 +18,6 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class CourseDetailViewModel @Inject constructor(
     private val deleteCourseUseCase: DeleteCourseUseCase,
     private val deleteCourseLikeUseCase: DeleteCourseLikeUseCase,
-    private val getAdvertisementDetailUseCase: GetAdvertisementDetailUseCase,
     private val getCourseDetailUseCase: GetCourseDetailUseCase,
     private val postCourseLikeUseCase: PostCourseLikeUseCase,
     private val postUsePointUseCase: PostUsePointUseCase
@@ -38,30 +36,11 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.OnEditBottomSheet -> setState { copy(isEditBottomSheetOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet -> setState { copy(isEditBottomSheetOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OpenCourse -> setState { copy(courseDetail = courseDetail.copy(isAccess = true)) }
-            is CourseDetailContract.CourseDetailEvent.InitCourseDetail -> setState { copy(id = event.id, courseDetailType = event.courseDetailType) }
-            is CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail -> setState { copy(loadState = event.loadState, advertisementDetail = event.advertisementDetail) }
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
             is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(usePointLoadState = usePointLoadState) }
-        }
-    }
-
-    fun fetchAdvertisementDetail(advertisementId: Int) {
-        viewModelScope.launch {
-            setEvent(
-                CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Loading, advertisementDetail = currentState.advertisementDetail)
-            )
-            getAdvertisementDetailUseCase(advertisementId = advertisementId).onSuccess { advertisementDetail ->
-                setEvent(
-                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Success, advertisementDetail = advertisementDetail)
-                )
-            }.onFailure {
-                setEvent(
-                    CourseDetailContract.CourseDetailEvent.FetchAdvertisementDetail(loadState = LoadState.Error, advertisementDetail = currentState.advertisementDetail)
-                )
-            }
         }
     }
 

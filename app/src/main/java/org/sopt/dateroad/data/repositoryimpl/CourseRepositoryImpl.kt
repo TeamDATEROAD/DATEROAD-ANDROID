@@ -41,12 +41,12 @@ class CourseRepositoryImpl @Inject constructor(
 
     override suspend fun getFilteredCourses(country: RegionType?, city: Any?, cost: MoneyTagType?): Result<List<Course>> = runCatching {
         courseRemoteDataSource.getFilteredCourses(
-            country = country?.name,
+            country = country?.title,
             city = city?.let {
                 when (it) {
-                    is SeoulAreaType -> it.name
-                    is GyeonggiAreaType -> it.name
-                    is IncheonAreaType -> it.name
+                    is SeoulAreaType -> it.title
+                    is GyeonggiAreaType -> it.title
+                    is IncheonAreaType -> it.title
                     else -> null
                 }
             },

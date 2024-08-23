@@ -30,12 +30,12 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun DateRoadBasicTopBar(
-    title: String,
+    title: String = "",
     backGroundColor: Color = Color.Transparent,
-    onIconClick: () -> Unit = {},
-    @DrawableRes iconLeftResource: Int? = null,
+    onLeftIconClick: () -> Unit = {},
+    @DrawableRes leftIconResource: Int? = null,
     buttonContent: (@Composable () -> Unit)? = null,
-    leftTint: Color = DateRoadTheme.colors.black
+    leftIconTint: Color = DateRoadTheme.colors.black
 ) {
     var iconWidth by remember { mutableStateOf(0) }
     var contentWidth by remember { mutableStateOf(0) }
@@ -50,19 +50,19 @@ fun DateRoadBasicTopBar(
             .background(backGroundColor)
             .padding(vertical = 11.dp)
     ) {
-        if (iconLeftResource != null) {
+        if (leftIconResource != null) {
             Column(
                 Modifier
                     .align(Alignment.CenterStart)
                     .onGloballyPositioned { coordinates ->
                         iconWidth = coordinates.size.width
                     }
-                    .noRippleClickable(onClick = onIconClick)
+                    .noRippleClickable(onClick = onLeftIconClick)
             ) {
                 Icon(
-                    painter = painterResource(id = iconLeftResource),
+                    painter = painterResource(id = leftIconResource),
                     contentDescription = null,
-                    tint = leftTint,
+                    tint = leftIconTint,
                     modifier = Modifier
                         .padding(16.dp)
                 )
@@ -101,7 +101,7 @@ fun DateRoadBasicTopBarPreview() {
     Column {
         DateRoadBasicTopBar(
             title = "포인트 내역포인트 내역포인트내역내역포인트포인트내역포인트 내역",
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white
         )
         DateRoadBasicTopBar(
@@ -110,7 +110,7 @@ fun DateRoadBasicTopBarPreview() {
         )
         DateRoadBasicTopBar(
             title = "데이트 일정",
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             buttonContent = {
                 Icon(
                     painterResource(id = R.drawable.ic_top_bar_share),
@@ -121,7 +121,7 @@ fun DateRoadBasicTopBarPreview() {
         )
         DateRoadBasicTopBar(
             title = "데이트 일정데이트 일정데이트 일정데이트 일정일정데이트 일정데이트 일정",
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             buttonContent = {
                 DateRoadFilledButton(
                     isEnabled = true,
