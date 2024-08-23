@@ -23,8 +23,7 @@ import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun DateRoadErrorView(
-) {
+fun DateRoadErrorView() {
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     Column(
         modifier = Modifier
@@ -36,7 +35,7 @@ fun DateRoadErrorView(
             title = "",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
-            onIconClick =  {
+            onIconClick = {
                 backDispatcher?.onBackPressed()
             }
         )
