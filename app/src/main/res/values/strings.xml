@@ -47,7 +47,8 @@
     <string name="empty_view_my_course_enroll">아직 등록한 코스가 없어요!</string>
 
     <!-- ErrorViewType -->
-    <string name="erro_view_server">서버 점검 중..!</string>
+    <string name="error_view_server_title">서버 오류가 발생했어요</string>
+    <string name="error_view_server_description">마이페이지 문의하기를 통해 문의해 주시면\n빠르게 답변해 드릴게요</string>
 
     <!-- GyeonggiAreaType -->
     <string name="gyeonggi_area_whole">경기 전체</string>
@@ -70,6 +71,9 @@
 
     <!-- IncheonAreaType -->
     <string name="incheon_area_whole">인천 전체</string>
+
+    <!-- LoadingViewType -->
+    <string name="loading_view_server">잠시만 기다려 주세요\n로딩 중이에요</string>
 
     <!-- MainNavigationBarItemType -->
     <string name="main_navigation_bar_item_home">홈</string>
