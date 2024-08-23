@@ -32,9 +32,8 @@ fun DateRoadErrorView() {
     ) {
         DateRoadBasicTopBar(
             title = "",
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
-            onIconClick = { backDispatcher?.onBackPressed() }
-
+            onLeftIconClick = { backDispatcher?.onBackPressed() },
+            leftIconResource = R.drawable.ic_top_bar_back_white
         )
         Spacer(modifier = Modifier.weight(131f))
         Image(
