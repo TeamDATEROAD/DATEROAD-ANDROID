@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.mapper.toEntity.toEnroll
 import org.sopt.dateroad.domain.type.RegionType
@@ -14,6 +13,7 @@ import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import javax.inject.Inject
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
@@ -45,6 +45,7 @@ class EnrollViewModel @Inject constructor(
                     }
                 }
             }
+
             is EnrollContract.EnrollEvent.OnEnrollButtonClick -> {
                 when (currentState.enrollType) {
                     EnrollType.COURSE -> {
@@ -130,7 +131,7 @@ class EnrollViewModel @Inject constructor(
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Loading, timelineDetail = null))
             getTimelineDetailUseCase(timelineId = timelineId).onSuccess { timelineDetail ->
-                setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Success, timelineDetail = timelineDetail))
+                setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Success, timelineDetail = timelineDetail.copy(startAt = timelineDetail.startAt.substringBefore(START_AT_SUFFIX))))
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Error, timelineDetail = null))
             }
@@ -157,5 +158,9 @@ class EnrollViewModel @Inject constructor(
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
         }
+    }
+
+    companion object {
+        const val START_AT_SUFFIX = " 시작"
     }
 }
