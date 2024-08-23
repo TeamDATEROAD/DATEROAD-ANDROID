@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,21 +33,17 @@ fun DateRoadErrorView() {
         DateRoadBasicTopBar(
             title = "",
             iconLeftResource = R.drawable.ic_top_bar_back_white,
-            backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = {
-                backDispatcher?.onBackPressed()
-            }
+            onIconClick = { backDispatcher?.onBackPressed() }
+
         )
         Spacer(modifier = Modifier.weight(131f))
         Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 64.dp),
+                .fillMaxWidth(),
             painter = painterResource(id = R.drawable.ic_error_server),
             contentDescription = null
-
         )
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
