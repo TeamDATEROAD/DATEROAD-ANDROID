@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -30,17 +29,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
+import org.sopt.dateroad.domain.model.Place
+import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
-import org.sopt.dateroad.presentation.type.DateType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
@@ -55,14 +57,15 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int) -> Unit,
-    dateId: Int,
-    dateType: DateType
+    timelineId: Int,
+    timelineType: TimelineType
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -70,7 +73,7 @@ fun TimelineDetailRoute(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchDateDetail(dateId = dateId)
+        viewModel.fetchTimelineDetail(timelineId = timelineId)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -91,16 +94,16 @@ fun TimelineDetailRoute(
         LoadState.Success -> {
             TimelineDetailScreen(
                 uiState = uiState,
-                dateType = dateType,
+                timelineType = timelineType,
                 onTopBarItemClick = popBackStack,
                 onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(true)) },
                 showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
-                onDeleteConfirm = { viewModel.deleteDate(dateId = dateId) },
+                onDeleteConfirm = { viewModel.deleteTimeline(timelineId = timelineId) },
                 onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) },
-                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.dateDetail)) }
+                onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.timelineDetail)) }
             )
         }
 
@@ -116,7 +119,7 @@ fun TimelineDetailRoute(
 @Composable
 fun TimelineDetailScreen(
     uiState: TimelineDetailContract.TimelineDetailUiState,
-    dateType: DateType,
+    timelineType: TimelineType,
     onTopBarItemClick: () -> Unit = {},
     onButtonClick: () -> Unit = {},
     showKakaoClicked: () -> Unit = {},
@@ -130,11 +133,11 @@ fun TimelineDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = dateType.backgroundColor)
+            .background(color = timelineType.backgroundColor)
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_timeline),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             buttonContent = {
                 Icon(
                     painterResource(id = R.drawable.btn_course_detail_more_black),
@@ -142,17 +145,17 @@ fun TimelineDetailScreen(
                     modifier = Modifier.noRippleClickable(onClick = onButtonClick)
                 )
             },
-            onIconClick = onTopBarItemClick
+            onLeftIconClick = onTopBarItemClick
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(dateType.backgroundColor)
+                .background(timelineType.backgroundColor)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.bg_past_card),
                 contentDescription = null,
-                tint = dateType.lineColor,
+                tint = timelineType.lineColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp)
@@ -168,13 +171,13 @@ fun TimelineDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = uiState.dateDetail.date,
+                        text = uiState.timelineDetail.date,
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
-                    if (uiState.dateDetail.dDay != "") {
+                    if (uiState.timelineDetail.dDay != "") {
                         DateRoadTextTag(
-                            textContent = uiState.dateDetail.dDay,
+                            textContent = uiState.timelineDetail.dDay,
                             tagContentType = TagType.TIMELINE_D_DAY
                         )
                     }
@@ -182,7 +185,7 @@ fun TimelineDetailScreen(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
-                    text = uiState.dateDetail.title,
+                    text = uiState.timelineDetail.title,
                     style = DateRoadTheme.typography.titleExtra24,
                     color = DateRoadTheme.colors.black,
                     minLines = 2,
@@ -193,7 +196,7 @@ fun TimelineDetailScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = uiState.dateDetail.city,
+                    text = uiState.timelineDetail.city,
                     style = DateRoadTheme.typography.bodySemi15,
                     color = DateRoadTheme.colors.gray500
                 )
@@ -202,12 +205,12 @@ fun TimelineDetailScreen(
                         .padding(top = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
-                    items(uiState.dateDetail.tags) { tag ->
+                    items(uiState.timelineDetail.tags) { tag ->
                         tag.getDateTagTypeByName()?.let { tagType ->
                             DateRoadImageTag(
                                 textContent = stringResource(id = tagType.titleRes),
                                 imageContent = tagType.imageRes,
-                                tagContentType = dateType.tagType
+                                tagContentType = timelineType.tagType
                             )
                         }
                     }
@@ -224,35 +227,26 @@ fun TimelineDetailScreen(
             Column(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 90.dp)
             ) {
-                Row(
-                    modifier = Modifier.padding(bottom = 14.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.start_time),
-                        style = DateRoadTheme.typography.bodySemi15,
-                        color = DateRoadTheme.colors.black
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = uiState.dateDetail.startAt,
-                        style = DateRoadTheme.typography.bodySemi15,
-                        color = DateRoadTheme.colors.black
-                    )
-                }
+                Text(
+                    text = uiState.timelineDetail.startAt,
+                    style = DateRoadTheme.typography.bodySemi15,
+                    color = DateRoadTheme.colors.black
+                )
+                Spacer(modifier = Modifier.height(14.dp))
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(uiState.dateDetail.places.size) { index ->
+                    items(uiState.timelineDetail.places.size) { index ->
                         DateRoadPlaceCard(
                             placeCardType = PlaceCardType.COURSE_NORMAL,
                             sequence = index,
-                            place = uiState.dateDetail.places[index]
+                            place = uiState.timelineDetail.places[index]
                         )
                     }
                 }
             }
 
-            if (uiState.dateDetail.dDay.isNotEmpty()) {
+            if (uiState.timelineDetail.dDay.isNotEmpty()) {
                 Column(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -295,7 +289,7 @@ fun TimelineDetailScreen(
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp, horizontal = 70.dp)
                         .background(DateRoadTheme.colors.purple600, CircleShape)
-                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.dateDetail.dateId) })
+                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.timelineDetail.timelineId) })
                 ) {
                     Text(
                         text = stringResource(id = R.string.timeline_detail_point),
@@ -342,6 +336,51 @@ fun TimelineDetailScreen(
             onDismissRequest = { setShowDeleteDialog(false) },
             onClickConfirm = onDeleteConfirm,
             onClickDismiss = { setShowDeleteDialog(false) }
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TimelineDetailScreenPreview() {
+    DATEROADTheme {
+        TimelineDetailScreen(
+            uiState = TimelineDetailContract.TimelineDetailUiState(
+                loadState = LoadState.Success,
+                timelineDetail = TimelineDetail(
+                    date = "2024-08-17",
+                    dDay = "D-3",
+                    title = "Seoul City Tour",
+                    city = "Seoul",
+                    startAt = "10:00 AM",
+                    places = listOf(
+                        Place(
+                            title = "1번 데이트",
+                            duration = "1.5"
+                        ),
+                        Place(
+                            title = "2번 데이트",
+                            duration = "2.5"
+                        )
+                    ),
+                    tags = listOf("History", "Culture"),
+                    timelineId = 123
+                ),
+                showKakaoDialog = false,
+                showDeleteBottomSheet = false,
+                showDeleteDialog = false,
+                deleteLoadState = LoadState.Idle
+            ),
+            timelineType = TimelineType.getTimelineTypeByIndex(1),
+            onTopBarItemClick = {},
+            onButtonClick = {},
+            showKakaoClicked = {},
+            setShowKakaoDialog = {},
+            setShowDeleteBottomSheet = {},
+            setShowDeleteDialog = {},
+            onDeleteConfirm = {},
+            onKakaoShareConfirm = {},
+            onEnrollButtonClick = {}
         )
     }
 }

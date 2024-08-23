@@ -19,9 +19,9 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.type.DateTimeType
-import org.sopt.dateroad.presentation.type.DateType
+import org.sopt.dateroad.domain.type.TimelineTimeType
 import org.sopt.dateroad.presentation.type.EmptyViewType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
@@ -37,20 +37,20 @@ fun PastRoute(
     padding: PaddingValues,
     viewModel: PastViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.fetchPastDate(DateTimeType.PAST)
+        viewModel.fetchPastDate(TimelineTimeType.PAST)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { pastSideEffect ->
             when (pastSideEffect) {
                 is PastContract.PastSideEffect.PopBackStack -> popBackStack()
-                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.dateType, pastSideEffect.dateId)
+                is PastContract.PastSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(pastSideEffect.timelineType, pastSideEffect.timelineId)
             }
         }
     }
@@ -65,7 +65,7 @@ fun PastRoute(
                 padding = padding,
                 pastUiState = uiState,
                 popBackStack = { viewModel.setSideEffect(PastContract.PastSideEffect.PopBackStack) },
-                navigateToTimelineDetail = { dateType, dateId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(dateType = dateType, dateId = dateId)) }
+                navigateToTimelineDetail = { timelineType, timelineId -> viewModel.setSideEffect(PastContract.PastSideEffect.NavigateToTimelineDetail(timelineType = timelineType, timelineId = timelineId)) }
             )
         }
 
@@ -78,7 +78,7 @@ fun PastScreen(
     padding: PaddingValues,
     pastUiState: PastContract.PastUiState = PastContract.PastUiState(),
     popBackStack: () -> Unit,
-    navigateToTimelineDetail: (DateType, Int) -> Unit
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -88,22 +88,22 @@ fun PastScreen(
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_past),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = popBackStack
+            onLeftIconClick = popBackStack
         )
-        if (pastUiState.dates.isEmpty()) {
+        if (pastUiState.timelines.isEmpty()) {
             DateRoadEmptyView(emptyViewType = EmptyViewType.PAST)
         } else {
             LazyColumn(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 6.dp, bottom = 11.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(pastUiState.dates.size) { index ->
+                items(pastUiState.timelines.size) { index ->
                     PastCard(
-                        date = pastUiState.dates[index],
-                        dateType = DateType.getDateTypeByIndex(index),
-                        onClick = { navigateToTimelineDetail(DateType.getDateTypeByIndex(index), pastUiState.dates[index].dateId) }
+                        timeline = pastUiState.timelines[index],
+                        timelineType = TimelineType.getTimelineTypeByIndex(index),
+                        onClick = { navigateToTimelineDetail(TimelineType.getTimelineTypeByIndex(index), pastUiState.timelines[index].timelineId) }
                     )
                 }
             }

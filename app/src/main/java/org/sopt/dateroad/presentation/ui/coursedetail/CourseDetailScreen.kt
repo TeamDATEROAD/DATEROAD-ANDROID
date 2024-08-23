@@ -1,23 +1,12 @@
 package org.sopt.dateroad.presentation.ui.coursedetail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -27,13 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,37 +24,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.PagerState
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Place
-import org.sopt.dateroad.presentation.type.ChipType
-import org.sopt.dateroad.presentation.type.CourseDetailType
+import org.sopt.dateroad.presentation.type.CourseDetailUnopenedDetailType
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.EnrollType
-import org.sopt.dateroad.presentation.type.PlaceCardType
-import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadBasicBottomSheet
-import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
-import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
-import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
-import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
-import org.sopt.dateroad.presentation.ui.component.chip.DateRoadImageChip
 import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadTwoButtonDialogWithDescription
-import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
-import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
-import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
+import org.sopt.dateroad.presentation.ui.component.pager.DateRoadImagePager
+import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadScrollResponsiveTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
-import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailInfoBar
-import org.sopt.dateroad.presentation.ui.coursedetail.component.GradientBoxWithText
-import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBasicInfo
+import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBottomBar
+import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
+import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -81,15 +53,10 @@ fun CourseDetailRoute(
     viewModel: CourseDetailViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    courseDetailType: CourseDetailType,
-    id: Int
+    courseId: Int
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
-
-    LaunchedEffect(Unit) {
-        viewModel.setEvent(CourseDetailContract.CourseDetailEvent.InitCourseDetail(id = id, courseDetailType = courseDetailType))
-    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -101,17 +68,8 @@ fun CourseDetailRoute(
             }
     }
 
-    LaunchedEffect(uiState.id) {
-        if (uiState.id != 0) {
-            when (uiState.courseDetailType) {
-                CourseDetailType.COURSE -> viewModel.fetchCourseDetail(uiState.id)
-                CourseDetailType.ADVERTISEMENT -> viewModel.fetchAdvertisementDetail(uiState.id)
-            }
-        }
-    }
-    when (uiState.deleteLoadState) {
-        LoadState.Success -> popBackStack()
-        else -> Unit
+    LaunchedEffect(Unit) {
+        viewModel.fetchCourseDetail(courseId = courseId)
     }
 
     when (uiState.loadState) {
@@ -121,6 +79,7 @@ fun CourseDetailRoute(
 
         LoadState.Success -> {
             CourseDetailScreen(
+                courseId = courseId,
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
                 onDialogPointLackConfirm = {
@@ -133,34 +92,38 @@ fun CourseDetailRoute(
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
                 onLikeButtonClicked = {
-                    if (uiState.id != 0) {
-                        when (uiState.courseDetail.isUserLiked) {
-                            true -> viewModel.deleteCourseLike(uiState.id)
-                            false -> viewModel.postCourseLike(uiState.id)
-                        }
+                    when (uiState.courseDetail.isUserLiked) {
+                        true -> viewModel.deleteCourseLike(courseId = courseId)
+                        false -> viewModel.postCourseLike(courseId = courseId)
                     }
                 },
                 onDeleteButtonClicked = {
-                    viewModel.deleteCourse(uiState.id)
+                    viewModel.deleteCourse(courseId = courseId)
                 },
                 onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
                 dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
-                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, uiState.id)) },
-                onTopBarIconClicked = popBackStack,
+                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
+                onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
                 openCourseDetail = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
-                    viewModel.postUsePoint(uiState.id)
+                    viewModel.postUsePoint(courseId = courseId)
                 }
             )
         }
 
         LoadState.Error -> DateRoadErrorView()
     }
+
+    when (uiState.deleteLoadState) {
+        LoadState.Success -> popBackStack()
+        else -> Unit
+    }
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
+    courseId: Int,
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
     onDialogPointLackConfirm: () -> Unit,
@@ -177,472 +140,206 @@ fun CourseDetailScreen(
     onTopBarIconClicked: () -> Unit,
     openCourseDetail: () -> Unit
 ) {
-    val buttonText =
-        if (courseDetailUiState.courseDetail.free > 0) {
-            stringResource(id = R.string.course_detail_free_read_button, courseDetailUiState.courseDetail.free)
-        } else {
-            stringResource(id = R.string.course_detail_point_read_button)
-        }
-    val buttonDescription =
-        if (courseDetailUiState.courseDetail.free > 0) {
-            stringResource(id = R.string.course_detail_free_read_button_description)
-        } else {
-            stringResource(id = R.string.course_detail_point_read_button_description)
-        }
     var imageHeight by remember { mutableIntStateOf(0) }
 
-    val pagerState = rememberPagerState()
     val scrollState = rememberLazyListState()
-    val isTopBarTransparent by remember {
+    val isScrollResponsiveDefault by remember {
         derivedStateOf {
             scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset < imageHeight
         }
     }
 
+    val isViewable = courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
+    val courseDetailUnopenedType = if (courseDetailUiState.courseDetail.free > 0) CourseDetailUnopenedDetailType.FREE else CourseDetailUnopenedDetailType.POINT
+
     Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            LazyColumn(
-                state = scrollState,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(DateRoadTheme.colors.white),
-                userScrollEnabled = true
-            ) {
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DateRoadTheme.colors.white)
+        ) {
+            with(courseDetailUiState.courseDetail) {
                 item {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        HorizontalPager(
-                            count = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images.size else courseDetailUiState.advertisementDetail.images.size,
-                            state = pagerState,
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            userScrollEnabled = courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT || courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
-                        ) { page ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.images[page] else courseDetailUiState.advertisementDetail.images[page])
-                                    .crossfade(true)
-                                    .build(),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .aspectRatio(1f)
-                                    .onGloballyPositioned { coordinates ->
-                                        imageHeight = coordinates.size.height
-                                    },
-                                contentScale = ContentScale.Crop
-                            )
-                        }
-
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
-                            DateRoadImageTag(
-                                textContent = courseDetailUiState.courseDetail.like.toString(),
-                                imageContent = R.drawable.ic_tag_heart,
-                                tagContentType = TagType.HEART,
-                                modifier = Modifier
-                                    .padding(start = 10.dp, bottom = 10.dp)
-                                    .align(Alignment.BottomStart)
-                            )
-                        }
-
-                        DateRoadTextTag(
-                            textContent = stringResource(id = R.string.fraction_format, pagerState.currentPage + 1, pagerState.pageCount),
-                            tagContentType = TagType.COURSE_DETAIL_PHOTO_NUMBER,
-                            modifier = Modifier
-                                .padding(end = 10.dp, bottom = 10.dp)
-                                .align(Alignment.BottomEnd)
-                        )
-                    }
-                }
-                item {
-                    Column(
+                    DateRoadImagePager(
                         modifier = Modifier
-                            .background(DateRoadTheme.colors.white)
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 18.dp)
-                    ) {
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.ADVERTISEMENT) {
-                            DateRoadTextTag(
-                                textContent = courseDetailUiState.advertisementDetail.advertisementTagTitle,
-                                tagContentType = TagType.ADVERTISEMENT_TITLE
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                        Text(
-                            text = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.date else courseDetailUiState.advertisementDetail.createAt,
-                            style = DateRoadTheme.typography.bodySemi15,
-                            color = DateRoadTheme.colors.gray400
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) courseDetailUiState.courseDetail.title else courseDetailUiState.advertisementDetail.title,
-                            style = DateRoadTheme.typography.titleExtra24,
-                            color = DateRoadTheme.colors.black
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
-                            CourseDetailInfoBar(
-                                totalTime = courseDetailUiState.courseDetail.totalTime,
-                                totalCost = courseDetailUiState.courseDetail.totalCostTag,
-                                city = courseDetailUiState.courseDetail.city
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                        when (courseDetailUiState.courseDetailType) {
-                            CourseDetailType.COURSE -> {
-                                when (courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
-                                    true -> {
-                                        Text(
-                                            text = courseDetailUiState.courseDetail.description,
-                                            style = DateRoadTheme.typography.bodyMed13Context,
-                                            color = DateRoadTheme.colors.black
-                                        )
-                                    }
-
-                                    false -> {
-                                        Column(
-                                            modifier = Modifier
-                                                .fillMaxSize(),
-                                            horizontalAlignment = Alignment.CenterHorizontally
-                                        ) {
-                                            GradientBoxWithText(text = courseDetailUiState.courseDetail.description)
-                                            Column {
-                                                Spacer(modifier = Modifier.height(8.dp))
-                                                Image(
-                                                    painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
-                                                    contentDescription = null,
-                                                    modifier = Modifier
-                                                        .align(Alignment.CenterHorizontally)
-                                                )
-                                                Spacer(modifier = Modifier.height(8.dp))
-                                                Text(
-                                                    text = stringResource(id = R.string.course_detail_unopened_title),
-                                                    style = DateRoadTheme.typography.bodyBold17,
-                                                    color = DateRoadTheme.colors.black,
-                                                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                                                )
-                                                Spacer(modifier = Modifier.height(4.dp))
-                                                Text(
-                                                    text = buttonDescription,
-                                                    style = DateRoadTheme.typography.bodySemi15,
-                                                    color = DateRoadTheme.colors.purple600,
-                                                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                                                )
-                                                Spacer(modifier = Modifier.height(24.dp))
-                                                DateRoadFilledButton(
-                                                    modifier = Modifier
-                                                        .align(Alignment.CenterHorizontally),
-                                                    isEnabled = true,
-                                                    textContent = buttonText,
-                                                    onClick = {
-                                                        if (courseDetailUiState.courseDetail.free > 0) {
-                                                            onDialogLookedForFree()
-                                                        } else {
-                                                            onDialogLookedByPoint()
-                                                        }
-                                                    },
-                                                    textStyle = DateRoadTheme.typography.bodyBold15,
-                                                    enabledBackgroundColor = DateRoadTheme.colors.purple600,
-                                                    enabledTextColor = DateRoadTheme.colors.white,
-                                                    disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                                                    disabledTextColor = DateRoadTheme.colors.gray400,
-                                                    cornerRadius = 14.dp,
-                                                    paddingHorizontal = 52.dp,
-                                                    paddingVertical = 16.dp
-                                                )
-                                                Spacer(modifier = Modifier.height(16.dp))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            CourseDetailType.ADVERTISEMENT -> {
-                                Text(
-                                    text = courseDetailUiState.advertisementDetail.description,
-                                    style = DateRoadTheme.typography.bodyMed13Context,
-                                    color = DateRoadTheme.colors.black
-                                )
-                                Spacer(modifier = Modifier.height(80.dp))
-                            }
-                        }
-                    }
+                            .onGloballyPositioned { coordinates ->
+                                imageHeight = coordinates.size.height
+                            },
+                        pagerState = PagerState(),
+                        images = courseDetailUiState.courseDetail.images,
+                        userScrollEnabled = isViewable,
+                        like = courseDetailUiState.courseDetail.like.toString()
+                    )
                 }
-                if (courseDetailUiState.courseDetailType == CourseDetailType.COURSE && courseDetailUiState.courseDetail.isCourseMine || courseDetailUiState.courseDetail.isAccess) {
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                        ) {
-                            Spacer(modifier = Modifier.height(30.dp))
-                            Text(
-                                text = stringResource(id = R.string.course_detail_timeline_title),
-                                style = DateRoadTheme.typography.titleBold18,
-                                color = DateRoadTheme.colors.black
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
+
+                item {
+                    CourseDetailBasicInfo(
+                        date = date,
+                        title = title,
+                        totalTime = totalTime,
+                        totalCost = totalCost,
+                        city = city
+                    )
+                }
+
+                when (isViewable) {
+                    true -> {
+                        courseDetailOpenedDetail(
+                            description = description,
+                            places = places,
+                            totalCost = totalCost,
+                            tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
+                        )
+                        if (!isCourseMine) {
+                            item {
+                                Spacer(modifier = Modifier.height(86.dp))
+                            }
                         }
                     }
 
-                    items(courseDetailUiState.courseDetail.places.size) { index ->
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                        ) {
-                            DateRoadPlaceCard(
-                                placeCardType = PlaceCardType.COURSE_NORMAL,
-                                sequence = index,
-                                place = courseDetailUiState.courseDetail.places[index]
-                            )
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                    }
-
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                        ) {
-                            Spacer(modifier = Modifier.height(14.dp))
-                            Text(
-                                text = stringResource(id = R.string.course_total_cost_string),
-                                style = DateRoadTheme.typography.titleBold18,
-                                color = DateRoadTheme.colors.black
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                            Text(
-                                text = courseDetailUiState.courseDetail.totalCost,
-                                style = DateRoadTheme.typography.bodyBold15,
-                                color = DateRoadTheme.colors.black,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(DateRoadTheme.colors.gray100)
-                                    .padding(start = 20.dp, top = 15.dp, end = 5.dp, bottom = 17.dp)
-                            )
-                            Spacer(modifier = Modifier.height(30.dp))
-                            Text(
-                                text = stringResource(id = R.string.course_detail_tag),
-                                style = DateRoadTheme.typography.titleBold18,
-                                color = DateRoadTheme.colors.black
-                            )
-                            Spacer(modifier = Modifier.height(12.dp))
-                        }
-                    }
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                        ) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                                courseDetailUiState.courseDetail.tags.forEach { tag ->
-                                    tag.getDateTagTypeByName()?.let { tagType ->
-                                        DateRoadImageChip(
-                                            textId = tagType.titleRes,
-                                            imageRes = tagType.imageRes,
-                                            chipType = ChipType.DATE,
-                                            isSelected = false
-                                        )
-                                    }
+                    false -> {
+                        item {
+                            CourseDetailUnopenedDetail(
+                                text = description,
+                                free = free,
+                                courseDetailUnopenedDetailType = courseDetailUnopenedType,
+                                onButtonClicked = when (courseDetailUnopenedType) {
+                                    CourseDetailUnopenedDetailType.FREE -> onDialogLookedForFree
+                                    CourseDetailUnopenedDetailType.POINT -> onDialogLookedByPoint
                                 }
-                            }
-                            Spacer(modifier = Modifier.height(38.dp))
-                            if (!courseDetailUiState.courseDetail.isCourseMine) {
-                                Spacer(modifier = Modifier.height(80.dp))
-                            }
+                            )
                         }
                     }
                 }
             }
         }
 
-        Box(
-            modifier = Modifier.background(
-                if (isTopBarTransparent) {
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            DateRoadTheme.colors.black.copy(alpha = 0.22f),
-                            Color.Transparent
-                        )
-                    )
-                } else {
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            DateRoadTheme.colors.white,
-                            DateRoadTheme.colors.white
-                        )
-                    )
-                }
+        DateRoadScrollResponsiveTopBar(
+            isDefault = isScrollResponsiveDefault,
+            onLeftIconClick = onTopBarIconClicked,
+            onRightIconClick = onEditBottomSheet,
+            rightIconResource = if (isViewable) R.drawable.btn_course_detail_more_white else null
+        )
+
+        if (isViewable && !courseDetailUiState.courseDetail.isCourseMine) {
+            CourseDetailBottomBar(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                isUserLiked = courseDetailUiState.courseDetail.isUserLiked,
+                onLikeButtonClicked = onLikeButtonClicked,
+                onEnrollButtonClicked = enrollSchedule
             )
-        ) {
-            DateRoadBasicTopBar(
-                title = "",
-                backGroundColor = if (isTopBarTransparent) Color.Transparent else DateRoadTheme.colors.white,
-                iconLeftResource = R.drawable.ic_top_bar_back_white,
-                onIconClick = { onTopBarIconClicked() },
-                buttonContent = {
-                    if (courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetailType == CourseDetailType.COURSE) {
-                        Icon(
-                            painterResource(id = R.drawable.btn_course_detail_more_white),
-                            contentDescription = null,
-                            tint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black,
-                            modifier = Modifier.noRippleClickable { onEditBottomSheet() }
-                        )
+        }
+
+        if (courseDetailUiState.isPointReadDialogOpen) {
+            DateRoadTwoButtonDialogWithDescription(
+                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
+                onDismissRequest = { dismissDialogLookedByPoint() },
+                onClickConfirm = {
+                    dismissDialogLookedByPoint()
+                    if (courseDetailUiState.courseDetail.totalPoint < 50) {
+                        onDialogPointLack()
+                    } else {
+                        openCourseDetail()
                     }
                 },
-                leftTint = if (isTopBarTransparent) DateRoadTheme.colors.white else DateRoadTheme.colors.black
+                onClickDismiss = { dismissDialogLookedByPoint() }
             )
         }
 
-        if (!courseDetailUiState.courseDetail.isCourseMine && courseDetailUiState.courseDetail.isAccess) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = DateRoadTheme.colors.white)
-                    .align(Alignment.BottomCenter)
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            ) {
-                Row {
-                    DateRoadImageButton(
-                        iconResId = R.drawable.ic_coures_detail_heart_default,
-                        enabledContentColor = DateRoadTheme.colors.purple600,
-                        disabledContentColor = DateRoadTheme.colors.gray200,
-                        enabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        disabledBackgroundColor = DateRoadTheme.colors.gray100,
-                        isEnabled = courseDetailUiState.courseDetail.isUserLiked,
-                        onClick = onLikeButtonClicked,
-                        cornerRadius = 14.dp,
-                        paddingHorizontal = 23.dp,
-                        paddingVertical = 18.dp
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    DateRoadBasicButton(
-                        modifier = Modifier.weight(1f),
-                        isEnabled = true,
-                        textContent = stringResource(id = R.string.course_detail_get_course),
-                        onClick = { enrollSchedule() }
-                    )
-                }
-            }
+        if (courseDetailUiState.isPointLackDialogOpen) {
+            DateRoadTwoButtonDialogWithDescription(
+                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
+                onDismissRequest = dismissDialogPointLack,
+                onClickConfirm = onDialogPointLackConfirm,
+                onClickDismiss = dismissDialogPointLack
+            )
         }
-    }
 
-    if (courseDetailUiState.isPointReadDialogOpen) {
-        DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
-            onDismissRequest = { dismissDialogLookedByPoint() },
-            onClickConfirm = {
-                dismissDialogLookedByPoint()
-                if (courseDetailUiState.courseDetail.totalPoint < 50) {
-                    onDialogPointLack()
-                } else {
+        if (courseDetailUiState.isFreeReadDialogOpen) {
+            DateRoadTwoButtonDialogWithDescription(
+                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.FREE_READ,
+                onDismissRequest = { dismissDialogLookedForFree() },
+                onClickConfirm = {
+                    dismissDialogLookedForFree()
                     openCourseDetail()
-                }
-            },
-            onClickDismiss = { dismissDialogLookedByPoint() }
-        )
-    }
-
-    if (courseDetailUiState.isPointLackDialogOpen) {
-        DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-            onDismissRequest = dismissDialogPointLack,
-            onClickConfirm = onDialogPointLackConfirm,
-            onClickDismiss = dismissDialogPointLack
-        )
-    }
-
-    if (courseDetailUiState.isFreeReadDialogOpen) {
-        DateRoadTwoButtonDialogWithDescription(
-            twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.FREE_READ,
-            onDismissRequest = { dismissDialogLookedForFree() },
-            onClickConfirm = {
-                dismissDialogLookedForFree()
-                openCourseDetail()
-            },
-            onClickDismiss = { dismissDialogLookedForFree() }
-        )
-    }
-
-    DateRoadBasicBottomSheet(
-        isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
-        title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-        isButtonEnabled = false,
-        buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
-        itemList = listOf(
-            stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
-                onDeleteButtonClicked()
-            }
-        ),
-        onDismissRequest = { dismissEditBottomSheet() },
-        onButtonClick = {
-            dismissEditBottomSheet()
+                },
+                onClickDismiss = { dismissDialogLookedForFree() }
+            )
         }
-    )
-}
 
-@Composable
-fun CourseDetailScreenP() {
-    val dummyCourseDetail = CourseDetailContract.CourseDetailUiState(
-        loadState = LoadState.Success,
-        courseDetailType = CourseDetailType.COURSE,
-        courseDetail = CourseDetail(
-            courseId = 1,
-            title = "Sample Course",
-            description = "This is a sample course description.",
-            totalTime = "4 hours",
-            totalCost = "$100",
-            city = "Seoul",
-            images = listOf(
-                "https://via.placeholder.com/300",
-                "https://via.placeholder.com/300"
+        DateRoadBasicBottomSheet(
+            isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
+            title = stringResource(id = R.string.course_detail_bottom_sheet_title),
+            isButtonEnabled = false,
+            buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
+            itemList = listOf(
+                stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
+                    onDeleteButtonClicked()
+                }
             ),
-            tags = listOf("TAG1", "TAG2"),
-            places = listOf(
-                Place(
-                    title = "Place 1",
-                    duration = "1"
-                ),
-                Place(
-                    title = "Place 2",
-                    duration = "2"
-                )
-            ),
-            isCourseMine = true,
-            isAccess = true,
-            isUserLiked = false,
-            like = 10,
-            free = 2,
-            totalPoint = 30
+            onDismissRequest = { dismissEditBottomSheet() },
+            onButtonClick = {
+                dismissEditBottomSheet()
+            }
         )
-    )
-
-    CourseDetailScreen(
-        courseDetailUiState = dummyCourseDetail,
-        onDialogPointLack = {},
-        dismissDialogPointLack = {},
-        onDialogPointLackConfirm = {},
-        onDialogLookedForFree = {},
-        dismissDialogLookedForFree = {},
-        onDialogLookedByPoint = {},
-        dismissDialogLookedByPoint = {},
-        onLikeButtonClicked = {},
-        onDeleteButtonClicked = {},
-        onEditBottomSheet = {},
-        dismissEditBottomSheet = {},
-        enrollSchedule = {},
-        onTopBarIconClicked = {},
-        openCourseDetail = {}
-    )
+    }
 }
 
 @Preview
 @Composable
 fun CourseDetailScreenPreview() {
     DATEROADTheme {
-        CourseDetailScreenP()
+        val dummyCourseDetail = CourseDetailContract.CourseDetailUiState(
+            loadState = LoadState.Success,
+            courseDetail = CourseDetail(
+                courseId = 1,
+                title = "Sample Course",
+                description = "This is a sample course description.",
+                totalTime = "4 hours",
+                totalCost = "$100",
+                city = "Seoul",
+                images = listOf(
+                    "https://via.placeholder.com/300",
+                    "https://via.placeholder.com/300"
+                ),
+                tags = listOf("TAG1", "TAG2"),
+                places = listOf(
+                    Place(
+                        title = "Place 1",
+                        duration = "1"
+                    ),
+                    Place(
+                        title = "Place 2",
+                        duration = "2"
+                    )
+                ),
+                isCourseMine = true,
+                isAccess = true,
+                isUserLiked = false,
+                like = 10,
+                free = 2,
+                totalPoint = 30
+            )
+        )
+
+        CourseDetailScreen(
+            courseId = 1,
+            courseDetailUiState = dummyCourseDetail,
+            onDialogPointLack = {},
+            dismissDialogPointLack = {},
+            onDialogPointLackConfirm = {},
+            onDialogLookedForFree = {},
+            dismissDialogLookedForFree = {},
+            onDialogLookedByPoint = {},
+            dismissDialogLookedByPoint = {},
+            onLikeButtonClicked = {},
+            onDeleteButtonClicked = {},
+            onEditBottomSheet = {},
+            dismissEditBottomSheet = {},
+            enrollSchedule = {},
+            onTopBarIconClicked = {},
+            openCourseDetail = {}
+        )
     }
 }

@@ -17,14 +17,17 @@ object Seoul {
     const val SEOUL_ENTIRE = "서울 전체"
     const val GANGNAM_SEOCHO = "강남/서초"
     const val JAMSIL_SONGPA_GANGDONG = "잠실/송파/강동"
-    const val KONDAE_SUNGSOO_WANGSIMNI = "건대/성수/왕십리"
+    const val KONDAE_SEONGSU_SEONGDONG = "건대/성수/성동"
+    const val GWANGIN_JUNGBANG = "광진/중랑"
     const val JONGNO_JUNGRO = "종로/중구"
+    const val EUNPYEONG_SEODAEMUN = "은평/서대문"
     const val HONGDAE_HAPJEONG_MAPO = "홍대/합정/마포"
     const val YEONGDEUNGPO_YEOUIDO = "영등포/여의도"
     const val YONGSAN_ITAEWON_HANNAM = "용산/이태원/한남"
-    const val YANGCHEON_GANGSEO = "양천/강서"
-    const val SEONGBUK_NOWON_JUNGBANG = "성북/노원/중랑"
-    const val GURO_GWANAK_DONGJAK = "구로/관악/동작"
+    const val YANGCHEON_GANGSEO_GURO = "양천/강서/구로"
+    const val DONGDAEMUN_SEONGBUK = "동대문/성북"
+    const val NOWON_DOBONG_GANGBUK = "노원/도봉/강북"
+    const val GWANAK_DONGJAK_GEUMCHEON = "관악/동작/금천"
 }
 
 object Gyeonggi {

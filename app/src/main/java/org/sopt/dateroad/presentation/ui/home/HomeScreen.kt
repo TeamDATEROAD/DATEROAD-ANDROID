@@ -37,9 +37,8 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.MainDate
+import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.type.SortByType
-import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -47,10 +46,10 @@ import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadTextTag
-import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.ui.home.component.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
@@ -66,7 +65,8 @@ fun HomeRoute(
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
+    navigateToAdvertisementDetail: (Int) -> Unit,
+    navigateToCourseDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -99,7 +99,8 @@ fun HomeRoute(
                     is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook()
                     is HomeContract.HomeSideEffect.NavigateToTimeline -> navigateToTimeline()
                     is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.id)
-                    is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseDetailType, homeSideEffect.id)
+                    is HomeContract.HomeSideEffect.NavigateToAdvertisementDetail -> navigateToAdvertisementDetail(homeSideEffect.advertisementId)
+                    is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseId)
                 }
             }
     }
@@ -119,7 +120,8 @@ fun HomeRoute(
                 navigateToLook = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToLook) },
                 navigateToTimeline = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToTimeline) },
                 onFabClick = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.COURSE, null)) },
-                navigateToCourseDetail = { courseDetailType: CourseDetailType, id: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToCourseDetail(courseDetailType, id)) }
+                navigateToAdvertisementDetail = { advertisementId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToAdvertisementDetail(advertisementId = advertisementId)) },
+                navigateToCourseDetail = { courseId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )
         }
 
@@ -137,7 +139,8 @@ fun HomeScreen(
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
     navigateToTimeline: () -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit,
+    navigateToAdvertisementDetail: (Int) -> Unit,
+    navigateToCourseDetail: (Int) -> Unit,
     onFabClick: () -> Unit
 ) {
     Column(
@@ -153,11 +156,11 @@ fun HomeScreen(
             onClick = navigateToPointHistory
         )
         Row(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 15.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 16.dp)
         ) {
             HomeTimeLineCard(
-                mainDate = uiState.mainDate,
-                onClick = if (uiState.mainDate == MainDate()) {
+                nearestTimeline = uiState.nearestTimeline,
+                onClick = if (uiState.nearestTimeline == NearestTimeline()) {
                     navigateToEnroll
                 } else {
                     navigateToTimeline
@@ -215,7 +218,7 @@ fun HomeScreen(
                         items(uiState.topLikedCourses) { topLikedCourses ->
                             HomeHotCourseCard(
                                 course = topLikedCourses,
-                                onClick = { navigateToCourseDetail(CourseDetailType.COURSE, topLikedCourses.courseId) }
+                                onClick = { navigateToCourseDetail(topLikedCourses.courseId) }
                             )
                         }
                     }
@@ -234,7 +237,7 @@ fun HomeScreen(
                     ) { page ->
                         HomeAdvertisement(
                             advertisement = uiState.advertisements[page],
-                            onClick = { navigateToCourseDetail(CourseDetailType.ADVERTISEMENT, uiState.advertisements[page].advertisementId) }
+                            onClick = { navigateToAdvertisementDetail(uiState.advertisements[page].advertisementId) }
                         )
                     }
                     DateRoadTextTag(
@@ -282,7 +285,7 @@ fun HomeScreen(
                 uiState.latestCourses.forEach { latestCourses ->
                     DateRoadCourseCard(
                         course = latestCourses,
-                        onClick = { navigateToCourseDetail(CourseDetailType.COURSE, latestCourses.courseId) }
+                        onClick = { navigateToCourseDetail(latestCourses.courseId) }
                     )
                 }
             }

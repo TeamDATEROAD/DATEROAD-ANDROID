@@ -14,11 +14,17 @@ enum class SeoulAreaType(
     JAMSIL_SONGPA_GANGDONG(
         title = Seoul.JAMSIL_SONGPA_GANGDONG
     ),
-    KONDAE_SUNGSOO_WANGSIMNI(
-        title = Seoul.KONDAE_SUNGSOO_WANGSIMNI
+    KONDAE_SEONGSU_SEONGDONG(
+        title = Seoul.KONDAE_SEONGSU_SEONGDONG
+    ),
+    GWANGIN_JUNGBANG(
+        title = Seoul.GWANGIN_JUNGBANG
     ),
     JONGNO_JUNGRO(
         title = Seoul.JONGNO_JUNGRO
+    ),
+    EUNPYEONG_SEODAEMUN(
+        title = Seoul.EUNPYEONG_SEODAEMUN
     ),
     HONGDAE_HAPJEONG_MAPO(
         title = Seoul.HONGDAE_HAPJEONG_MAPO
@@ -29,14 +35,17 @@ enum class SeoulAreaType(
     YONGSAN_ITAEWON_HANNAM(
         title = Seoul.YONGSAN_ITAEWON_HANNAM
     ),
-    YANGCHEON_GANGSEO(
-        title = Seoul.YANGCHEON_GANGSEO
+    YANGCHEON_GANGSEO_GURO(
+        title = Seoul.YANGCHEON_GANGSEO_GURO
     ),
-    SEONGBUK_NOWON_JUNGBANG(
-        title = Seoul.SEONGBUK_NOWON_JUNGBANG
+    DONGDAEMUN_SEONGBUK(
+        title = Seoul.DONGDAEMUN_SEONGBUK
     ),
-    GURO_GWANAK_DONGJAK(
-        title = Seoul.GURO_GWANAK_DONGJAK
+    NOWON_DOBONG_GANGBUK(
+        title = Seoul.NOWON_DOBONG_GANGBUK
+    ),
+    GWANAK_DONGJAK_GEUMCHEON(
+        title = Seoul.GWANAK_DONGJAK_GEUMCHEON
     );
 
     companion object {
