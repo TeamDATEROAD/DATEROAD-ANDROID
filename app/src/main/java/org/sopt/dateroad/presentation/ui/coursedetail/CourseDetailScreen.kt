@@ -92,6 +92,10 @@ fun CourseDetailRoute(
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
+                onDialogDeleteCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogDeleteCourse) },
+                onDialogReportCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogReportCourse) },
+                dismissDialogDeleteCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogDeleteCourse) },
+                dismissDialogReportCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogReportCourse) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
                 onLikeButtonClicked = {
                     when (uiState.courseDetail.isUserLiked) {
@@ -140,6 +144,10 @@ fun CourseDetailScreen(
     dismissDialogLookedForFree: () -> Unit,
     onDialogLookedByPoint: () -> Unit,
     dismissDialogLookedByPoint: () -> Unit,
+    onDialogDeleteCourse: () -> Unit,
+    dismissDialogDeleteCourse: () -> Unit,
+    onDialogReportCourse: () -> Unit,
+    dismissDialogReportCourse: () -> Unit,
     onLikeButtonClicked: () -> Unit,
     onDeleteButtonClicked: () -> Unit,
     onDeleteCourseBottomSheet: () -> Unit,
@@ -283,6 +291,30 @@ fun CourseDetailScreen(
                 )
             }
 
+            if (courseDetailUiState.isDeleteCourseDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_COURSE,
+                    onDismissRequest = { dismissDialogDeleteCourse() },
+                    onClickConfirm = {
+                        dismissDialogDeleteCourse()
+                        onDeleteButtonClicked()
+                    },
+                    onClickDismiss = { dismissDialogDeleteCourse() }
+                )
+            }
+
+            if (courseDetailUiState.isReportCourseDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.REPORT_COURSE,
+                    onDismissRequest = { dismissDialogReportCourse() },
+                    onClickConfirm = {
+                        dismissDialogReportCourse()
+                        onReportButtonClicked()
+                    },
+                    onClickDismiss = { dismissDialogReportCourse() }
+                )
+            }
+
             DateRoadBasicBottomSheet(
                 isBottomSheetOpen = courseDetailUiState.isDeleteCourseBottomSheetOpen,
                 title = stringResource(id = R.string.course_detail_bottom_sheet_title),
@@ -290,7 +322,7 @@ fun CourseDetailScreen(
                 buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
                 itemList = listOf(
                     stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
-                        onDeleteButtonClicked()
+                        onDialogDeleteCourse()
                     }
                 ),
                 onDismissRequest = { dismissDeleteCourseBottomSheet() },
@@ -306,7 +338,7 @@ fun CourseDetailScreen(
                 buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
                 itemList = listOf(
                     stringResource(id = R.string.course_detail_bottom_sheet_report) to {
-                        onReportButtonClicked()
+                        onDialogReportCourse()
                     }
                 ),
                 onDismissRequest = { dismissReportCourseBottomSheet() },
@@ -375,7 +407,11 @@ fun CourseDetailScreenPreview() {
             onTopBarIconClicked = {},
             openCourseDetail = {},
             onReportButtonClicked = {},
-            onReportWebViewClose = {}
+            onReportWebViewClose = {},
+            onDialogDeleteCourse = {},
+            onDialogReportCourse = {},
+            dismissDialogDeleteCourse = {},
+            dismissDialogReportCourse = {}
         )
     }
 }

@@ -16,6 +16,8 @@ class CourseDetailContract {
         val isPointReadDialogOpen: Boolean = false,
         val isPointLackDialogOpen: Boolean = false,
         val isFreeReadDialogOpen: Boolean = false,
+        val isDeleteCourseDialogOpen: Boolean = false,
+        val isReportCourseDialogOpen: Boolean = false,
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
         val currentImagePage: Int = 0,
@@ -37,6 +39,10 @@ class CourseDetailContract {
         data object DismissDialogLookedForFree : CourseDetailEvent()
         data object OnDialogPointLack : CourseDetailEvent()
         data object DismissDialogPointLack : CourseDetailEvent()
+        data object OnDialogDeleteCourse : CourseDetailEvent()
+        data object DismissDialogDeleteCourse : CourseDetailEvent()
+        data object OnDialogReportCourse : CourseDetailEvent()
+        data object DismissDialogReportCourse : CourseDetailEvent()
         data object OnDeleteCourseBottomSheet : CourseDetailEvent()
         data object DismissDeleteCourseBottomSheet : CourseDetailEvent()
         data object OnReportCourseBottomSheet : CourseDetailEvent()
