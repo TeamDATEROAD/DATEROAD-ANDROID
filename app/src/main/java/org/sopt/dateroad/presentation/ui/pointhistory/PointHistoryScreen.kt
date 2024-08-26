@@ -100,9 +100,9 @@ fun PointHistoryScreen(
     ) {
         DateRoadBasicTopBar(
             title = stringResource(id = R.string.top_bar_title_point_history),
-            iconLeftResource = R.drawable.ic_top_bar_back_white,
+            leftIconResource = R.drawable.ic_top_bar_back_white,
             backGroundColor = DateRoadTheme.colors.white,
-            onIconClick = onTopBarIconClicked
+            onLeftIconClick = onTopBarIconClicked
         )
         Spacer(modifier = Modifier.height(22.dp))
         PointHistoryPointBox(

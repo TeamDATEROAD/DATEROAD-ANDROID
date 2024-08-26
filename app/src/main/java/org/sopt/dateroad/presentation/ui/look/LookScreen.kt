@@ -36,7 +36,6 @@ import org.sopt.dateroad.domain.type.MoneyTagType
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.type.SeoulAreaType
 import org.sopt.dateroad.presentation.type.ChipType
-import org.sopt.dateroad.presentation.type.CourseDetailType
 import org.sopt.dateroad.presentation.type.EmptyViewType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.DateRoadRegionBottomSheet
@@ -59,7 +58,7 @@ fun LookRoute(
     padding: PaddingValues,
     viewModel: LookViewModel = hiltViewModel(),
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToCourseDetail: (CourseDetailType, Int) -> Unit
+    navigateToCourseDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -81,7 +80,7 @@ fun LookRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { lookSideEffect ->
                 when (lookSideEffect) {
-                    is LookContract.LookSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(CourseDetailType.COURSE, lookSideEffect.courseId)
+                    is LookContract.LookSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(lookSideEffect.courseId)
                     is LookContract.LookSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, null)
                 }
             }
