@@ -10,8 +10,9 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class CourseDetailContract {
     data class CourseDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val isEditBottomSheetOpen: Boolean = false,
+        val isDeleteCourseBottomSheetOpen: Boolean = false,
         val isRegionBottomSheetOpen: Boolean = false,
+        val isReportCourseBottomSheetOpen : Boolean = false,
         val isPointReadDialogOpen: Boolean = false,
         val isPointLackDialogOpen: Boolean = false,
         val isFreeReadDialogOpen: Boolean = false,
@@ -36,8 +37,10 @@ class CourseDetailContract {
         data object DismissDialogLookedForFree : CourseDetailEvent()
         data object OnDialogPointLack : CourseDetailEvent()
         data object DismissDialogPointLack : CourseDetailEvent()
-        data object OnEditBottomSheet : CourseDetailEvent()
-        data object DismissEditBottomSheet : CourseDetailEvent()
+        data object OnDeleteCourseBottomSheet : CourseDetailEvent()
+        data object DismissDeleteCourseBottomSheet : CourseDetailEvent()
+        data object OnReportCourseBottomSheet : CourseDetailEvent()
+        data object DismissReportCourseBottomSheet : CourseDetailEvent()
         data object OpenCourse : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
