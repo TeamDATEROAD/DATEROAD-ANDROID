@@ -187,6 +187,7 @@ fun CourseDetailScreen(
                     true -> {
                         courseDetailOpenedDetail(
                             description = description,
+                            startAt = startAt,
                             places = places,
                             totalCost = totalCost,
                             tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
