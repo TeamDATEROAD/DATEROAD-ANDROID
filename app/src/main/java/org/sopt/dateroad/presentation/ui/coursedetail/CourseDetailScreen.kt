@@ -161,13 +161,12 @@ fun CourseDetailScreen(
         }
     }
 
-
     val isViewable = courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
     val courseDetailUnopenedType = if (courseDetailUiState.courseDetail.free > 0) CourseDetailUnopenedDetailType.FREE else CourseDetailUnopenedDetailType.POINT
 
     if (courseDetailUiState.isWebViewOpened) {
         DateRoadWebView(url = REPORT_URL, onClose = onReportWebViewClose)
-    }else{
+    } else {
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 state = scrollState,

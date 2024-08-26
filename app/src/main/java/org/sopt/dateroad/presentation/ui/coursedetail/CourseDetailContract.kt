@@ -12,7 +12,7 @@ class CourseDetailContract {
         val loadState: LoadState = LoadState.Idle,
         val isDeleteCourseBottomSheetOpen: Boolean = false,
         val isRegionBottomSheetOpen: Boolean = false,
-        val isReportCourseBottomSheetOpen : Boolean = false,
+        val isReportCourseBottomSheetOpen: Boolean = false,
         val isPointReadDialogOpen: Boolean = false,
         val isPointLackDialogOpen: Boolean = false,
         val isFreeReadDialogOpen: Boolean = false,
