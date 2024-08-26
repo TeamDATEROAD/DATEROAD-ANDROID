@@ -1,6 +1,5 @@
 package org.sopt.dateroad.presentation.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -176,10 +175,8 @@ class ProfileViewModel @Inject constructor(
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
             }.onFailure { error ->
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
-                Log.e("http image", error.message.toString())
             }
         }
-        Log.d("http image", "patch image: ${editProfile.image}")
     }
 
     companion object {

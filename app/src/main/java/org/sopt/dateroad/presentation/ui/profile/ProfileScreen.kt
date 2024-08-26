@@ -219,7 +219,7 @@ fun ProfileScreen(
                             rememberAsyncImagePainter(model = profileUiState.signUp.image)
                         }
 
-                        ProfileType.EDIT -> if (profileUiState.editProfile.image.isEmpty() || profileUiState.editProfile.image == "null") {
+                        ProfileType.EDIT -> if (profileUiState.editProfile.image.isNullOrEmpty()) {
                             painterResource(id = R.drawable.ic_enroll_profile_default)
                         } else {
                             rememberAsyncImagePainter(model = profileUiState.editProfile.image)

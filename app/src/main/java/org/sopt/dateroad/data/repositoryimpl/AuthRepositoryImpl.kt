@@ -51,7 +51,7 @@ class AuthRepositoryImpl @Inject constructor(
         authRemoteDataSource.patchEditProfile(
             name = editProfile.name.toRequestBody(),
             tags = (Json.encodeToString(editProfile.tags.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType()),
-            image = if (editProfile.image.isEmpty() || editProfile.image.startsWith("https://")) {
+            image = if (editProfile.image.isNullOrEmpty() || editProfile.image.startsWith("https://")) {
                 null
             } else {
                 ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(editProfile.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE)
