@@ -197,12 +197,12 @@ fun ProfileScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DateRoadBasicTopBar(
-            iconLeftResource = if (profileUiState.profileType == ProfileType.EDIT) {
+            leftIconResource = if (profileUiState.profileType == ProfileType.EDIT) {
                 R.drawable.ic_top_bar_back_white
             } else {
                 null
             },
-            onIconClick = popUpBackStack,
+            onLeftIconClick = popUpBackStack,
             title = stringResource(id = profileUiState.profileType.topAppBarTitleRes),
             backGroundColor = DateRoadTheme.colors.white
         )
@@ -251,6 +251,7 @@ fun ProfileScreen(
                 } else {
                     profileUiState.editProfile.name
                 },
+                validationErrorDescription = "최소 2글자를 입력해주세요.",
                 successDescription = stringResource(id = R.string.profile_text_field_success_description),
                 conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
                 buttonText = stringResource(id = R.string.profile_text_field_button_text),

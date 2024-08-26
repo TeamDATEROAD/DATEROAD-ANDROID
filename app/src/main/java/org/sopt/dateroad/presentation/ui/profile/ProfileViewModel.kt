@@ -74,12 +74,20 @@ class ProfileViewModel @Inject constructor(
                 if (currentState.profileType == ProfileType.ENROLL) {
                     copy(
                         signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
-                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
+                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH,
+                        nicknameValidateResult = when {
+                            event.name.length < 2 -> TextFieldValidateResult.ValidationError
+                            else -> TextFieldValidateResult.Basic
+                        }
                     )
                 } else {
                     copy(
                         editProfile = currentState.editProfile.copy(name = event.name),
-                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH
+                        isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH,
+                        nicknameValidateResult = when {
+                            event.name.length < 2 -> TextFieldValidateResult.ValidationError
+                            else -> TextFieldValidateResult.Basic
+                        }
                     )
                 }
             }
@@ -138,7 +146,6 @@ class ProfileViewModel @Inject constructor(
                         )
                     )
                 }
-                Log.d("http", "currentName: $currentName, name: $name same= ${currentName == name}")
             }.onFailure {
                 setEvent(
                     ProfileContract.ProfileEvent.GetNicknameCheck(
@@ -172,7 +179,7 @@ class ProfileViewModel @Inject constructor(
                 Log.e("http image", error.message.toString())
             }
         }
-        Log.d("http image", "image: ${editProfile.image}")
+        Log.d("http image", "patch image: ${editProfile.image}")
     }
 
     companion object {
