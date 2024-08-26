@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.onboarding
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,12 +22,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.OnboardingType
@@ -42,8 +42,21 @@ fun OnboardingRoute(
     viewModel: OnBoardingViewModel = hiltViewModel(),
     navigateToProfile: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState()
+
+    BackHandler() {
+        when (pagerState.currentPage) {
+            0 -> Unit
+
+            else -> {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                }
+            }
+        }
+    }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
@@ -55,6 +68,8 @@ fun OnboardingRoute(
     }
 
     OnboardingScreen(
+        pagerState = pagerState,
+        coroutineScope = coroutineScope,
         onEnrollProfileButtonClicked = { viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToProfile) }
     )
 }
@@ -63,10 +78,9 @@ fun OnboardingRoute(
 @Composable
 fun OnboardingScreen(
     pagerState: PagerState = rememberPagerState(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
     onEnrollProfileButtonClicked: () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -131,9 +145,8 @@ fun OnboardingScreen(
                 if (pagerState.currentPage == OnboardingType.entries.size - 1) {
                     onEnrollProfileButtonClicked()
                 } else {
-                    scope.launch {
-                        val nextPage = pagerState.currentPage + 1
-                        pagerState.animateScrollToPage(nextPage)
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 }
             },

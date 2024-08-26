@@ -65,10 +65,7 @@ fun SignInRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { signInSideEffect ->
                 when (signInSideEffect) {
-                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> {
-                        navigateToOnboarding()
-                    }
-
+                    is SignInContract.SignInSideEffect.NavigateToOnboarding -> navigateToOnboarding()
                     is SignInContract.SignInSideEffect.NavigateToHome -> navigateToHome()
                 }
             }

@@ -10,5 +10,6 @@ class OnBoardingContract {
     sealed interface OnBoardingSideEffect : UiSideEffect {
         data object NavigateToProfile : OnBoardingSideEffect
     }
+
     sealed class OnBoardingEvent : UiEvent
 }
