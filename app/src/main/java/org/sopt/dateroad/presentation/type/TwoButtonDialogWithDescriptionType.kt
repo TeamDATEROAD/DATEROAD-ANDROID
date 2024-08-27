@@ -51,7 +51,6 @@ enum class TwoButtonDialogWithDescriptionType(
         confirmButtonTextRes = R.string.dialog_cancel,
         dismissButtonTextRes = R.string.withdrawal
     ),
-
     REPORT_COURSE(
         titleRes = R.string.two_button_dialog_with_description_report_course_title,
         descriptionRes = R.string.two_button_dialog_with_description_report_course_description,

@@ -45,7 +45,7 @@ import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBasi
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBottomBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
 import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
-import org.sopt.dateroad.presentation.util.CourseDetail.REPORT_URL
+import org.sopt.dateroad.presentation.util.WebViewUrl.REPORT_URL
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
