@@ -30,7 +30,7 @@ fun LazyListScope.courseDetailOpenedDetail(
     item {
         Spacer(modifier = Modifier.height(16.dp))
     }
-    courseDetailTimeline(places = places, startAt = startAt)
+    courseDetailTimeline(startAt = startAt, places = places)
     item {
         CourseDetailCost(totalCost = totalCost)
     }
