@@ -206,21 +206,21 @@ fun CourseDetailScreen(
                         )
                     }
 
-                when (isViewable) {
-                    true -> {
-                        courseDetailOpenedDetail(
-                            description = description,
-                            startAt = startAt,
-                            places = places,
-                            totalCost = totalCost,
-                            tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
-                        )
-                        if (!isCourseMine) {
-                            item {
-                                Spacer(modifier = Modifier.height(86.dp))
+                    when (isViewable) {
+                        true -> {
+                            courseDetailOpenedDetail(
+                                description = description,
+                                startAt = startAt,
+                                places = places,
+                                totalCost = totalCost,
+                                tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
+                            )
+                            if (!isCourseMine) {
+                                item {
+                                    Spacer(modifier = Modifier.height(86.dp))
+                                }
                             }
                         }
-                    }
 
                         false -> {
                             item {
