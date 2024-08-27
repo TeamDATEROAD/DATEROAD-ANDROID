@@ -10,16 +10,20 @@ import org.sopt.dateroad.presentation.util.view.LoadState
 class CourseDetailContract {
     data class CourseDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val isEditBottomSheetOpen: Boolean = false,
+        val isDeleteCourseBottomSheetOpen: Boolean = false,
         val isRegionBottomSheetOpen: Boolean = false,
+        val isReportCourseBottomSheetOpen: Boolean = false,
         val isPointReadDialogOpen: Boolean = false,
         val isPointLackDialogOpen: Boolean = false,
         val isFreeReadDialogOpen: Boolean = false,
+        val isDeleteCourseDialogOpen: Boolean = false,
+        val isReportCourseDialogOpen: Boolean = false,
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
         val currentImagePage: Int = 0,
         val deleteLoadState: LoadState = LoadState.Idle,
-        val usePointLoadState: LoadState = LoadState.Idle
+        val usePointLoadState: LoadState = LoadState.Idle,
+        var isWebViewOpened: Boolean = false
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {
@@ -35,13 +39,21 @@ class CourseDetailContract {
         data object DismissDialogLookedForFree : CourseDetailEvent()
         data object OnDialogPointLack : CourseDetailEvent()
         data object DismissDialogPointLack : CourseDetailEvent()
-        data object OnEditBottomSheet : CourseDetailEvent()
-        data object DismissEditBottomSheet : CourseDetailEvent()
+        data object OnDialogDeleteCourse : CourseDetailEvent()
+        data object DismissDialogDeleteCourse : CourseDetailEvent()
+        data object OnDialogReportCourse : CourseDetailEvent()
+        data object DismissDialogReportCourse : CourseDetailEvent()
+        data object OnDeleteCourseBottomSheet : CourseDetailEvent()
+        data object DismissDeleteCourseBottomSheet : CourseDetailEvent()
+        data object OnReportCourseBottomSheet : CourseDetailEvent()
+        data object DismissReportCourseBottomSheet : CourseDetailEvent()
         data object OpenCourse : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
         data class DeleteCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
+        data object OnReportWebViewClicked : CourseDetailEvent()
+        data object DismissReportWebView : CourseDetailEvent()
     }
 }

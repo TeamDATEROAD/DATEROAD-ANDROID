@@ -17,6 +17,7 @@
     <string name="dialog_check">확인</string>
     <string name="dialog_checked">확인했어요</string>
     <string name="dialog_delete">삭제</string>
+    <string name="dialog_report">신고</string>
     <string name="dialog_delete_schedule">삭제된 일정은 복구하실 수 없어요</string>
 
     <!-- AdvertisementTitleType -->
@@ -167,9 +168,14 @@
     <string name="two_button_dialog_with_description_free_read_title">무료 열람 기회를 사용해 보시겠어요?</string>
     <string name="two_button_dialog_with_description_free_read_description">무료 열람 기회는 한 번 사용하면 취소할 수 없어요</string>
     <string name="two_button_dialog_with_description_delete_timeline_title">데이트 일정을 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_delete_course_title">데이트 코스를 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_report_course_title">데이트 코스를 신고하시겠어요?</string>
     <string name="two_button_dialog_with_description_delete_past_title">지난 데이트를 삭제하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
+    <string name="two_button_dialog_with_description_delete_course_description">삭제된 코스는 복구하실 수 없어요</string>
+    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 확인 후 서비스의 운영원칙에\n따라 조치 예정이에요</string>
+
 
     <!-- Top Bar Title -->
     <string name="top_bar_title_point_history">포인트 내역</string>
@@ -228,7 +234,8 @@
     <string name="course_detail_tag">태그</string>
     <string name="course_detail_bottom_sheet_title">데이트 코스 설정</string>
     <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
-    <string name="course_detail_bottom_sheet_delete">취소</string>
+    <string name="course_detail_bottom_sheet_delete">닫기</string>
+    <string name="course_detail_bottom_sheet_report">신고하기</string>
 
     <!-- DateSchedule -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>

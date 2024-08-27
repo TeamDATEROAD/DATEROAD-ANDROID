@@ -56,7 +56,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadWebView
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPageButton
 import org.sopt.dateroad.presentation.ui.mypage.component.MyPagePointBox
-import org.sopt.dateroad.presentation.util.CourseDetail.ASK_URL
+import org.sopt.dateroad.presentation.util.WebViewUrl.ASK_URL
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
