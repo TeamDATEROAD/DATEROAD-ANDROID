@@ -85,7 +85,7 @@ fun ProfileRoute(
                 when (profileSideEffect) {
                     is ProfileContract.ProfileSideEffect.NavigateToHome -> navigationToHome()
                     is ProfileContract.ProfileSideEffect.NavigateToMyPage -> navigationToMyPage()
-                    else -> {}
+                    is ProfileContract.ProfileSideEffect.PopBackStack -> popBackStack()
                 }
             }
     }
@@ -117,7 +117,6 @@ fun ProfileRoute(
 
                 )
             }
-
             LoadState.Loading -> DateRoadLoadingView()
             LoadState.Success -> navigationToHome()
             LoadState.Error -> DateRoadErrorView()
