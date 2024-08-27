@@ -4,6 +4,7 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
 import org.sopt.dateroad.data.mapper.toEntity.toCost
 import org.sopt.dateroad.data.mapper.toEntity.toCourseDetailDate
 import org.sopt.dateroad.data.mapper.toEntity.toDuration
+import org.sopt.dateroad.data.mapper.toEntity.toStartAtString
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.type.MoneyTagType.Companion.toCostTagTitle
 
@@ -24,6 +25,6 @@ fun ResponseCourseDetailDto.toDomain(): CourseDetail = CourseDetail(
     free = this.free,
     totalPoint = this.totalPoint,
     isCourseMine = this.isCourseMine,
-    isUserLiked = this.isUserLiked
-
+    isUserLiked = this.isUserLiked,
+    startAt = this.startAt.toStartAtString()
 )

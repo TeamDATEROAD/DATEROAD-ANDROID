@@ -15,6 +15,7 @@ import org.sopt.dateroad.presentation.ui.component.card.DateRoadPlaceCard
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 fun LazyListScope.courseDetailTimeline(
+    startAt: String,
     places: List<Place>
 ) {
     item {
@@ -25,7 +26,14 @@ fun LazyListScope.courseDetailTimeline(
             color = DateRoadTheme.colors.black,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(7.dp))
+        Text(
+            text = startAt,
+            style = DateRoadTheme.typography.bodySemi15,
+            color = DateRoadTheme.colors.gray400,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(14.dp))
     }
     items(places.size) { index ->
         DateRoadPlaceCard(
