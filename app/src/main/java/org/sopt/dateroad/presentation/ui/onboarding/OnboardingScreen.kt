@@ -93,7 +93,7 @@ fun OnboardingScreen(
                 Text(
                     text = PartialColorText(
                         stringResource(id = onboardingType.titleRes),
-                        keywords = listOf("포인트", "데이트코스", "100", "다양한"),
+                        keywords = if (page==0){listOf("포인트", "데이트 코스", "100", "다양한")}else listOf("100 포인트", "다양한"),
                         color = DateRoadTheme.colors.purple600
                     ),
                     style = DateRoadTheme.typography.titleExtra24,
