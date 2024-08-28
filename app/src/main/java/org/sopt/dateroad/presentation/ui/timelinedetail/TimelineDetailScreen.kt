@@ -354,7 +354,7 @@ fun TimelineDetailScreenPreview() {
                     startAt = "10:00 AM",
                     places = listOf(
                         Place(
-                            title = "1번 데이트",
+                            title = "도당고등학교 2-7 데이트",
                             duration = "1.5"
                         ),
                         Place(

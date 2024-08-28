@@ -214,8 +214,9 @@ fun HomeScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(13.dp))
-                Row(modifier = Modifier.padding(start = 16.dp)) {
+                Row {
                     LazyRow(
+                        contentPadding = PaddingValues(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(uiState.topLikedCourses) { topLikedCourses ->
