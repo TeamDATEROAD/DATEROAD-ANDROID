@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,9 +34,11 @@ fun DateRoadMyPagePointInfo(myPagePointInfoType: MyPagePointInfoType) {
             .padding(14.dp),
         verticalAlignment = Alignment.CenterVertically // Aligns items vertically centered
     ) {
-        Image(painter = painterResource(id = myPagePointInfoType.imageRes),
+        Image(
+            painter = painterResource(id = myPagePointInfoType.imageRes),
             contentDescription = null,
-            modifier = Modifier.height(70.dp).aspectRatio(1f))
+            modifier = Modifier.height(70.dp).aspectRatio(1f)
+        )
         Spacer(modifier = Modifier.width(10.dp))
         Column {
             Text(
