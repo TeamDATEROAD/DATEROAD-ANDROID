@@ -152,7 +152,7 @@ fun HomeScreen(
     ) {
         DateRoadHomeTopBar(
             title = uiState.userPoint.point,
-            profileImage = uiState.profileImageUrl,
+            profileImage = uiState.userPoint.imageUrl,
             onClick = navigateToPointHistory
         )
         Row(
