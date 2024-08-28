@@ -28,7 +28,6 @@ fun HomeAdvertisement(
             .padding(start = 16.dp, end = 16.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
-            .aspectRatio(328f / 132f)
             .noRippleClickable(onClick = { onClick(advertisement.advertisementId) })
     ) {
         AsyncImage(
