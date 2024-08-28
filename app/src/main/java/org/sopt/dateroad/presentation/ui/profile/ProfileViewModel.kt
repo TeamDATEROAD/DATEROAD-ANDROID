@@ -173,7 +173,7 @@ class ProfileViewModel @Inject constructor(
             setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Loading))
             patchEditProfileUseCase(editProfile = editProfile).onSuccess {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Success))
-            }.onFailure { error ->
+            }.onFailure {
                 setEvent(ProfileContract.ProfileEvent.PatchEditProfile(editProfileLoadState = LoadState.Error))
             }
         }
