@@ -214,7 +214,7 @@ fun HomeScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(13.dp))
-                Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Row(modifier = Modifier.padding(start = 16.dp)) {
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
