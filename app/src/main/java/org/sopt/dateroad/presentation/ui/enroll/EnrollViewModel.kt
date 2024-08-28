@@ -1,9 +1,7 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.data.dataremote.util.Date.NEAREST_DATE_START_OUTPUT_FORMAT
 import org.sopt.dateroad.data.mapper.toEntity.toEnroll
@@ -16,6 +14,7 @@ import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
+import javax.inject.Inject
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
@@ -145,9 +144,8 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postCourseUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
-                Log.e("ㅋㅋ", e.toString())
             }
         }
     }
@@ -157,9 +155,8 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postTimelineUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
-                Log.e("ㅋㅋ", e.toString())
             }
         }
     }
