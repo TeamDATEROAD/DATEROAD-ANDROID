@@ -43,7 +43,7 @@ import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 @Composable
 fun TimelineCard(
     modifier: Modifier,
-    timelineCard: Timeline,
+    timeline: Timeline,
     timelineType: TimelineType,
     onClick: (Int) -> Unit = {}
 ) {
@@ -52,7 +52,7 @@ fun TimelineCard(
             .clip(RoundedCornerShape(24.dp))
             .aspectRatio(291 / 406f)
             .background(timelineType.backgroundColor)
-            .noRippleClickable(onClick = { onClick(timelineCard.timelineId) })
+            .noRippleClickable(onClick = { onClick(timeline.timelineId) })
     ) {
         Icon(
             painter = painterResource(id = R.drawable.bg_timeline_card),
@@ -80,7 +80,7 @@ fun TimelineCard(
                             .weight(1f)
                     ) {
                         Text(
-                            text = timelineCard.date,
+                            text = timeline.date,
                             style = DateRoadTheme.typography.titleExtra24,
                             color = DateRoadTheme.colors.black,
                             maxLines = 2,
@@ -89,7 +89,7 @@ fun TimelineCard(
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     DateRoadTextTag(
-                        textContent = timelineCard.dDay,
+                        textContent = timeline.dDay,
                         tagContentType = TagType.TIMELINE_D_DAY
                     )
                 }
@@ -101,10 +101,10 @@ fun TimelineCard(
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.Start
                 ) {
-                    if (timelineCard.tags.size >= 3) {
+                    if (timeline.tags.size >= 3) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = timelineCard.tags[2].titleRes),
-                            imageContent = timelineCard.tags[2].imageRes,
+                            textContent = stringResource(id = timeline.tags[2].titleRes),
+                            imageContent = timeline.tags[2].imageRes,
                             tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
@@ -112,10 +112,10 @@ fun TimelineCard(
                                 .padding(start = 19.dp, bottom = 5.dp)
                         )
                     }
-                    if (timelineCard.tags.size >= 2) {
+                    if (timeline.tags.size >= 2) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = timelineCard.tags[1].titleRes),
-                            imageContent = timelineCard.tags[1].imageRes,
+                            textContent = stringResource(id = timeline.tags[1].titleRes),
+                            imageContent = timeline.tags[1].imageRes,
                             tagContentType = timelineType.tagType,
                             spaceValue = 2,
                             modifier = Modifier
@@ -123,10 +123,10 @@ fun TimelineCard(
                                 .padding(start = 60.dp, bottom = 10.dp)
                         )
                     }
-                    if (timelineCard.tags.isNotEmpty()) {
+                    if (timeline.tags.isNotEmpty()) {
                         DateRoadImageTag(
-                            textContent = stringResource(id = timelineCard.tags[0].titleRes),
-                            imageContent = timelineCard.tags[0].imageRes,
+                            textContent = stringResource(id = timeline.tags[0].titleRes),
+                            imageContent = timeline.tags[0].imageRes,
                             tagContentType = timelineType.tagType,
                             spaceValue = 2
                         )
@@ -173,14 +173,14 @@ fun TimelineCard(
                     .padding(horizontal = 20.dp, vertical = 25.dp)
             ) {
                 Text(
-                    text = timelineCard.city,
+                    text = timeline.city,
                     style = DateRoadTheme.typography.bodyMed15,
                     color = DateRoadTheme.colors.gray500,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = timelineCard.title,
+                    text = timeline.title,
                     style = DateRoadTheme.typography.titleExtra24,
                     color = DateRoadTheme.colors.black,
                     maxLines = 2,
@@ -200,7 +200,7 @@ fun TimelineCardPreview() {
         TimelineCard(
             modifier = Modifier,
             timelineType = TimelineType.PURPLE,
-            timelineCard = Timeline(
+            timeline = Timeline(
                 timelineId = 0,
                 dDay = "3",
                 title = "성수동 당일치기 데이트\n가볼까요?",
