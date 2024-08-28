@@ -62,7 +62,7 @@ fun DateRoadRegionBottomSheet(
     val scrollState = rememberScrollState()
 
     DateRoadBottomSheet(
-        modifier = Modifier.padding(top = 15.dp, start = 16.dp, end = 6.dp, bottom = 16.dp),
+        modifier = Modifier.padding(top = 15.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
         isBottomSheetOpen = isBottomSheetOpen,
         isButtonEnabled = isButtonEnabled,
         buttonText = buttonText,
@@ -81,7 +81,7 @@ fun DateRoadRegionBottomSheet(
                 )
                 Image(
                     modifier = Modifier
-                        .padding(15.dp)
+                        .padding(start = 15.dp, end = 5.dp, top = 15.dp, bottom = 15.dp)
                         .noRippleClickable(onClick = onDismissRequest),
                     painter = painterResource(id = R.drawable.ic_bottom_sheet_close),
                     contentDescription = null
