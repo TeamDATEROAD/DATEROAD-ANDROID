@@ -22,8 +22,7 @@ fun PointHistoryCard(
 ) {
     Row(
         modifier = modifier
-            .padding(top = 20.dp, start = 16.dp, end = 20.dp, bottom = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(top = 20.dp, start = 16.dp, end = 20.dp, bottom = 20.dp)
     ) {
         Text(
             modifier = Modifier
