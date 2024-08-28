@@ -148,7 +148,7 @@ fun TimelineScreen(
                     val date = uiState.timelines[page]
                     val timelineType = TimelineType.getTimelineTypeByIndex(page)
                     TimelineCard(
-                        timelineCard = date,
+                        timeline = date,
                         timelineType = timelineType,
                         onClick = { navigateToTimelineDetail(timelineType, date.timelineId) },
                         modifier = Modifier

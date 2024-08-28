@@ -13,7 +13,7 @@ fun ResponseTimelineDto.toFutureTimelineDomain(): Timeline = Timeline(
     dDay = this.dDay.toDDayString(),
     title = this.title,
     date = this.date.toFormattedDate(),
-    city = this.city.toAreaType().toAreaTitle(),
+    city = this.city,
     tags = this.tags.map { it.toDomain() }
 )
 
@@ -22,6 +22,6 @@ fun ResponseTimelineDto.toPastTimelineDomain(): Timeline = Timeline(
     dDay = this.dDay.toDDayString(),
     title = this.title,
     date = this.date.toBasicDates(),
-    city = this.city.toAreaType().toAreaTitle(),
+    city = this.city,
     tags = this.tags.map { it.toDomain() }
 )
