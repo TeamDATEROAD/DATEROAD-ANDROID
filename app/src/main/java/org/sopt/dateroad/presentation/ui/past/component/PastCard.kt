@@ -27,16 +27,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
-import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.model.Timeline
-import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
-import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailContract
-import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailScreen
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
-import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.defaultDateRoadColors
@@ -158,12 +153,15 @@ fun PastCard(
 @Composable
 fun PastCardPreview() {
     DATEROADTheme {
-        PastCard(timeline = Timeline(
-            dDay = "D-day",
-            title = "성수동 당일치기 데이트 가볼까요?\n이정도 어떠신지?",
-            date = "2024년 6월 24일",
-            city = "건대/성수/왕십리",
-            tags = listOf(DateTagType.FOOD, DateTagType.DRIVE)
-        ), timelineType = TimelineType.PINK)
+        PastCard(
+            timeline = Timeline(
+                dDay = "D-day",
+                title = "성수동 당일치기 데이트 가볼까요?\n이정도 어떠신지?",
+                date = "2024년 6월 24일",
+                city = "건대/성수/왕십리",
+                tags = listOf(DateTagType.FOOD, DateTagType.DRIVE)
+            ),
+            timelineType = TimelineType.PINK
+        )
     }
 }

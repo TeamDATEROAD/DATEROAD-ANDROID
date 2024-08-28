@@ -1,8 +1,6 @@
 package org.sopt.dateroad.data.mapper.todomain
 
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDto
-import org.sopt.dateroad.data.mapper.toEntity.toAreaTitle
-import org.sopt.dateroad.data.mapper.toEntity.toAreaType
 import org.sopt.dateroad.data.mapper.toEntity.toBasicDates
 import org.sopt.dateroad.data.mapper.toEntity.toDDayString
 import org.sopt.dateroad.data.mapper.toEntity.toFormattedDate
