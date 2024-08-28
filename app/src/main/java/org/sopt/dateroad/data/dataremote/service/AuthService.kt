@@ -12,6 +12,7 @@ import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGNUP
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGN_IN
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGN_OUT
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.TAG
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.TAGS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USERS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.USER_SIGN_UP_DATA
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.VERSION
@@ -22,6 +23,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
@@ -52,4 +54,12 @@ interface AuthService {
         @Part(USER_SIGN_UP_DATA) userSignUpData: RequestBody,
         @Part(TAG) tags: RequestBody
     ): ResponseAuthDto
+
+    @Multipart
+    @PATCH("$API/$VERSION/$USERS")
+    suspend fun patchProfile(
+        @Part(NAME) name: RequestBody,
+        @Part(TAGS) tags: RequestBody,
+        @Part image: MultipartBody.Part?
+    )
 }

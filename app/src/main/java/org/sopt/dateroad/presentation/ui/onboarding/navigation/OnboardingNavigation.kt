@@ -11,10 +11,10 @@ fun NavController.navigationOnboarding() {
     )
 }
 
-fun NavGraphBuilder.onboardingNavGraph(navigateToProfile: () -> Unit) {
+fun NavGraphBuilder.onboardingNavGraph(navigateToEnrollProfile: () -> Unit) {
     composable(route = OnboardingRoute.ROUTE) {
         OnboardingRoute(
-            navigateToProfile = navigateToProfile
+            navigateToProfile = navigateToEnrollProfile
         )
     }
 }
