@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.enroll
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -144,8 +145,9 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postCourseUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure {
+            }.onFailure { e ->
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
+                Log.e("ㅋㅋ", e.toString())
             }
         }
     }
@@ -155,8 +157,9 @@ class EnrollViewModel @Inject constructor(
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
             postTimelineUseCase(enroll = currentState.enroll).onSuccess {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
-            }.onFailure {
+            }.onFailure { e ->
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
+                Log.e("ㅋㅋ", e.toString())
             }
         }
     }
