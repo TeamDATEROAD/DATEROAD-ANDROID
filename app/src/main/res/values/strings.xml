@@ -199,7 +199,7 @@
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
 
     <!-- Point Box -->
-    <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
+    <string name="point_box_nickname"> %1$s\님의 포인트</string>
     <string name="point_box_point"> %1$d P</string>
     <string name="my_page_point_card_text">포인트 내역 보기</string>
 
