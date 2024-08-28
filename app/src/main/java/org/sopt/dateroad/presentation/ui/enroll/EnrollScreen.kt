@@ -9,10 +9,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -274,19 +276,22 @@ fun EnrollScreen(
                     leftIconResource = R.drawable.ic_top_bar_back_white,
                     onLeftIconClick = onTopBarBackButtonClick,
                     buttonContent = {
-                        DateRoadFilledButton(
-                            isEnabled = true,
-                            textContent = stringResource(id = R.string.top_bar_button_text_load),
-                            onClick = onTopBarLoadButtonClick,
-                            textStyle = DateRoadTheme.typography.bodyMed13,
-                            enabledBackgroundColor = DateRoadTheme.colors.purple600,
-                            enabledTextColor = DateRoadTheme.colors.white,
-                            disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                            disabledTextColor = DateRoadTheme.colors.gray400,
-                            cornerRadius = 20.dp,
-                            paddingHorizontal = 10.dp,
-                            paddingVertical = 5.dp
-                        )
+                        Row {
+                            DateRoadFilledButton(
+                                isEnabled = true,
+                                textContent = stringResource(id = R.string.top_bar_button_text_load),
+                                onClick = onTopBarLoadButtonClick,
+                                textStyle = DateRoadTheme.typography.bodyMed13,
+                                enabledBackgroundColor = DateRoadTheme.colors.purple600,
+                                enabledTextColor = DateRoadTheme.colors.white,
+                                disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                                disabledTextColor = DateRoadTheme.colors.gray400,
+                                cornerRadius = 20.dp,
+                                paddingHorizontal = 10.dp,
+                                paddingVertical = 5.dp
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                        }
                     }
                 )
                 Spacer(modifier = Modifier.height(2.dp))
