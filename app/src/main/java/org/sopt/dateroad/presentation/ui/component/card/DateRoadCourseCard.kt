@@ -91,6 +91,7 @@ fun DateRoadCourseCard(
                 color = DateRoadTheme.colors.black,
                 modifier = Modifier
                     .fillMaxWidth(),
+                minLines = 2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )

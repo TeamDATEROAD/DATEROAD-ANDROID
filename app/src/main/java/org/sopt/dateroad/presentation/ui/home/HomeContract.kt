@@ -5,6 +5,7 @@ import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.model.UserPoint
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -25,7 +26,7 @@ class HomeContract {
     sealed interface HomeSideEffect : UiSideEffect {
         data object NavigateToPointHistory : HomeSideEffect
         data object NavigateToLook : HomeSideEffect
-        data object NavigateToTimeline : HomeSideEffect
+        data class NavigateToTimelineDetail(val timelineType: TimelineType, val timelineId: Int) : HomeSideEffect
         data class NavigateToEnroll(val enrollType: EnrollType, val id: Int?) : HomeSideEffect
         data class NavigateToAdvertisementDetail(val advertisementId: Int) : HomeSideEffect
         data class NavigateToCourseDetail(val courseId: Int) : HomeSideEffect

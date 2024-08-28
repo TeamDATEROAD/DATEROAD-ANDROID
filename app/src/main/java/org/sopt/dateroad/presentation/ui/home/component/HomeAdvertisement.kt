@@ -2,7 +2,6 @@ package org.sopt.dateroad.presentation.ui.home.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,7 +27,6 @@ fun HomeAdvertisement(
             .padding(start = 16.dp, end = 16.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(14.dp))
-            .aspectRatio(328f / 132f)
             .noRippleClickable(onClick = { onClick(advertisement.advertisementId) })
     ) {
         AsyncImage(
