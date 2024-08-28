@@ -236,6 +236,7 @@
     <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
     <string name="course_detail_bottom_sheet_delete">닫기</string>
     <string name="course_detail_bottom_sheet_report">신고하기</string>
+    <string name="course_detail_total_cost_zero">무지출</string>
 
     <!-- DateSchedule -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>

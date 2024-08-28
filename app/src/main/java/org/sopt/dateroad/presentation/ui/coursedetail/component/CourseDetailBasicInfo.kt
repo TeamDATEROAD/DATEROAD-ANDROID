@@ -15,7 +15,7 @@ fun CourseDetailBasicInfo(
     date: String,
     title: String,
     totalTime: String,
-    totalCost: String,
+    totalCostTag: String,
     city: String
 ) {
     Column(
@@ -37,7 +37,7 @@ fun CourseDetailBasicInfo(
         Spacer(modifier = Modifier.height(16.dp))
         CourseDetailInfoBar(
             totalTime = totalTime,
-            totalCost = totalCost,
+            totalCostTag = totalCostTag,
             city = city
         )
     }

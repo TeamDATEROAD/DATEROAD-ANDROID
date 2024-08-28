@@ -201,7 +201,7 @@ fun CourseDetailScreen(
                             date = date,
                             title = title,
                             totalTime = totalTime,
-                            totalCost = totalCost,
+                            totalCostTag = totalCostTag,
                             city = city
                         )
                     }
