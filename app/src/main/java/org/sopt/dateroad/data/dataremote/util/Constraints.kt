@@ -71,6 +71,8 @@ object Date {
 
 object Point {
     const val POINT = " P"
+    const val GAINED = "+"
+    const val USED = "-"
 }
 
 object Month {

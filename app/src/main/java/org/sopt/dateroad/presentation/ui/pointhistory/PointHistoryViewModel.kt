@@ -47,7 +47,7 @@ class PointHistoryViewModel @Inject constructor(
             setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Loading, userPoint = currentState.userPoint))
             getUserPointUseCase().onSuccess { userPoint ->
                 setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Success, userPoint = userPoint))
-            }.onFailure { e ->
+            }.onFailure {
                 setEvent(PointHistoryContract.PointHistoryEvent.FetchUserPoint(loadState = LoadState.Error, userPoint = currentState.userPoint))
             }
         }
