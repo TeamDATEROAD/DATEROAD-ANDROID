@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -153,12 +154,11 @@ fun TimelineDetailScreen(
                 .background(timelineType.backgroundColor)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.bg_past_card),
+                painter = painterResource(id = R.drawable.bg_timeline_detail),
                 contentDescription = null,
                 tint = timelineType.lineColor,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(0.dp)
+                    .align(Alignment.BottomEnd)
             )
             Column(
                 modifier = Modifier
@@ -215,9 +215,9 @@ fun TimelineDetailScreen(
                         }
                     }
                 }
+                Spacer(modifier = Modifier.height(18.dp))
             }
         }
-        Spacer(modifier = Modifier.height(18.dp))
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
