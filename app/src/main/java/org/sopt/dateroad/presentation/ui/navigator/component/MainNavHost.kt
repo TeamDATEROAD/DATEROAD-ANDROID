@@ -62,7 +62,7 @@ fun MainNavHost(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToLook = navigator::navigateToLook,
-                navigateToTimeline = navigator::navigateTimeline,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
                 navigateToEnroll = navigator::navigateToEnroll,
                 navigateToAdvertisement = navigator::navigateToAdvertisement,
                 navigateToCourseDetail = navigator::navigateToCourseDetail

@@ -41,6 +41,7 @@ import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TagType
+import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadTextButton
 import org.sopt.dateroad.presentation.ui.component.card.DateRoadCourseCard
@@ -63,7 +64,7 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
-    navigateToTimeline: () -> Unit,
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
     navigateToAdvertisementDetail: (Int) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
@@ -97,7 +98,7 @@ fun HomeRoute(
                 when (homeSideEffect) {
                     is HomeContract.HomeSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook()
-                    is HomeContract.HomeSideEffect.NavigateToTimeline -> navigateToTimeline()
+                    is HomeContract.HomeSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(homeSideEffect.timelineType, homeSideEffect.timelineId)
                     is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.id)
                     is HomeContract.HomeSideEffect.NavigateToAdvertisementDetail -> navigateToAdvertisementDetail(homeSideEffect.advertisementId)
                     is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseId)
@@ -118,7 +119,7 @@ fun HomeRoute(
                 navigateToEnroll = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.TIMELINE, null)) },
                 navigateToPointHistory = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToPointHistory) },
                 navigateToLook = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToLook) },
-                navigateToTimeline = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToTimeline) },
+                navigateToTimelineDetail = { timelineType, timelineId -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToTimelineDetail(timelineType = timelineType, timelineId = timelineId)) },
                 onFabClick = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.COURSE, null)) },
                 navigateToAdvertisementDetail = { advertisementId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToAdvertisementDetail(advertisementId = advertisementId)) },
                 navigateToCourseDetail = { courseId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToCourseDetail(courseId = courseId)) }
@@ -138,7 +139,7 @@ fun HomeScreen(
     navigateToEnroll: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToLook: () -> Unit,
-    navigateToTimeline: () -> Unit,
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit,
     navigateToAdvertisementDetail: (Int) -> Unit,
     navigateToCourseDetail: (Int) -> Unit,
     onFabClick: () -> Unit
@@ -160,10 +161,12 @@ fun HomeScreen(
         ) {
             HomeTimeLineCard(
                 nearestTimeline = uiState.nearestTimeline,
-                onClick = if (uiState.nearestTimeline == NearestTimeline()) {
-                    navigateToEnroll
-                } else {
-                    navigateToTimeline
+                onClick = {
+                    if (uiState.nearestTimeline == NearestTimeline()) {
+                        navigateToEnroll()
+                    } else {
+                        navigateToTimelineDetail(TimelineType.PINK, uiState.nearestTimeline.timelineId)
+                    }
                 }
             )
         }
