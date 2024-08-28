@@ -18,6 +18,10 @@ object TimePicker {
     const val PM = "오후"
 }
 
+object TotalCostZero {
+    const val ZEROCOST = "무지출"
+}
+
 object DatePicker {
     const val DATE_PATTERN = "yyyy.MM.dd"
 }
