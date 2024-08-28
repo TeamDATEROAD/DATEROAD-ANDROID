@@ -17,7 +17,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun CourseDetailInfoBar(
-    totalCost: String,
+    totalCostTag: String,
     totalTime: String,
     city: String
 ) {
@@ -31,7 +31,7 @@ fun CourseDetailInfoBar(
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
-            text = totalCost,
+            text = totalCostTag,
             color = DateRoadTheme.colors.gray400,
             style = DateRoadTheme.typography.bodySemi15
         )
@@ -66,6 +66,6 @@ fun CourseDetailInfoBarPreview() {
     CourseDetailInfoBar(
         totalTime = "10",
         city = "건대/성수/왕십리",
-        totalCost = "50000"
+        totalCostTag = "50000"
     )
 }
