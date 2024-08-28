@@ -30,6 +30,7 @@ import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+import kotlin.math.min
 
 @Composable
 fun DateRoadCourseCard(
@@ -91,6 +92,7 @@ fun DateRoadCourseCard(
                 color = DateRoadTheme.colors.black,
                 modifier = Modifier
                     .fillMaxWidth(),
+                minLines = 2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
