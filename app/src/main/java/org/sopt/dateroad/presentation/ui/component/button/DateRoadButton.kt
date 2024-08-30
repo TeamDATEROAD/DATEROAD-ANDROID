@@ -23,14 +23,14 @@ fun DateRoadButton(
     cornerRadius: Dp = 0.dp,
     paddingHorizontal: Dp = 0.dp,
     paddingVertical: Dp = 0.dp,
-    onClick: () -> Unit,
+    onClick: suspend () -> Unit,
     content: @Composable () -> Unit
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(color = backgroundColor)
-            .noRippleDebounceClickable(onClick = onClick)
+            .noRippleDebounceClickable (onClick = onClick)
             .border(width = borderWidth, color = borderColor, shape = RoundedCornerShape(cornerRadius))
             .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         contentAlignment = Alignment.Center
