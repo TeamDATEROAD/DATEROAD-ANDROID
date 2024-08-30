@@ -28,8 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
@@ -49,6 +47,7 @@ import org.sopt.dateroad.presentation.ui.component.dialog.DateRoadOneButtonDialo
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
@@ -57,6 +56,8 @@ import org.sopt.dateroad.presentation.util.TimePicker
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun EnrollRoute(
@@ -179,6 +180,8 @@ fun EnrollRoute(
         LoadState.Success -> {
             viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = true))
         }
+
+        LoadState.Loading -> DateRoadLoadingView()
 
         LoadState.Error -> DateRoadErrorView()
 
