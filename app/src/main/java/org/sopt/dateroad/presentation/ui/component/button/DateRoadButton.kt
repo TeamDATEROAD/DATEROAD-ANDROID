@@ -30,7 +30,7 @@ fun DateRoadButton(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(color = backgroundColor)
-            .noRippleDebounceClickable (onClick = onClick)
+            .noRippleDebounceClickable(onClick = onClick)
             .border(width = borderWidth, color = borderColor, shape = RoundedCornerShape(cornerRadius))
             .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         contentAlignment = Alignment.Center
