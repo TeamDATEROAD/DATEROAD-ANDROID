@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -107,7 +108,8 @@ fun MyCourseScreen(
                 item {
                     Box(
                         modifier = Modifier
-                            .fillParentMaxSize()
+                            .fillParentMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
                         DateRoadEmptyView(
                             emptyViewType = when (myCourseUiState.myCourseType) {
