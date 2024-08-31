@@ -40,6 +40,7 @@ fun MyCourseRoute(
     viewModel: MyCourseViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (Int) -> Unit,
     myCourseType: MyCourseType
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -60,6 +61,8 @@ fun MyCourseRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { myCourseSideEffect ->
                 when (myCourseSideEffect) {
+                    is MyCourseContract.MyCourseSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, myCourseSideEffect.courseId)
+                    is MyCourseContract.MyCourseSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(myCourseSideEffect.courseId)
                     is MyCourseContract.MyCourseSideEffect.PopBackStack -> popBackStack()
                 }
             }
@@ -75,7 +78,8 @@ fun MyCourseRoute(
                 padding = padding,
                 myCourseUiState = uiState,
                 onIconClick = popBackStack,
-                onCourseCardClick = navigateToEnroll
+                navigateToEnroll = { courseId -> viewModel.setSideEffect(MyCourseContract.MyCourseSideEffect.NavigateToEnroll(courseId = courseId)) },
+                navigateToCourseDetail = { courseId -> viewModel.setSideEffect(MyCourseContract.MyCourseSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )
         }
 
@@ -88,7 +92,8 @@ fun MyCourseScreen(
     padding: PaddingValues,
     myCourseUiState: MyCourseContract.MyCourseUiState = MyCourseContract.MyCourseUiState(),
     onIconClick: () -> Unit,
-    onCourseCardClick: (EnrollType, Int?) -> Unit
+    navigateToEnroll: (Int) -> Unit,
+    navigateToCourseDetail: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -123,8 +128,8 @@ fun MyCourseScreen(
                     course = course,
                     onClick = {
                         when (myCourseUiState.myCourseType) {
-                            MyCourseType.ENROLL -> {}
-                            MyCourseType.READ -> onCourseCardClick(EnrollType.TIMELINE, course.courseId)
+                            MyCourseType.ENROLL -> navigateToCourseDetail(course.courseId)
+                            MyCourseType.READ -> navigateToEnroll(course.courseId)
                         }
                     }
                 )
@@ -182,7 +187,8 @@ fun MyCourseScreenPreview() {
                 )
             ),
             onIconClick = {},
-            onCourseCardClick = { _, _ -> }
+            navigateToEnroll = {},
+            navigateToCourseDetail = {}
         )
     }
 }

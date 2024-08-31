@@ -18,7 +18,8 @@ fun NavController.navigateMyCourses(myCourseType: MyCourseType) {
 fun NavGraphBuilder.myCoursesNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit
+    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToCourseDetail: (Int) -> Unit
 ) {
     composable(
         route = ROUTE_WITH_ARGUMENT,
@@ -32,7 +33,7 @@ fun NavGraphBuilder.myCoursesNavGraph(
             MyCourseType.valueOf(it)
         } ?: MyCourseType.ENROLL
 
-        MyCourseRoute(padding = padding, popBackStack = popBackStack, myCourseType = myCourseType, navigateToEnroll = navigateToEnroll)
+        MyCourseRoute(padding = padding, popBackStack = popBackStack, myCourseType = myCourseType, navigateToEnroll = navigateToEnroll, navigateToCourseDetail = navigateToCourseDetail)
     }
 }
 
