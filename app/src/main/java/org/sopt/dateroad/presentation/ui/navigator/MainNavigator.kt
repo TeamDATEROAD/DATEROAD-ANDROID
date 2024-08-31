@@ -100,17 +100,6 @@ class MainNavigator(
         )
     }
 
-    fun navigateToLook(navOptions: NavOptions? = null) {
-        navHostController.navigationLook(
-            navOptions ?: navOptions {
-                popUpTo(navHostController.graph.findStartDestination().id) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        )
-    }
-
     fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateMyCourses(myCourseType = myCourseType)
     }
@@ -141,17 +130,6 @@ class MainNavigator(
 
     fun navigateToSignIn() {
         navHostController.navigationSignIn()
-    }
-
-    fun navigateTimeline(navOptions: NavOptions? = null) {
-        navHostController.navigationTimeline(
-            navOptions ?: navOptions {
-                popUpTo(navHostController.graph.findStartDestination().id) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        )
     }
 
     fun navigateToTimelineDetail(timelineType: TimelineType, dateId: Int) {

@@ -21,8 +21,7 @@ fun NavGraphBuilder.timelineNavGraph(
     padding: PaddingValues,
     navigateToPast: () -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
-    navigateToTimelineDetail: (TimelineType, Int) -> Unit,
-    popBackStack: () -> Unit
+    navigateToTimelineDetail: (TimelineType, Int) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Timeline::class.simpleName.orEmpty()) {
         TimelineRoute(

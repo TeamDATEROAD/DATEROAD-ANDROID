@@ -135,8 +135,7 @@ fun MainNavHost(
                 padding = padding,
                 navigateToPast = navigator::navigateToPast,
                 navigateToEnroll = navigator::navigateToEnroll,
-                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
-                popBackStack = navigator::popBackStackIfNotHome
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail
             )
 
             timelineDetailGraph(
