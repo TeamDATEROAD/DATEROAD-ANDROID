@@ -61,7 +61,7 @@ fun MainNavHost(
             homeNavGraph(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
-                navigateToLook = navigator::navigateToLook,
+                navigateToLook = navigator::navigateMainNavigation,
                 navigateToTimelineDetail = navigator::navigateToTimelineDetail,
                 navigateToEnroll = navigator::navigateToEnroll,
                 navigateToAdvertisement = navigator::navigateToAdvertisement,
