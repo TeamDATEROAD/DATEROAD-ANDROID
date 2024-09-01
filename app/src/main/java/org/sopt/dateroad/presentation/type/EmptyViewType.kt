@@ -10,11 +10,11 @@ enum class EmptyViewType(
 ) {
     POINT_HISTORY_GAINED_HISTORY(
         titleRes = R.string.empty_view_point_history_earn_history,
-        imageRes = R.drawable.ic_empty_point_history_plus
+        imageRes = R.drawable.img_empty_point_history_gained_history
     ),
     POINT_HISTORY_USED_HISTORY(
         titleRes = R.string.empty_view_point_history_usage_history,
-        imageRes = R.drawable.ic_empty_point_history_minus
+        imageRes = R.drawable.img_empty_point_history_used_history
     ),
     READ(
         titleRes = R.string.empty_view_read,
