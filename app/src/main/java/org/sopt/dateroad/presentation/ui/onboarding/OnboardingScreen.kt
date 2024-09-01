@@ -46,7 +46,7 @@ fun OnboardingRoute(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState()
 
-    BackHandler() {
+    BackHandler {
         when (pagerState.currentPage) {
             0 -> Unit
 
