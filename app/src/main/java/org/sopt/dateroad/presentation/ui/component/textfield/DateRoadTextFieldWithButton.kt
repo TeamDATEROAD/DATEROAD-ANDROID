@@ -37,6 +37,7 @@ fun DateRoadTextFieldWithButton(
     modifier: Modifier = Modifier,
     validateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
     title: String? = null,
+    titleHint:String?=null,
     placeholder: String = "",
     successDescription: String = "",
     validationErrorDescription: String = "",
@@ -55,16 +56,22 @@ fun DateRoadTextFieldWithButton(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        title?.let {
+        Row (verticalAlignment = Alignment.CenterVertically){
             Text(
-                text = it,
+                text = title.toString(),
                 color = DateRoadTheme.colors.black,
                 style = DateRoadTheme.typography.bodyBold15
             )
-            Spacer(
-                modifier = Modifier.padding(top = 10.dp)
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = titleHint.toString(),
+                color = DateRoadTheme.colors.gray300,
+                style = DateRoadTheme.typography.bodyMed13
             )
         }
+        Spacer(
+            modifier = Modifier.padding(top = 10.dp)
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -154,6 +161,7 @@ fun DateRoadTextFieldWithButtonPreview() {
         DateRoadTextFieldWithButton(
             validateState = validationState,
             title = "닉네임",
+            titleHint="(한글, 영문, 숫자만 가능)",
             placeholder = "닉네임을 입력해 주세요",
             successDescription = "사용가능한 닉네임입니다.",
             validationErrorDescription = "최소 2글자를 입력해주세요.",

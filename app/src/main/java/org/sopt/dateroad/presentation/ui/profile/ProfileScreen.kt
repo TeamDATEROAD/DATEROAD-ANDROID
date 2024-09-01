@@ -245,6 +245,7 @@ fun ProfileScreen(
             DateRoadTextFieldWithButton(
                 validateState = profileUiState.nicknameValidateResult,
                 title = stringResource(id = R.string.profile_text_field_title),
+                titleHint = stringResource(id = R.string.profile_text_field_title_hint),
                 placeholder = if (profileUiState.profileType == ProfileType.ENROLL) {
                     stringResource(id = R.string.profile_text_field_placeholder)
                 } else {
