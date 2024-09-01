@@ -2,7 +2,9 @@ package org.sopt.dateroad.presentation.ui.enroll
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.data.dataremote.util.Date.NEAREST_DATE_START_OUTPUT_FORMAT
 import org.sopt.dateroad.data.mapper.toEntity.toEnroll
 import org.sopt.dateroad.domain.type.RegionType
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
@@ -13,7 +15,6 @@ import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
-import javax.inject.Inject
 
 @HiltViewModel
 class EnrollViewModel @Inject constructor(
@@ -121,7 +122,7 @@ class EnrollViewModel @Inject constructor(
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.FetchCourseDetail(fetchEnrollState = LoadState.Loading, courseDetail = null))
             getCourseDetailUseCase(courseId = courseId).onSuccess { courseDetail ->
-                setEvent(EnrollContract.EnrollEvent.FetchCourseDetail(fetchEnrollState = LoadState.Success, courseDetail = courseDetail))
+                setEvent(EnrollContract.EnrollEvent.FetchCourseDetail(fetchEnrollState = LoadState.Success, courseDetail = courseDetail.copy(startAt = courseDetail.startAt.substringBefore(NEAREST_DATE_START_OUTPUT_FORMAT))))
             }
             setEvent(EnrollContract.EnrollEvent.FetchCourseDetail(fetchEnrollState = LoadState.Error, courseDetail = null))
         }
@@ -131,7 +132,7 @@ class EnrollViewModel @Inject constructor(
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Loading, timelineDetail = null))
             getTimelineDetailUseCase(timelineId = timelineId).onSuccess { timelineDetail ->
-                setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Success, timelineDetail = timelineDetail.copy(startAt = timelineDetail.startAt.substringBefore(START_AT_SUFFIX))))
+                setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Success, timelineDetail = timelineDetail.copy(startAt = timelineDetail.startAt.substringBefore(NEAREST_DATE_START_OUTPUT_FORMAT))))
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.FetchTimelineDetail(fetchEnrollState = LoadState.Error, timelineDetail = null))
             }
@@ -158,9 +159,5 @@ class EnrollViewModel @Inject constructor(
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
         }
-    }
-
-    companion object {
-        const val START_AT_SUFFIX = " 시작"
     }
 }

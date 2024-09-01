@@ -26,7 +26,7 @@ enum class TagType(
         contentColor = defaultDateRoadColors.white,
         paddingHorizontal = 14,
         paddingVertical = 2,
-        textStyle = defaultDateRoadTypography.capReg11,
+        textStyle = defaultDateRoadTypography.bodyMed13,
         roundedCornerShape = 12
     ),
     TIMELINE_D_DAY(

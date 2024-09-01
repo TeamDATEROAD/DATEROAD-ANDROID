@@ -62,7 +62,7 @@ fun MainNavHost(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
                 navigateToLook = navigator::navigateToLook,
-                navigateToTimeline = navigator::navigateTimeline,
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
                 navigateToEnroll = navigator::navigateToEnroll,
                 navigateToAdvertisement = navigator::navigateToAdvertisement,
                 navigateToCourseDetail = navigator::navigateToCourseDetail
@@ -86,10 +86,10 @@ fun MainNavHost(
                 navigateToMyCourse = navigator::navigateToMyCourse,
                 navigateToPointGuide = navigator::navigateToPointGuide,
                 navigateToSignIn = navigator::navigateToSignIn,
-                navigateToEditProfile = navigator::navigateToProfile
+                navigateToEditProfile = navigator::navigateToEditProfile
             )
 
-            onboardingNavGraph(navigateToProfile = navigator::navigateToProfile)
+            onboardingNavGraph(navigateToEnrollProfile = navigator::navigateToEnrollProfile)
 
             pastNavGraph(
                 padding = padding,
@@ -110,12 +110,14 @@ fun MainNavHost(
             enrollProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.ENROLL
+                profileType = ProfileType.ENROLL,
+                popBackStack = navigator::popBackStackIfNotHome
             )
             editProfileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.EDIT
+                profileType = ProfileType.EDIT,
+                popBackStack = navigator::popBackStackIfNotHome
             )
 
             readNavGraph(

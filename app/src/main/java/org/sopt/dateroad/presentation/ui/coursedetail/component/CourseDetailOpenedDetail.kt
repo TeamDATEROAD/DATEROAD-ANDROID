@@ -13,6 +13,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 fun LazyListScope.courseDetailOpenedDetail(
     description: String,
+    startAt: String,
     places: List<Place>,
     totalCost: String,
     tags: List<DateTagType>
@@ -29,7 +30,7 @@ fun LazyListScope.courseDetailOpenedDetail(
     item {
         Spacer(modifier = Modifier.height(16.dp))
     }
-    courseDetailTimeline(places = places)
+    courseDetailTimeline(startAt = startAt, places = places)
     item {
         CourseDetailCost(totalCost = totalCost)
     }

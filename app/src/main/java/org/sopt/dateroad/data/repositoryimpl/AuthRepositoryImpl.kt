@@ -14,6 +14,7 @@ import org.sopt.dateroad.data.dataremote.util.ContentUriRequestBody
 import org.sopt.dateroad.data.mapper.todata.toData
 import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.Auth
+import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.repository.AuthRepository
@@ -44,5 +45,17 @@ class AuthRepositoryImpl @Inject constructor(
             userSignUpData = Json.encodeToString(signUp.userSignUpInfo.toData()).toRequestBody("application/json".toMediaType()),
             tags = (Json.encodeToString(signUp.tag.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType())
         ).toDomain()
+    }
+
+    override suspend fun patchEditProfile(editProfile: EditProfile): Result<Unit> = runCatching {
+        authRemoteDataSource.patchEditProfile(
+            name = editProfile.name.toRequestBody(),
+            tags = (Json.encodeToString(editProfile.tags.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType()),
+            image = if (editProfile.image.isNullOrEmpty() || editProfile.image.startsWith("https://")) {
+                null
+            } else {
+                ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(editProfile.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE)
+            }
+        )
     }
 }

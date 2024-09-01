@@ -1,6 +1,7 @@
 package org.sopt.dateroad.domain.repository
 
 import org.sopt.dateroad.domain.model.Auth
+import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 
@@ -14,4 +15,6 @@ interface AuthRepository {
     suspend fun postSignIn(authorization: String, signIn: SignIn): Result<Auth>
 
     suspend fun postSignUp(signUp: SignUp): Result<Auth>
+
+    suspend fun patchEditProfile(editProfile: EditProfile): Result<Unit>
 }

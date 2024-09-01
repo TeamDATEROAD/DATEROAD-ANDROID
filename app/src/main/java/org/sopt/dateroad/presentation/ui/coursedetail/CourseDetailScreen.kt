@@ -40,10 +40,12 @@ import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadScrollResponsi
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.ui.component.view.DateRoadWebView
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBasicInfo
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBottomBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
 import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
+import org.sopt.dateroad.presentation.util.WebViewUrl.REPORT_URL
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -90,6 +92,10 @@ fun CourseDetailRoute(
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
                 dismissDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedForFree) },
                 onDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint) },
+                onDialogDeleteCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogDeleteCourse) },
+                onDialogReportCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogReportCourse) },
+                dismissDialogDeleteCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogDeleteCourse) },
+                dismissDialogReportCourse = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogReportCourse) },
                 dismissDialogLookedByPoint = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint) },
                 onLikeButtonClicked = {
                     when (uiState.courseDetail.isUserLiked) {
@@ -100,14 +106,20 @@ fun CourseDetailRoute(
                 onDeleteButtonClicked = {
                     viewModel.deleteCourse(courseId = courseId)
                 },
-                onEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnEditBottomSheet) },
-                dismissEditBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissEditBottomSheet) },
+                onDeleteCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDeleteCourseBottomSheet) },
+                dismissDeleteCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDeleteCourseBottomSheet) },
+                onReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportCourseBottomSheet) },
+                dismissReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportCourseBottomSheet) },
                 enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
                 onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
                 openCourseDetail = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
                     viewModel.postUsePoint(courseId = courseId)
-                }
+                },
+                onReportButtonClicked = {
+                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked)
+                },
+                onReportWebViewClose = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportWebView) }
             )
         }
 
@@ -132,10 +144,18 @@ fun CourseDetailScreen(
     dismissDialogLookedForFree: () -> Unit,
     onDialogLookedByPoint: () -> Unit,
     dismissDialogLookedByPoint: () -> Unit,
+    onDialogDeleteCourse: () -> Unit,
+    dismissDialogDeleteCourse: () -> Unit,
+    onDialogReportCourse: () -> Unit,
+    dismissDialogReportCourse: () -> Unit,
     onLikeButtonClicked: () -> Unit,
     onDeleteButtonClicked: () -> Unit,
-    onEditBottomSheet: () -> Unit,
-    dismissEditBottomSheet: () -> Unit,
+    onDeleteCourseBottomSheet: () -> Unit,
+    dismissDeleteCourseBottomSheet: () -> Unit,
+    onReportCourseBottomSheet: () -> Unit,
+    onReportButtonClicked: () -> Unit,
+    onReportWebViewClose: () -> Unit,
+    dismissReportCourseBottomSheet: () -> Unit,
     enrollSchedule: () -> Unit,
     onTopBarIconClicked: () -> Unit,
     openCourseDetail: () -> Unit
@@ -152,137 +172,182 @@ fun CourseDetailScreen(
     val isViewable = courseDetailUiState.courseDetail.isAccess || courseDetailUiState.courseDetail.isCourseMine
     val courseDetailUnopenedType = if (courseDetailUiState.courseDetail.free > 0) CourseDetailUnopenedDetailType.FREE else CourseDetailUnopenedDetailType.POINT
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            state = scrollState,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(DateRoadTheme.colors.white)
-        ) {
-            with(courseDetailUiState.courseDetail) {
-                item {
-                    DateRoadImagePager(
-                        modifier = Modifier
-                            .onGloballyPositioned { coordinates ->
-                                imageHeight = coordinates.size.height
-                            },
-                        pagerState = PagerState(),
-                        images = courseDetailUiState.courseDetail.images,
-                        userScrollEnabled = isViewable,
-                        like = courseDetailUiState.courseDetail.like.toString()
-                    )
-                }
-
-                item {
-                    CourseDetailBasicInfo(
-                        date = date,
-                        title = title,
-                        totalTime = totalTime,
-                        totalCost = totalCost,
-                        city = city
-                    )
-                }
-
-                when (isViewable) {
-                    true -> {
-                        courseDetailOpenedDetail(
-                            description = description,
-                            places = places,
-                            totalCost = totalCost,
-                            tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
+    if (courseDetailUiState.isWebViewOpened) {
+        DateRoadWebView(url = REPORT_URL, onClose = onReportWebViewClose)
+    } else {
+        Box(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(
+                state = scrollState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(DateRoadTheme.colors.white)
+            ) {
+                with(courseDetailUiState.courseDetail) {
+                    item {
+                        DateRoadImagePager(
+                            modifier = Modifier
+                                .onGloballyPositioned { coordinates ->
+                                    imageHeight = coordinates.size.height
+                                },
+                            pagerState = PagerState(),
+                            images = courseDetailUiState.courseDetail.images,
+                            userScrollEnabled = isViewable,
+                            like = courseDetailUiState.courseDetail.like.toString()
                         )
-                        if (!isCourseMine) {
+                    }
+
+                    item {
+                        CourseDetailBasicInfo(
+                            date = date,
+                            title = title,
+                            totalTime = totalTime,
+                            totalCostTag = totalCostTag,
+                            city = city
+                        )
+                    }
+
+                    when (isViewable) {
+                        true -> {
+                            courseDetailOpenedDetail(
+                                description = description,
+                                startAt = startAt,
+                                places = places,
+                                totalCost = totalCost,
+                                tags = tags.mapNotNull { tag -> tag.getDateTagTypeByName() }
+                            )
+                            if (!isCourseMine) {
+                                item {
+                                    Spacer(modifier = Modifier.height(86.dp))
+                                }
+                            }
+                        }
+
+                        false -> {
                             item {
-                                Spacer(modifier = Modifier.height(86.dp))
+                                CourseDetailUnopenedDetail(
+                                    text = description,
+                                    free = free,
+                                    courseDetailUnopenedDetailType = courseDetailUnopenedType,
+                                    onButtonClicked = when (courseDetailUnopenedType) {
+                                        CourseDetailUnopenedDetailType.FREE -> onDialogLookedForFree
+                                        CourseDetailUnopenedDetailType.POINT -> onDialogLookedByPoint
+                                    }
+                                )
                             }
                         }
                     }
+                }
+            }
 
-                    false -> {
-                        item {
-                            CourseDetailUnopenedDetail(
-                                text = description,
-                                free = free,
-                                courseDetailUnopenedDetailType = courseDetailUnopenedType,
-                                onButtonClicked = when (courseDetailUnopenedType) {
-                                    CourseDetailUnopenedDetailType.FREE -> onDialogLookedForFree
-                                    CourseDetailUnopenedDetailType.POINT -> onDialogLookedByPoint
-                                }
-                            )
+            DateRoadScrollResponsiveTopBar(
+                isDefault = isScrollResponsiveDefault,
+                onLeftIconClick = onTopBarIconClicked,
+                onRightIconClick = if (courseDetailUiState.courseDetail.isCourseMine) onDeleteCourseBottomSheet else onReportCourseBottomSheet,
+                rightIconResource = if (isViewable) R.drawable.btn_course_detail_more_white else null
+            )
+
+            if (isViewable && !courseDetailUiState.courseDetail.isCourseMine) {
+                CourseDetailBottomBar(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    isUserLiked = courseDetailUiState.courseDetail.isUserLiked,
+                    onLikeButtonClicked = onLikeButtonClicked,
+                    onEnrollButtonClicked = enrollSchedule
+                )
+            }
+
+            if (courseDetailUiState.isPointReadDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
+                    onDismissRequest = { dismissDialogLookedByPoint() },
+                    onClickConfirm = {
+                        dismissDialogLookedByPoint()
+                        if (courseDetailUiState.courseDetail.totalPoint < 50) {
+                            onDialogPointLack()
+                        } else {
+                            openCourseDetail()
                         }
-                    }
-                }
+                    },
+                    onClickDismiss = { dismissDialogLookedByPoint() }
+                )
             }
-        }
 
-        DateRoadScrollResponsiveTopBar(
-            isDefault = isScrollResponsiveDefault,
-            onLeftIconClick = onTopBarIconClicked,
-            onRightIconClick = onEditBottomSheet,
-            rightIconResource = if (isViewable) R.drawable.btn_course_detail_more_white else null
-        )
+            if (courseDetailUiState.isPointLackDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
+                    onDismissRequest = dismissDialogPointLack,
+                    onClickConfirm = onDialogPointLackConfirm,
+                    onClickDismiss = dismissDialogPointLack
+                )
+            }
 
-        if (isViewable && !courseDetailUiState.courseDetail.isCourseMine) {
-            CourseDetailBottomBar(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                isUserLiked = courseDetailUiState.courseDetail.isUserLiked,
-                onLikeButtonClicked = onLikeButtonClicked,
-                onEnrollButtonClicked = enrollSchedule
-            )
-        }
-
-        if (courseDetailUiState.isPointReadDialogOpen) {
-            DateRoadTwoButtonDialogWithDescription(
-                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.READ_COURSE,
-                onDismissRequest = { dismissDialogLookedByPoint() },
-                onClickConfirm = {
-                    dismissDialogLookedByPoint()
-                    if (courseDetailUiState.courseDetail.totalPoint < 50) {
-                        onDialogPointLack()
-                    } else {
+            if (courseDetailUiState.isFreeReadDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.FREE_READ,
+                    onDismissRequest = { dismissDialogLookedForFree() },
+                    onClickConfirm = {
+                        dismissDialogLookedForFree()
                         openCourseDetail()
-                    }
-                },
-                onClickDismiss = { dismissDialogLookedByPoint() }
-            )
-        }
-
-        if (courseDetailUiState.isPointLackDialogOpen) {
-            DateRoadTwoButtonDialogWithDescription(
-                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.POINT_LACK,
-                onDismissRequest = dismissDialogPointLack,
-                onClickConfirm = onDialogPointLackConfirm,
-                onClickDismiss = dismissDialogPointLack
-            )
-        }
-
-        if (courseDetailUiState.isFreeReadDialogOpen) {
-            DateRoadTwoButtonDialogWithDescription(
-                twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.FREE_READ,
-                onDismissRequest = { dismissDialogLookedForFree() },
-                onClickConfirm = {
-                    dismissDialogLookedForFree()
-                    openCourseDetail()
-                },
-                onClickDismiss = { dismissDialogLookedForFree() }
-            )
-        }
-
-        DateRoadBasicBottomSheet(
-            isBottomSheetOpen = courseDetailUiState.isEditBottomSheetOpen,
-            title = stringResource(id = R.string.course_detail_bottom_sheet_title),
-            isButtonEnabled = false,
-            buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
-            itemList = listOf(
-                stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
-                    onDeleteButtonClicked()
-                }
-            ),
-            onDismissRequest = { dismissEditBottomSheet() },
-            onButtonClick = {
-                dismissEditBottomSheet()
+                    },
+                    onClickDismiss = { dismissDialogLookedForFree() }
+                )
             }
-        )
+
+            if (courseDetailUiState.isDeleteCourseDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.DELETE_COURSE,
+                    onDismissRequest = { dismissDialogDeleteCourse() },
+                    onClickConfirm = {
+                        dismissDialogDeleteCourse()
+                        onDeleteButtonClicked()
+                    },
+                    onClickDismiss = { dismissDialogDeleteCourse() }
+                )
+            }
+
+            if (courseDetailUiState.isReportCourseDialogOpen) {
+                DateRoadTwoButtonDialogWithDescription(
+                    twoButtonDialogWithDescriptionType = TwoButtonDialogWithDescriptionType.REPORT_COURSE,
+                    onDismissRequest = { dismissDialogReportCourse() },
+                    onClickConfirm = {
+                        dismissDialogReportCourse()
+                        onReportButtonClicked()
+                    },
+                    onClickDismiss = { dismissDialogReportCourse() }
+                )
+            }
+
+            DateRoadBasicBottomSheet(
+                isBottomSheetOpen = courseDetailUiState.isDeleteCourseBottomSheetOpen,
+                title = stringResource(id = R.string.course_detail_bottom_sheet_title),
+                isButtonEnabled = false,
+                buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
+                itemList = listOf(
+                    stringResource(id = R.string.course_detail_bottom_sheet_confirm) to {
+                        onDialogDeleteCourse()
+                    }
+                ),
+                onDismissRequest = { dismissDeleteCourseBottomSheet() },
+                onButtonClick = {
+                    dismissDeleteCourseBottomSheet()
+                }
+            )
+
+            DateRoadBasicBottomSheet(
+                isBottomSheetOpen = courseDetailUiState.isReportCourseBottomSheetOpen,
+                title = stringResource(id = R.string.course_detail_bottom_sheet_title),
+                isButtonEnabled = false,
+                buttonText = stringResource(id = R.string.course_detail_bottom_sheet_delete),
+                itemList = listOf(
+                    stringResource(id = R.string.course_detail_bottom_sheet_report) to {
+                        onDialogReportCourse()
+                    }
+                ),
+                onDismissRequest = { dismissReportCourseBottomSheet() },
+                onButtonClick = {
+                    dismissReportCourseBottomSheet()
+                }
+            )
+        }
     }
 }
 
@@ -335,11 +400,19 @@ fun CourseDetailScreenPreview() {
             dismissDialogLookedByPoint = {},
             onLikeButtonClicked = {},
             onDeleteButtonClicked = {},
-            onEditBottomSheet = {},
-            dismissEditBottomSheet = {},
+            onDeleteCourseBottomSheet = {},
+            dismissDeleteCourseBottomSheet = {},
+            onReportCourseBottomSheet = {},
+            dismissReportCourseBottomSheet = {},
             enrollSchedule = {},
             onTopBarIconClicked = {},
-            openCourseDetail = {}
+            openCourseDetail = {},
+            onReportButtonClicked = {},
+            onReportWebViewClose = {},
+            onDialogDeleteCourse = {},
+            onDialogReportCourse = {},
+            dismissDialogDeleteCourse = {},
+            dismissDialogReportCourse = {}
         )
     }
 }

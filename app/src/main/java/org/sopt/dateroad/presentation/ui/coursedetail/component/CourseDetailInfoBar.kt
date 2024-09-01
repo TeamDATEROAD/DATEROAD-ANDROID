@@ -17,7 +17,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
 fun CourseDetailInfoBar(
-    totalCost: String,
+    totalCostTag: String,
     totalTime: String,
     city: String
 ) {
@@ -25,38 +25,53 @@ fun CourseDetailInfoBar(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_all_money_14),
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = totalCost,
-            color = DateRoadTheme.colors.gray400,
-            style = DateRoadTheme.typography.bodySemi15
-        )
-        Spacer(modifier = Modifier.width(25.dp))
-        Image(
-            painter = painterResource(id = R.drawable.ic_all_clock_14),
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = totalTime,
-            color = DateRoadTheme.colors.gray400,
-            style = DateRoadTheme.typography.bodySemi15
-        )
-        Spacer(modifier = Modifier.width(25.dp))
-        Image(
-            painter = painterResource(id = R.drawable.ic_all_location_14),
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = city,
-            color = DateRoadTheme.colors.gray400,
-            style = DateRoadTheme.typography.bodySemi15
-        )
+        Row(
+            modifier = Modifier.weight(116f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_all_money_14),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = totalCostTag,
+                color = DateRoadTheme.colors.gray400,
+                style = DateRoadTheme.typography.bodySemi15
+            )
+        }
+
+        Row(
+            modifier = Modifier.weight(86f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_all_clock_14),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = totalTime,
+                color = DateRoadTheme.colors.gray400,
+                style = DateRoadTheme.typography.bodySemi15
+            )
+        }
+
+        Row(
+            modifier = Modifier.weight(122f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_all_location_14),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                text = city,
+                color = DateRoadTheme.colors.gray400,
+                style = DateRoadTheme.typography.bodySemi15
+            )
+        }
     }
 }
 
@@ -66,6 +81,6 @@ fun CourseDetailInfoBarPreview() {
     CourseDetailInfoBar(
         totalTime = "10",
         city = "건대/성수/왕십리",
-        totalCost = "50000"
+        totalCostTag = "50000"
     )
 }

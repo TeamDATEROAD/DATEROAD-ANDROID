@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,7 +34,11 @@ fun DateRoadMyPagePointInfo(myPagePointInfoType: MyPagePointInfoType) {
             .padding(14.dp),
         verticalAlignment = Alignment.CenterVertically // Aligns items vertically centered
     ) {
-        Image(painter = painterResource(id = myPagePointInfoType.imageRes), contentDescription = null)
+        Image(
+            painter = painterResource(id = myPagePointInfoType.imageRes),
+            contentDescription = null,
+            modifier = Modifier.height(70.dp).aspectRatio(1f)
+        )
         Spacer(modifier = Modifier.width(10.dp))
         Column {
             Text(

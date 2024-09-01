@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -23,12 +24,15 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Timeline
+import org.sopt.dateroad.presentation.type.DateTagType
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.tag.DateRoadImageTag
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
+import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 import org.sopt.dateroad.ui.theme.defaultDateRoadColors
 
@@ -51,7 +55,7 @@ fun PastCard(
             contentDescription = null,
             tint = timelineType.lineColor,
             modifier = Modifier
-                .fillMaxSize()
+                .align(Alignment.BottomEnd)
         )
         Column(
             modifier = Modifier
@@ -142,6 +146,22 @@ fun PastCard(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+    }
+}
+
+@Preview
+@Composable
+fun PastCardPreview() {
+    DATEROADTheme {
+        PastCard(
+            timeline = Timeline(
+                dDay = "D-day",
+                title = "성수동 당일치기 데이트 가볼까요?\n이정도 어떠신지?",
+                date = "2024년 6월 24일",
+                city = "건대/성수/왕십리",
+                tags = listOf(DateTagType.FOOD, DateTagType.DRIVE)
+            ),
+            timelineType = TimelineType.PINK
+        )
     }
 }

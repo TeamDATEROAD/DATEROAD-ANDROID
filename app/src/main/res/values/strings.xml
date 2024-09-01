@@ -17,6 +17,7 @@
     <string name="dialog_check">확인</string>
     <string name="dialog_checked">확인했어요</string>
     <string name="dialog_delete">삭제</string>
+    <string name="dialog_report">신고</string>
     <string name="dialog_delete_schedule">삭제된 일정은 복구하실 수 없어요</string>
 
     <!-- AdvertisementTitleType -->
@@ -101,13 +102,13 @@
 
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요</string>
-    <string name="onboarding_first_description">최초 3회 찬스로 다른 사람의 데이트 코스를 구경해 보세요</string>
+    <string name="onboarding_first_description">최초 3회 무료 찬스로\n다른 사람의 데이트 코스를 구경하세요!</string>
     <string name="onboarding_first_sub_description">(이후에는 50포인트로 코스를 열람할 수 있어요)</string>
     <string name="onboarding_second_title">데이트 코스를 등록하면\n100 포인트를 얻을 수 있어요</string>
-    <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고 포인트를 받아보세요</string>
+    <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고\n포인트를 받아보세요</string>
     <string name="onboarding_second_sub_description"></string>
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
-    <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때 현금처럼 사용 가능해요</string>
+    <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때\n현금처럼 사용 가능해요</string>
     <string name="onboarding_third_sub_description">(추후 제공될 기능이에요)</string>
 
     <!-- OneButtonDialogType -->
@@ -167,9 +168,14 @@
     <string name="two_button_dialog_with_description_free_read_title">무료 열람 기회를 사용해 보시겠어요?</string>
     <string name="two_button_dialog_with_description_free_read_description">무료 열람 기회는 한 번 사용하면 취소할 수 없어요</string>
     <string name="two_button_dialog_with_description_delete_timeline_title">데이트 일정을 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_delete_course_title">데이트 코스를 삭제하시겠어요?</string>
+    <string name="two_button_dialog_with_description_report_course_title">데이트 코스를 신고하시겠어요?</string>
     <string name="two_button_dialog_with_description_delete_past_title">지난 데이트를 삭제하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
+    <string name="two_button_dialog_with_description_delete_course_description">삭제된 코스는 복구하실 수 없어요</string>
+    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 확인 후 서비스의 운영원칙에\n따라 조치 예정이에요</string>
+
 
     <!-- Top Bar Title -->
     <string name="top_bar_title_point_history">포인트 내역</string>
@@ -193,7 +199,7 @@
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
 
     <!-- Point Box -->
-    <string name="point_box_nickname"> %1$s\ 님의 포인트</string>
+    <string name="point_box_nickname"> %1$s\님의 포인트</string>
     <string name="point_box_point"> %1$d P</string>
     <string name="my_page_point_card_text">포인트 내역 보기</string>
 
@@ -228,7 +234,9 @@
     <string name="course_detail_tag">태그</string>
     <string name="course_detail_bottom_sheet_title">데이트 코스 설정</string>
     <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
-    <string name="course_detail_bottom_sheet_delete">취소</string>
+    <string name="course_detail_bottom_sheet_delete">닫기</string>
+    <string name="course_detail_bottom_sheet_report">신고하기</string>
+    <string name="course_detail_total_cost_zero">무지출</string>
 
     <!-- DateSchedule -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>
