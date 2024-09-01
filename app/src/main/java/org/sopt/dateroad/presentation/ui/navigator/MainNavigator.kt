@@ -143,17 +143,6 @@ class MainNavigator(
         navHostController.navigationSignIn()
     }
 
-    fun navigateTimeline(navOptions: NavOptions? = null) {
-        navHostController.navigationTimeline(
-            navOptions ?: navOptions {
-                popUpTo(navHostController.graph.findStartDestination().id) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        )
-    }
-
     fun navigateToTimelineDetail(timelineType: TimelineType, dateId: Int) {
         navHostController.navigateToTimelineDetail(timelineType, dateId)
     }

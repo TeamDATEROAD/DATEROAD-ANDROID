@@ -77,7 +77,8 @@ fun MainNavHost(
             myCoursesNavGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 
             myPageNavGraph(
