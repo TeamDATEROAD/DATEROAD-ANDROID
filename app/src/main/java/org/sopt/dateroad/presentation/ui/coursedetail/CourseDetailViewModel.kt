@@ -90,7 +90,7 @@ class CourseDetailViewModel @Inject constructor(
     fun postUsePoint(courseId: Int) {
         viewModelScope.launch {
             setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading))
-            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, "${currentState.courseDetail.title} 코스 열람")).onSuccess {
+            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(point = Point.POINT, type = Point.POINT_USED, description = Point.POINT_USED_DESCRIPTION)).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success))
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error))
