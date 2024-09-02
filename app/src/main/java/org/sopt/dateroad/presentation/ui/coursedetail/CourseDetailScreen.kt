@@ -112,10 +112,7 @@ fun CourseDetailRoute(
                 dismissReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportCourseBottomSheet) },
                 enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
                 onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
-                openCourseDetail = {
-                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
-                    viewModel.postUsePoint(courseId = courseId)
-                },
+                openCourseDetail = { viewModel.postUsePoint(courseId = courseId) },
                 onReportButtonClicked = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked)
                 },
