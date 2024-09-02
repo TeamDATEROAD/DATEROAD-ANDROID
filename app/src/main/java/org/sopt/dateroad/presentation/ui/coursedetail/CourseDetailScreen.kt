@@ -81,7 +81,6 @@ fun CourseDetailRoute(
 
         LoadState.Success -> {
             CourseDetailScreen(
-                courseId = courseId,
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
                 onDialogPointLackConfirm = {
@@ -123,8 +122,21 @@ fun CourseDetailRoute(
         LoadState.Error -> DateRoadErrorView()
     }
 
+    when (uiState.usePointLoadState) {
+        LoadState.Loading -> DateRoadLoadingView()
+
+        LoadState.Error -> DateRoadErrorView()
+
+        else -> Unit
+    }
+
     when (uiState.deleteLoadState) {
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> popBackStack()
+
+        LoadState.Error -> DateRoadErrorView()
+
         else -> Unit
     }
 }
@@ -132,7 +144,6 @@ fun CourseDetailRoute(
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
-    courseId: Int,
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
     onDialogPointLackConfirm: () -> Unit,
@@ -386,7 +397,6 @@ fun CourseDetailScreenPreview() {
         )
 
         CourseDetailScreen(
-            courseId = 1,
             courseDetailUiState = dummyCourseDetail,
             onDialogPointLack = {},
             dismissDialogPointLack = {},

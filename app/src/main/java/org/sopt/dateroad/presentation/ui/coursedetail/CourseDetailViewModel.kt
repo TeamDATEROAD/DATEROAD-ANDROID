@@ -44,8 +44,8 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.FetchCourseDetail -> setState { copy(loadState = event.loadState, courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.DeleteCourseLike -> setState { copy(courseDetail = event.courseDetail) }
             is CourseDetailContract.CourseDetailEvent.PostCourseLike -> setState { copy(courseDetail = event.courseDetail) }
-            is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(loadState = event.loadState, deleteLoadState = event.deleteLoadState) }
-            is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(courseDetail = courseDetail.copy(isAccess = event.isAccess)) }
+            is CourseDetailContract.CourseDetailEvent.DeleteCourse -> setState { copy(deleteLoadState = event.deleteLoadState) }
+            is CourseDetailContract.CourseDetailEvent.PostUsePoint -> setState { copy(usePointLoadState = event.usePointLoadState, courseDetail = courseDetail.copy(isAccess = event.isAccess)) }
             is CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked -> setState { copy(isWebViewOpened = true) }
             is CourseDetailContract.CourseDetailEvent.DismissReportWebView -> setState { copy(isWebViewOpened = false) }
         }
@@ -88,10 +88,11 @@ class CourseDetailViewModel @Inject constructor(
 
     fun postUsePoint(courseId: Int) {
         viewModelScope.launch {
+            setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading, isAccess = currentState.courseDetail.isAccess))
             postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, "${currentState.courseDetail.title} 코스 열람")).onSuccess {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(isAccess = true))
+                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success, isAccess = true))
             }.onFailure {
-                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(isAccess = currentState.courseDetail.isAccess))
+                setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error, isAccess = currentState.courseDetail.isAccess))
             }
         }
     }
@@ -99,15 +100,15 @@ class CourseDetailViewModel @Inject constructor(
     fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
             setEvent(
-                CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Loading, deleteLoadState = LoadState.Loading)
+                CourseDetailContract.CourseDetailEvent.DeleteCourse(deleteLoadState = LoadState.Loading)
             )
             deleteCourseUseCase(courseId = courseId).onSuccess {
                 setEvent(
-                    CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Success, deleteLoadState = LoadState.Success)
+                    CourseDetailContract.CourseDetailEvent.DeleteCourse(deleteLoadState = LoadState.Success)
                 )
             }.onFailure {
                 setEvent(
-                    CourseDetailContract.CourseDetailEvent.DeleteCourse(loadState = LoadState.Error, deleteLoadState = LoadState.Error)
+                    CourseDetailContract.CourseDetailEvent.DeleteCourse(deleteLoadState = LoadState.Error)
                 )
             }
         }
