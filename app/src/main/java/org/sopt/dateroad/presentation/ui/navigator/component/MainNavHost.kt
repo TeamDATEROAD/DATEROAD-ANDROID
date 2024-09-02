@@ -90,7 +90,10 @@ fun MainNavHost(
                 navigateToEditProfile = navigator::navigateToEditProfile
             )
 
-            onboardingNavGraph(navigateToEnrollProfile = navigator::navigateToEnrollProfile)
+            onboardingNavGraph(
+                navigateToEnrollProfile = navigator::navigateToEnrollProfile,
+                navigateToSignIn = navigator::navigateToSignIn
+            )
 
             pastNavGraph(
                 padding = padding,

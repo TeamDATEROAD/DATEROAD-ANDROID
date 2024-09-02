@@ -40,7 +40,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun OnboardingRoute(
     viewModel: OnBoardingViewModel = hiltViewModel(),
-    navigateToProfile: () -> Unit
+    navigateToProfile: () -> Unit,
+    navigateToSignIn: () -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
@@ -48,7 +49,7 @@ fun OnboardingRoute(
 
     BackHandler {
         when (pagerState.currentPage) {
-            0 -> Unit
+            0 -> viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToSignIn)
 
             else -> {
                 coroutineScope.launch {
@@ -63,6 +64,7 @@ fun OnboardingRoute(
             .collect { onBoardingSideEffect ->
                 when (onBoardingSideEffect) {
                     is OnBoardingContract.OnBoardingSideEffect.NavigateToProfile -> navigateToProfile()
+                    is OnBoardingContract.OnBoardingSideEffect.NavigateToSignIn -> navigateToSignIn()
                 }
             }
     }
