@@ -100,17 +100,6 @@ class MainNavigator(
         )
     }
 
-    fun navigateToLook(navOptions: NavOptions? = null) {
-        navHostController.navigationLook(
-            navOptions ?: navOptions {
-                popUpTo(navHostController.graph.findStartDestination().id) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        )
-    }
-
     fun navigateToMyCourse(myCourseType: MyCourseType) {
         navHostController.navigateMyCourses(myCourseType = myCourseType)
     }
