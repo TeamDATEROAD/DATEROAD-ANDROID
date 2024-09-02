@@ -9,10 +9,10 @@ import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.mycourse.MyCourseRoute
-import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCoursesRoute.ROUTE_WITH_ARGUMENT
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCourseRoute.ROUTE_WITH_ARGUMENT
 
 fun NavController.navigateMyCourses(myCourseType: MyCourseType) {
-    this.navigate(route = MyCoursesRoute.route(myCourseType = myCourseType))
+    this.navigate(route = MyCourseRoute.route(myCourseType = myCourseType))
 }
 
 fun NavGraphBuilder.myCoursesNavGraph(
@@ -24,12 +24,12 @@ fun NavGraphBuilder.myCoursesNavGraph(
     composable(
         route = ROUTE_WITH_ARGUMENT,
         arguments = listOf(
-            navArgument(MyCoursesRoute.ARGUMENT) {
+            navArgument(MyCourseRoute.ARGUMENT) {
                 type = NavType.StringType
             }
         )
     ) { backStackEntry ->
-        val myCourseType = backStackEntry.arguments?.getString(MyCoursesRoute.ARGUMENT)?.let {
+        val myCourseType = backStackEntry.arguments?.getString(MyCourseRoute.ARGUMENT)?.let {
             MyCourseType.valueOf(it)
         } ?: MyCourseType.ENROLL
 
@@ -37,7 +37,7 @@ fun NavGraphBuilder.myCoursesNavGraph(
     }
 }
 
-object MyCoursesRoute {
+object MyCourseRoute {
     private const val ROUTE = "myCourses"
     const val ARGUMENT = "myCourseType"
     const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT}"
