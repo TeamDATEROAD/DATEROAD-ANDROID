@@ -97,7 +97,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.SetSignUpImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.SetEditProfileImage -> setState { copy(editProfile = currentState.editProfile.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.InitProfileType -> setState { copy(profileType = event.profileType) }
-            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState = event.fetchProfileLoadState, editProfile = event.editProfile) }
+            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState = event.fetchProfileLoadState, editProfile = event.editProfile, nicknameValidateResult = event.nicknameValidateResult, isEnrollButtonEnabled = event.isEnrollButtonEnabled) }
             is ProfileContract.ProfileEvent.PatchEditProfile -> setState { copy(editProfileLoadState = event.editProfileLoadState) }
         }
     }
@@ -158,12 +158,12 @@ class ProfileViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Loading, editProfile = currentState.editProfile))
+            setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Loading, editProfile = currentState.editProfile, nicknameValidateResult = currentState.nicknameValidateResult, isEnrollButtonEnabled = currentState.isEnrollButtonEnabled))
             getUserUseCase().onSuccess { profile ->
                 val editProfile = profile.toEditProfile()
-                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = editProfile))
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = editProfile, nicknameValidateResult = TextFieldValidateResult.Success, isEnrollButtonEnabled = false))
             }.onFailure {
-                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile))
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile, nicknameValidateResult = currentState.nicknameValidateResult, isEnrollButtonEnabled = currentState.isEnrollButtonEnabled))
             }
         }
     }

@@ -2,6 +2,7 @@ package org.sopt.dateroad.presentation.ui.profile
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -160,12 +161,17 @@ fun ProfileRoute(
         } else {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
         }
-
-        ProfileType.EDIT -> if (uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
-            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
-        } else {
-            viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+        ProfileType.EDIT ->{
+            val currentImage = uiState.profile.imageUrl
+            val currentTags = uiState.profile.tag
+            Log.d("ㅋㅋ","프로필 태그: ${currentTags}, 수정 태그: ${uiState.editProfile.tags}")
+            if ((uiState.editProfile.tags != currentTags) && uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
+                viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
+            } else {
+                viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
+            }
         }
+
     }
 }
 
