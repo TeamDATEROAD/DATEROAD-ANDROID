@@ -62,6 +62,6 @@ interface AuthService {
         @Part(NAME) name: RequestBody,
         @Part(TAGS) tags: RequestBody,
         @Part image: MultipartBody.Part?,
-        @Part (ISDEFAULTIMAGE)isDefaultImage : RequestBody
+        @Part(ISDEFAULTIMAGE)isDefaultImage: RequestBody
     )
 }

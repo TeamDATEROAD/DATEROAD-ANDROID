@@ -161,17 +161,16 @@ fun ProfileRoute(
         } else {
             viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
         }
-        ProfileType.EDIT ->{
+        ProfileType.EDIT -> {
             val currentImage = uiState.profile.imageUrl
             val currentTags = uiState.profile.tag
-            Log.d("ㅋㅋ","프로필 태그: ${currentTags}, 수정 태그: ${uiState.editProfile.tags}")
+            Log.d("ㅋㅋ", "프로필 태그: $currentTags, 수정 태그: ${uiState.editProfile.tags}")
             if ((uiState.editProfile.tags != currentTags) && uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
                 viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
             } else {
                 viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))
             }
         }
-
     }
 }
 

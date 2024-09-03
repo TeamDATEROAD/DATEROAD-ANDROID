@@ -60,7 +60,7 @@ class AuthRepositoryImpl @Inject constructor(
                 "true"
             } else {
                 "false"
-            }.toRequestBody("multipart/form-data".toMediaType())
+            }.toRequestBody("application/json".toMediaType())
         )
     }
 }
