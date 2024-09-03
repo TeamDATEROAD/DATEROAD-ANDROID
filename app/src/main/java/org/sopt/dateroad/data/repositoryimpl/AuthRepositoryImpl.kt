@@ -55,7 +55,12 @@ class AuthRepositoryImpl @Inject constructor(
                 null
             } else {
                 ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(editProfile.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE)
-            }
+            },
+            isDefaultImage = if (editProfile.image.isNullOrEmpty()) {
+                "true"
+            } else {
+                "false"
+            }.toRequestBody("multipart/form-data".toMediaType())
         )
     }
 }

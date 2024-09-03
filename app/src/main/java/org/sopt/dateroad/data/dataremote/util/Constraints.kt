@@ -42,6 +42,7 @@ object ApiConstraints {
     const val DATES = "dates"
     const val TIME = "time"
     const val NEAREST = "nearest"
+    const val  ISDEFAULTIMAGE= "isDefaultImage"
 }
 
 object Cost {
