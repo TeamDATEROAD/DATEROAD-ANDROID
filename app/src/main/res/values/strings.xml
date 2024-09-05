@@ -174,7 +174,7 @@
     <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
     <string name="two_button_dialog_with_description_delete_course_description">삭제된 코스는 복구하실 수 없어요</string>
-    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 확인 후 서비스의 운영원칙에\n따라 조치 예정이에요</string>
+    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 운영원칙에 따라 조치할 예정이에요</string>
 
 
     <!-- Top Bar Title -->
