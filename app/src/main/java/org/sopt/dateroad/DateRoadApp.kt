@@ -1,10 +1,8 @@
 package org.sopt.dateroad
 
 import android.app.Application
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
 import dagger.hilt.android.HiltAndroidApp
 import org.sopt.dateroad.BuildConfig.KAKAO_NATIVE_APP_KEY
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils.initAmplitude
