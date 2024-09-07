@@ -48,6 +48,7 @@ coil = "2.6.0"
 timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.20.3"
+amplitude = "1.+"
 
 [libraries]
 # Test
@@ -105,6 +106,7 @@ kakao-talk = { group = "com.kakao.sdk", name = "v2-talk", version.ref = "kakao" 
 kakao-friend = { group = "com.kakao.sdk", name = "v2-friend", version.ref = "kakao" }
 kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" }
 kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
+amplitude = { group = "com.amplitude", name = "analytics-android", version.ref = "amplitude" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
