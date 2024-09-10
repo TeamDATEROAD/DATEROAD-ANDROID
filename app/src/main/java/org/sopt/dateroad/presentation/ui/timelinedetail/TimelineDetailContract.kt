@@ -19,7 +19,6 @@ class TimelineDetailContract {
 
     sealed interface TimelineDetailSideEffect : UiSideEffect {
         data object PopBackStack : TimelineDetailSideEffect
-        data class NavigateToEnroll(val id: Int) : TimelineDetailSideEffect
     }
 
     sealed class TimelineDetailEvent : UiEvent {
