@@ -30,7 +30,7 @@ fun DateRoadLoadingView() {
         Image(
             modifier = Modifier
                 .fillMaxWidth(),
-            painter = painterResource(id = R.drawable.ic_loading_server),
+            painter = painterResource(id = R.drawable.img_loading_server),
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
