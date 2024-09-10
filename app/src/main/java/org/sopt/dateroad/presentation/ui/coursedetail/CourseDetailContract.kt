@@ -21,8 +21,8 @@ class CourseDetailContract {
         val isLikedButtonChecked: Boolean = false,
         val courseDetail: CourseDetail = CourseDetail(),
         val currentImagePage: Int = 0,
-        val deleteLoadState: LoadState = LoadState.Idle,
         val usePointLoadState: LoadState = LoadState.Idle,
+        val deleteLoadState: LoadState = LoadState.Idle,
         var isWebViewOpened: Boolean = false
     ) : UiState
 
@@ -47,12 +47,11 @@ class CourseDetailContract {
         data object DismissDeleteCourseBottomSheet : CourseDetailEvent()
         data object OnReportCourseBottomSheet : CourseDetailEvent()
         data object DismissReportCourseBottomSheet : CourseDetailEvent()
-        data object OpenCourse : CourseDetailEvent()
         data class FetchCourseDetail(val loadState: LoadState, val courseDetail: CourseDetail) : CourseDetailEvent()
-        data class PostUsePoint(val usePointLoadState: LoadState) : CourseDetailEvent()
+        data class PostUsePoint(val usePointLoadState: LoadState, val isAccess: Boolean) : CourseDetailEvent()
         data class DeleteCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
         data class PostCourseLike(val courseDetail: CourseDetail) : CourseDetailEvent()
-        data class DeleteCourse(val loadState: LoadState, val deleteLoadState: LoadState) : CourseDetailEvent()
+        data class DeleteCourse(val deleteLoadState: LoadState) : CourseDetailEvent()
         data object OnReportWebViewClicked : CourseDetailEvent()
         data object DismissReportWebView : CourseDetailEvent()
     }
