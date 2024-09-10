@@ -8,7 +8,11 @@ import org.sopt.dateroad.presentation.ui.signin.SignInRoute
 fun NavController.navigationSignIn() {
     navigate(
         route = SignInRoute.ROUTE
-    )
+    ) {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.signInGraph(

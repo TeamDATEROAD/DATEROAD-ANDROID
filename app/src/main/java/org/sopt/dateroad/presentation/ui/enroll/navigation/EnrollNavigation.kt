@@ -9,11 +9,15 @@ import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.enroll.EnrollRoute
+import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCourseRoute
 
 fun NavController.navigationEnroll(enrollType: EnrollType, courseId: Int? = null) {
     navigate(
         route = EnrollRoute.route(enrollType = enrollType, courseId = courseId)
-    )
+    ) {
+        popUpTo(MyCourseRoute.route(MyCourseType.READ)) { inclusive = true }
+        launchSingleTop = true
+    }
 }
 
 fun NavGraphBuilder.enrollNavGraph(

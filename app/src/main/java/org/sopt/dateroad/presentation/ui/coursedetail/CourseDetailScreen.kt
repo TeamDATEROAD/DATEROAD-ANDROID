@@ -81,7 +81,6 @@ fun CourseDetailRoute(
 
         LoadState.Success -> {
             CourseDetailScreen(
-                courseId = courseId,
                 courseDetailUiState = uiState,
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
                 onDialogPointLackConfirm = {
@@ -112,10 +111,7 @@ fun CourseDetailRoute(
                 dismissReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportCourseBottomSheet) },
                 enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
                 onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
-                openCourseDetail = {
-                    viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OpenCourse)
-                    viewModel.postUsePoint(courseId = courseId)
-                },
+                openCourseDetail = { viewModel.postUsePoint(courseId = courseId) },
                 onReportButtonClicked = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked)
                 },
@@ -126,8 +122,21 @@ fun CourseDetailRoute(
         LoadState.Error -> DateRoadErrorView()
     }
 
+    when (uiState.usePointLoadState) {
+        LoadState.Loading -> DateRoadLoadingView()
+
+        LoadState.Error -> DateRoadErrorView()
+
+        else -> Unit
+    }
+
     when (uiState.deleteLoadState) {
+        LoadState.Loading -> DateRoadLoadingView()
+
         LoadState.Success -> popBackStack()
+
+        LoadState.Error -> DateRoadErrorView()
+
         else -> Unit
     }
 }
@@ -135,7 +144,6 @@ fun CourseDetailRoute(
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CourseDetailScreen(
-    courseId: Int,
     courseDetailUiState: CourseDetailContract.CourseDetailUiState,
     onDialogPointLack: () -> Unit,
     onDialogPointLackConfirm: () -> Unit,
@@ -389,7 +397,6 @@ fun CourseDetailScreenPreview() {
         )
 
         CourseDetailScreen(
-            courseId = 1,
             courseDetailUiState = dummyCourseDetail,
             onDialogPointLack = {},
             dismissDialogPointLack = {},

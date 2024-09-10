@@ -9,6 +9,8 @@ class OnBoardingContract {
 
     sealed interface OnBoardingSideEffect : UiSideEffect {
         data object NavigateToProfile : OnBoardingSideEffect
+        data object NavigateToSignIn : OnBoardingSideEffect
     }
+
     sealed class OnBoardingEvent : UiEvent
 }
