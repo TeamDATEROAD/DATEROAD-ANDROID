@@ -43,7 +43,7 @@ fun DateRoadEmptyView(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
             text = stringResource(id = emptyViewType.titleRes),
-            color = DateRoadTheme.colors.gray500,
+            color = DateRoadTheme.colors.gray300,
             style = DateRoadTheme.typography.titleBold18,
             textAlign = TextAlign.Center
         )

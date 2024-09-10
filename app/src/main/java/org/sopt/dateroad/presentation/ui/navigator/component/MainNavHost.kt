@@ -61,7 +61,7 @@ fun MainNavHost(
             homeNavGraph(
                 padding = padding,
                 navigateToPointHistory = navigator::navigateToPointHistory,
-                navigateToLook = navigator::navigateToLook,
+                navigateToLook = navigator::navigateMainNavigation,
                 navigateToTimelineDetail = navigator::navigateToTimelineDetail,
                 navigateToEnroll = navigator::navigateToEnroll,
                 navigateToAdvertisement = navigator::navigateToAdvertisement,
@@ -77,7 +77,8 @@ fun MainNavHost(
             myCoursesNavGraph(
                 padding = padding,
                 popBackStack = navigator::popBackStackIfNotHome,
-                navigateToEnroll = navigator::navigateToEnroll
+                navigateToEnroll = navigator::navigateToEnroll,
+                navigateToCourseDetail = navigator::navigateToCourseDetail
             )
 
             myPageNavGraph(
@@ -89,7 +90,10 @@ fun MainNavHost(
                 navigateToEditProfile = navigator::navigateToEditProfile
             )
 
-            onboardingNavGraph(navigateToEnrollProfile = navigator::navigateToEnrollProfile)
+            onboardingNavGraph(
+                navigateToEnrollProfile = navigator::navigateToEnrollProfile,
+                navigateToSignIn = navigator::navigateToSignIn
+            )
 
             pastNavGraph(
                 padding = padding,
@@ -135,8 +139,7 @@ fun MainNavHost(
                 padding = padding,
                 navigateToPast = navigator::navigateToPast,
                 navigateToEnroll = navigator::navigateToEnroll,
-                navigateToTimelineDetail = navigator::navigateToTimelineDetail,
-                popBackStack = navigator::popBackStackIfNotHome
+                navigateToTimelineDetail = navigator::navigateToTimelineDetail
             )
 
             timelineDetailGraph(

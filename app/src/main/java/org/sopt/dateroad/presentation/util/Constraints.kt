@@ -39,6 +39,7 @@ object Default {
 object Point {
     const val POINT = 50
     const val POINT_USED = "POINT_USED"
+    const val POINT_USED_DESCRIPTION = "코스 열람하기"
 }
 
 object Token {
@@ -48,3 +49,5 @@ object Token {
 object Time {
     const val TIME = " 시간"
 }
+
+// object

@@ -41,11 +41,13 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", properties["dev.base.url"].toString())
+            buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.dev.api.key"].toString())
         }
 
         release {
             isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", properties["prod.base.url"].toString())
+            buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.prod.api.key"].toString())
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -115,6 +117,9 @@ dependencies {
 
     // Web View
     implementation(libs.accompanist.webview)
+
+    // Amplitude
+    implementation(libs.amplitude)
 }
 
 ktlint {

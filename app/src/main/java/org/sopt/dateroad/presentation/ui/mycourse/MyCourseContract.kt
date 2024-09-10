@@ -15,6 +15,8 @@ class MyCourseContract {
     ) : UiState
 
     sealed interface MyCourseSideEffect : UiSideEffect {
+        data class NavigateToEnroll(val courseId: Int) : MyCourseSideEffect
+        data class NavigateToCourseDetail(val courseId: Int) : MyCourseSideEffect
         data object PopBackStack : MyCourseSideEffect
     }
 

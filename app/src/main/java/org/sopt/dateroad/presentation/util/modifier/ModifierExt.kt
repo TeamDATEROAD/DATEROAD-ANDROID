@@ -30,16 +30,16 @@ inline fun Modifier.noRippleClickable(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Modifier.noRippleDebounceClickable(
-    onClick: () -> Unit
+    onClick: suspend () -> Unit
 ): Modifier = composed {
     var clickable by remember { mutableStateOf(true) }
 
     pointerInteropFilter {
         if (clickable) {
-            onClick()
             clickable = false
             CoroutineScope(Dispatchers.Main).launch {
-                delay(500) // 500밀리초 딜레이
+                onClick()
+                delay(500)
                 clickable = true
             }
         }

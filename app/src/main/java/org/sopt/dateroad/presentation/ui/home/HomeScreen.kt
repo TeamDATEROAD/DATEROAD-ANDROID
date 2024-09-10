@@ -40,6 +40,7 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.type.SortByType
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.type.MainNavigationBarItemType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadImageButton
@@ -63,7 +64,7 @@ fun HomeRoute(
     padding: PaddingValues,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToPointHistory: () -> Unit,
-    navigateToLook: () -> Unit,
+    navigateToLook: (MainNavigationBarItemType) -> Unit,
     navigateToTimelineDetail: (TimelineType, Int) -> Unit,
     navigateToEnroll: (EnrollType, Int?) -> Unit,
     navigateToAdvertisementDetail: (Int) -> Unit,
@@ -97,7 +98,7 @@ fun HomeRoute(
             .collect { homeSideEffect ->
                 when (homeSideEffect) {
                     is HomeContract.HomeSideEffect.NavigateToPointHistory -> navigateToPointHistory()
-                    is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook()
+                    is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook(MainNavigationBarItemType.LOOK)
                     is HomeContract.HomeSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(homeSideEffect.timelineType, homeSideEffect.timelineId)
                     is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.id)
                     is HomeContract.HomeSideEffect.NavigateToAdvertisementDetail -> navigateToAdvertisementDetail(homeSideEffect.advertisementId)
