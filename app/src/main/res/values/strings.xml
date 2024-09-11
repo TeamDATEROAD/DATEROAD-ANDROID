@@ -284,7 +284,7 @@
     <string name="profile_enroll_top_bar_title">내 프로필</string>
     <string name="profile_edit_top_bar_title">프로필 변경</string>
     <string name="profile_text_field_title">닉네임</string>
-    <string name="profile_text_field_title_hint">(한글, 영문, 숫자만 가능)</string>
+    <string name="profile_text_field_title_description">(한글, 영문, 숫자만 가능)</string>
     <string name="profile_text_field_placeholder">닉네임을 입력해 주세요</string>
     <string name="profile_text_field_validation_error_description">최소 2글자를 입력해야 해요</string>
     <string name="profile_text_field_success_description">사용 가능한 닉네임이에요</string>

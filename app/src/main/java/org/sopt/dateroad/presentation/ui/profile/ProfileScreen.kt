@@ -3,7 +3,6 @@ package org.sopt.dateroad.presentation.ui.profile
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -260,7 +259,7 @@ fun ProfileScreen(
             DateRoadTextFieldWithButton(
                 validateState = profileUiState.nicknameValidateResult,
                 title = stringResource(id = R.string.profile_text_field_title),
-                titleHint = stringResource(id = R.string.profile_text_field_title_hint),
+                titleDescription = stringResource(id = R.string.profile_text_field_title_description),
                 placeholder = if (profileUiState.profileType == ProfileType.ENROLL) {
                     stringResource(id = R.string.profile_text_field_placeholder)
                 } else {
