@@ -160,7 +160,7 @@
     <string name="two_button_dialog_logout_title">로그아웃 하시겠어요?</string>
 
     <!-- TwoButtonDialogWithDescriptionType -->
-    <string name="two_button_dialog_with_description_read_course_title">50p를 사용해서 코스를 확인해 보시겠어요?</string>
+    <string name="two_button_dialog_with_description_read_course_title">50P를 사용해서 코스를 확인해 보시겠어요?</string>
     <string name="two_button_dialog_with_description_read_course_description">구매 후 포인트는 환불되지 않아요</string>
     <string name="two_button_dialog_with_description_point_lack_title">코스를 열람하기에 포인트가 부족해요</string>
     <string name="two_button_dialog_with_description_point_lack_description">코스를 등록하고 포인트를 모아보아요</string>
@@ -174,7 +174,7 @@
     <string name="two_button_dialog_with_description_withdrawal_title">정말로 탈퇴하시겠어요?</string>
     <string name="two_button_dialog_with_description_withdrawal_description">삭제된 계정은 복구하실 수 없어요</string>
     <string name="two_button_dialog_with_description_delete_course_description">삭제된 코스는 복구하실 수 없어요</string>
-    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 확인 후 서비스의 운영원칙에\n따라 조치 예정이에요</string>
+    <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 운영원칙에 따라 조치할 예정이에요</string>
 
 
     <!-- Top Bar Title -->
