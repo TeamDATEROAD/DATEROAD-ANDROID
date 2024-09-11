@@ -55,10 +55,12 @@ fun CourseDetailBottomBar(
 @Preview
 @Composable
 fun ButtonPreview(modifier: Modifier = Modifier) {
-    Box(modifier = Modifier){
-        CourseDetailBottomBar(modifier = Modifier.align(Alignment.BottomCenter),
+    Box(modifier = Modifier) {
+        CourseDetailBottomBar(
+            modifier = Modifier.align(Alignment.BottomCenter),
             isUserLiked = true,
-            onLikeButtonClicked = {  },
-            onEnrollButtonClicked = {  })
+            onLikeButtonClicked = { },
+            onEnrollButtonClicked = { }
+        )
     }
 }
