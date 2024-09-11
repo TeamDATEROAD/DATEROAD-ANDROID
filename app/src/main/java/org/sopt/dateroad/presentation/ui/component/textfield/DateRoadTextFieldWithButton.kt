@@ -57,17 +57,21 @@ fun DateRoadTextFieldWithButton(
             .fillMaxWidth()
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = title.toString(),
-                color = DateRoadTheme.colors.black,
-                style = DateRoadTheme.typography.bodyBold15
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = titleDescription.toString(),
-                color = DateRoadTheme.colors.gray300,
-                style = DateRoadTheme.typography.bodyMed13
-            )
+            title?.let { title ->
+                Text(
+                    text = title,
+                    color = DateRoadTheme.colors.black,
+                    style = DateRoadTheme.typography.bodyBold15
+                )
+            }
+            titleDescription?.let { titleDescription ->
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = titleDescription,
+                    color = DateRoadTheme.colors.gray300,
+                    style = DateRoadTheme.typography.bodyMed13
+                )
+            }
         }
         Spacer(
             modifier = Modifier.padding(top = 10.dp)
