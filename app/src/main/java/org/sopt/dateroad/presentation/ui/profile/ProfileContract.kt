@@ -24,7 +24,7 @@ class ProfileContract {
         val isNicknameChecked: Boolean = false,
         val isBottomSheetOpen: Boolean = false,
         val nicknameValidateResult: TextFieldValidateResult = TextFieldValidateResult.Basic,
-        val profile: Profile = Profile()
+        val currentProfile: Profile = Profile()
     ) : UiState
 
     sealed interface ProfileSideEffect : UiSideEffect {
@@ -49,8 +49,7 @@ class ProfileContract {
         data class FetchProfile(
             val fetchProfileLoadState: LoadState,
             val editProfile: EditProfile,
-            val nicknameValidateResult: TextFieldValidateResult,
-            val isEnrollButtonEnabled: Boolean
+            val currentProfile: Profile
         ) : ProfileEvent()
     }
 }
