@@ -1,14 +1,17 @@
 package org.sopt.dateroad.presentation.ui.coursedetail.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadBasicButton
@@ -38,7 +41,7 @@ fun CourseDetailBottomBar(
             onClick = onLikeButtonClicked,
             cornerRadius = 14.dp,
             paddingHorizontal = 23.dp,
-            paddingVertical = 18.dp
+            paddingVertical = 16.5.dp
         )
         Spacer(modifier = Modifier.width(12.dp))
         DateRoadBasicButton(
@@ -46,5 +49,16 @@ fun CourseDetailBottomBar(
             textContent = stringResource(id = R.string.course_detail_get_course),
             onClick = onEnrollButtonClicked
         )
+    }
+}
+
+@Preview
+@Composable
+fun ButtonPreview(modifier: Modifier = Modifier) {
+    Box(modifier = Modifier){
+        CourseDetailBottomBar(modifier = Modifier.align(Alignment.BottomCenter),
+            isUserLiked = true,
+            onLikeButtonClicked = {  },
+            onEnrollButtonClicked = {  })
     }
 }
