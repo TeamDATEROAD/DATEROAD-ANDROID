@@ -120,6 +120,9 @@ dependencies {
 
     // Amplitude
     implementation(libs.amplitude)
+
+    //Lottie
+    implementation(libs.lottie.compose)
 }
 
 ktlint {

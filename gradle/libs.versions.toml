@@ -1,5 +1,6 @@
 [versions]
 compileSdk = "34"
+lottieCompose = "6.1.0"
 minSdk = "28"
 targetSdk = "34"
 versionCode = "1"
@@ -88,6 +89,7 @@ accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pa
 accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanistWebview" }
 
 # Third Party
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
