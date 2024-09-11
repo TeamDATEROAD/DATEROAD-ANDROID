@@ -7,7 +7,7 @@ import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
-import org.sopt.dateroad.data.dataremote.util.ApiConstraints.ISDEFAULTIMAGE
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.IS_DEFAULT_IMAGE
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGNUP
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGN_IN
@@ -62,6 +62,6 @@ interface AuthService {
         @Part(NAME) name: RequestBody,
         @Part(TAGS) tags: RequestBody,
         @Part image: MultipartBody.Part?,
-        @Part(ISDEFAULTIMAGE)isDefaultImage: RequestBody
+        @Part(IS_DEFAULT_IMAGE)isDefaultImage: RequestBody
     )
 }
