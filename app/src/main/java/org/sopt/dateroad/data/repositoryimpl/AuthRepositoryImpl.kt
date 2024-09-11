@@ -2,13 +2,14 @@ package org.sopt.dateroad.data.repositoryimpl
 
 import android.content.ContentResolver
 import android.net.Uri
-import javax.inject.Inject
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.sopt.dateroad.data.dataremote.datasource.AuthRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.APPLICATION_JSON
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.HTTPS
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.PROFILE_FORM_DATA_IMAGE
 import org.sopt.dateroad.data.dataremote.util.ContentUriRequestBody
 import org.sopt.dateroad.data.mapper.todata.toData
@@ -18,6 +19,7 @@ import org.sopt.dateroad.domain.model.EditProfile
 import org.sopt.dateroad.domain.model.SignIn
 import org.sopt.dateroad.domain.model.SignUp
 import org.sopt.dateroad.domain.repository.AuthRepository
+import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver,
@@ -42,25 +44,18 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun postSignUp(signUp: SignUp): Result<Auth> = runCatching {
         authRemoteDataSource.postSignUp(
             image = if (signUp.image.isEmpty()) null else ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(signUp.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE),
-            userSignUpData = Json.encodeToString(signUp.userSignUpInfo.toData()).toRequestBody("application/json".toMediaType()),
-            tags = (Json.encodeToString(signUp.tag.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType())
+            userSignUpData = Json.encodeToString(signUp.userSignUpInfo.toData()).toRequestBody(APPLICATION_JSON.toMediaType()),
+            tags = (Json.encodeToString(signUp.tag.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody(APPLICATION_JSON.toMediaType())
         ).toDomain()
     }
 
     override suspend fun patchEditProfile(editProfile: EditProfile): Result<Unit> = runCatching {
         authRemoteDataSource.patchEditProfile(
             name = editProfile.name.toRequestBody(),
-            tags = (Json.encodeToString(editProfile.tags.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody("application/json".toMediaType()),
-            image = if (editProfile.image.isNullOrEmpty() || editProfile.image.startsWith("https://")) {
-                null
-            } else {
-                ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(editProfile.image)).toFormData(name = PROFILE_FORM_DATA_IMAGE)
-            },
-            isDefaultImage = if (editProfile.image.isNullOrEmpty()) {
-                "true"
-            } else {
-                "false"
-            }.toRequestBody("application/json".toMediaType())
+            tags = (Json.encodeToString(editProfile.tags.toData()).substringAfter(":").substringBeforeLast("}")).toRequestBody(APPLICATION_JSON.toMediaType()),
+            image = editProfile.image?.takeIf { image -> image.isNotEmpty() && !image.startsWith(HTTPS) }
+                ?.let { uri -> ContentUriRequestBody(contentResolver, Uri.parse(uri)).toFormData(name = PROFILE_FORM_DATA_IMAGE) },
+            isDefaultImage = Json.encodeToString(editProfile.image.isNullOrEmpty()).toRequestBody(APPLICATION_JSON.toMediaType())
         )
     }
 }

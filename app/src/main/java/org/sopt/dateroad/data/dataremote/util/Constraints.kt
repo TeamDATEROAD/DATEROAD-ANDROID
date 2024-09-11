@@ -1,10 +1,10 @@
 package org.sopt.dateroad.data.dataremote.util
 
 object ApiConstraints {
-    const val AUTHORIZATION = "Authorization"
     const val PROFILE_FORM_DATA_IMAGE = "image"
     const val COURSE_FORM_DATA_IMAGE = "images"
-    const val TEXT_PLANE = "text/plain"
+    const val APPLICATION_JSON = "application/json"
+    const val HTTPS = "https://"
     const val API = "api"
     const val VERSION = "v1"
     const val COURSES = "courses"
