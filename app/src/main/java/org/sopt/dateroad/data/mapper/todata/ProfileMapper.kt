@@ -6,6 +6,5 @@ import org.sopt.dateroad.domain.model.Profile
 fun Profile.toEditProfile(): EditProfile = EditProfile(
     name = this.name,
     tags = this.tag,
-    image = this.imageUrl,
-    isDefaultImage = true
+    image = this.imageUrl
 )
