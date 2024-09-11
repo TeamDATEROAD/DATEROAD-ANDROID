@@ -266,7 +266,7 @@ fun ProfileScreen(
                 } else {
                     profileUiState.editProfile.name
                 },
-                validationErrorDescription = "최소 2글자를 입력해주세요.",
+                validationErrorDescription = stringResource(id = R.string.profile_text_field_validation_error_description),
                 successDescription = stringResource(id = R.string.profile_text_field_success_description),
                 conflictErrorDescription = stringResource(id = R.string.profile_text_field_conflict_error_description),
                 buttonText = stringResource(id = R.string.profile_text_field_button_text),

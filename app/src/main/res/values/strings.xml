@@ -286,8 +286,9 @@
     <string name="profile_text_field_title">닉네임</string>
     <string name="profile_text_field_title_hint">(한글, 영문, 숫자만 가능)</string>
     <string name="profile_text_field_placeholder">닉네임을 입력해 주세요</string>
-    <string name="profile_text_field_success_description">사용가능한 닉네임입니다.</string>
-    <string name="profile_text_field_conflict_error_description">이미 사용중인 닉네임입니다.</string>
+    <string name="profile_text_field_validation_error_description">최소 2글자를 입력해야 해요</string>
+    <string name="profile_text_field_success_description">사용 가능한 닉네임이에요</string>
+    <string name="profile_text_field_conflict_error_description">이미 사용중인 닉네임이에요</string>
     <string name="profile_text_field_button_text">중복확인</string>
     <string name="profile_bottom_sheet_title">프로필 사진 설정</string>
     <string name="profile_bottom_sheet_button_text">취소</string>
