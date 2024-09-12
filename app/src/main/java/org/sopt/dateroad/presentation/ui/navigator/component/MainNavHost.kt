@@ -143,9 +143,7 @@ fun MainNavHost(
             )
 
             timelineDetailGraph(
-                padding = padding,
-                popBackStack = navigator::popBackStackIfNotHome,
-                navigateToEnroll = navigator::navigateToEnroll
+                popBackStack = navigator::popBackStackIfNotHome
             )
         }
     }
