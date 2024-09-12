@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.profile
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -49,6 +50,7 @@ import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldVali
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.Pattern.NICKNAME_REGEX
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -100,9 +102,7 @@ fun ProfileRoute(
                     ProfileScreen(
                         profileUiState = uiState,
                         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name ->
-                            viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name))
-                        },
+                        onNicknameValueChanged = { name ->  if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                         onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
@@ -134,7 +134,7 @@ fun ProfileRoute(
                     ProfileScreen(
                         profileUiState = uiState,
                         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                         onNicknameButtonClicked = {

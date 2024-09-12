@@ -89,10 +89,7 @@ fun DateRoadTextFieldWithButton(
                     .padding(vertical = 16.dp),
                 value = value,
                 onValueChange = {
-                    val filteredValue = it.filter { char ->
-                        char.toString().matches(Regex("[ㄱ-ㅎ가-힣a-zA-Z0-9]"))
-                    }
-                    if (filteredValue.length <= maxLength) onValueChange(filteredValue)
+                    if (it.length <= maxLength) onValueChange(it)
                 },
                 cursorBrush = SolidColor(DateRoadTheme.colors.purple600),
                 singleLine = true,
