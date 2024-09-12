@@ -3,7 +3,6 @@ package org.sopt.dateroad.presentation.ui.profile
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -102,7 +101,7 @@ fun ProfileRoute(
                     ProfileScreen(
                         profileUiState = uiState,
                         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name ->  if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                         onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
