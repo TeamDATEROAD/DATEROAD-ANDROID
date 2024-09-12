@@ -123,30 +123,31 @@ fun ProfileRoute(
         }
     } else {
         when (uiState.editProfileLoadState) {
-            LoadState.Idle -> {
-                ProfileScreen(
-                    profileUiState = uiState,
-                    onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
-                    onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
-                    onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
-                    onNicknameButtonClicked = {
-                        viewModel.getNicknameCheck(uiState.editProfile.name)
-                    },
-                    onEnrollButtonClicked = {
-                        viewModel.patchEditProfile(uiState.editProfile)
-                    },
-                    selectPhoto = {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                            getGalleryLauncher.launch("image/*")
-                        } else {
-                            getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                        }
-                    },
-                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) },
-                    popUpBackStack = { popBackStack() }
-                )
-            }
+            LoadState.Idle -> DateRoadLoadingView()
+//                {
+//                ProfileScreen(
+//                    profileUiState = uiState,
+//                    onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
+//                    onNicknameValueChanged = { name -> viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+//                    onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
+//                    onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
+//                    onNicknameButtonClicked = {
+//                        viewModel.getNicknameCheck(uiState.editProfile.name)
+//                    },
+//                    onEnrollButtonClicked = {
+//                        viewModel.patchEditProfile(uiState.editProfile)
+//                    },
+//                    selectPhoto = {
+//                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+//                            getGalleryLauncher.launch("image/*")
+//                        } else {
+//                            getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//                        }
+//                    },
+//                    deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) },
+//                    popUpBackStack = { popBackStack() }
+//                )
+//            }
 
             LoadState.Loading -> DateRoadLoadingView()
             LoadState.Success -> navigationToMyPage()

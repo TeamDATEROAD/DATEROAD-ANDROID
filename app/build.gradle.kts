@@ -121,7 +121,7 @@ dependencies {
     // Amplitude
     implementation(libs.amplitude)
 
-    //Lottie
+    // Lottie
     implementation(libs.lottie.compose)
 }
 
