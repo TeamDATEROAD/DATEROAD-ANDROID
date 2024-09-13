@@ -1,6 +1,5 @@
 [versions]
 compileSdk = "34"
-lottieCompose = "6.1.0"
 minSdk = "28"
 targetSdk = "34"
 versionCode = "1"
@@ -50,6 +49,7 @@ timber = "5.0.1"
 sentry = "4.1.1"
 kakao = "2.20.3"
 amplitude = "1.+"
+lottieCompose = "6.1.0"
 
 [libraries]
 # Test
@@ -89,7 +89,6 @@ accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pa
 accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanistWebview" }
 
 # Third Party
-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
@@ -109,6 +108,8 @@ kakao-friend = { group = "com.kakao.sdk", name = "v2-friend", version.ref = "kak
 kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" }
 kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
 amplitude = { group = "com.amplitude", name = "analytics-android", version.ref = "amplitude" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
