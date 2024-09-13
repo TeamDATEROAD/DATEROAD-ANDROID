@@ -32,7 +32,8 @@ fun CourseDetailBottomBar(
     onLikeButtonClicked: () -> Unit,
     onEnrollButtonClicked: () -> Unit
 ) {
-    var buttonHeight by remember { mutableStateOf(0.dp) } val density = LocalDensity.current
+    var buttonHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -50,7 +51,7 @@ fun CourseDetailBottomBar(
             onClick = onLikeButtonClicked,
             cornerRadius = 14.dp,
             paddingHorizontal = 23.dp,
-            paddingVertical = 16.5.dp
+            paddingVertical = 0.dp
         )
         Spacer(modifier = Modifier.width(12.dp))
         DateRoadBasicButton(
