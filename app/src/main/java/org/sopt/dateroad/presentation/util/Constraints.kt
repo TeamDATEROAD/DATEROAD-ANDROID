@@ -56,6 +56,6 @@ object LoadingView {
 }
 
 object Pattern {
-    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$"
+    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$"
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }

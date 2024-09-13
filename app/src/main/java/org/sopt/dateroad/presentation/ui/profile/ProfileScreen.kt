@@ -101,7 +101,7 @@ fun ProfileRoute(
                     ProfileScreen(
                         profileUiState = uiState,
                         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX) || name.isEmpty()) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                         onNicknameButtonClicked = { viewModel.getNicknameCheck(uiState.signUp.userSignUpInfo.name) },
@@ -133,7 +133,7 @@ fun ProfileRoute(
                     ProfileScreen(
                         profileUiState = uiState,
                         onImageButtonClicked = { viewModel.setEvent(ProfileContract.ProfileEvent.OnImageButtonClicked) },
-                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX) || name.isEmpty()) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
+                        onNicknameValueChanged = { name -> if (name.matches(NICKNAME_REGEX)) viewModel.setEvent(ProfileContract.ProfileEvent.OnNicknameValueChanged(name = name)) },
                         onDateChipClicked = { tag -> viewModel.setEvent(ProfileContract.ProfileEvent.OnDateChipClicked(tag = tag.name)) },
                         onBottomSheetDismissRequest = { viewModel.setEvent(ProfileContract.ProfileEvent.OnBottomSheetDismissRequest) },
                         onNicknameButtonClicked = {
