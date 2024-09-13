@@ -39,7 +39,7 @@ fun DateRoadErrorView() {
         Image(
             modifier = Modifier
                 .fillMaxWidth(),
-            painter = painterResource(id = R.drawable.ic_error_server),
+            painter = painterResource(id = R.drawable.img_error_server),
             contentDescription = null
         )
         Spacer(modifier = Modifier.height(16.dp))

@@ -3,9 +3,7 @@ package org.sopt.dateroad.presentation.ui.component.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +35,6 @@ fun DateRoadEmptyView(
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )
-        Spacer(modifier = Modifier.height(16.dp))
         Text(
             modifier = Modifier
                 .fillMaxWidth()

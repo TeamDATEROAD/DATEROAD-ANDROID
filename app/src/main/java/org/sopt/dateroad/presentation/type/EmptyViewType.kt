@@ -18,26 +18,26 @@ enum class EmptyViewType(
     ),
     READ(
         titleRes = R.string.empty_view_read,
-        imageRes = R.drawable.ic_empty_read
+        imageRes = R.drawable.img_empty_read
     ),
     LOOK(
         titleRes = R.string.empty_view_look,
-        imageRes = R.drawable.ic_empty_look
+        imageRes = R.drawable.img_empty_look
     ),
     TIMELINE(
         titleRes = R.string.empty_view_timeline,
-        imageRes = R.drawable.ic_empty_timeline
+        imageRes = R.drawable.img_empty_running
     ),
     PAST(
         titleRes = R.string.empty_view_past,
-        imageRes = R.drawable.ic_empty_default
+        imageRes = R.drawable.img_empty_envelope
     ),
     MY_COURSE_READ(
         titleRes = R.string.empty_view_my_course_read,
-        imageRes = R.drawable.ic_empty_default
+        imageRes = R.drawable.img_empty_envelope
     ),
     MY_COURSE_ENROLL(
         titleRes = R.string.empty_view_my_course_enroll,
-        imageRes = R.drawable.ic_empty_my_page_enroll
+        imageRes = R.drawable.img_empty_running
     )
 }
