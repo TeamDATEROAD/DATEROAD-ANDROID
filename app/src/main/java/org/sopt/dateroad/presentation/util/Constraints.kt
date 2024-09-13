@@ -19,7 +19,7 @@ object TimePicker {
 }
 
 object TotalCostZero {
-    const val ZEROCOST = "무지출"
+    const val ZERO_COST = "무지출"
 }
 
 object DatePicker {
@@ -50,4 +50,7 @@ object Time {
     const val TIME = " 시간"
 }
 
-// object
+object Pattern {
+    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$"
+    val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
+}

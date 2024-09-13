@@ -97,7 +97,7 @@ class ProfileViewModel @Inject constructor(
             is ProfileContract.ProfileEvent.SetSignUpImage -> setState { copy(signUp = currentState.signUp.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.SetEditProfileImage -> setState { copy(editProfile = currentState.editProfile.copy(image = event.image)) }
             is ProfileContract.ProfileEvent.InitProfileType -> setState { copy(profileType = event.profileType) }
-            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState = event.fetchProfileLoadState, editProfile = event.editProfile) }
+            is ProfileContract.ProfileEvent.FetchProfile -> setState { copy(fetchProfileLoadState = event.fetchProfileLoadState, editProfile = event.editProfile, currentProfile = event.currentProfile) }
             is ProfileContract.ProfileEvent.PatchEditProfile -> setState { copy(editProfileLoadState = event.editProfileLoadState) }
         }
     }
@@ -116,16 +116,10 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun getNicknameCheck(name: String) {
-        var currentName = ""
         viewModelScope.launch {
             setEvent(
                 ProfileContract.ProfileEvent.GetNicknameCheck(loadState = LoadState.Loading, nicknameValidateResult = TextFieldValidateResult.Basic)
             )
-            if (currentState.profileType == ProfileType.EDIT) {
-                getUserUseCase().onSuccess { profile ->
-                    currentName = profile.name
-                }
-            }
             getNicknameCheckUseCase(name = name).onSuccess { code ->
                 when (code) {
                     SUCCESS -> setEvent(
@@ -137,7 +131,7 @@ class ProfileViewModel @Inject constructor(
                     CONFLICT -> setEvent(
                         ProfileContract.ProfileEvent.GetNicknameCheck(
                             loadState = LoadState.Success,
-                            nicknameValidateResult = if (currentName == name) {
+                            nicknameValidateResult = if (currentState.currentProfile.name == name) {
                                 TextFieldValidateResult.Success
                             } else {
                                 TextFieldValidateResult.ConflictError
@@ -158,12 +152,11 @@ class ProfileViewModel @Inject constructor(
 
     fun fetchProfile() {
         viewModelScope.launch {
-            setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Loading, editProfile = currentState.editProfile))
+            setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Loading, editProfile = currentState.editProfile, currentProfile = currentState.currentProfile))
             getUserUseCase().onSuccess { profile ->
-                val editProfile = profile.toEditProfile()
-                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = editProfile))
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Success, editProfile = profile.toEditProfile(), currentProfile = profile))
             }.onFailure {
-                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile))
+                setEvent(ProfileContract.ProfileEvent.FetchProfile(fetchProfileLoadState = LoadState.Error, editProfile = currentState.editProfile, currentProfile = currentState.currentProfile))
             }
         }
     }
