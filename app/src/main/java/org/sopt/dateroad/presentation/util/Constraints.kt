@@ -49,6 +49,11 @@ object Token {
 object Time {
     const val TIME = " 시간"
 }
+object LoadingView {
+    const val LOTTIE = "loading.json"
+    const val CLIPMIN = 0
+    const val CLIPMAX = 1200
+}
 
 object Pattern {
     private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$"
