@@ -15,18 +15,21 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
+import org.sopt.dateroad.presentation.util.LoadingView.CLIPMAX
+import org.sopt.dateroad.presentation.util.LoadingView.CLIPMIN
+import org.sopt.dateroad.presentation.util.LoadingView.LOTTIE
 
 @Composable
 fun DateRoadLoadingView() {
     val composition by rememberLottieComposition(
-        LottieCompositionSpec.Asset("loading.json")
+        LottieCompositionSpec.Asset(LOTTIE)
     )
     val lottieAnimatable = rememberLottieAnimatable()
 
     LaunchedEffect(composition) {
         lottieAnimatable.animate(
             composition = composition,
-            clipSpec = LottieClipSpec.Frame(0, 1200),
+            clipSpec = LottieClipSpec.Frame(CLIPMIN, CLIPMAX),
             initialProgress = 0f,
             iteration = LottieConstants.IterateForever
         )

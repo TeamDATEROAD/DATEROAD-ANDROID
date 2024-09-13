@@ -49,5 +49,8 @@ object Token {
 object Time {
     const val TIME = " 시간"
 }
-
-// object
+object LoadingView{
+    const val LOTTIE = "loading.json"
+    const val CLIPMIN = 0
+    const val CLIPMAX = 1200
+}
