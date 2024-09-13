@@ -32,8 +32,7 @@ fun CourseDetailBottomBar(
     onLikeButtonClicked: () -> Unit,
     onEnrollButtonClicked: () -> Unit
 ) {
-    var buttonHeight by remember { mutableStateOf(0.dp) } // 버튼 크기를 저장하는 상태 변수
-    val density = LocalDensity.current
+    var buttonHeight by remember { mutableStateOf(0.dp) } val density = LocalDensity.current
     Row(
         modifier = modifier
             .fillMaxWidth()
