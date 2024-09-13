@@ -41,8 +41,11 @@ fun DateRoadLoadingView() {
     ) {
         LottieAnimation(
             composition = composition,
-            progress = lottieAnimatable.progress,
-            contentScale = ContentScale.FillHeight
+            iterations = LottieConstants.IterateForever,
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.BottomCenter),
+            contentScale = ContentScale.FillWidth
         )
     }
 }
