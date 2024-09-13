@@ -63,7 +63,7 @@ fun CourseDetailUnopenedDetail(
         }
         Spacer(modifier = Modifier.height(8.dp))
         Image(
-            painter = painterResource(id = R.drawable.ic_course_detail_is_not_access),
+            painter = painterResource(id = R.drawable.img_course_detail_is_not_access),
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

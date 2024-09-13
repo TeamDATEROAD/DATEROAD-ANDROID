@@ -1,13 +1,11 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailRoute
 
@@ -16,9 +14,7 @@ fun NavController.navigateToTimelineDetail(timelineType: TimelineType, timelineI
 }
 
 fun NavGraphBuilder.timelineDetailGraph(
-    padding: PaddingValues,
-    popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int) -> Unit
+    popBackStack: () -> Unit
 ) {
     composable(
         route = TimelineDetailRoutes.ROUTE_WITH_ARGUMENT,
@@ -29,11 +25,11 @@ fun NavGraphBuilder.timelineDetailGraph(
     ) { backStackEntry ->
         val timelineType = TimelineType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.TIMELINE_TYPE) ?: TimelineType.PINK.name)
         val timelineId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.TIMELINE_ID) ?: 1
+
         TimelineDetailRoute(
             popBackStack = popBackStack,
             timelineId = timelineId,
-            timelineType = timelineType,
-            navigateToEnroll = navigateToEnroll
+            timelineType = timelineType
         )
     }
 }

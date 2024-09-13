@@ -39,7 +39,6 @@ import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
-import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.type.PlaceCardType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TimelineType
@@ -63,7 +62,6 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 @Composable
 fun TimelineDetailRoute(
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int) -> Unit,
     timelineId: Int,
     timelineType: TimelineType
 ) {
@@ -81,7 +79,6 @@ fun TimelineDetailRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is TimelineDetailContract.TimelineDetailSideEffect.PopBackStack -> popBackStack()
-                    is TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, sideEffect.id)
                 }
             }
     }
@@ -102,7 +99,6 @@ fun TimelineDetailRoute(
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
                 onDeleteConfirm = { viewModel.deleteTimeline(timelineId = timelineId) },
-                onEnrollButtonClick = { id -> viewModel.setSideEffect(TimelineDetailContract.TimelineDetailSideEffect.NavigateToEnroll(id = id)) },
                 onKakaoShareConfirm = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.ShareKakao(context, uiState.timelineDetail)) }
             )
         }
@@ -127,8 +123,7 @@ fun TimelineDetailScreen(
     setShowDeleteBottomSheet: (Boolean) -> Unit,
     setShowDeleteDialog: (Boolean) -> Unit,
     onDeleteConfirm: () -> Unit,
-    onKakaoShareConfirm: () -> Unit,
-    onEnrollButtonClick: (Int) -> Unit
+    onKakaoShareConfirm: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -282,27 +277,10 @@ fun TimelineDetailScreen(
                         )
                     }
                 }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(vertical = 16.dp, horizontal = 70.dp)
-                        .background(DateRoadTheme.colors.purple600, CircleShape)
-                        .noRippleClickable(onClick = { onEnrollButtonClick(uiState.timelineDetail.timelineId) })
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.timeline_detail_point),
-                        style = DateRoadTheme.typography.bodyBold15,
-                        color = DateRoadTheme.colors.white,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp, horizontal = 24.dp)
-                    )
-                }
             }
         }
     }
+
     if (uiState.showKakaoDialog) {
         DateRoadTwoButtonDialog(
             twoButtonDialogType = TwoButtonDialogType.OPEN_KAKAOTALK,
@@ -378,8 +356,7 @@ fun TimelineDetailScreenPreview() {
             setShowDeleteBottomSheet = {},
             setShowDeleteDialog = {},
             onDeleteConfirm = {},
-            onKakaoShareConfirm = {},
-            onEnrollButtonClick = {}
+            onKakaoShareConfirm = {}
         )
     }
 }

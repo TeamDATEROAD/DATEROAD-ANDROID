@@ -19,7 +19,7 @@ object TimePicker {
 }
 
 object TotalCostZero {
-    const val ZEROCOST = "무지출"
+    const val ZERO_COST = "무지출"
 }
 
 object DatePicker {
@@ -53,4 +53,9 @@ object LoadingView {
     const val LOTTIE = "loading.json"
     const val CLIPMIN = 0
     const val CLIPMAX = 1200
+}
+
+object Pattern {
+    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$"
+    val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }
