@@ -140,7 +140,7 @@ fun EnrollRoute(
 
     LaunchedEffect(uiState.loadState) {
         if (uiState.loadState == LoadState.Success) {
-            when(uiState.enrollType) {
+            when (uiState.enrollType) {
                 EnrollType.TIMELINE -> AmplitudeUtils.trackEvent(CLICK_ADD_SCHEDULE)
                 else -> Unit
             }
