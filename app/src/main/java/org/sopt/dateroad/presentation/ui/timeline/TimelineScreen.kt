@@ -40,6 +40,10 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.COUNT_DATE_SCHEDULE
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.DATE_SCHEDULE_NUM
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.VIEW_DATE_SCHEDULE
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -58,6 +62,7 @@ fun TimelineRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
+        AmplitudeUtils.trackEvent(eventName = VIEW_DATE_SCHEDULE)
         viewModel.fetchTimeline(TimelineTimeType.FUTURE)
     }
 
@@ -73,6 +78,10 @@ fun TimelineRoute(
 
     LaunchedEffect(pagerState.currentPage) {
         viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
+    }
+
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) AmplitudeUtils.trackEventWithProperty(eventName = COUNT_DATE_SCHEDULE, propertyName = DATE_SCHEDULE_NUM, propertyValue = uiState.timelines.size)
     }
 
     when (uiState.loadState) {
