@@ -66,8 +66,6 @@ object TimelineDetailAmplitude {
     const val CLICK_CLOSE_KAKAO = "click_close_kakao"
     const val CLICK_OPEN_KAKAO = "click_open_kakao"
     const val VIEW_PATH = "view_path"
-    const val DATE_COURSE_NUM="date_course_num"
-    const val DATE_TOTAL_DURATION="date_total_duration"
-
-
+    const val DATE_COURSE_NUM = "date_course_num"
+    const val DATE_TOTAL_DURATION = "date_total_duration"
 }

@@ -54,6 +54,14 @@ import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_CLOSE_KAKAO
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_KAKAO_SHARE
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_OPEN_KAKAO
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.DATE_COURSE_NUM
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.DATE_TOTAL_DURATION
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.VIEW_PATH
+import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.VIEW_SCHEDULE_DETAILS
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -83,6 +91,10 @@ fun TimelineDetailRoute(
             }
     }
 
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) AmplitudeUtils.trackEventWithProperty(eventName = VIEW_SCHEDULE_DETAILS, propertyName = VIEW_PATH, propertyValue = "Test Value")
+    }
+
     when (uiState.loadState) {
         LoadState.Idle -> DateRoadIdleView()
 
@@ -94,7 +106,18 @@ fun TimelineDetailRoute(
                 timelineType = timelineType,
                 onTopBarItemClick = popBackStack,
                 onButtonClick = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(true)) },
-                showKakaoClicked = { viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true)) },
+                showKakaoClicked = {
+                    viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(true))
+                    AmplitudeUtils.trackEventWithProperties(
+                        eventName = CLICK_KAKAO_SHARE,
+                        mapOf(
+                            DATE_COURSE_NUM to uiState.timelineDetail.places.size,
+                            DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
+                                place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                            }
+                        )
+                    )
+                },
                 setShowKakaoDialog = { showKakaoDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowKakaoDialog(showKakaoDialog)) },
                 setShowDeleteBottomSheet = { showDeleteBottomSheet -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteBottomSheet(showDeleteBottomSheet)) },
                 setShowDeleteDialog = { showDeleteDialog -> viewModel.setEvent(TimelineDetailContract.TimelineDetailEvent.SetShowDeleteDialog(showDeleteDialog)) },
@@ -287,9 +310,29 @@ fun TimelineDetailScreen(
             onDismissRequest = { setShowKakaoDialog(false) },
             onClickConfirm = {
                 setShowKakaoDialog(false)
+                AmplitudeUtils.trackEventWithProperties(
+                    eventName = CLICK_OPEN_KAKAO,
+                    mapOf(
+                        DATE_COURSE_NUM to uiState.timelineDetail.places.size,
+                        DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
+                            place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                        }
+                    )
+                )
                 onKakaoShareConfirm()
             },
-            onClickDismiss = { setShowKakaoDialog(false) }
+            onClickDismiss = {
+                setShowKakaoDialog(false)
+                AmplitudeUtils.trackEventWithProperties(
+                    eventName = CLICK_CLOSE_KAKAO,
+                    mapOf(
+                        DATE_COURSE_NUM to uiState.timelineDetail.places.size,
+                        DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
+                            place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                        }
+                    )
+                )
+            }
         )
     }
 
