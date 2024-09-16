@@ -143,7 +143,8 @@ fun MainNavHost(
             )
 
             timelineDetailGraph(
-                popBackStack = navigator::popBackStackIfNotHome
+                popBackStack = navigator::popBackStackIfNotHome,
+                navController = navigator.navHostController
             )
         }
     }

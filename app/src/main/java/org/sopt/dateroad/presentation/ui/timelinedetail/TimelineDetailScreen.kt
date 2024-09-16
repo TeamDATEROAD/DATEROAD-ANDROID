@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.timelinedetail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -71,7 +72,8 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun TimelineDetailRoute(
     popBackStack: () -> Unit,
     timelineId: Int,
-    timelineType: TimelineType
+    timelineType: TimelineType,
+    previousView: String
 ) {
     val viewModel: TimelineDetailViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -92,7 +94,14 @@ fun TimelineDetailRoute(
     }
 
     LaunchedEffect(uiState.loadState, lifecycleOwner) {
-        if (uiState.loadState == LoadState.Success) AmplitudeUtils.trackEventWithProperty(eventName = VIEW_SCHEDULE_DETAILS, propertyName = VIEW_PATH, propertyValue = "Test Value")
+        Log.d("ㅋㅋ", "$previousView")
+        if (uiState.loadState == LoadState.Success) {
+            AmplitudeUtils.trackEventWithProperty(
+                eventName = VIEW_SCHEDULE_DETAILS,
+                propertyName = VIEW_PATH,
+                propertyValue = previousView
+            )
+        }
     }
 
     when (uiState.loadState) {
