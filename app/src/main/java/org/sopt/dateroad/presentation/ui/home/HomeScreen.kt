@@ -55,6 +55,14 @@ import org.sopt.dateroad.presentation.ui.home.component.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
+import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_COST
+import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_ID
+import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_LOCATION
+import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_TITLE
+import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_NAME
+import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_POINT
+import org.sopt.dateroad.presentation.util.HomeAmplitude.VIEW_MAIN
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -105,6 +113,22 @@ fun HomeRoute(
                     is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseId)
                 }
             }
+    }
+
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) {
+            AmplitudeUtils.trackEventWithProperties(
+                eventName = VIEW_MAIN,
+                mapOf(
+                    USER_NAME to uiState.userPoint.name,
+                    USER_POINT to uiState.userPoint.point,
+                    COURSE_LIST_ID to uiState.topLikedCourses.map { it.courseId }.joinToString(),
+                    COURSE_LIST_TITLE to uiState.topLikedCourses.joinToString { it.title },
+                    COURSE_LIST_LOCATION to uiState.topLikedCourses.joinToString { it.city },
+                    COURSE_LIST_COST to uiState.topLikedCourses.joinToString { it.cost }
+                )
+            )
+        }
     }
 
     when (uiState.loadState) {
