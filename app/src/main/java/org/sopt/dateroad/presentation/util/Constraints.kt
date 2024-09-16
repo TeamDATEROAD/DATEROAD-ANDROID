@@ -59,3 +59,13 @@ object Pattern {
     private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$"
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }
+
+object HomeAmplitude {
+    const val VIEW_MAIN = "view_main"
+    const val USER_NAME = "user_name"
+    const val USER_POINT = "user_point"
+    const val COURSE_LIST_ID = "course_list_id"
+    const val COURSE_LIST_TITLE = "course_list_title"
+    const val COURSE_LIST_LOCATION = "course_list_location"
+    const val COURSE_LIST_COST = "course_list_cost"
+}
