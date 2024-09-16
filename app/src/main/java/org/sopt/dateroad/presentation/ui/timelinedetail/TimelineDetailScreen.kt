@@ -94,7 +94,6 @@ fun TimelineDetailRoute(
     }
 
     LaunchedEffect(uiState.loadState, lifecycleOwner) {
-        Log.d("ㅋㅋ", "$previousView")
         if (uiState.loadState == LoadState.Success) {
             AmplitudeUtils.trackEventWithProperty(
                 eventName = VIEW_SCHEDULE_DETAILS,
