@@ -53,9 +53,16 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE2
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE2
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_COURSE1
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_PATH
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.TimePicker
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -67,7 +74,8 @@ fun EnrollRoute(
     popBackStack: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     enrollType: EnrollType,
-    id: Int?
+    viewPath: String,
+    timelineId: Int?
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -86,17 +94,15 @@ fun EnrollRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
-    }
 
-    LaunchedEffect(uiState.enrollType) {
-        if (id != null) {
+        if (timelineId != null) {
             when (enrollType) {
                 EnrollType.COURSE -> {
-                    viewModel.fetchTimelineDetail(timelineId = id)
+                    viewModel.fetchTimelineDetail(timelineId = timelineId)
                 }
 
                 EnrollType.TIMELINE -> {
-                    viewModel.fetchCourseDetail(courseId = id)
+                    viewModel.fetchCourseDetail(courseId = timelineId)
                 }
             }
         }
@@ -134,6 +140,28 @@ fun EnrollRoute(
                 }
             )
         )
+    }
+
+    LaunchedEffect(uiState.page) {
+        when (enrollType) {
+            EnrollType.COURSE -> {
+                when (uiState.page) {
+                    EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperty(eventName = VIEW_COURSE1, propertyName = VIEW_PATH, propertyValue = viewPath)
+                    EnrollScreenType.SECOND -> Unit
+                    EnrollScreenType.THIRD -> Unit
+                }
+            }
+
+            EnrollType.TIMELINE -> {
+                (timelineId != null).let { isBringCourse ->
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperty(eventName = if (isBringCourse) VIEW_ADD_BRING_COURSE else VIEW_ADD_SCHEDULE, propertyName = VIEW_PATH, propertyValue = viewPath)
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEvent(eventName = if (isBringCourse) VIEW_ADD_BRING_COURSE2 else VIEW_ADD_SCHEDULE2)
+                        EnrollScreenType.THIRD -> Unit
+                    }
+                }
+            }
+        }
     }
 
     EnrollScreen(

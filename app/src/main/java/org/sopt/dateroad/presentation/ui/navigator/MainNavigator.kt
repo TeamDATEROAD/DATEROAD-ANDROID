@@ -74,8 +74,8 @@ class MainNavigator(
         navHostController.navigationCourseDetail(courseId = courseId)
     }
 
-    fun navigateToEnroll(enrollType: EnrollType, courseId: Int?) {
-        navHostController.navigationEnroll(enrollType = enrollType, courseId = courseId)
+    fun navigateToEnroll(enrollType: EnrollType, viewPath: String, courseId: Int?) {
+        navHostController.navigationEnroll(enrollType = enrollType, viewPath = viewPath, courseId = courseId)
     }
 
     fun navigateToMyPage(navOptions: NavOptions? = null) {

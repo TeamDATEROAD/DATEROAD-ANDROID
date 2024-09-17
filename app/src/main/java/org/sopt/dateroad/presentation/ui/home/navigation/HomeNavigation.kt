@@ -23,7 +23,7 @@ fun NavGraphBuilder.homeNavGraph(
     navigateToPointHistory: () -> Unit,
     navigateToLook: (MainNavigationBarItemType) -> Unit,
     navigateToTimelineDetail: (TimelineType, Int) -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToAdvertisement: (Int) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
