@@ -51,16 +51,29 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE1_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE2_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE3_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE1_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE2_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_COST
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_DATE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_IMAGE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_START_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TAGS
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TITLE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_AREA
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_COURSE_NUM
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DATE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_LOCATION
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_LOCATION
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_SPEND_TIME
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TAG_NUM
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TIME
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TITLE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.LOCATION_NUM
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE2
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE
@@ -183,9 +196,20 @@ fun EnrollRoute(
             when (enrollType) {
                 EnrollType.COURSE -> {
                     when (uiState.page) {
-                        EnrollScreenType.FIRST -> {}
-                        EnrollScreenType.SECOND -> {}
-                        EnrollScreenType.THIRD -> {}
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE1_BACK,
+                            properties = with(uiState.enroll) { mapOf(COURSE_IMAGE to images.isNotEmpty(), COURSE_TITLE to title.isNotEmpty(), COURSE_DATE to date.isNotEmpty(), COURSE_START_TIME to startAt.isNotEmpty(), COURSE_TAGS to tags.isNotEmpty(), DATE_AREA to (city != null)) }
+                        )
+
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE2_BACK,
+                            properties = with(uiState.place) { mapOf(DATE_LOCATION to title.isNotEmpty(), DATE_SPEND_TIME to duration.isNotEmpty(), LOCATION_NUM to uiState.enroll.places.size) }
+                        )
+
+                        EnrollScreenType.THIRD -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE3_BACK,
+                            properties = with(uiState.enroll) { mapOf(COURSE_CONTENT to description.length, COURSE_COST to cost.isNotEmpty()) }
+                        )
                     }
                 }
 
