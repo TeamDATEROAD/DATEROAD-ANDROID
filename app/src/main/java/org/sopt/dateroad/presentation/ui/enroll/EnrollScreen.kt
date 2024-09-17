@@ -56,6 +56,8 @@ import org.sopt.dateroad.presentation.util.DatePicker
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.TimePicker
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.CLICK_ADD_SCHEDULE
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -134,6 +136,15 @@ fun EnrollRoute(
                 }
             )
         )
+    }
+
+    LaunchedEffect(uiState.loadState) {
+        if (uiState.loadState == LoadState.Success) {
+            when (uiState.enrollType) {
+                EnrollType.TIMELINE -> AmplitudeUtils.trackEvent(CLICK_ADD_SCHEDULE)
+                else -> Unit
+            }
+        }
     }
 
     EnrollScreen(
