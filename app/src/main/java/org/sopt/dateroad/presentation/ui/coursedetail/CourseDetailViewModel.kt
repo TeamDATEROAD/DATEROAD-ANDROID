@@ -34,7 +34,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.DismissDialogDeleteCourse -> setState { copy(isDeleteCourseDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnDialogReportCourse -> setState { copy(isReportCourseDialogOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogReportCourse -> setState { copy(isReportCourseDialogOpen = false) }
-            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true) }
+            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true, hasDialogOpened = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked -> setState { copy(isLikedButtonChecked = !isLikedButtonChecked) }
             is CourseDetailContract.CourseDetailEvent.OnDeleteCourseBottomSheet -> setState { copy(isDeleteCourseBottomSheetOpen = true) }

@@ -67,7 +67,7 @@ object CourseDetailAmplitude {
     const val CLICK_COURSE_LIKES = "click_course_likes"
     const val COURSE_LIST_ID = "course_list_id"
     const val COURSE_LIST_TITLE = "course_list_title"
-    const val CLICK_LIST_PURCHASE = "click_course_purchase"
+    const val CLICK_COURSE_PURCHASE = "click_course_purchase"
     const val PURCHASE_SUCCESS = "purchase_success"
     const val COURSE_LIST_LIKE = "course_list_like"
 }

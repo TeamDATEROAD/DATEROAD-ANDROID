@@ -45,7 +45,16 @@ import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBasi
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBottomBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
 import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_BACK
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_LIKES
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_PURCHASE
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_ID
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_LIKE
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_TITLE
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.PURCHASE_SUCCESS
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.VIEW_COURSE_DETAILS
 import org.sopt.dateroad.presentation.util.WebViewUrl.REPORT_URL
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -72,6 +81,18 @@ fun CourseDetailRoute(
 
     LaunchedEffect(Unit) {
         viewModel.fetchCourseDetail(courseId = courseId)
+    }
+
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) {
+            AmplitudeUtils.trackEventWithProperties(
+                eventName = VIEW_COURSE_DETAILS,
+                mapOf(
+                    COURSE_LIST_ID to uiState.courseDetail.courseId,
+                    COURSE_LIST_TITLE to uiState.courseDetail.title
+                )
+            )
+        }
     }
 
     when (uiState.loadState) {
@@ -101,6 +122,7 @@ fun CourseDetailRoute(
                         true -> viewModel.deleteCourseLike(courseId = courseId)
                         false -> viewModel.postCourseLike(courseId = courseId)
                     }
+                    AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = uiState.courseDetail.isUserLiked)
                 },
                 onDeleteButtonClicked = {
                     viewModel.deleteCourse(courseId = courseId)
@@ -110,7 +132,16 @@ fun CourseDetailRoute(
                 onReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportCourseBottomSheet) },
                 dismissReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportCourseBottomSheet) },
                 enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
-                onTopBarIconClicked = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack) },
+                onTopBarIconClicked = {
+                    viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack)
+                    AmplitudeUtils.trackEventWithProperties(
+                        eventName = CLICK_COURSE_BACK,
+                        mapOf(
+                            CLICK_COURSE_PURCHASE to uiState.hasDialogOpened,
+                            PURCHASE_SUCCESS to uiState.courseDetail.isAccess
+                        )
+                    )
+                },
                 openCourseDetail = { viewModel.postUsePoint(courseId = courseId) },
                 onReportButtonClicked = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportWebViewClicked)
