@@ -122,10 +122,14 @@ fun HomeRoute(
                 mapOf(
                     USER_NAME to uiState.userPoint.name,
                     USER_POINT to uiState.userPoint.point,
-                    COURSE_LIST_ID to uiState.topLikedCourses.map { it.courseId }.joinToString() + "," + uiState.latestCourses.map { it.courseId }.joinToString(),
-                    COURSE_LIST_TITLE to uiState.topLikedCourses.joinToString { it.title } + "," + uiState.latestCourses.joinToString { it.title },
-                    COURSE_LIST_LOCATION to uiState.topLikedCourses.joinToString { it.city } + "," + uiState.latestCourses.joinToString { it.city },
-                    COURSE_LIST_COST to uiState.topLikedCourses.joinToString { it.cost } + "," + uiState.latestCourses.joinToString { it.cost }
+                    COURSE_LIST_ID to
+                            "Hot: " + uiState.topLikedCourses.map { it.courseId }.joinToString() + " / New: " + uiState.latestCourses.map { it.courseId }.joinToString(),
+                    COURSE_LIST_TITLE to
+                            "Hot: " + uiState.topLikedCourses.joinToString { it.title } + " / New: " + uiState.latestCourses.joinToString { it.title },
+                    COURSE_LIST_LOCATION to
+                            "Hot: " + uiState.topLikedCourses.joinToString { it.city } + " / New: " + uiState.latestCourses.joinToString { it.city },
+                    COURSE_LIST_COST to
+                            "Hot: " + uiState.topLikedCourses.joinToString { it.cost } + " / New: " + uiState.latestCourses.joinToString { it.cost }
                 )
             )
         }
