@@ -103,6 +103,11 @@ object EnrollAmplitude {
     const val COURSE_COST = "course_cost"
 }
 
+object MyCourseAmplitude {
+    const val VIEW_PURCHASED_COURSE = "view_purchased_course"
+    const val CLICK_PURCHASED_BACK = "click_purchased_back"
+}
+
 object TimelineAmplitude {
     const val VIEW_DATE_SCHEDULE = "view_date_schedule"
     const val COUNT_DATE_SCHEDULE = "count_date_schedule"
