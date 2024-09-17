@@ -59,6 +59,8 @@ import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_COST
 import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_ID
 import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_LOCATION
 import org.sopt.dateroad.presentation.util.HomeAmplitude.COURSE_LIST_TITLE
+import org.sopt.dateroad.presentation.util.HomeAmplitude.HOT
+import org.sopt.dateroad.presentation.util.HomeAmplitude.NEW
 import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_NAME
 import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_POINT
 import org.sopt.dateroad.presentation.util.HomeAmplitude.VIEW_MAIN
@@ -123,13 +125,13 @@ fun HomeRoute(
                     USER_NAME to uiState.userPoint.name,
                     USER_POINT to uiState.userPoint.point,
                     COURSE_LIST_ID to
-                            "Hot: " + uiState.topLikedCourses.map { it.courseId }.joinToString() + " / New: " + uiState.latestCourses.map { it.courseId }.joinToString(),
+                        HOT + uiState.topLikedCourses.map { it.courseId }.joinToString() + NEW + uiState.latestCourses.map { it.courseId }.joinToString(),
                     COURSE_LIST_TITLE to
-                            "Hot: " + uiState.topLikedCourses.joinToString { it.title } + " / New: " + uiState.latestCourses.joinToString { it.title },
+                        HOT + uiState.topLikedCourses.joinToString { it.title } + NEW + uiState.latestCourses.joinToString { it.title },
                     COURSE_LIST_LOCATION to
-                            "Hot: " + uiState.topLikedCourses.joinToString { it.city } + " / New: " + uiState.latestCourses.joinToString { it.city },
+                        HOT + uiState.topLikedCourses.joinToString { it.city } + NEW + uiState.latestCourses.joinToString { it.city },
                     COURSE_LIST_COST to
-                            "Hot: " + uiState.topLikedCourses.joinToString { it.cost } + " / New: " + uiState.latestCourses.joinToString { it.cost }
+                        HOT + uiState.topLikedCourses.joinToString { it.cost } + NEW + uiState.latestCourses.joinToString { it.cost }
                 )
             )
         }

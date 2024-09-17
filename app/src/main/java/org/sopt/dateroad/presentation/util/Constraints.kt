@@ -68,4 +68,6 @@ object HomeAmplitude {
     const val COURSE_LIST_TITLE = "course_list_title"
     const val COURSE_LIST_LOCATION = "course_list_location"
     const val COURSE_LIST_COST = "course_list_cost"
+    const val HOT = "Hot: "
+    const val NEW = " / New: "
 }
