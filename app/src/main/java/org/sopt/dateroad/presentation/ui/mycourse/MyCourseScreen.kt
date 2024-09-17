@@ -29,9 +29,9 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
-import org.sopt.dateroad.presentation.util.ViewPath.MY_COURSE_READ
 import org.sopt.dateroad.presentation.util.MyCourseAmplitude.CLICK_PURCHASED_BACK
 import org.sopt.dateroad.presentation.util.MyCourseAmplitude.VIEW_PURCHASED_COURSE
+import org.sopt.dateroad.presentation.util.ViewPath.MY_COURSE_READ
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
