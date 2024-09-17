@@ -59,6 +59,7 @@ fun TimelineRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
+        AmplitudeUtils.trackEvent(eventName = VIEW_DATE_SCHEDULE)
         viewModel.fetchTimeline(TimelineTimeType.FUTURE)
     }
 
@@ -66,7 +67,7 @@ fun TimelineRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
-                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, TIMELINE, null)
+                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
                 is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineType, sideEffect.timelineId)
             }
         }
@@ -74,6 +75,10 @@ fun TimelineRoute(
 
     LaunchedEffect(pagerState.currentPage) {
         viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
+    }
+
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) AmplitudeUtils.trackEventWithProperty(eventName = COUNT_DATE_SCHEDULE, propertyName = DATE_SCHEDULE_NUM, propertyValue = uiState.timelines.size)
     }
 
     when (uiState.loadState) {

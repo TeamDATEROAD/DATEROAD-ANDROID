@@ -60,6 +60,14 @@ object Pattern {
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }
 
+object ViewPath {
+    const val HOME = "홈"
+    const val TIMELINE = "데이트 일정"
+    const val MY_COURSE_READ = "내가 열람한 코스"
+    const val COURSE_DETAIL = "코스 상세"
+    const val LOOK = "코스 둘러보기"
+}
+
 object EnrollAmplitude {
     const val VIEW_ADD_SCHEDULE = "view_add_schedule"
     const val CLICK_SCHEDULE1_BACK = "click_schedule1_back"
@@ -95,10 +103,9 @@ object EnrollAmplitude {
     const val COURSE_COST = "course_cost"
 }
 
-object ViewPath {
-    const val HOME = "홈"
-    const val TIMELINE = "데이트 일정"
-    const val MY_COURSE_READ = "내가 열람한 코스"
-    const val COURSE_DETAIL = "코스 상세"
-    const val LOOK = "코스 둘러보기"
+object TimelineAmplitude {
+    const val VIEW_DATE_SCHEDULE = "view_date_schedule"
+    const val COUNT_DATE_SCHEDULE = "count_date_schedule"
+    const val CLICK_ADD_SCHEDULE = "click_add_schedule"
+    const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }
