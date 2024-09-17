@@ -58,10 +58,12 @@ import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE2_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE3_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE1_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE2_BACK
-import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT_BOOL
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT_NUM
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_COST
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_DATE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_IMAGE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_LOCATION
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_START_TIME
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TAGS
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TITLE
@@ -198,7 +200,7 @@ fun EnrollRoute(
                     when (uiState.page) {
                         EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperties(
                             eventName = CLICK_COURSE1_BACK,
-                            properties = with(uiState.enroll) { mapOf(COURSE_IMAGE to images.isNotEmpty(), COURSE_TITLE to title.isNotEmpty(), COURSE_DATE to date.isNotEmpty(), COURSE_START_TIME to startAt.isNotEmpty(), COURSE_TAGS to tags.isNotEmpty(), DATE_AREA to (city != null)) }
+                            properties = with(uiState.enroll) { mapOf(COURSE_IMAGE to images.isNotEmpty(), COURSE_TITLE to title.isNotEmpty(), COURSE_DATE to date.isNotEmpty(), COURSE_START_TIME to startAt.isNotEmpty(), COURSE_TAGS to tags.isNotEmpty(), COURSE_LOCATION to (city != null)) }
                         )
 
                         EnrollScreenType.SECOND -> AmplitudeUtils.trackEventWithProperties(
@@ -208,7 +210,7 @@ fun EnrollRoute(
 
                         EnrollScreenType.THIRD -> AmplitudeUtils.trackEventWithProperties(
                             eventName = CLICK_COURSE3_BACK,
-                            properties = with(uiState.enroll) { mapOf(COURSE_CONTENT to description.length, COURSE_COST to cost.isNotEmpty()) }
+                            properties = with(uiState.enroll) { mapOf(COURSE_CONTENT_BOOL to description.isNotEmpty(), COURSE_CONTENT_NUM to description.length, COURSE_COST to cost.isNotEmpty()) }
                         )
                     }
                 }

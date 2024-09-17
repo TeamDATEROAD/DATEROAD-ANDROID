@@ -90,7 +90,8 @@ object EnrollAmplitude {
     const val DATE_LOCATION = "date_location"
     const val DATE_SPEND_TIME = "date_spend_time"
     const val LOCATION_NUM = "location_num"
-    const val COURSE_CONTENT = "course_content"
+    const val COURSE_CONTENT_BOOL = "course_content_bool"
+    const val COURSE_CONTENT_NUM = "course_content_num"
     const val COURSE_COST = "course_cost"
 }
 
