@@ -29,8 +29,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import org.sopt.dateroad.R
 import org.sopt.dateroad.domain.model.Place
 import org.sopt.dateroad.domain.type.RegionType
@@ -53,6 +51,16 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE1_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE2_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_AREA
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_COURSE_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DATE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_LOCATION
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TAG_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TITLE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE2
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE
@@ -66,6 +74,8 @@ import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun EnrollRoute(
@@ -167,7 +177,35 @@ fun EnrollRoute(
     EnrollScreen(
         padding = padding,
         enrollUiState = uiState,
-        onTopBarBackButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick) },
+        onTopBarBackButtonClick = {
+            viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick)
+
+            when (enrollType) {
+                EnrollType.COURSE -> {
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> {}
+                        EnrollScreenType.SECOND -> {}
+                        EnrollScreenType.THIRD -> {}
+                    }
+                }
+
+                EnrollType.TIMELINE -> {
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_SCHEDULE1_BACK,
+                            properties = with(uiState.enroll) { mapOf(DATE_TITLE to title.isNotEmpty(), DATE_DATE to date.isNotEmpty(), DATE_TIME to startAt.isNotEmpty(), DATE_TAG_NUM to tags.size, DATE_AREA to (city != null)) }
+                        )
+
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_SCHEDULE2_BACK,
+                            properties = with(uiState.place) { mapOf(DATE_DETAIL_LOCATION to title.isNotEmpty(), DATE_DETAIL_TIME to duration.isNotEmpty(), DATE_COURSE_NUM to uiState.enroll.places.size) }
+                        )
+
+                        EnrollScreenType.THIRD -> Unit
+                    }
+                }
+            }
+        },
         onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
         onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
         onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
