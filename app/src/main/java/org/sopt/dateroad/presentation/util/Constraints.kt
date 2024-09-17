@@ -49,6 +49,7 @@ object Token {
 object Time {
     const val TIME = " 시간"
 }
+
 object LoadingView {
     const val LOTTIE = "loading.json"
     const val CLIPMIN = 0
@@ -58,4 +59,15 @@ object LoadingView {
 object Pattern {
     private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$"
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
+}
+
+object CourseDetailAmplitude {
+    const val VIEW_COURSE_DETAILS = "view_course_details"
+    const val CLICK_COURSE_BACK = "click_course_back"
+    const val CLICK_COURSE_LIKES = "click_course_likes"
+    const val COURSE_LIST_ID = "course_list_id"
+    const val COURSE_LIST_TITLE = "course_list_title"
+    const val CLICK_LIST_PURCHASE = "click_course_purchase"
+    const val PURCHASE_SUCCESS = "purchase_success"
+    const val COURSE_LIST_LIKE = "course_list_like"
 }
