@@ -29,6 +29,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.ViewPath.MY_COURSE_READ
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -38,7 +39,7 @@ fun MyCourseRoute(
     padding: PaddingValues,
     viewModel: MyCourseViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToCourseDetail: (Int) -> Unit,
     myCourseType: MyCourseType
 ) {
@@ -60,7 +61,7 @@ fun MyCourseRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { myCourseSideEffect ->
                 when (myCourseSideEffect) {
-                    is MyCourseContract.MyCourseSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, myCourseSideEffect.courseId)
+                    is MyCourseContract.MyCourseSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, MY_COURSE_READ, myCourseSideEffect.courseId)
                     is MyCourseContract.MyCourseSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(myCourseSideEffect.courseId)
                     is MyCourseContract.MyCourseSideEffect.PopBackStack -> popBackStack()
                 }

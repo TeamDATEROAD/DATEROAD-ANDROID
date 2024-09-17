@@ -14,7 +14,7 @@ fun NavController.navigationCourseDetail(courseId: Int) {
 
 fun NavGraphBuilder.courseDetailGraph(
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit
 ) {
     composable(
         route = CourseDetailRoute.ROUTE_WITH_ARGUMENT,

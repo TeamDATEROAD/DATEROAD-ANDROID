@@ -53,6 +53,38 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_BRING_COURSE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE1_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE2_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE3_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE1_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_SCHEDULE2_BACK
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT_BOOL
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_CONTENT_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_COST
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_DATE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_IMAGE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_LOCATION
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_START_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TAGS
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.COURSE_TITLE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_AREA
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_COURSE_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DATE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_LOCATION
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_DETAIL_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_LOCATION
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_SPEND_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TAG_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TIME
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.DATE_TITLE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.LOCATION_NUM
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_BRING_COURSE2
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_ADD_SCHEDULE2
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_COURSE1
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_PATH
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
 import org.sopt.dateroad.presentation.util.TimePicker
@@ -69,7 +101,8 @@ fun EnrollRoute(
     popBackStack: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     enrollType: EnrollType,
-    id: Int?
+    viewPath: String,
+    timelineId: Int?
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -88,17 +121,15 @@ fun EnrollRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(EnrollContract.EnrollEvent.FetchEnrollCourseType(enrollType = enrollType))
-    }
 
-    LaunchedEffect(uiState.enrollType) {
-        if (id != null) {
+        if (timelineId != null) {
             when (enrollType) {
                 EnrollType.COURSE -> {
-                    viewModel.fetchTimelineDetail(timelineId = id)
+                    viewModel.fetchTimelineDetail(timelineId = timelineId)
                 }
 
                 EnrollType.TIMELINE -> {
-                    viewModel.fetchCourseDetail(courseId = id)
+                    viewModel.fetchCourseDetail(courseId = timelineId)
                 }
             }
         }
@@ -138,6 +169,28 @@ fun EnrollRoute(
         )
     }
 
+    LaunchedEffect(uiState.page) {
+        when (enrollType) {
+            EnrollType.COURSE -> {
+                when (uiState.page) {
+                    EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperty(eventName = VIEW_COURSE1, propertyName = VIEW_PATH, propertyValue = viewPath)
+                    EnrollScreenType.SECOND -> Unit
+                    EnrollScreenType.THIRD -> Unit
+                }
+            }
+
+            EnrollType.TIMELINE -> {
+                (timelineId != null).let { isBringCourse ->
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperty(eventName = if (isBringCourse) VIEW_ADD_BRING_COURSE else VIEW_ADD_SCHEDULE, propertyName = VIEW_PATH, propertyValue = viewPath)
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEvent(eventName = if (isBringCourse) VIEW_ADD_BRING_COURSE2 else VIEW_ADD_SCHEDULE2)
+                        EnrollScreenType.THIRD -> Unit
+                    }
+                }
+            }
+        }
+    }
+
     LaunchedEffect(uiState.loadState) {
         if (uiState.loadState == LoadState.Success) {
             when (uiState.enrollType) {
@@ -150,8 +203,50 @@ fun EnrollRoute(
     EnrollScreen(
         padding = padding,
         enrollUiState = uiState,
-        onTopBarBackButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick) },
-        onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
+        onTopBarBackButtonClick = {
+            viewModel.setEvent(EnrollContract.EnrollEvent.OnTopBarBackButtonClick)
+
+            when (enrollType) {
+                EnrollType.COURSE -> {
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE1_BACK,
+                            properties = with(uiState.enroll) { mapOf(COURSE_IMAGE to images.isNotEmpty(), COURSE_TITLE to title.isNotEmpty(), COURSE_DATE to date.isNotEmpty(), COURSE_START_TIME to startAt.isNotEmpty(), COURSE_TAGS to tags.isNotEmpty(), COURSE_LOCATION to (city != null)) }
+                        )
+
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE2_BACK,
+                            properties = with(uiState.place) { mapOf(DATE_LOCATION to title.isNotEmpty(), DATE_SPEND_TIME to duration.isNotEmpty(), LOCATION_NUM to uiState.enroll.places.size) }
+                        )
+
+                        EnrollScreenType.THIRD -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_COURSE3_BACK,
+                            properties = with(uiState.enroll) { mapOf(COURSE_CONTENT_BOOL to description.isNotEmpty(), COURSE_CONTENT_NUM to description.length, COURSE_COST to cost.isNotEmpty()) }
+                        )
+                    }
+                }
+
+                EnrollType.TIMELINE -> {
+                    when (uiState.page) {
+                        EnrollScreenType.FIRST -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_SCHEDULE1_BACK,
+                            properties = with(uiState.enroll) { mapOf(DATE_TITLE to title.isNotEmpty(), DATE_DATE to date.isNotEmpty(), DATE_TIME to startAt.isNotEmpty(), DATE_TAG_NUM to tags.size, DATE_AREA to (city != null)) }
+                        )
+
+                        EnrollScreenType.SECOND -> AmplitudeUtils.trackEventWithProperties(
+                            eventName = CLICK_SCHEDULE2_BACK,
+                            properties = with(uiState.place) { mapOf(DATE_DETAIL_LOCATION to title.isNotEmpty(), DATE_DETAIL_TIME to duration.isNotEmpty(), DATE_COURSE_NUM to uiState.enroll.places.size) }
+                        )
+
+                        EnrollScreenType.THIRD -> Unit
+                    }
+                }
+            }
+        },
+        onTopBarLoadButtonClick = {
+            viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead)
+            AmplitudeUtils.trackEvent(eventName = CLICK_BRING_COURSE)
+        },
         onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
         onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
         onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
