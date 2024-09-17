@@ -53,6 +53,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_BRING_COURSE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE1_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE2_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE3_BACK
@@ -242,7 +243,10 @@ fun EnrollRoute(
                 }
             }
         },
-        onTopBarLoadButtonClick = { viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead) },
+        onTopBarLoadButtonClick = {
+            viewModel.setSideEffect(EnrollContract.EnrollSideEffect.NavigateToMyCourseRead)
+            AmplitudeUtils.trackEvent(eventName = CLICK_BRING_COURSE)
+        },
         onEnrollButtonClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnEnrollButtonClick) },
         onDateTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDateTextFieldClick) },
         onTimeTextFieldClick = { viewModel.setEvent(EnrollContract.EnrollEvent.OnTimeTextFieldClick) },
