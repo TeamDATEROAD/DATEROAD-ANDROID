@@ -40,6 +40,11 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.timeline.component.TimelineCard
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.COUNT_DATE_SCHEDULE
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.DATE_SCHEDULE_NUM
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.VIEW_DATE_SCHEDULE
+import org.sopt.dateroad.presentation.util.ViewPath.TIMELINE
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -50,7 +55,7 @@ fun TimelineRoute(
     padding: PaddingValues,
     viewModel: TimelineViewModel = hiltViewModel(),
     navigateToPast: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToTimelineDetail: (TimelineType, Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -58,6 +63,7 @@ fun TimelineRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
+        AmplitudeUtils.trackEvent(eventName = VIEW_DATE_SCHEDULE)
         viewModel.fetchTimeline(TimelineTimeType.FUTURE)
     }
 
@@ -65,7 +71,7 @@ fun TimelineRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is TimelineContract.TimelineSideEffect.NavigateToPast -> navigateToPast()
-                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
+                is TimelineContract.TimelineSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, TIMELINE, null)
                 is TimelineContract.TimelineSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(sideEffect.timelineType, sideEffect.timelineId)
             }
         }
@@ -73,6 +79,10 @@ fun TimelineRoute(
 
     LaunchedEffect(pagerState.currentPage) {
         viewModel.setEvent(TimelineContract.TimelineEvent.PageChanged(pagerState.currentPage))
+    }
+
+    LaunchedEffect(uiState.loadState, lifecycleOwner) {
+        if (uiState.loadState == LoadState.Success) AmplitudeUtils.trackEventWithProperty(eventName = COUNT_DATE_SCHEDULE, propertyName = DATE_SCHEDULE_NUM, propertyValue = uiState.timelines.size)
     }
 
     when (uiState.loadState) {

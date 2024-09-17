@@ -60,7 +60,57 @@ object Pattern {
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }
 
+object ViewPath {
+    const val HOME = "홈"
+    const val TIMELINE = "데이트 일정"
+    const val MY_COURSE_READ = "내가 열람한 코스"
+    const val COURSE_DETAIL = "코스 상세"
+    const val LOOK = "코스 둘러보기"
+}
+
+object EnrollAmplitude {
+    const val VIEW_ADD_SCHEDULE = "view_add_schedule"
+    const val CLICK_SCHEDULE1_BACK = "click_schedule1_back"
+    const val VIEW_ADD_SCHEDULE2 = "view_add_schedule2"
+    const val CLICK_SCHEDULE2_BACK = "click_schedule2_back"
+    const val CLICK_BRING_COURSE = "click_bring_course"
+    const val VIEW_ADD_BRING_COURSE = "view_add_bringcourse"
+    const val VIEW_ADD_BRING_COURSE2 = "view_add_bringcourse2"
+    const val VIEW_COURSE1 = "view_course1"
+    const val CLICK_COURSE1_BACK = "click_course1_back"
+    const val CLICK_COURSE2_BACK = "click_course2_back"
+    const val CLICK_COURSE3_BACK = "click_course3_back"
+    const val VIEW_PATH = "view_path"
+    const val DATE_TITLE = "date_title"
+    const val DATE_DATE = "date_date"
+    const val DATE_TIME = "date_time"
+    const val DATE_TAG_NUM = "date_tag_num"
+    const val DATE_AREA = "date_area"
+    const val DATE_DETAIL_LOCATION = "date_detail_location"
+    const val DATE_DETAIL_TIME = "date_detail_time"
+    const val DATE_COURSE_NUM = "date_course_num"
+    const val COURSE_IMAGE = "course_image"
+    const val COURSE_TITLE = "course_title"
+    const val COURSE_DATE = "course_date"
+    const val COURSE_START_TIME = "course_start_time"
+    const val COURSE_TAGS = "course_tags"
+    const val COURSE_LOCATION = "course_location"
+    const val DATE_LOCATION = "date_location"
+    const val DATE_SPEND_TIME = "date_spend_time"
+    const val LOCATION_NUM = "location_num"
+    const val COURSE_CONTENT_BOOL = "course_content_bool"
+    const val COURSE_CONTENT_NUM = "course_content_num"
+    const val COURSE_COST = "course_cost"
+}
+
 object MyCourseAmplitude {
     const val VIEW_PURCHASED_COURSE = "view_purchased_course"
     const val CLICK_PURCHASED_BACK = "click_purchased_back"
+}
+
+object TimelineAmplitude {
+    const val VIEW_DATE_SCHEDULE = "view_date_schedule"
+    const val COUNT_DATE_SCHEDULE = "count_date_schedule"
+    const val CLICK_ADD_SCHEDULE = "click_add_schedule"
+    const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }
