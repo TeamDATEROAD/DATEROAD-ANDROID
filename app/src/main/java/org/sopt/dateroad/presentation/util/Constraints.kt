@@ -114,3 +114,12 @@ object TimelineAmplitude {
     const val CLICK_ADD_SCHEDULE = "click_add_schedule"
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }
+
+object UserPropertyAmplitude {
+    const val USER_NAME = "user_name"
+    const val USER_POINT = "user_point"
+    const val USER_FREE_REMAINED = "user_free_remained"
+    const val USER_PURCHASE_COUNT = "user_purchase_count"
+    const val USER_COURSE_COUNT = "user_course_count"
+    const val USER_SCHEDULE_NUM = "user_schedule_num"
+}
