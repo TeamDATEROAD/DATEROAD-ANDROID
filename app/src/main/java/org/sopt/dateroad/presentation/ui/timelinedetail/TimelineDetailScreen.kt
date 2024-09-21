@@ -322,7 +322,7 @@ fun TimelineDetailScreen(
                     mapOf(
                         DATE_COURSE_NUM to uiState.timelineDetail.places.size,
                         DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
-                            place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                            durationToInt(place.duration)
                         }
                     )
                 )
@@ -409,4 +409,8 @@ fun TimelineDetailScreenPreview() {
             onKakaoShareConfirm = {}
         )
     }
+}
+
+fun durationToInt(duration:String):Int{
+   return duration.replace("시간", "").trim().toIntOrNull() ?: 0
 }
