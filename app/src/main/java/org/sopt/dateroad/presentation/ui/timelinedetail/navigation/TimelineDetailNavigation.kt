@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailRoute
+import org.sopt.dateroad.presentation.util.ViewPath.HOME
+import org.sopt.dateroad.presentation.util.ViewPath.TIMELINE
 
 fun NavController.navigateToTimelineDetail(timelineType: TimelineType, timelineId: Int, navOptions: NavOptions? = null) {
     navigate(TimelineDetailRoutes.route(timelineType, timelineId), navOptions)
@@ -30,8 +32,8 @@ fun NavGraphBuilder.timelineDetailGraph(
         val previousRoute = navController.previousBackStackEntry?.destination?.route ?: "Unknown"
 
         val previousView = when (previousRoute) {
-            "Home" -> "홈"
-            "Timeline" -> "데이트 일정"
+            HOME -> "홈"
+            TIMELINE -> "데이트 일정"
             else -> "Unknown"
         }
 
