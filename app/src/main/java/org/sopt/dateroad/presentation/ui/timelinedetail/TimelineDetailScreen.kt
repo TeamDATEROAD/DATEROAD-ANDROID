@@ -411,6 +411,6 @@ fun TimelineDetailScreenPreview() {
     }
 }
 
-fun durationToInt(duration:String):Int{
-   return duration.replace("시간", "").trim().toIntOrNull() ?: 0
+fun durationToInt(duration: String): Int {
+    return duration.replace("시간", "").trim().toIntOrNull() ?: 0
 }
