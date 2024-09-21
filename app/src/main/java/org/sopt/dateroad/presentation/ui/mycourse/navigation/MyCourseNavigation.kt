@@ -18,7 +18,7 @@ fun NavController.navigateMyCourses(myCourseType: MyCourseType) {
 fun NavGraphBuilder.myCoursesNavGraph(
     padding: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
     composable(

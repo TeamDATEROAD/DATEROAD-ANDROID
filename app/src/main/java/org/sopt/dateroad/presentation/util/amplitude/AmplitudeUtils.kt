@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.util.amplitude
 import android.content.Context
 import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
+import com.amplitude.core.events.Identify
 import org.sopt.dateroad.BuildConfig
 
 object AmplitudeUtils {
@@ -30,5 +31,13 @@ object AmplitudeUtils {
 
     fun trackEventWithProperties(eventName: String, properties: Map<String, Any>) {
         amplitude.track(eventType = eventName, eventProperties = properties)
+    }
+
+    fun updateStringUserProperty(propertyName: String, propertyValue: String) {
+        amplitude.identify(Identify().set(property = propertyName, value = propertyValue))
+    }
+
+    fun updateIntUserProperty(propertyName: String, propertyValue: Int) {
+        amplitude.identify(Identify().set(property = propertyName, value = propertyValue))
     }
 }
