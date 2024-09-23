@@ -1,5 +1,6 @@
 package org.sopt.dateroad.presentation.ui.component.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -18,6 +19,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import org.sopt.dateroad.presentation.util.LoadingView.CLIPMAX
 import org.sopt.dateroad.presentation.util.LoadingView.CLIPMIN
 import org.sopt.dateroad.presentation.util.LoadingView.LOTTIE
+import org.sopt.dateroad.ui.theme.DateRoadTheme
+import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadLoadingView() {
@@ -36,7 +39,7 @@ fun DateRoadLoadingView() {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(color = DateRoadTheme.colors.white),
         contentAlignment = Alignment.Center
     ) {
         LottieAnimation(
