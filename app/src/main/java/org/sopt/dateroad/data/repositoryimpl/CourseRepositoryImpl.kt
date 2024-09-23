@@ -15,6 +15,7 @@ import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.Course
 import org.sopt.dateroad.domain.model.CourseDetail
 import org.sopt.dateroad.domain.model.Enroll
+import org.sopt.dateroad.domain.model.EnrollCourseResult
 import org.sopt.dateroad.domain.repository.CourseRepository
 import org.sopt.dateroad.domain.type.GyeonggiAreaType
 import org.sopt.dateroad.domain.type.IncheonAreaType
@@ -58,13 +59,13 @@ class CourseRepositoryImpl @Inject constructor(
         courseRemoteDataSource.getSortedCourses(sortBy = sortedBy.name).toDomain()
     }
 
-    override suspend fun postCourse(enroll: Enroll): Result<Unit> = runCatching {
+    override suspend fun postCourse(enroll: Enroll): Result<EnrollCourseResult> = runCatching {
         courseRemoteDataSource.postCourse(
             images = enroll.images.map { image -> ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(image)).toFormData() },
             course = Json.encodeToString(enroll.toCourseData()).toRequestBody("application/json".toMediaType()),
             places = Json.encodeToString(enroll.places.mapIndexed { index, place -> place.toData(sequence = index) }).toRequestBody("application/json".toMediaType()),
             tags = Json.encodeToString(enroll.tags.map { tag -> tag.toData() }).toRequestBody("application/json".toMediaType())
-        )
+        ).toDomain()
     }
 
     override suspend fun postCourseLike(courseId: Int): Result<Unit> = runCatching {
