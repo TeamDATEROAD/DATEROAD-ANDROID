@@ -20,7 +20,6 @@ import org.sopt.dateroad.presentation.util.LoadingView.CLIPMAX
 import org.sopt.dateroad.presentation.util.LoadingView.CLIPMIN
 import org.sopt.dateroad.presentation.util.LoadingView.LOTTIE
 import org.sopt.dateroad.ui.theme.DateRoadTheme
-import org.sopt.dateroad.ui.theme.White
 
 @Composable
 fun DateRoadLoadingView() {
