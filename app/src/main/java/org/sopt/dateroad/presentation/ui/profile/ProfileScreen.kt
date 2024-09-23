@@ -133,7 +133,7 @@ fun ProfileRoute(
                     navigationToHome()
                     AmplitudeUtils.updateStringUserProperty(propertyName = USER_NAME, propertyValue = uiState.signUp.userSignUpInfo.name)
                     AmplitudeUtils.updateIntUserProperty(propertyName = USER_POINT, propertyValue = 0)
-                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_FREE_REMAINED, propertyValue = 0)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_FREE_REMAINED, propertyValue = 3)
                     AmplitudeUtils.updateIntUserProperty(propertyName = USER_PURCHASE_COUNT, propertyValue = 0)
                     AmplitudeUtils.updateIntUserProperty(propertyName = USER_COURSE_COUNT, propertyValue = 0)
                     AmplitudeUtils.updateIntUserProperty(propertyName = DATE_SCHEDULE_NUM, propertyValue = 0)
