@@ -40,12 +40,14 @@ android {
 
     buildTypes {
         debug {
+            isMinifyEnabled = false
             buildConfigField("String", "BASE_URL", properties["dev.base.url"].toString())
             buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.dev.api.key"].toString())
         }
 
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             buildConfigField("String", "BASE_URL", properties["prod.base.url"].toString())
             buildConfigField("String", "AMPLITUDE_API_KEY", properties["amplitude.prod.api.key"].toString())
             proguardFiles(
