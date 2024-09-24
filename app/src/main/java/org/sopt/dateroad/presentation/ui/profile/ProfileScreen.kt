@@ -179,7 +179,7 @@ fun ProfileRoute(
         }
 
         ProfileType.EDIT -> {
-            if (uiState.currentProfile.toEditProfile() != uiState.editProfile || uiState.nicknameValidateResult == TextFieldValidateResult.Success && (uiState.editProfile.tags.isNotEmpty())) {
+            if ((uiState.editProfile.tags.isNotEmpty()) && uiState.currentProfile.toEditProfile() != uiState.editProfile || uiState.nicknameValidateResult == TextFieldValidateResult.Success) {
                 viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(true))
             } else {
                 viewModel.setEvent(ProfileContract.ProfileEvent.CheckEnrollButtonEnable(false))

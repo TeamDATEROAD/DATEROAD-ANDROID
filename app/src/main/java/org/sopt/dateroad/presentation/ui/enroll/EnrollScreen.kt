@@ -283,7 +283,6 @@ fun EnrollRoute(
         onCostValueChange = { cost -> viewModel.setEvent(EnrollContract.EnrollEvent.OnCostValueChange(cost = cost)) },
         onEnrollSuccessDialogButtonClick = {
             viewModel.setSideEffect(EnrollContract.EnrollSideEffect.PopBackStack)
-            viewModel.setEvent(EnrollContract.EnrollEvent.SetIsEnrollSuccessDialogOpen(isEnrollSuccessDialogOpen = false))
         }
     )
 
