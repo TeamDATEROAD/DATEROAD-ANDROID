@@ -5,6 +5,7 @@ import org.sopt.dateroad.data.dataremote.datasource.UserPointRemoteDataSource
 import org.sopt.dateroad.data.mapper.todata.toData
 import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.domain.model.PointHistory
+import org.sopt.dateroad.domain.model.PointUseResult
 import org.sopt.dateroad.domain.model.UsePoint
 import org.sopt.dateroad.domain.model.UserPoint
 import org.sopt.dateroad.domain.repository.UserPointRepository
@@ -20,7 +21,7 @@ class UserPointRepositoryImpl @Inject constructor(
         userPointRemoteDataSource.getPointHistory().toDomain()
     }
 
-    override suspend fun postUsePoint(courseId: Int, usePoint: UsePoint) {
-        userPointRemoteDataSource.postUsePoint(courseId = courseId, requestUsePointDto = usePoint.toData())
+    override suspend fun postUsePoint(courseId: Int, usePoint: UsePoint): Result<PointUseResult> = runCatching {
+        userPointRemoteDataSource.postUsePoint(courseId = courseId, requestUsePointDto = usePoint.toData()).toDomain()
     }
 }

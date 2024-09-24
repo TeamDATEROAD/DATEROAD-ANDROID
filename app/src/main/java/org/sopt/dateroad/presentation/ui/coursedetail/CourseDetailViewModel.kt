@@ -11,6 +11,10 @@ import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
 import org.sopt.dateroad.presentation.util.Point
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_FREE_REMAINED
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_POINT
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_PURCHASE_COUNT
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -89,8 +93,11 @@ class CourseDetailViewModel @Inject constructor(
     fun postUsePoint(courseId: Int) {
         viewModelScope.launch {
             setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading, isAccess = currentState.courseDetail.isAccess))
-            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, Point.POINT_USED_DESCRIPTION)).onSuccess {
+            postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, Point.POINT_USED_DESCRIPTION)).onSuccess { result ->
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success, isAccess = true))
+                AmplitudeUtils.updateIntUserProperty(propertyName = USER_POINT, propertyValue = result.userPoint)
+                AmplitudeUtils.updateIntUserProperty(propertyName = USER_FREE_REMAINED, propertyValue = result.userFreeRemained)
+                AmplitudeUtils.updateIntUserProperty(propertyName = USER_PURCHASE_COUNT, propertyValue = result.userPurchaseCount.toInt())
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error, isAccess = currentState.courseDetail.isAccess))
             }
