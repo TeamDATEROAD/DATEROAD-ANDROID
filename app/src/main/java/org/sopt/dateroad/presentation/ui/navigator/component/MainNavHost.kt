@@ -26,6 +26,8 @@ import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
 import org.sopt.dateroad.presentation.ui.timelinedetail.navigation.timelineDetailGraph
+import org.sopt.dateroad.presentation.util.ViewPath.HOME
+import org.sopt.dateroad.presentation.util.ViewPath.TIMELINE
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @Composable
@@ -142,9 +144,17 @@ fun MainNavHost(
                 navigateToTimelineDetail = navigator::navigateToTimelineDetail
             )
 
+            val previousRoute = navigator.navHostController.previousBackStackEntry?.destination?.route ?: "Unknown"
+
+            val previousView = when (previousRoute) {
+                HOME -> "홈"
+                TIMELINE -> "데이트 일정"
+                else -> "Unknown"
+            }
+
             timelineDetailGraph(
                 popBackStack = navigator::popBackStackIfNotHome,
-                navController = navigator.navHostController
+                viewPath= previousView
             )
         }
     }

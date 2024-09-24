@@ -16,7 +16,7 @@ fun NavController.navigateToTimelineDetail(timelineType: TimelineType, timelineI
 }
 
 fun NavGraphBuilder.timelineDetailGraph(
-    navController: NavController,
+    viewPath: String,
     popBackStack: () -> Unit
 ) {
     composable(
@@ -29,19 +29,13 @@ fun NavGraphBuilder.timelineDetailGraph(
         val timelineType = TimelineType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.TIMELINE_TYPE) ?: TimelineType.PINK.name)
         val timelineId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.TIMELINE_ID) ?: 1
 
-        val previousRoute = navController.previousBackStackEntry?.destination?.route ?: "Unknown"
 
-        val previousView = when (previousRoute) {
-            HOME -> "홈"
-            TIMELINE -> "데이트 일정"
-            else -> "Unknown"
-        }
 
         TimelineDetailRoute(
             popBackStack = popBackStack,
             timelineId = timelineId,
             timelineType = timelineType,
-            previousView = previousView
+            previousView = viewPath
         )
     }
 }
