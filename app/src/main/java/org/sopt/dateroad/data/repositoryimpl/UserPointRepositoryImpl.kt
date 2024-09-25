@@ -20,7 +20,7 @@ class UserPointRepositoryImpl @Inject constructor(
         userPointRemoteDataSource.getPointHistory().toDomain()
     }
 
-    override suspend fun postUsePoint(courseId: Int, usePoint: UsePoint) {
+    override suspend fun postUsePoint(courseId: Int, usePoint: UsePoint) = runCatching {
         userPointRemoteDataSource.postUsePoint(courseId = courseId, requestUsePointDto = usePoint.toData())
     }
 }

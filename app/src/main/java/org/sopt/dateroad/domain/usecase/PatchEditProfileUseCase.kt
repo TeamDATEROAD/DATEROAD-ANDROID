@@ -9,6 +9,5 @@ import org.sopt.dateroad.domain.repository.AuthRepository
 class PatchEditProfileUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(editProfile: EditProfile): Result<Unit> =
-        authRepository.patchEditProfile(editProfile = editProfile)
+    suspend operator fun invoke(editProfile: EditProfile): Result<Unit> = authRepository.patchEditProfile(editProfile = editProfile)
 }

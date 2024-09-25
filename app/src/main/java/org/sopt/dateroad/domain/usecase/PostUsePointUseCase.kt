@@ -9,7 +9,5 @@ import org.sopt.dateroad.domain.repository.UserPointRepository
 class PostUsePointUseCase @Inject constructor(
     private val userPointRepository: UserPointRepository
 ) {
-    suspend operator fun invoke(courseId: Int, usePoint: UsePoint): Result<Unit> = runCatching {
-        userPointRepository.postUsePoint(courseId = courseId, usePoint = usePoint)
-    }
+    suspend operator fun invoke(courseId: Int, usePoint: UsePoint): Result<Unit> = userPointRepository.postUsePoint(courseId = courseId, usePoint = usePoint)
 }
