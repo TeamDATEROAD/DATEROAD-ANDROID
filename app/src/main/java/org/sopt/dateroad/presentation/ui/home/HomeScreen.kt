@@ -55,6 +55,7 @@ import org.sopt.dateroad.presentation.ui.home.component.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
+import org.sopt.dateroad.presentation.util.Home.ADVERTISEMENT_DELAY
 import org.sopt.dateroad.presentation.util.ViewPath.HOME
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -84,7 +85,7 @@ fun HomeRoute(
         viewModel.fetchUserPoint()
 
         while (true) {
-            delay(4000)
+            delay(ADVERTISEMENT_DELAY)
             coroutineScope.launch {
                 if (uiState.advertisements.isNotEmpty()) {
                     val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size

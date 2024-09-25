@@ -9,7 +9,7 @@ class SignInContract {
     data class SignInUiState(
         val loadState: LoadState = LoadState.Idle,
         val authTokenLoadState: LoadState = LoadState.Idle,
-        var isWebViewOpened: Boolean = false
+        val isWebViewOpened: Boolean = false
     ) : UiState
 
     sealed interface SignInSideEffect : UiSideEffect {

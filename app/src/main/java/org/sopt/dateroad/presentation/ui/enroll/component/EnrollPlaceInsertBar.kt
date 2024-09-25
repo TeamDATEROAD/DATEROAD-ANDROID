@@ -96,7 +96,7 @@ fun EnrollPlaceInsertBarPreview() {
         var title by remember { mutableStateOf("") }
         var duration by remember { mutableStateOf("") }
         var isBottomSheetOpen by rememberSaveable { mutableStateOf(false) }
-        var pickerItems by remember {
+        val pickerItems by remember {
             mutableStateOf(listOf(Picker(items = (1..12).map { (it * 0.5).toString() })))
         }
 

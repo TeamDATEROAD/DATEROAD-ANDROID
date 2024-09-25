@@ -45,6 +45,7 @@ import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBasi
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBottomBar
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
 import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
+import org.sopt.dateroad.presentation.util.CourseDetail.POINT_LACK
 import org.sopt.dateroad.presentation.util.ViewPath.COURSE_DETAIL
 import org.sopt.dateroad.presentation.util.WebViewUrl.REPORT_URL
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -270,7 +271,7 @@ fun CourseDetailScreen(
                     onDismissRequest = { dismissDialogLookedByPoint() },
                     onClickConfirm = {
                         dismissDialogLookedByPoint()
-                        if (courseDetailUiState.courseDetail.totalPoint < 50) {
+                        if (courseDetailUiState.courseDetail.totalPoint < POINT_LACK) {
                             onDialogPointLack()
                         } else {
                             openCourseDetail()

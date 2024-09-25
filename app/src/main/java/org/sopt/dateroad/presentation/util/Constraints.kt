@@ -1,13 +1,30 @@
 package org.sopt.dateroad.presentation.util
 
+object CourseDetail {
+    const val POINT_LACK = 50
+}
+
 object DatePicker {
     const val DATE_PATTERN = "yyyy.MM.dd"
+    const val YEAR_START = 2000
+    const val YEAR_END = 2024
+    const val YEAR_START_INDEX = 24
+    const val MONTH_START = 1
+    const val MONTH_END = 12
+    const val DAY_START = 1
+    const val DAY_END = 31
+    const val SEPARATOR = "."
 }
 
 object Default {
     const val REGION = "지역"
     const val DRAGGED_DISTANCE = 0f
     const val CLICKABLE_DELAY = 500L
+}
+
+object DurationPicker {
+    const val DURATION_START = 1
+    const val DURATION_END = 12
 }
 
 object EnrollAmplitude {
@@ -53,6 +70,15 @@ object EnrollScreen {
     const val TITLE_MIN_LENGTH = 5
 }
 
+object GalleryLauncher {
+    const val INPUT = "image/*"
+    const val DELETE_IMAGE = ""
+}
+
+object Home {
+    const val ADVERTISEMENT_DELAY = 4000L
+}
+
 object LoadingView {
     const val LOTTIE = "loading.json"
     const val CLIP_MIN = 0
@@ -62,6 +88,12 @@ object LoadingView {
 object MyCourseAmplitude {
     const val VIEW_PURCHASED_COURSE = "view_purchased_course"
     const val CLICK_PURCHASED_BACK = "click_purchased_back"
+}
+
+object Onboarding {
+    const val FIRST = 0
+    val FIRST_PAGE_KEYWORD = listOf("포인트", "데이트 코스", "100", "다양한")
+    val KEYWORD = listOf("100 포인트", "다양한")
 }
 
 object Pattern {
@@ -80,6 +112,16 @@ object PointHistoryTab {
     const val USED_HISTORY_POSITION = 1
 }
 
+object ShareKakao {
+    const val TEMPLATE_ID = 109999L
+    const val USER_NAME = "userName"
+    const val START_AT = "startAt"
+}
+
+object SignIn {
+    const val PLATFORM = "KAKAO"
+}
+
 object Time {
     const val TIME = " 시간"
 }
@@ -94,6 +136,12 @@ object TimelineAmplitude {
 object TimePicker {
     const val AM = "오전"
     const val PM = "오후"
+    const val AM_ENG = "AM"
+    const val PM_ENG = "PM"
+    const val HOUR_START = 1
+    const val HOUR_END = 12
+    const val MINUTE_START = 0
+    const val MINUTE_END = 59
 }
 
 object Token {
