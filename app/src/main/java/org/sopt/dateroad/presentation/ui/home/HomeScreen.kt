@@ -207,7 +207,7 @@ fun HomeScreen(
                         color = DateRoadTheme.colors.gray400
                     )
                     DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
+                        textContent = stringResource(id = R.string.more),
                         textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
@@ -279,7 +279,7 @@ fun HomeScreen(
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
+                        textContent = stringResource(id = R.string.more),
                         textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
