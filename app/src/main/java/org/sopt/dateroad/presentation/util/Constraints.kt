@@ -1,71 +1,13 @@
 package org.sopt.dateroad.presentation.util
 
-object PointHistoryTab {
-    const val GAINED_HISTORY_POSITION = 0
-    const val USED_HISTORY_POSITION = 1
-}
-
-object EnrollScreen {
-    const val FIRST = 1
-    const val SECOND = 2
-    const val THIRD = 3
-    const val MAX_ITEMS = 10
-    const val TITLE_MIN_LENGTH = 5
-}
-
-object TimePicker {
-    const val AM = "오전"
-    const val PM = "오후"
-}
-
-object TotalCostZero {
-    const val ZERO_COST = "무지출"
-}
-
 object DatePicker {
     const val DATE_PATTERN = "yyyy.MM.dd"
 }
 
-object WebViewUrl {
-    const val PRIVACY_POLICY_URL = "https://www.notion.so/hooooooni/04da4aa279ca4b599193784091a52859"
-    const val REPORT_URL = "https://tally.so/r/w4L1a5"
-    const val ASK_URL = "https://dateroad.notion.site/1055d2f7bfe94b3fa6c03709448def21?pvs=4"
-}
-
 object Default {
     const val REGION = "지역"
-}
-
-object Point {
-    const val POINT = 50
-    const val POINT_USED = "POINT_USED"
-    const val POINT_USED_DESCRIPTION = "코스 열람하기"
-}
-
-object Token {
-    const val BEARER = "Bearer "
-}
-
-object Time {
-    const val TIME = " 시간"
-}
-object LoadingView {
-    const val LOTTIE = "loading.json"
-    const val CLIPMIN = 0
-    const val CLIPMAX = 1200
-}
-
-object Pattern {
-    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$"
-    val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
-}
-
-object ViewPath {
-    const val HOME = "홈"
-    const val TIMELINE = "데이트 일정"
-    const val MY_COURSE_READ = "내가 열람한 코스"
-    const val COURSE_DETAIL = "코스 상세"
-    const val LOOK = "코스 둘러보기"
+    const val DRAGGED_DISTANCE = 0f
+    const val CLICKABLE_DELAY = 500L
 }
 
 object EnrollAmplitude {
@@ -103,9 +45,43 @@ object EnrollAmplitude {
     const val COURSE_COST = "course_cost"
 }
 
+object EnrollScreen {
+    const val FIRST = 1
+    const val SECOND = 2
+    const val THIRD = 3
+    const val MAX_ITEMS = 10
+    const val TITLE_MIN_LENGTH = 5
+}
+
+object LoadingView {
+    const val LOTTIE = "loading.json"
+    const val CLIP_MIN = 0
+    const val CLIP_MAX = 1200
+}
+
 object MyCourseAmplitude {
     const val VIEW_PURCHASED_COURSE = "view_purchased_course"
     const val CLICK_PURCHASED_BACK = "click_purchased_back"
+}
+
+object Pattern {
+    private const val NICKNAME_PATTERN = "^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$"
+    val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
+}
+
+object Point {
+    const val POINT = 50
+    const val POINT_USED = "POINT_USED"
+    const val POINT_USED_DESCRIPTION = "코스 열람하기"
+}
+
+object PointHistoryTab {
+    const val GAINED_HISTORY_POSITION = 0
+    const val USED_HISTORY_POSITION = 1
+}
+
+object Time {
+    const val TIME = " 시간"
 }
 
 object TimelineAmplitude {
@@ -115,6 +91,19 @@ object TimelineAmplitude {
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }
 
+object TimePicker {
+    const val AM = "오전"
+    const val PM = "오후"
+}
+
+object Token {
+    const val BEARER = "Bearer "
+}
+
+object TotalCostZero {
+    const val ZERO_COST = "무지출"
+}
+
 object UserPropertyAmplitude {
     const val USER_NAME = "user_name"
     const val USER_POINT = "user_point"
@@ -122,4 +111,18 @@ object UserPropertyAmplitude {
     const val USER_PURCHASE_COUNT = "user_purchase_count"
     const val USER_COURSE_COUNT = "user_course_count"
     const val USER_SCHEDULE_NUM = "user_schedule_num"
+}
+
+object ViewPath {
+    const val HOME = "홈"
+    const val TIMELINE = "데이트 일정"
+    const val MY_COURSE_READ = "내가 열람한 코스"
+    const val COURSE_DETAIL = "코스 상세"
+    const val LOOK = "코스 둘러보기"
+}
+
+object WebViewUrl {
+    const val PRIVACY_POLICY_URL = "https://www.notion.so/hooooooni/04da4aa279ca4b599193784091a52859"
+    const val REPORT_URL = "https://tally.so/r/w4L1a5"
+    const val ASK_URL = "https://dateroad.notion.site/1055d2f7bfe94b3fa6c03709448def21?pvs=4"
 }
