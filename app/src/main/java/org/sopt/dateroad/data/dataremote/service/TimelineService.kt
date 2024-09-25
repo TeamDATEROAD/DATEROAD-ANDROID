@@ -1,6 +1,7 @@
 package org.sopt.dateroad.data.dataremote.service
 
 import org.sopt.dateroad.data.dataremote.model.request.RequestTimelineDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseEnrollTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
@@ -39,5 +40,5 @@ interface TimelineService {
     @POST("$API/$VERSION/$DATES")
     suspend fun postTimeline(
         @Body requestTimelineDto: RequestTimelineDto
-    )
+    ): ResponseEnrollTimelineDto
 }
