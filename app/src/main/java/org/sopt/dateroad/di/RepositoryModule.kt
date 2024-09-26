@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
+import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import org.sopt.dateroad.data.repositoryimpl.AdvertisementRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.AuthRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl
@@ -51,9 +52,9 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindsTimelineRepository(timelineRepositoryImpl: TimelineRepositoryImpl): TimelineRepository
 
-    @Provides
-    fun provideUserInfoRepository(userInfoLocalDataSource: UserInfoLocalDataSource): UserInfoRepository =
-        UserInfoRepositoryImpl(userInfoLocalDataSource)
+    @Binds
+    @Singleton
+    abstract fun bindsUserInfoRepository(userInfoRepositoryImpl: UserInfoRepositoryImpl): UserInfoRepository
 
     @Binds
     @Singleton
