@@ -121,5 +121,5 @@ object UserPropertyAmplitude {
     const val USER_FREE_REMAINED = "user_free_remained"
     const val USER_PURCHASE_COUNT = "user_purchase_count"
     const val USER_COURSE_COUNT = "user_course_count"
-    const val USER_SCHEDULE_NUM = "user_schedule_num"
+    const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }

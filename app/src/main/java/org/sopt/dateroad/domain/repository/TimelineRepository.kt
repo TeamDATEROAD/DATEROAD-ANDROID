@@ -1,6 +1,7 @@
 package org.sopt.dateroad.domain.repository
 
 import org.sopt.dateroad.domain.model.Enroll
+import org.sopt.dateroad.domain.model.EnrollTimelineResult
 import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.domain.model.TimelineDetail
@@ -15,5 +16,5 @@ interface TimelineRepository {
 
     suspend fun getNearestTimeline(): Result<NearestTimeline>
 
-    suspend fun postTimeline(enroll: Enroll): Result<Unit>
+    suspend fun postTimeline(enroll: Enroll): Result<EnrollTimelineResult>
 }
