@@ -8,23 +8,21 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineD
 import org.sopt.dateroad.data.dataremote.util.Date
 import org.sopt.dateroad.domain.type.MonthType
 
-fun String.toCourseDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.COURSE_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
+fun String.toCourseDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.COURSE_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) }.orEmpty()
 
-fun String.toBasicDates(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.DATE_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
-
-fun String.fromCourseDetailToEnrollDate(): String = LocalDate.parse(this, DateTimeFormatter.ofPattern(Date.COURSE_DETAIL_OUTPUT_FORMAT)).format(DateTimeFormatter.ofPattern(Date.INPUT_FORMAT))
+fun String.toBasicDates(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.DATE_OUTPUT_FORMAT, Locale.getDefault()).format(it) }.orEmpty()
 
 fun String.fromDateToEnrollDate(): String = LocalDate.parse(this, DateTimeFormatter.ofPattern(Date.DATE_OUTPUT_FORMAT)).format(DateTimeFormatter.ofPattern(Date.INPUT_FORMAT))
 
 fun Int.toDDayString(): String = when {
-    this > 0 -> "${Date.D_DAY_OUTPUT_FORMAT}$this"
+    this > 0 -> Date.D_DAY_OUTPUT_FORMAT + this
     this == 0 -> Date.D_DAY_DEFAULT_LABEL
     else -> ""
 }
 
-fun String.toStartAtString(): String = "$this${Date.NEAREST_DATE_START_OUTPUT_FORMAT}"
+fun String.toStartAtString(): String = this + Date.NEAREST_DATE_START_OUTPUT_FORMAT
 
-fun String.toAdvertisementDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.ADVERTISEMENT_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) } ?: ""
+fun String.toAdvertisementDetailDate(): String = SimpleDateFormat(Date.INPUT_FORMAT, Locale.getDefault()).parse(this)?.let { SimpleDateFormat(Date.ADVERTISEMENT_DETAIL_OUTPUT_FORMAT, Locale.getDefault()).format(it) }.orEmpty()
 
 fun ResponseNearestTimelineDto.toFormattedDate(): String = String.format(Date.MAIN_DATE_OUTPUT_FORMAT, this.month, this.day)
 

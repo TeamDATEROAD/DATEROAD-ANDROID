@@ -7,7 +7,10 @@ import org.sopt.dateroad.domain.type.SeoulAreaType.Companion.fromTitleToSeoulAre
 
 fun String.toRegionType(): RegionType? = when {
     this.fromTitleToSeoulAreaType() != null -> RegionType.SEOUL
+
     this.fromTitleToGyeonggiAreaType() != null -> RegionType.GYEONGGI
+
     this.fromTitleToIncheonAreaType() != null -> RegionType.INCHEON
+
     else -> null
 }

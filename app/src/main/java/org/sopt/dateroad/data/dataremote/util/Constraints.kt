@@ -38,19 +38,11 @@ object ApiConstraints {
     const val TIME = "time"
     const val NEAREST = "nearest"
     const val IS_DEFAULT_IMAGE = "isDefaultImage"
+    const val DELETE_METHOD = "DELETE"
 }
 
 object Cost {
     const val COST = "원"
-}
-
-object Duration {
-    const val DURATION = "시간"
-}
-
-object Like {
-    const val LIKE_MAX = "999+"
-    const val THRESHOLD = 999
 }
 
 object Date {
@@ -65,23 +57,21 @@ object Date {
     const val ADVERTISEMENT_DETAIL_OUTPUT_FORMAT = "yyyy년 M월 d일"
 }
 
+object Duration {
+    const val DURATION = "시간"
+}
+
+object Like {
+    const val LIKE_MAX = "999+"
+    const val THRESHOLD = 999
+}
+
 object Point {
     const val POINT = " P"
     const val GAINED = "+"
     const val USED = "-"
 }
 
-object Month {
-    const val JANUARY = "January"
-    const val FEBRUARY = "February"
-    const val MARCH = "March"
-    const val APRIL = "April"
-    const val MAY = "May"
-    const val JUNE = "June"
-    const val JULY = "July"
-    const val AUGUST = "August"
-    const val SEPTEMBER = "September"
-    const val OCTOBER = "October"
-    const val NOVEMBER = "November"
-    const val DECEMBER = "December"
+object TotalCostZero {
+    const val ZERO_COST = "무지출"
 }

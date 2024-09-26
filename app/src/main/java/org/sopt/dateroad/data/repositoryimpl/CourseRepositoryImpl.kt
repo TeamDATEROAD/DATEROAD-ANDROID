@@ -61,13 +61,17 @@ class CourseRepositoryImpl @Inject constructor(
     override suspend fun postCourse(enroll: Enroll): Result<Unit> = runCatching {
         courseRemoteDataSource.postCourse(
             images = enroll.images.map { image -> ContentUriRequestBody(contentResolver = contentResolver, uri = Uri.parse(image)).toFormData() },
-            course = Json.encodeToString(enroll.toCourseData()).toRequestBody("application/json".toMediaType()),
-            places = Json.encodeToString(enroll.places.mapIndexed { index, place -> place.toData(sequence = index + 1) }).toRequestBody("application/json".toMediaType()),
-            tags = Json.encodeToString(enroll.tags.map { tag -> tag.toData() }).toRequestBody("application/json".toMediaType())
+            course = Json.encodeToString(enroll.toCourseData()).toRequestBody(APPLICATION_JSON.toMediaType()),
+            places = Json.encodeToString(enroll.places.mapIndexed { index, place -> place.toData(sequence = index + 1) }).toRequestBody(APPLICATION_JSON.toMediaType()),
+            tags = Json.encodeToString(enroll.tags.map { tag -> tag.toData() }).toRequestBody(APPLICATION_JSON.toMediaType())
         )
     }
 
     override suspend fun postCourseLike(courseId: Int): Result<Unit> = runCatching {
         courseRemoteDataSource.postCourseLike(courseId = courseId)
+    }
+
+    companion object {
+        const val APPLICATION_JSON = "application/json"
     }
 }

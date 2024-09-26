@@ -148,10 +148,6 @@ object Token {
     const val BEARER = "Bearer "
 }
 
-object TotalCostZero {
-    const val ZERO_COST = "무지출"
-}
-
 object UserPropertyAmplitude {
     const val USER_NAME = "user_name"
     const val USER_POINT = "user_point"
