@@ -55,6 +55,7 @@ import org.sopt.dateroad.presentation.ui.home.component.DateRoadHomeTopBar
 import org.sopt.dateroad.presentation.ui.home.component.HomeAdvertisement
 import org.sopt.dateroad.presentation.ui.home.component.HomeHotCourseCard
 import org.sopt.dateroad.presentation.ui.home.component.HomeTimeLineCard
+import org.sopt.dateroad.presentation.util.Home.ADVERTISEMENT_DELAY
 import org.sopt.dateroad.presentation.util.ViewPath.HOME
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
@@ -84,7 +85,7 @@ fun HomeRoute(
         viewModel.fetchUserPoint()
 
         while (true) {
-            delay(4000)
+            delay(ADVERTISEMENT_DELAY)
             coroutineScope.launch {
                 if (uiState.advertisements.isNotEmpty()) {
                     val nextPage = (pagerState.currentPage + 1) % uiState.advertisements.size
@@ -207,7 +208,7 @@ fun HomeScreen(
                         color = DateRoadTheme.colors.gray400
                     )
                     DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
+                        textContent = stringResource(id = R.string.more),
                         textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,
@@ -279,7 +280,7 @@ fun HomeScreen(
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     DateRoadTextButton(
-                        textContent = stringResource(id = R.string.button_more),
+                        textContent = stringResource(id = R.string.more),
                         textStyle = DateRoadTheme.typography.bodyBold13,
                         textColor = DateRoadTheme.colors.purple600,
                         paddingHorizontal = 20.dp,

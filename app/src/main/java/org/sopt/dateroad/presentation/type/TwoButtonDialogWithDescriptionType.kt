@@ -39,12 +39,6 @@ enum class TwoButtonDialogWithDescriptionType(
         confirmButtonTextRes = R.string.dialog_delete,
         dismissButtonTextRes = R.string.dialog_cancel
     ),
-    DELETE_PAST(
-        titleRes = R.string.two_button_dialog_with_description_delete_past_title,
-        descriptionRes = R.string.dialog_delete_schedule,
-        confirmButtonTextRes = R.string.dialog_delete,
-        dismissButtonTextRes = R.string.dialog_cancel
-    ),
     WITHDRAWAL(
         titleRes = R.string.two_button_dialog_with_description_withdrawal_title,
         descriptionRes = R.string.two_button_dialog_with_description_withdrawal_description,

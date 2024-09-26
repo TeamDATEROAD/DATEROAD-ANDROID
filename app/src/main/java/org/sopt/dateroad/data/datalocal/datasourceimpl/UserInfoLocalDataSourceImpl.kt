@@ -32,15 +32,15 @@ class UserInfoLocalDataSourceImpl @Inject constructor(
     }
 
     override var accessToken: String
-        get() = sharedPreferences.getString(ACCESS_TOKEN, "").toString()
+        get() = sharedPreferences.getString(ACCESS_TOKEN, INITIAL_VALUE).toString()
         set(value) = sharedPreferences.edit { putString(ACCESS_TOKEN, value) }
 
     override var refreshToken: String
-        get() = sharedPreferences.getString(REFRESH_TOKEN, "").toString()
+        get() = sharedPreferences.getString(REFRESH_TOKEN, INITIAL_VALUE).toString()
         set(value) = sharedPreferences.edit { putString(REFRESH_TOKEN, value) }
 
     override var nickname: String
-        get() = sharedPreferences.getString(NICK_NAME, "").toString()
+        get() = sharedPreferences.getString(NICK_NAME, INITIAL_VALUE).toString()
         set(value) = sharedPreferences.edit { putString(NICK_NAME, value) }
 
     override fun clear() = sharedPreferences.edit { clear() }
@@ -48,5 +48,6 @@ class UserInfoLocalDataSourceImpl @Inject constructor(
     companion object {
         const val FILE_NAME = "DateRoadLocalDataSource"
         const val NICK_NAME = "NickName"
+        const val INITIAL_VALUE = ""
     }
 }

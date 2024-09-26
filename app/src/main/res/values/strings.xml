@@ -11,8 +11,9 @@
     <string name="complete">완료</string>
     <string name="apply">적용하기</string>
     <string name="duration">%s시간</string>
+    <string name="more">더보기</string>
 
-    <!-- Dialog All -->
+    <!-- DialogAll -->
     <string name="dialog_cancel">취소</string>
     <string name="dialog_check">확인</string>
     <string name="dialog_checked">확인했어요</string>
@@ -90,23 +91,13 @@
     <string name="money_tag_less_than_50000">5만원 이하</string>
     <string name="money_tag_less_than_30000">3만원 이하</string>
 
-    <!-- MyPagePointInfo -->
-    <string name="my_page_point_info_first_title">데이트 코스를 등록하면\n 포인트를 얻을 수 있어요</string>
-    <string name="my_page_point_info_description">내 데이트를 자랑하고 포인트를 받아보세요</string>
-    <string name="my_page_point_info_second_title">처음 3번 무료로\n데이트 코스를 열람할 수 있어요</string>
-    <string name="my_page_point_info_second_description">무료 찬스로 데이트를 열람하세요</string>
-    <string name="my_page_point_info_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
-    <string name="my_page_point_info_third_description">다른 커플의 데이트, 궁금하지 않으세요?</string>
-    <string name="my_page_point_info_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
-    <string name="my_page_point_info_fourth_description">추후 만들어질 기능을 기대해주세요</string>
-
     <!-- OnboardingType -->
     <string name="onboarding_first_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요</string>
     <string name="onboarding_first_description">최초 3회 무료 찬스로\n다른 사람의 데이트 코스를 구경하세요!</string>
     <string name="onboarding_first_sub_description">(이후에는 50포인트로 코스를 열람할 수 있어요)</string>
     <string name="onboarding_second_title">데이트 코스를 등록하면\n100 포인트를 얻을 수 있어요</string>
     <string name="onboarding_second_description">내 연인과 함께한 데이트 코스를 자랑하고\n포인트를 받아보세요</string>
-    <string name="onboarding_second_sub_description"></string>
+    <string name="onboarding_second_sub_description"> </string>
     <string name="onboarding_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
     <string name="onboarding_third_description">모인 포인트는 데이트 장소를 예약할 때\n현금처럼 사용 가능해요</string>
     <string name="onboarding_third_sub_description">(추후 제공될 기능이에요)</string>
@@ -176,8 +167,7 @@
     <string name="two_button_dialog_with_description_delete_course_description">삭제된 코스는 복구하실 수 없어요</string>
     <string name="two_button_dialog_with_description_report_course_description">신고된 게시물은 운영원칙에 따라 조치할 예정이에요</string>
 
-
-    <!-- Top Bar Title -->
+    <!-- TopBarTitle -->
     <string name="top_bar_title_point_history">포인트 내역</string>
     <string name="top_bar_title_enroll_course">코스 등록하기</string>
     <string name="top_bar_title_enroll_timeline">일정 등록하기</string>
@@ -195,28 +185,21 @@
     <string name="kakao_login">카카오 로그인</string>
     <string name="one_button_dialog_with_description_share_kakao">카카오톡으로 공유하기</string>
 
-    <!-- DateRoad Text Area -->
+    <!-- DateRoadTextArea -->
     <string name="text_area_length_content">%1$d자 / %2$d자 이상</string>
 
-    <!-- Point Box -->
+    <!-- PointBox -->
     <string name="point_box_nickname"> %1$s\님의 포인트</string>
     <string name="point_box_point"> %1$d P</string>
     <string name="my_page_point_card_text">포인트 내역 보기</string>
 
-    <!-- Region Bottom Sheet -->
+    <!-- RegionBottomSheet -->
     <string name="region_bottom_sheet_title">지역을 선택해주세요</string>
     <string name="region_bottom_sheet_button_text">적용하기</string>
     <string name="region_bottom_sheet_delete">글 삭제</string>
     <string name="region_bottom_sheet_set_timeline">데이트 일정 설정</string>
 
-    <!-- My Page Menu -->
-    <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
-    <string name="my_page_menu_point_guide">포인트 제도 소개</string>
-    <string name="my_page_menu_question">문의하기</string>
-    <string name="my_page_menu_logout">로그아웃</string>
-    <string name="my_page_menu_withdrawal">탈퇴하기</string>
-
-    <!-- Date Chip Group -->
+    <!-- DateChipGroup -->
     <string name="date_chip_group_profile">나의 데이트 성향 (%1$d/%2$d)</string>
     <string name="date_chip_group_enroll_course">데이트코스와 어울리는 태그를 선택해 주세요 (%1$d/%2$d)</string>
 
@@ -230,7 +213,7 @@
     <string name="course_detail_unopened_title">코스 정보가 궁금하신가요?</string>
     <string name="course_detail_timeline_title">코스 타임라인</string>
     <string name="course_detail_get_course">내 일정에 추가하기</string>
-    <string name="course_total_cost_string">전체 비용</string>
+    <string name="course_detail_total_cost_string">전체 비용</string>
     <string name="course_detail_tag">태그</string>
     <string name="course_detail_bottom_sheet_title">데이트 코스 설정</string>
     <string name="course_detail_bottom_sheet_confirm">글 삭제</string>
@@ -238,21 +221,12 @@
     <string name="course_detail_bottom_sheet_report">신고하기</string>
     <string name="course_detail_total_cost_zero">무지출</string>
 
-    <!-- DateSchedule -->
+    <!-- Home -->
     <string name="home_timeline_is_not">다가오는 데이트 일정이 없어요</string>
     <string name="home_timeline_enroll">일정을 등록하러 가볼까요?</string>
     <string name="home_timeline_month_day" formatted="false">%1$s월 %2$s일</string>
     <string name="home_timeline_d_day">D-%s</string>
     <string name="home_timeline_start">%s 시작</string>
-
-    <!-- Enroll Button -->
-    <string name="enroll_profile_button">프로필 등록하기</string>
-    <string name="edit_profile_button">프로필 변경하기</string>
-
-
-    <!-- Onboarding Button -->
-    <string name="onboarding_profile_enroll">프로필 생성하기</string>
-    <string name="onboarding_next">다음</string>
 
     <!-- Enroll -->
     <string name="enroll_add_photo">이미지를 삽입해 주세요\n(최소 1장, 최대 10장)</string>
@@ -277,8 +251,37 @@
     <string name="enroll_cost_placeholder">데이트 예상 총 비용을 숫자로만 입력해 주세요</string>
     <string name="enroll_button_text_completion">완료</string>
 
-    <!-- Button -->
-    <string name="button_past_date">지난 데이트 보기</string>
+    <!-- Home -->
+    <string name="home_hot_date_course_title">%s님, 오늘은\n이런 데이트 코스 어떠세요?</string>
+    <string name="home_hot_date_course_description">후기 보장 HOT 데이트 코스 둘러보기</string>
+    <string name="home_new_date_course_title">새로 올라왔어요</string>
+    <string name="home_new_date_course_description">가장 최근에 올라온 코스 보러가기</string>
+    <string name="home_main_date_point">%d P</string>
+    <string name="home_advertisement_number">%d/%d</string>
+
+    <!-- MyPage -->
+    <string name="my_page_menu_my_enroll_course">내가 등록한 코스</string>
+    <string name="my_page_menu_point_guide">포인트 제도 소개</string>
+    <string name="my_page_menu_question">문의하기</string>
+    <string name="my_page_menu_logout">로그아웃</string>
+    <string name="my_page_menu_withdrawal">탈퇴하기</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_profile_enroll">프로필 생성하기</string>
+    <string name="onboarding_next">다음</string>
+
+    <!-- PointGuide -->
+    <string name="point_guide_top_bar">포인트 제도 소개</string>
+    <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
+    <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
+    <string name="point_guide_first_title">데이트 코스를 등록하면\n 포인트를 얻을 수 있어요</string>
+    <string name="point_guide_first_description">내 데이트를 자랑하고 포인트를 받아보세요</string>
+    <string name="point_guide_second_title">처음 3번 무료로\n데이트 코스를 열람할 수 있어요</string>
+    <string name="point_guide_second_description">무료 찬스로 데이트를 열람하세요</string>
+    <string name="point_guide_third_title">쌓인 포인트로\n다양한 데이트 코스를 둘러보세요</string>
+    <string name="point_guide_third_description">다른 커플의 데이트, 궁금하지 않으세요?</string>
+    <string name="point_guide_fourth_title">모인 포인트는 데이트 장소를\n예약할 때 현금처럼 사용 가능해요</string>
+    <string name="point_guide_fourth_description">추후 만들어질 기능을 기대해주세요</string>
 
     <!-- Profile -->
     <string name="profile_enroll_top_bar_title">내 프로필</string>
@@ -294,32 +297,20 @@
     <string name="profile_bottom_sheet_button_text">취소</string>
     <string name="profile_bottom_sheet_button_enroll">사진 등록</string>
     <string name="profile_bottom_sheet_button_delete">사진 삭제</string>
-
-    <!-- Point Guide -->
-    <string name="point_guide_top_bar">포인트 제도 소개</string>
-    <string name="point_guide_title">데이트로드는 포인트로\n데이트 코스를 열람할 수 있어요.</string>
-    <string name="point_guide_description">포인트는 데이트 코스를 등록하면 얻을 수 있어요.</string>
-
-    <!-- TimelineDetail -->
-    <string name="timeline_detail_point">데이트 코스 올리고 100P 받기</string>
+    <string name="profile_enroll_button">프로필 등록하기</string>
+    <string name="profile_edit_button">프로필 변경하기</string>
 
     <!-- Read -->
     <string name="read_title_normal">%s님이 지금까지\n열람한 데이트 코스\n%d개</string>
     <string name="read_title_empty">%s님,\n아직 열람한\n데이트 코스가 없어요</string>
     <string name="read_suggest_enroll">열람한 코스로 데이트를 짜보세요</string>
 
-    <string name="button_more">더보기</string>
-
-    <!-- Home -->
-    <string name="home_hot_date_course_title">%s님, 오늘은\n이런 데이트 코스 어떠세요?</string>
-    <string name="home_hot_date_course_description">후기 보장 HOT 데이트 코스 둘러보기</string>
-    <string name="home_new_date_course_title">새로 올라왔어요</string>
-    <string name="home_new_date_course_description">가장 최근에 올라온 코스 보러가기</string>
-    <string name="home_main_date_point">%d P</string>
-    <string name="home_advertisement_number">%d/%d</string>
+    <!-- Timeline -->
+    <string name="timeline_past_date">지난 데이트 보기</string>
 
     <!-- TimelineDetail -->
     <string name="timeline_detail_bottom_sheet_title">데이트 일정 설정</string>
     <string name="timeline_detail_delete">글 삭제</string>
+    <string name="timeline_detail_point">데이트 코스 올리고 100P 받기</string>
 
 </resources>

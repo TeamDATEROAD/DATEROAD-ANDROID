@@ -22,7 +22,7 @@ fun CourseDetailCost(
     Spacer(modifier = Modifier.height(14.dp))
     Text(
         modifier = Modifier.padding(horizontal = 16.dp),
-        text = stringResource(id = R.string.course_total_cost_string),
+        text = stringResource(id = R.string.course_detail_total_cost_string),
         style = DateRoadTheme.typography.titleBold18,
         color = DateRoadTheme.colors.black
     )

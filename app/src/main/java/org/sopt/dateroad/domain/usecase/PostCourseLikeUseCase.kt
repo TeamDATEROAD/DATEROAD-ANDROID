@@ -8,7 +8,5 @@ import org.sopt.dateroad.domain.repository.CourseRepository
 class PostCourseLikeUseCase @Inject constructor(
     private val courseRepository: CourseRepository
 ) {
-    suspend operator fun invoke(courseId: Int): Result<Unit> = runCatching {
-        courseRepository.postCourseLike(courseId = courseId)
-    }
+    suspend operator fun invoke(courseId: Int): Result<Unit> = courseRepository.postCourseLike(courseId = courseId)
 }

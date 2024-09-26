@@ -12,6 +12,9 @@ import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.domain.usecase.DeleteTimelineUseCase
 import org.sopt.dateroad.domain.usecase.GetNicknameUseCase
 import org.sopt.dateroad.domain.usecase.GetTimelineDetailUseCase
+import org.sopt.dateroad.presentation.util.ShareKakao.START_AT
+import org.sopt.dateroad.presentation.util.ShareKakao.TEMPLATE_ID
+import org.sopt.dateroad.presentation.util.ShareKakao.USER_NAME
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -62,8 +65,8 @@ class TimelineDetailViewModel @Inject constructor(
         val templateId = 109999
         val templateArgs = mutableMapOf<String, String>()
 
-        templateArgs["userName"] = getNickNameUseCase()
-        templateArgs["startAt"] = timelineDetail.startAt
+        templateArgs[USER_NAME] = getNickNameUseCase()
+        templateArgs[START_AT] = timelineDetail.startAt
 
         timelineDetail.places.forEachIndexed { index, place ->
             if (index < 5) {
@@ -73,13 +76,13 @@ class TimelineDetailViewModel @Inject constructor(
         }
 
         if (ShareClient.instance.isKakaoTalkSharingAvailable(context)) {
-            ShareClient.instance.shareCustom(context, templateId.toLong(), templateArgs) { sharingResult, error ->
+            ShareClient.instance.shareCustom(context, TEMPLATE_ID, templateArgs) { sharingResult, error ->
                 if (sharingResult != null) {
                     context.startActivity(sharingResult.intent)
                 }
             }
         } else {
-            val sharerUrl = WebSharerClient.instance.makeCustomUrl(templateId.toLong(), templateArgs)
+            val sharerUrl = WebSharerClient.instance.makeCustomUrl(TEMPLATE_ID, templateArgs)
             try {
                 KakaoCustomTabsClient.openWithDefault(context, sharerUrl)
             } catch (e: UnsupportedOperationException) {

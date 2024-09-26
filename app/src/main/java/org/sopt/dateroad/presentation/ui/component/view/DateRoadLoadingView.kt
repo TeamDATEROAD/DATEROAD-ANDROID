@@ -16,8 +16,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import org.sopt.dateroad.presentation.util.LoadingView.CLIPMAX
-import org.sopt.dateroad.presentation.util.LoadingView.CLIPMIN
+import org.sopt.dateroad.presentation.util.LoadingView.CLIP_MAX
+import org.sopt.dateroad.presentation.util.LoadingView.CLIP_MIN
 import org.sopt.dateroad.presentation.util.LoadingView.LOTTIE
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -31,7 +31,7 @@ fun DateRoadLoadingView() {
     LaunchedEffect(composition) {
         lottieAnimatable.animate(
             composition = composition,
-            clipSpec = LottieClipSpec.Frame(CLIPMIN, CLIPMAX),
+            clipSpec = LottieClipSpec.Frame(CLIP_MIN, CLIP_MAX),
             initialProgress = 0f,
             iteration = LottieConstants.IterateForever
         )

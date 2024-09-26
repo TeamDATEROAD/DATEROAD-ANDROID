@@ -31,16 +31,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.sopt.dateroad.R
 import org.sopt.dateroad.presentation.type.OnboardingType
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.component.button.DateRoadFilledButton
 import org.sopt.dateroad.presentation.ui.component.dotsindicator.DotsIndicator
 import org.sopt.dateroad.presentation.ui.component.partialcolortext.PartialColorText
+import org.sopt.dateroad.presentation.util.Onboarding.FIRST
+import org.sopt.dateroad.presentation.util.Onboarding.FIRST_PAGE_KEYWORD
+import org.sopt.dateroad.presentation.util.Onboarding.KEYWORD
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingRoute(
     viewModel: OnBoardingViewModel = hiltViewModel(),
-    navigateToProfile: () -> Unit,
+    navigateToProfile: (ProfileType) -> Unit,
     navigateToSignIn: () -> Unit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -49,7 +53,7 @@ fun OnboardingRoute(
 
     BackHandler {
         when (pagerState.currentPage) {
-            0 -> viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToSignIn)
+            FIRST -> viewModel.setSideEffect(OnBoardingContract.OnBoardingSideEffect.NavigateToSignIn)
 
             else -> {
                 coroutineScope.launch {
@@ -63,7 +67,7 @@ fun OnboardingRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { onBoardingSideEffect ->
                 when (onBoardingSideEffect) {
-                    is OnBoardingContract.OnBoardingSideEffect.NavigateToProfile -> navigateToProfile()
+                    is OnBoardingContract.OnBoardingSideEffect.NavigateToProfile -> navigateToProfile(ProfileType.ENROLL)
                     is OnBoardingContract.OnBoardingSideEffect.NavigateToSignIn -> navigateToSignIn()
                 }
             }
@@ -109,7 +113,11 @@ fun OnboardingScreen(
                 Text(
                     text = PartialColorText(
                         stringResource(id = onboardingType.titleRes),
-                        keywords = if (page == 0) { listOf("포인트", "데이트 코스", "100", "다양한") } else listOf("100 포인트", "다양한"),
+                        keywords = if (page == FIRST) {
+                            FIRST_PAGE_KEYWORD
+                        } else {
+                            KEYWORD
+                        },
                         color = DateRoadTheme.colors.purple600
                     ),
                     style = DateRoadTheme.typography.titleExtra24,

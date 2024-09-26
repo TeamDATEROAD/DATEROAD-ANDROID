@@ -58,5 +58,6 @@ object EnrollRoute {
     const val VIEW_PATH = "viewPath"
     const val TIMELINE_ID = "timelineId"
     const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ENROLL_TYPE}/{$VIEW_PATH}/{$TIMELINE_ID}"
+
     fun route(enrollType: EnrollType, viewPath: String, courseId: Int?) = "$ROUTE/${enrollType.name}/$viewPath/$courseId"
 }

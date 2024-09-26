@@ -7,6 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.sopt.dateroad.presentation.model.MainNavigationBarRoute
 import org.sopt.dateroad.presentation.type.MyCourseType
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.mypage.MyPageRoute
 
 fun NavController.navigationMyPage(navOptions: NavOptions) {
@@ -22,7 +23,7 @@ fun NavGraphBuilder.myPageNavGraph(
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
     navigateToSignIn: () -> Unit,
-    navigateToEditProfile: () -> Unit
+    navigateToProfile: (ProfileType) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.MyPage::class.simpleName.orEmpty()) {
         MyPageRoute(
@@ -31,7 +32,7 @@ fun NavGraphBuilder.myPageNavGraph(
             navigateToMyCourse = navigateToMyCourse,
             navigateToPointGuide = navigateToPointGuide,
             navigateToSignIn = navigateToSignIn,
-            navigateToEditProfile = navigateToEditProfile
+            navigateToProfile = navigateToProfile
         )
     }
 }

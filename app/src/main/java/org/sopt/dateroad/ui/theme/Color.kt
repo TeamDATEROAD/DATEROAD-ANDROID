@@ -48,6 +48,8 @@ data class DateRoadColors(
     val purple500: Color,
     val purple600: Color,
     val purple700: Color,
+
+    // Sub
     val pink100: Color,
     val pink200: Color,
     val pink300: Color,
@@ -82,6 +84,8 @@ val defaultDateRoadColors = DateRoadColors(
     purple500 = Purple500,
     purple600 = Purple600,
     purple700 = Purple700,
+
+    // Sub
     pink100 = Pink100,
     pink200 = Pink200,
     pink300 = Pink300,
@@ -102,6 +106,8 @@ val defaultDateRoadColors = DateRoadColors(
 
     // Notif
     alertRed = AlertRed,
+
+    // Kakao
     kakaoYellow = KakaoYellow
 )
 

@@ -9,10 +9,10 @@ enum class ProfileType(
 ) {
     ENROLL(
         topAppBarTitleRes = R.string.profile_enroll_top_bar_title,
-        buttonTextRes = R.string.enroll_profile_button
+        buttonTextRes = R.string.profile_enroll_button
     ),
     EDIT(
         topAppBarTitleRes = R.string.profile_edit_top_bar_title,
-        buttonTextRes = R.string.edit_profile_button
+        buttonTextRes = R.string.profile_edit_button
     )
 }

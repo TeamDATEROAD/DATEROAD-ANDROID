@@ -49,6 +49,8 @@ import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldVali
 import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.GalleryLauncher.DELETE_IMAGE
+import org.sopt.dateroad.presentation.util.GalleryLauncher.INPUT
 import org.sopt.dateroad.presentation.util.Pattern.NICKNAME_REGEX
 import org.sopt.dateroad.presentation.util.TimelineAmplitude.DATE_SCHEDULE_NUM
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_COURSE_COUNT
@@ -117,12 +119,12 @@ fun ProfileRoute(
                         },
                         selectPhoto = {
                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                                getGalleryLauncher.launch("image/*")
+                                getGalleryLauncher.launch(input = INPUT)
                             } else {
                                 getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                             }
                         },
-                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = "")) },
+                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = DELETE_IMAGE)) },
                         popUpBackStack = { Unit }
 
                     )
@@ -160,12 +162,12 @@ fun ProfileRoute(
                         },
                         selectPhoto = {
                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                                getGalleryLauncher.launch("image/*")
+                                getGalleryLauncher.launch(INPUT)
                             } else {
                                 getPhotoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                             }
                         },
-                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = "")) },
+                        deletePhoto = { viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = DELETE_IMAGE)) },
                         popUpBackStack = { popBackStack() }
                     )
                 }

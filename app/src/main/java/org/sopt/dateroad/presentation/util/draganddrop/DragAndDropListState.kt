@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import kotlinx.coroutines.Job
+import org.sopt.dateroad.presentation.util.Default.DRAGGED_DISTANCE
 import org.sopt.dateroad.presentation.util.lazylist.getVisibleItemInfoFor
 import org.sopt.dateroad.presentation.util.lazylist.offsetEnd
 
@@ -18,17 +19,13 @@ class DragAndDropListState(
     val lazyListState: LazyListState,
     private val onMove: (Int, Int) -> Unit
 ) {
-    private var draggedDistance by mutableFloatStateOf(0f)
+    private var draggedDistance by mutableFloatStateOf(DRAGGED_DISTANCE)
     private var initiallyDraggedElement by mutableStateOf<LazyListItemInfo?>(null)
     var currentIndexOfDraggedItem by mutableStateOf<Int?>(null)
     private val initialOffsets: Pair<Int, Int>?
         get() = initiallyDraggedElement?.let {
             Pair(it.offset, it.offsetEnd)
         }
-    val elementDisplacement: Float?
-        get() = currentIndexOfDraggedItem
-            ?.let { lazyListState.getVisibleItemInfoFor(absoluteIndex = it) }
-            ?.let { item -> (initiallyDraggedElement?.offset ?: 0f).toFloat() + draggedDistance - item.offset }
 
     private val currentElement: LazyListItemInfo?
         get() = currentIndexOfDraggedItem?.let {

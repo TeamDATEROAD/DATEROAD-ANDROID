@@ -7,6 +7,7 @@ import org.sopt.dateroad.data.dataremote.model.request.RequestWithdrawDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseAuthDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CHECK
+import org.sopt.dateroad.data.dataremote.util.ApiConstraints.DELETE_METHOD
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.IS_DEFAULT_IMAGE
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.NAME
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.SIGNUP
@@ -33,7 +34,7 @@ interface AuthService {
     @DELETE("$API/$VERSION/$USERS/$SIGN_OUT")
     suspend fun deleteSignOut()
 
-    @HTTP(method = "DELETE", hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")
+    @HTTP(method = DELETE_METHOD, hasBody = true, path = "$API/$VERSION/$USERS/$WITHDRAW")
     suspend fun deleteWithdraw(
         @Body requestWithdrawDto: RequestWithdrawDto
     )

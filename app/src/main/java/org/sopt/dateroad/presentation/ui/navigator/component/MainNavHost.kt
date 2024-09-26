@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.advertisement.navigation.advertisementGraph
 import org.sopt.dateroad.presentation.ui.coursedetail.navigation.courseDetailGraph
 import org.sopt.dateroad.presentation.ui.enroll.navigation.enrollNavGraph
@@ -20,8 +19,7 @@ import org.sopt.dateroad.presentation.ui.onboarding.navigation.onboardingNavGrap
 import org.sopt.dateroad.presentation.ui.past.navigation.pastNavGraph
 import org.sopt.dateroad.presentation.ui.pointguide.navigation.pointGuideGraph
 import org.sopt.dateroad.presentation.ui.pointhistory.navigation.pointHistoryGraph
-import org.sopt.dateroad.presentation.ui.profile.navigation.editProfileNavGraph
-import org.sopt.dateroad.presentation.ui.profile.navigation.enrollProfileNavGraph
+import org.sopt.dateroad.presentation.ui.profile.navigation.profileNavGraph
 import org.sopt.dateroad.presentation.ui.read.navigation.readNavGraph
 import org.sopt.dateroad.presentation.ui.signin.navigation.signInGraph
 import org.sopt.dateroad.presentation.ui.timeline.navigation.timelineNavGraph
@@ -87,11 +85,11 @@ fun MainNavHost(
                 navigateToMyCourse = navigator::navigateToMyCourse,
                 navigateToPointGuide = navigator::navigateToPointGuide,
                 navigateToSignIn = navigator::navigateToSignIn,
-                navigateToEditProfile = navigator::navigateToEditProfile
+                navigateToProfile = navigator::navigateToProfile
             )
 
             onboardingNavGraph(
-                navigateToEnrollProfile = navigator::navigateToEnrollProfile,
+                navigateToProfile = navigator::navigateToProfile,
                 navigateToSignIn = navigator::navigateToSignIn
             )
 
@@ -111,16 +109,9 @@ fun MainNavHost(
                 popBackStack = navigator::popBackStackIfNotHome
             )
 
-            enrollProfileNavGraph(
+            profileNavGraph(
                 navigateToHome = navigator::navigateToHome,
                 navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.ENROLL,
-                popBackStack = navigator::popBackStackIfNotHome
-            )
-            editProfileNavGraph(
-                navigateToHome = navigator::navigateToHome,
-                navigateToMyPage = navigator::navigateToMyPage,
-                profileType = ProfileType.EDIT,
                 popBackStack = navigator::popBackStackIfNotHome
             )
 

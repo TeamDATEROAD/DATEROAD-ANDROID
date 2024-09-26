@@ -10,7 +10,6 @@ import org.sopt.dateroad.R
 
 val SuitBold = FontFamily(Font(R.font.suit_bold))
 val SuitExtraBold = FontFamily(Font(R.font.suit_extrabold))
-val SuitExtraLight = FontFamily(Font(R.font.suit_extralight))
 val SuitMedium = FontFamily(Font(R.font.suit_medium))
 val SuitRegular = FontFamily(Font(R.font.suit_regular))
 val SuitSemiBold = FontFamily(Font(R.font.suit_semibold))

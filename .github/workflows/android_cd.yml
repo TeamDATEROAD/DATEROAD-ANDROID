@@ -63,9 +63,11 @@ jobs:
         env:
           DEFAULTS_ORG: ${{ secrets.DEFAULTS_ORG }}
           DEFAULTS_PROJECT: ${{ secrets.DEFAULTS_PROJECT }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
         run: |
           echo "defaults.org=$DEFAULTS_ORG" >> sentry.properties
           echo "defaults.project=$DEFAULTS_PROJECT" >> sentry.properties
+          echo "auth.token=$AUTH_TOKEN" >> sentry.properties
 
       - name: Build Release APK
         run: |

@@ -8,5 +8,5 @@ import org.sopt.dateroad.domain.repository.TimelineRepository
 class DeleteTimelineUseCase @Inject constructor(
     private val timelineRepository: TimelineRepository
 ) {
-    suspend operator fun invoke(timelineId: Int): Result<Unit> = runCatching { timelineRepository.deleteTimeline(timelineId = timelineId) }
+    suspend operator fun invoke(timelineId: Int): Result<Unit> = timelineRepository.deleteTimeline(timelineId = timelineId)
 }

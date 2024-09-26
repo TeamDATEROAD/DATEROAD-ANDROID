@@ -185,7 +185,7 @@ fun TimelineScreen(
         ) {
             DateRoadFilledButton(
                 isEnabled = true,
-                textContent = stringResource(id = R.string.button_past_date),
+                textContent = stringResource(id = R.string.timeline_past_date),
                 onClick = onPastButtonClick,
                 textStyle = DateRoadTheme.typography.bodyBold15,
                 enabledBackgroundColor = DateRoadTheme.colors.gray100,

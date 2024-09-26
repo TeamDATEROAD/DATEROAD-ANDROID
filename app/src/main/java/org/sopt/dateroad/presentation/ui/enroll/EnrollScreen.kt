@@ -53,6 +53,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.enroll.component.EnrollPhotos
 import org.sopt.dateroad.presentation.util.DatePicker
+import org.sopt.dateroad.presentation.util.DatePicker.SEPARATOR
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_BRING_COURSE
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE1_BACK
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.CLICK_COURSE2_BACK
@@ -87,6 +88,7 @@ import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_COURSE1
 import org.sopt.dateroad.presentation.util.EnrollAmplitude.VIEW_PATH
 import org.sopt.dateroad.presentation.util.EnrollScreen.MAX_ITEMS
 import org.sopt.dateroad.presentation.util.EnrollScreen.TITLE_MIN_LENGTH
+import org.sopt.dateroad.presentation.util.GalleryLauncher.INPUT
 import org.sopt.dateroad.presentation.util.TimePicker
 import org.sopt.dateroad.presentation.util.TimelineAmplitude.CLICK_ADD_SCHEDULE
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
@@ -258,7 +260,7 @@ fun EnrollRoute(
         onDurationBottomSheetDismissRequest = { viewModel.setEvent(EnrollContract.EnrollEvent.OnDurationBottomSheetDismissRequest) },
         onPhotoButtonClick = {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                getGalleryLauncher.launch("image/*")
+                getGalleryLauncher.launch(INPUT)
             } else {
                 getPhotoPickerLauncher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
@@ -463,7 +465,7 @@ fun EnrollScreen(
         buttonText = stringResource(id = R.string.apply),
         onButtonClick = {
             onDatePickerBottomSheetButtonClick(
-                enrollUiState.datePickers.joinToString(separator = ".") { it.pickerState.selectedItem.padStart(2, '0') }
+                enrollUiState.datePickers.joinToString(separator = SEPARATOR) { it.pickerState.selectedItem.padStart(2, '0') }
             )
         },
         onDismissRequest = onDatePickerBottomSheetDismissRequest,
@@ -534,7 +536,7 @@ fun EnrollScreen(
 }
 
 fun formatTime(time: List<String>): String {
-    val period = if (time[0] == TimePicker.AM) "AM" else "PM"
+    val period = if (time[0] == TimePicker.AM) TimePicker.AM_ENG else TimePicker.PM_ENG
     val hour = time[1].padStart(2, '0')
     val minute = time[2].padStart(2, '0')
     return "$hour:$minute $period"

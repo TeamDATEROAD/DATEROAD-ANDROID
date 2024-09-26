@@ -1,6 +1,6 @@
 package org.sopt.dateroad.domain.type
 
-import org.sopt.dateroad.data.dataremote.util.Month
+import org.sopt.dateroad.domain.util.Month
 
 enum class MonthType(val title: String) {
     JANUARY(title = Month.JANUARY),

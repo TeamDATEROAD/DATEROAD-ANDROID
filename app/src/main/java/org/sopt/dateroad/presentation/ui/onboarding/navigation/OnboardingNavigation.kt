@@ -3,6 +3,7 @@ package org.sopt.dateroad.presentation.ui.onboarding.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.onboarding.OnboardingRoute
 
 fun NavController.navigationOnboarding() {
@@ -12,12 +13,12 @@ fun NavController.navigationOnboarding() {
 }
 
 fun NavGraphBuilder.onboardingNavGraph(
-    navigateToEnrollProfile: () -> Unit,
+    navigateToProfile: (ProfileType) -> Unit,
     navigateToSignIn: () -> Unit
 ) {
     composable(route = OnboardingRoute.ROUTE) {
         OnboardingRoute(
-            navigateToProfile = navigateToEnrollProfile,
+            navigateToProfile = navigateToProfile,
             navigateToSignIn = navigateToSignIn
         )
     }
