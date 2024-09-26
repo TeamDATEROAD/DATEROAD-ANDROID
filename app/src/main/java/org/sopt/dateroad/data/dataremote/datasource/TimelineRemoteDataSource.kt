@@ -1,6 +1,7 @@
 package org.sopt.dateroad.data.dataremote.datasource
 
 import org.sopt.dateroad.data.dataremote.model.request.RequestTimelineDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseEnrollTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
@@ -14,5 +15,5 @@ interface TimelineRemoteDataSource {
 
     suspend fun getNearestTimeline(): ResponseNearestTimelineDto
 
-    suspend fun postTimeline(requestTimelineDto: RequestTimelineDto)
+    suspend fun postTimeline(requestTimelineDto: RequestTimelineDto): ResponseEnrollTimelineDto
 }

@@ -52,7 +52,12 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.util.GalleryLauncher.DELETE_IMAGE
 import org.sopt.dateroad.presentation.util.GalleryLauncher.INPUT
 import org.sopt.dateroad.presentation.util.Pattern.NICKNAME_REGEX
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.DATE_SCHEDULE_NUM
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_COURSE_COUNT
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_FREE_REMAINED
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_NAME
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_POINT
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_PURCHASE_COUNT
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -129,6 +134,11 @@ fun ProfileRoute(
                 LoadState.Success -> {
                     navigationToHome()
                     AmplitudeUtils.updateStringUserProperty(propertyName = USER_NAME, propertyValue = uiState.signUp.userSignUpInfo.name)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_POINT, propertyValue = 0)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_FREE_REMAINED, propertyValue = 3)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_PURCHASE_COUNT, propertyValue = 0)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = USER_COURSE_COUNT, propertyValue = 0)
+                    AmplitudeUtils.updateIntUserProperty(propertyName = DATE_SCHEDULE_NUM, propertyValue = 0)
                 }
 
                 LoadState.Error -> DateRoadErrorView()

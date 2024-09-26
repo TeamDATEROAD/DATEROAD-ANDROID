@@ -7,6 +7,7 @@ import org.sopt.dateroad.data.mapper.todomain.toDomain
 import org.sopt.dateroad.data.mapper.todomain.toFutureTimelineDomain
 import org.sopt.dateroad.data.mapper.todomain.toPastTimelineDomain
 import org.sopt.dateroad.domain.model.Enroll
+import org.sopt.dateroad.domain.model.EnrollTimelineResult
 import org.sopt.dateroad.domain.model.NearestTimeline
 import org.sopt.dateroad.domain.model.Timeline
 import org.sopt.dateroad.domain.model.TimelineDetail
@@ -37,7 +38,7 @@ class TimelineRepositoryImpl @Inject constructor(
         timelineRemoteDataSource.getNearestTimeline().toDomain()
     }
 
-    override suspend fun postTimeline(enroll: Enroll) = runCatching {
-        timelineRemoteDataSource.postTimeline(requestTimelineDto = enroll.toTimelineData())
+    override suspend fun postTimeline(enroll: Enroll): Result<EnrollTimelineResult> = runCatching {
+        timelineRemoteDataSource.postTimeline(requestTimelineDto = enroll.toTimelineData()).toDomain()
     }
 }

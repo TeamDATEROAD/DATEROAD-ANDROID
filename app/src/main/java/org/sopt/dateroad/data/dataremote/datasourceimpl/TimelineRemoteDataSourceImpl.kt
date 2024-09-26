@@ -3,6 +3,7 @@ package org.sopt.dateroad.data.dataremote.datasourceimpl
 import javax.inject.Inject
 import org.sopt.dateroad.data.dataremote.datasource.TimelineRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.request.RequestTimelineDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseEnrollTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseNearestTimelineDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelineDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseTimelinesDto
@@ -19,5 +20,5 @@ class TimelineRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getNearestTimeline(): ResponseNearestTimelineDto = timelineService.getNearestTimeline()
 
-    override suspend fun postTimeline(requestTimelineDto: RequestTimelineDto) = timelineService.postTimeline(requestTimelineDto = requestTimelineDto)
+    override suspend fun postTimeline(requestTimelineDto: RequestTimelineDto): ResponseEnrollTimelineDto = timelineService.postTimeline(requestTimelineDto = requestTimelineDto)
 }
