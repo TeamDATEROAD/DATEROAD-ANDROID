@@ -2,12 +2,9 @@ package org.sopt.dateroad.di
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import org.sopt.dateroad.data.datalocal.datasource.UserInfoLocalDataSource
-import org.sopt.dateroad.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import org.sopt.dateroad.data.repositoryimpl.AdvertisementRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.AuthRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl

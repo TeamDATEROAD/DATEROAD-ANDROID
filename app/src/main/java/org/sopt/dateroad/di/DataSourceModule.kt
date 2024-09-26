@@ -21,8 +21,6 @@ import org.sopt.dateroad.data.dataremote.datasourceimpl.MyCourseRemoteDataSource
 import org.sopt.dateroad.data.dataremote.datasourceimpl.ProfileRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.TimelineRemoteDataSourceImpl
 import org.sopt.dateroad.data.dataremote.datasourceimpl.UserPointRemoteDataSourceImpl
-import org.sopt.dateroad.data.repositoryimpl.UserInfoRepositoryImpl
-import org.sopt.dateroad.domain.repository.UserInfoRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
