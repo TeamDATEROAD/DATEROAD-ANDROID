@@ -60,6 +60,18 @@ object Pattern {
     val NICKNAME_REGEX = Regex(NICKNAME_PATTERN)
 }
 
+object HomeAmplitude {
+    const val VIEW_MAIN = "view_main"
+    const val USER_NAME = "user_name"
+    const val USER_POINT = "user_point"
+    const val COURSE_LIST_ID = "course_list_id"
+    const val COURSE_LIST_TITLE = "course_list_title"
+    const val COURSE_LIST_LOCATION = "course_list_location"
+    const val COURSE_LIST_COST = "course_list_cost"
+    const val HOT = "Hot: "
+    const val NEW = " / New: "
+}
+
 object ViewPath {
     const val HOME = "홈"
     const val TIMELINE = "데이트 일정"
