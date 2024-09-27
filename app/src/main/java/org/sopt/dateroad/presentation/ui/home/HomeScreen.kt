@@ -64,8 +64,8 @@ import org.sopt.dateroad.presentation.util.HomeAmplitude.NEW
 import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_NAME
 import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_POINT
 import org.sopt.dateroad.presentation.util.HomeAmplitude.VIEW_MAIN
-import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.ViewPath.HOME
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
