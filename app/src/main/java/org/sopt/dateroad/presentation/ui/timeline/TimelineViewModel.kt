@@ -31,7 +31,7 @@ class TimelineViewModel @Inject constructor(
                     setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Success, timelines = timelines))
                 }
                 .onFailure {
-                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Success, timelines = currentState.timelines))
+                    setEvent(TimelineContract.TimelineEvent.FetchTimeline(loadState = LoadState.Error, timelines = currentState.timelines))
                 }
         }
     }

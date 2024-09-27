@@ -5,6 +5,7 @@ import org.sopt.dateroad.data.dataremote.datasource.UserPointRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.request.RequestUsePointDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponsePointHistoryDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseUserPointDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseUserUsePointDto
 import org.sopt.dateroad.data.dataremote.service.UserPointService
 
 class UserPointRemoteDataSourceImpl @Inject constructor(
@@ -14,5 +15,5 @@ class UserPointRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getPointHistory(): ResponsePointHistoryDto = userPointService.getPointHistory()
 
-    override suspend fun postUsePoint(courseId: Int, requestUsePointDto: RequestUsePointDto) = userPointService.postUsePoint(courseId = courseId, requestUsePointDto = requestUsePointDto)
+    override suspend fun postUsePoint(courseId: Int, requestUsePointDto: RequestUsePointDto): ResponseUserUsePointDto = userPointService.postUsePoint(courseId = courseId, requestUsePointDto = requestUsePointDto)
 }

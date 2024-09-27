@@ -65,6 +65,7 @@ import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_NAME
 import org.sopt.dateroad.presentation.util.HomeAmplitude.USER_POINT
 import org.sopt.dateroad.presentation.util.HomeAmplitude.VIEW_MAIN
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
+import org.sopt.dateroad.presentation.util.ViewPath.HOME
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DateRoadTheme
 
@@ -76,7 +77,7 @@ fun HomeRoute(
     navigateToPointHistory: () -> Unit,
     navigateToLook: (MainNavigationBarItemType) -> Unit,
     navigateToTimelineDetail: (TimelineType, Int) -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToAdvertisementDetail: (Int) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
@@ -110,7 +111,7 @@ fun HomeRoute(
                     is HomeContract.HomeSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is HomeContract.HomeSideEffect.NavigateToLook -> navigateToLook(MainNavigationBarItemType.LOOK)
                     is HomeContract.HomeSideEffect.NavigateToTimelineDetail -> navigateToTimelineDetail(homeSideEffect.timelineType, homeSideEffect.timelineId)
-                    is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.id)
+                    is HomeContract.HomeSideEffect.NavigateToEnroll -> navigateToEnroll(homeSideEffect.enrollType, homeSideEffect.viewPath, homeSideEffect.id)
                     is HomeContract.HomeSideEffect.NavigateToAdvertisementDetail -> navigateToAdvertisementDetail(homeSideEffect.advertisementId)
                     is HomeContract.HomeSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(homeSideEffect.courseId)
                 }
@@ -147,11 +148,11 @@ fun HomeRoute(
                 padding = padding,
                 uiState = uiState,
                 pagerState = pagerState,
-                navigateToEnroll = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.TIMELINE, null)) },
+                navigateToEnroll = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(enrollType = EnrollType.TIMELINE, viewPath = HOME, id = null)) },
                 navigateToPointHistory = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToPointHistory) },
                 navigateToLook = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToLook) },
                 navigateToTimelineDetail = { timelineType, timelineId -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToTimelineDetail(timelineType = timelineType, timelineId = timelineId)) },
-                onFabClick = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(EnrollType.COURSE, null)) },
+                onFabClick = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToEnroll(enrollType = EnrollType.COURSE, viewPath = HOME, id = null)) },
                 navigateToAdvertisementDetail = { advertisementId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToAdvertisementDetail(advertisementId = advertisementId)) },
                 navigateToCourseDetail = { courseId: Int -> viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToCourseDetail(courseId = courseId)) }
             )

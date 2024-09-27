@@ -36,6 +36,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadEmptyView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.ViewPath.MY_COURSE_READ
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -45,7 +46,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun ReadRoute(
     padding: PaddingValues,
     viewModel: ReadViewModel = hiltViewModel(),
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -59,7 +60,7 @@ fun ReadRoute(
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle).collect { readSideEffect ->
             when (readSideEffect) {
-                is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, null)
+                is ReadContract.ReadSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.TIMELINE, MY_COURSE_READ, null)
                 is ReadContract.ReadSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(readSideEffect.courseId)
             }
         }
