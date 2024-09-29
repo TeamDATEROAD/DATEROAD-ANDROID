@@ -138,7 +138,7 @@ fun CourseDetailRoute(
                     viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack)
                     AmplitudeUtils.trackEventWithProperties(
                         eventName = CLICK_COURSE_BACK,
-                        mapOf(
+                        properties = mapOf(
                             CLICK_COURSE_PURCHASE to uiState.hasDialogOpened,
                             PURCHASE_SUCCESS to uiState.courseDetail.isAccess
                         )
