@@ -122,7 +122,6 @@ fun CourseDetailRoute(
                         true -> viewModel.deleteCourseLike(courseId = courseId)
                         false -> viewModel.postCourseLike(courseId = courseId)
                     }
-                    AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = uiState.courseDetail.isUserLiked)
                 },
                 onDeleteButtonClicked = {
                     viewModel.deleteCourse(courseId = courseId)
