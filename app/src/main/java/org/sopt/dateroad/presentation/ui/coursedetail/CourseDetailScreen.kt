@@ -85,14 +85,17 @@ fun CourseDetailRoute(
 
     LaunchedEffect(uiState.loadState, lifecycleOwner) {
         if (uiState.loadState == LoadState.Success) {
-            AmplitudeUtils.trackEventWithProperties(
-                eventName = VIEW_COURSE_DETAILS,
-                mapOf(
-                    COURSE_LIST_ID to uiState.courseDetail.courseId,
-                    COURSE_LIST_TITLE to uiState.courseDetail.title
+            with(uiState.courseDetail) {
+                AmplitudeUtils.trackEventWithProperties(
+                    eventName = VIEW_COURSE_DETAILS,
+                    mapOf(
+                        COURSE_LIST_ID to courseId,
+                        COURSE_LIST_TITLE to title
+                    )
                 )
-            )
+            }
         }
+
     }
 
     when (uiState.loadState) {
