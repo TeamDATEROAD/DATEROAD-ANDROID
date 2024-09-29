@@ -37,7 +37,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.DismissDialogDeleteCourse -> setState { copy(isDeleteCourseDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnDialogReportCourse -> setState { copy(isReportCourseDialogOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogReportCourse -> setState { copy(isReportCourseDialogOpen = false) }
-            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true, hasDialogOpened = true) }
+            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true, hasPointReadDialogOpened = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked -> setState { copy(isLikedButtonChecked = !isLikedButtonChecked) }
             is CourseDetailContract.CourseDetailEvent.OnDeleteCourseBottomSheet -> setState { copy(isDeleteCourseBottomSheetOpen = true) }
@@ -84,7 +84,6 @@ class CourseDetailViewModel @Inject constructor(
             postCourseLikeUseCase(courseId = courseId).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(courseDetail = currentState.courseDetail.copy(isUserLiked = true, like = currentState.courseDetail.like + 1)))
                 AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
-
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(courseDetail = currentState.courseDetail))
             }
@@ -97,7 +96,6 @@ class CourseDetailViewModel @Inject constructor(
             postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, Point.POINT_USED_DESCRIPTION)).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success, isAccess = true))
                 AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
-
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error, isAccess = currentState.courseDetail.isAccess))
             }

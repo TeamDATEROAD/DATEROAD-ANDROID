@@ -24,7 +24,7 @@ class CourseDetailContract {
         val usePointLoadState: LoadState = LoadState.Idle,
         val deleteLoadState: LoadState = LoadState.Idle,
         var isWebViewOpened: Boolean = false,
-        var hasDialogOpened: Boolean = false
+        var hasPointReadDialogOpened: Boolean = false
     ) : UiState
 
     sealed interface CourseDetailSideEffect : UiSideEffect {

@@ -46,10 +46,8 @@ import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailBott
 import org.sopt.dateroad.presentation.ui.coursedetail.component.CourseDetailUnopenedDetail
 import org.sopt.dateroad.presentation.ui.coursedetail.component.courseDetailOpenedDetail
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_BACK
-import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_LIKES
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_PURCHASE
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_ID
-import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_LIKE
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_TITLE
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.PURCHASE_SUCCESS
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.VIEW_COURSE_DETAILS
@@ -95,7 +93,6 @@ fun CourseDetailRoute(
                 )
             }
         }
-
     }
 
     when (uiState.loadState) {
@@ -139,7 +136,7 @@ fun CourseDetailRoute(
                     AmplitudeUtils.trackEventWithProperties(
                         eventName = CLICK_COURSE_BACK,
                         properties = mapOf(
-                            CLICK_COURSE_PURCHASE to uiState.hasDialogOpened,
+                            CLICK_COURSE_PURCHASE to uiState.hasPointReadDialogOpened,
                             PURCHASE_SUCCESS to uiState.courseDetail.isAccess
                         )
                     )
