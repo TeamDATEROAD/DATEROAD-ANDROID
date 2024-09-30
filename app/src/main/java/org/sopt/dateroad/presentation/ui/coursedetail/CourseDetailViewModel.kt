@@ -13,10 +13,10 @@ import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_LIKES
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_LIKE
 import org.sopt.dateroad.presentation.util.Point
-import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_FREE_REMAINED
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_POINT
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_PURCHASE_COUNT
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
