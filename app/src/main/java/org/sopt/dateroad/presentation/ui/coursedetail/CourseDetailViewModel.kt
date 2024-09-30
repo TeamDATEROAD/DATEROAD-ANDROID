@@ -59,6 +59,7 @@ class CourseDetailViewModel @Inject constructor(
             setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail))
             deleteCourseLikeUseCase(courseId = courseId).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail.copy(isUserLiked = false, like = currentState.courseDetail.like - 1)))
+                AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail))
             }
@@ -95,7 +96,6 @@ class CourseDetailViewModel @Inject constructor(
             setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Loading, isAccess = currentState.courseDetail.isAccess))
             postUsePointUseCase(courseId = courseId, usePoint = UsePoint(Point.POINT, Point.POINT_USED, Point.POINT_USED_DESCRIPTION)).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Success, isAccess = true))
-                AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostUsePoint(usePointLoadState = LoadState.Error, isAccess = currentState.courseDetail.isAccess))
             }
