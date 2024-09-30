@@ -8,8 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.TimelineType
 import org.sopt.dateroad.presentation.ui.timelinedetail.TimelineDetailRoute
-import org.sopt.dateroad.presentation.util.ViewPath.HOME
-import org.sopt.dateroad.presentation.util.ViewPath.TIMELINE
 
 fun NavController.navigateToTimelineDetail(timelineType: TimelineType, timelineId: Int, navOptions: NavOptions? = null) {
     navigate(TimelineDetailRoutes.route(timelineType, timelineId), navOptions)
@@ -28,8 +26,6 @@ fun NavGraphBuilder.timelineDetailGraph(
     ) { backStackEntry ->
         val timelineType = TimelineType.valueOf(backStackEntry.arguments?.getString(TimelineDetailRoutes.TIMELINE_TYPE) ?: TimelineType.PINK.name)
         val timelineId = backStackEntry.arguments?.getInt(TimelineDetailRoutes.TIMELINE_ID) ?: 1
-
-
 
         TimelineDetailRoute(
             popBackStack = popBackStack,

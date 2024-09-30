@@ -49,6 +49,7 @@ object Token {
 object Time {
     const val TIME = " 시간"
 }
+
 object LoadingView {
     const val LOTTIE = "loading.json"
     const val CLIPMIN = 0
@@ -113,6 +114,7 @@ object TimelineAmplitude {
     const val COUNT_DATE_SCHEDULE = "count_date_schedule"
     const val CLICK_ADD_SCHEDULE = "click_add_schedule"
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
+    const val DURATION = "시간"
 }
 
 object UserPropertyAmplitude {

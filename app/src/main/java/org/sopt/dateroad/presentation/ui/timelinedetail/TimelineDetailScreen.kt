@@ -54,6 +54,7 @@ import org.sopt.dateroad.presentation.ui.component.topbar.DateRoadBasicTopBar
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadIdleView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
+import org.sopt.dateroad.presentation.util.TimelineAmplitude.DURATION
 import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_CLOSE_KAKAO
 import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_KAKAO_SHARE
 import org.sopt.dateroad.presentation.util.TimelineDetailAmplitude.CLICK_OPEN_KAKAO
@@ -120,7 +121,7 @@ fun TimelineDetailRoute(
                         mapOf(
                             DATE_COURSE_NUM to uiState.timelineDetail.places.size,
                             DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
-                                place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                                durationToInt(place.duration)
                             }
                         )
                     )
@@ -335,7 +336,7 @@ fun TimelineDetailScreen(
                     mapOf(
                         DATE_COURSE_NUM to uiState.timelineDetail.places.size,
                         DATE_TOTAL_DURATION to uiState.timelineDetail.places.sumOf { place ->
-                            place.duration.replace("시간", "").trim().toIntOrNull() ?: 0
+                            durationToInt(place.duration)
                         }
                     )
                 )
@@ -412,5 +413,5 @@ fun TimelineDetailScreenPreview() {
 }
 
 fun durationToInt(duration: String): Int {
-    return duration.replace("시간", "").trim().toIntOrNull() ?: 0
+    return duration.replace(DURATION, "").trim().toIntOrNull() ?: 0
 }

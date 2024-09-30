@@ -154,7 +154,7 @@ fun MainNavHost(
 
             timelineDetailGraph(
                 popBackStack = navigator::popBackStackIfNotHome,
-                viewPath= previousView
+                viewPath = previousView
             )
         }
     }
