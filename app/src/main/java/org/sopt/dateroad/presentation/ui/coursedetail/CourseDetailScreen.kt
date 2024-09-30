@@ -51,6 +51,7 @@ import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_ID
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_TITLE
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.PURCHASE_SUCCESS
 import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.VIEW_COURSE_DETAILS
+import org.sopt.dateroad.presentation.util.ViewPath.COURSE_DETAIL
 import org.sopt.dateroad.presentation.util.WebViewUrl.REPORT_URL
 import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.view.LoadState
@@ -61,7 +62,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun CourseDetailRoute(
     viewModel: CourseDetailViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     courseId: Int
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -71,7 +72,7 @@ fun CourseDetailRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { courseDetailSideEffect ->
                 when (courseDetailSideEffect) {
-                    is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(courseDetailSideEffect.enrollType, courseDetailSideEffect.id)
+                    is CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll -> navigateToEnroll(courseDetailSideEffect.enrollType, courseDetailSideEffect.viewPath, courseDetailSideEffect.id)
                     is CourseDetailContract.CourseDetailSideEffect.PopBackStack -> popBackStack()
                 }
             }
@@ -106,7 +107,7 @@ fun CourseDetailRoute(
                 onDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogPointLack) },
                 onDialogPointLackConfirm = {
                     viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack)
-                    viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.COURSE, null))
+                    viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(enrollType = EnrollType.COURSE, viewPath = COURSE_DETAIL, id = null))
                 },
                 dismissDialogPointLack = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDialogPointLack) },
                 onDialogLookedForFree = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnDialogLookedForFree) },
@@ -130,7 +131,7 @@ fun CourseDetailRoute(
                 dismissDeleteCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissDeleteCourseBottomSheet) },
                 onReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.OnReportCourseBottomSheet) },
                 dismissReportCourseBottomSheet = { viewModel.setEvent(CourseDetailContract.CourseDetailEvent.DismissReportCourseBottomSheet) },
-                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(EnrollType.TIMELINE, courseId)) },
+                enrollSchedule = { viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.NavigateToEnroll(enrollType = EnrollType.TIMELINE, viewPath = COURSE_DETAIL, id = courseId)) },
                 onTopBarIconClicked = {
                     viewModel.setSideEffect(CourseDetailContract.CourseDetailSideEffect.PopBackStack)
                     AmplitudeUtils.trackEventWithProperties(

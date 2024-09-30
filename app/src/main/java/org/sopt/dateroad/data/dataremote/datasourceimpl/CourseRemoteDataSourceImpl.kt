@@ -6,6 +6,7 @@ import okhttp3.RequestBody
 import org.sopt.dateroad.data.dataremote.datasource.CourseRemoteDataSource
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCoursesDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseEnrollCourseDto
 import org.sopt.dateroad.data.dataremote.service.CourseService
 
 class CourseRemoteDataSourceImpl @Inject constructor(
@@ -21,7 +22,7 @@ class CourseRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getSortedCourses(sortBy: String): ResponseCoursesDto = courseService.getSortedCourses(sortBy = sortBy)
 
-    override suspend fun postCourse(images: List<MultipartBody.Part>, course: RequestBody, tags: RequestBody, places: RequestBody) = courseService.postCourse(images = images, course = course, tags = tags, places = places)
+    override suspend fun postCourse(images: List<MultipartBody.Part>, course: RequestBody, tags: RequestBody, places: RequestBody): ResponseEnrollCourseDto = courseService.postCourse(images = images, course = course, tags = tags, places = places)
 
     override suspend fun postCourseLike(courseId: Int) = courseService.postCourseLike(courseId = courseId)
 }

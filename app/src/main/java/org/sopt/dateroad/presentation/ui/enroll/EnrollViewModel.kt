@@ -13,6 +13,10 @@ import org.sopt.dateroad.domain.usecase.PostCourseUseCase
 import org.sopt.dateroad.domain.usecase.PostTimelineUseCase
 import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.DATE_SCHEDULE_NUM
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_COURSE_COUNT
+import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_POINT
+import org.sopt.dateroad.presentation.util.amplitude.AmplitudeUtils
 import org.sopt.dateroad.presentation.util.base.BaseViewModel
 import org.sopt.dateroad.presentation.util.view.LoadState
 
@@ -142,8 +146,10 @@ class EnrollViewModel @Inject constructor(
     private fun postCourse() {
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
-            postCourseUseCase(enroll = currentState.enroll).onSuccess {
+            postCourseUseCase(enroll = currentState.enroll).onSuccess { result ->
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
+                AmplitudeUtils.updateIntUserProperty(propertyName = USER_POINT, propertyValue = result.userPoint)
+                AmplitudeUtils.updateIntUserProperty(propertyName = USER_COURSE_COUNT, propertyValue = result.userCourseCount.toInt())
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }
@@ -153,8 +159,9 @@ class EnrollViewModel @Inject constructor(
     private fun postTimeline() {
         viewModelScope.launch {
             setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Loading))
-            postTimelineUseCase(enroll = currentState.enroll).onSuccess {
+            postTimelineUseCase(enroll = currentState.enroll).onSuccess { result ->
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Success))
+                AmplitudeUtils.updateIntUserProperty(propertyName = DATE_SCHEDULE_NUM, propertyValue = result.dateScheduleNum.toInt())
             }.onFailure {
                 setEvent(EnrollContract.EnrollEvent.Enroll(loadState = LoadState.Error))
             }

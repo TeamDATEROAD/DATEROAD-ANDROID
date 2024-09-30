@@ -11,9 +11,9 @@ import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.ui.enroll.EnrollRoute
 import org.sopt.dateroad.presentation.ui.mycourse.navigation.MyCourseRoute
 
-fun NavController.navigationEnroll(enrollType: EnrollType, courseId: Int? = null) {
+fun NavController.navigationEnroll(enrollType: EnrollType, viewPath: String, courseId: Int? = null) {
     navigate(
-        route = EnrollRoute.route(enrollType = enrollType, courseId = courseId)
+        route = EnrollRoute.route(enrollType = enrollType, viewPath = viewPath, courseId = courseId)
     ) {
         popUpTo(MyCourseRoute.route(MyCourseType.READ)) { inclusive = true }
         launchSingleTop = true
@@ -31,7 +31,10 @@ fun NavGraphBuilder.enrollNavGraph(
             navArgument(EnrollRoute.ENROLL_TYPE) {
                 type = NavType.StringType
             },
-            navArgument(EnrollRoute.COURSE_ID) {
+            navArgument(EnrollRoute.VIEW_PATH) {
+                type = NavType.StringType
+            },
+            navArgument(EnrollRoute.TIMELINE_ID) {
                 type = NavType.StringType
                 nullable = true
             }
@@ -40,15 +43,20 @@ fun NavGraphBuilder.enrollNavGraph(
         val enrollType = backStackEntry.arguments?.getString(EnrollRoute.ENROLL_TYPE)?.let {
             EnrollType.valueOf(it)
         } ?: EnrollType.COURSE
-        val courseId = backStackEntry.arguments?.getString(EnrollRoute.COURSE_ID)?.toIntOrNull()
-        EnrollRoute(padding = padding, popBackStack = popBackStack, navigateToMyCourse = navigationToMyCourse, enrollType = enrollType, id = courseId)
+
+        val viewPath = backStackEntry.arguments?.getString(EnrollRoute.VIEW_PATH).orEmpty()
+
+        val timelineId = backStackEntry.arguments?.getString(EnrollRoute.TIMELINE_ID)?.toIntOrNull()
+
+        EnrollRoute(padding = padding, popBackStack = popBackStack, navigateToMyCourse = navigationToMyCourse, enrollType = enrollType, viewPath = viewPath, timelineId = timelineId)
     }
 }
 
 object EnrollRoute {
     const val ROUTE = "enroll"
     const val ENROLL_TYPE = "enrollType"
-    const val COURSE_ID = "courseId"
-    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ENROLL_TYPE}/{$COURSE_ID}"
-    fun route(enrollType: EnrollType, courseId: Int?) = "$ROUTE/${enrollType.name}/$courseId"
+    const val VIEW_PATH = "viewPath"
+    const val TIMELINE_ID = "timelineId"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ENROLL_TYPE}/{$VIEW_PATH}/{$TIMELINE_ID}"
+    fun route(enrollType: EnrollType, viewPath: String, courseId: Int?) = "$ROUTE/${enrollType.name}/$viewPath/$courseId"
 }

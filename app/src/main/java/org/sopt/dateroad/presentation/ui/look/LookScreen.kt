@@ -48,6 +48,7 @@ import org.sopt.dateroad.presentation.ui.component.view.DateRoadErrorView
 import org.sopt.dateroad.presentation.ui.component.view.DateRoadLoadingView
 import org.sopt.dateroad.presentation.ui.look.component.LookCourseCard
 import org.sopt.dateroad.presentation.util.Default
+import org.sopt.dateroad.presentation.util.ViewPath.LOOK
 import org.sopt.dateroad.presentation.util.modifier.noRippleClickable
 import org.sopt.dateroad.presentation.util.view.LoadState
 import org.sopt.dateroad.ui.theme.DATEROADTheme
@@ -57,7 +58,7 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun LookRoute(
     padding: PaddingValues,
     viewModel: LookViewModel = hiltViewModel(),
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -81,7 +82,7 @@ fun LookRoute(
             .collect { lookSideEffect ->
                 when (lookSideEffect) {
                     is LookContract.LookSideEffect.NavigateToCourseDetail -> navigateToCourseDetail(lookSideEffect.courseId)
-                    is LookContract.LookSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, null)
+                    is LookContract.LookSideEffect.NavigateToEnroll -> navigateToEnroll(EnrollType.COURSE, LOOK, null)
                 }
             }
     }

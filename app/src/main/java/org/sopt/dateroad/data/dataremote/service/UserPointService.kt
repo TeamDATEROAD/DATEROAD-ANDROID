@@ -3,6 +3,7 @@ package org.sopt.dateroad.data.dataremote.service
 import org.sopt.dateroad.data.dataremote.model.request.RequestUsePointDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponsePointHistoryDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseUserPointDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseUserUsePointDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.COURSES
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.COURSE_ID
@@ -27,5 +28,5 @@ interface UserPointService {
     suspend fun postUsePoint(
         @Path(COURSE_ID) courseId: Int,
         @Body requestUsePointDto: RequestUsePointDto
-    )
+    ): ResponseUserUsePointDto
 }

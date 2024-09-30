@@ -18,7 +18,7 @@ fun NavController.navigationLook(navOptions: NavOptions) {
 
 fun NavGraphBuilder.lookNavGraph(
     padding: PaddingValues,
-    navigateToEnroll: (EnrollType, Int?) -> Unit,
+    navigateToEnroll: (EnrollType, String, Int?) -> Unit,
     navigateToCourseDetail: (Int) -> Unit
 ) {
     composable(route = MainNavigationBarRoute.Look::class.simpleName.orEmpty()) {
