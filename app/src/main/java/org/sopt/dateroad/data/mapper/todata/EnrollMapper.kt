@@ -12,7 +12,7 @@ fun Enroll.toTimelineData(): RequestTimelineDto = RequestTimelineDto(
     tags = this.tags.map { tag -> tag.toData() },
     country = this.country?.title.orEmpty(),
     city = this.city.toAreaTitle(),
-    places = places.mapIndexed { index, place -> place.toData(sequence = index) }
+    places = places.mapIndexed { index, place -> place.toData(sequence = index + 1) }
 )
 
 fun Enroll.toCourseData(): RequestCourseDto = RequestCourseDto(

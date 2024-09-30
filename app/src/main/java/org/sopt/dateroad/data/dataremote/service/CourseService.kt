@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCourseDetailDto
 import org.sopt.dateroad.data.dataremote.model.response.ResponseCoursesDto
+import org.sopt.dateroad.data.dataremote.model.response.ResponseEnrollCourseDto
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.API
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.CITY
 import org.sopt.dateroad.data.dataremote.util.ApiConstraints.COST
@@ -60,7 +61,7 @@ interface CourseService {
         @Part(COURSE) course: RequestBody,
         @Part(TAGS) tags: RequestBody,
         @Part(PLACES) places: RequestBody
-    )
+    ): ResponseEnrollCourseDto
 
     @POST("$API/$VERSION/$COURSES/{$COURSE_ID}/$LIKES")
     suspend fun postCourseLike(

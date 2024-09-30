@@ -19,18 +19,18 @@ espressoCore = "3.6.1"
 # AndroidX
 coreSplashscreen = "1.0.1"
 coreKtx = "1.13.1"
-lifecycleRuntimeKtx = "2.8.5"
+lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.09.00"
-navigation = "2.8.0"
+composeBom = "2024.09.02"
+navigation = "2.8.1"
 security = "1.1.0-alpha06"
-lifecycleRuntimeComposeAndroid = "2.8.5"
+lifecycleRuntimeComposeAndroid = "2.8.6"
 pagingCommonAndroid = "3.3.2"
 
 # Google
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
-firebaseBom = "33.2.0"
+firebaseBom = "33.3.0"
 
 # Accompanist
 accompanistPager = "0.25.0"
