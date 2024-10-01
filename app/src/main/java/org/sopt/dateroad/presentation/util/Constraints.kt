@@ -137,6 +137,7 @@ object TimelineAmplitude {
     const val COUNT_DATE_SCHEDULE = "count_date_schedule"
     const val CLICK_ADD_SCHEDULE = "click_add_schedule"
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
+    const val DURATION = "시간"
 }
 
 object UserPropertyAmplitude {
@@ -146,4 +147,14 @@ object UserPropertyAmplitude {
     const val USER_PURCHASE_COUNT = "user_purchase_count"
     const val USER_COURSE_COUNT = "user_course_count"
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
+}
+
+object TimelineDetailAmplitude {
+    const val VIEW_SCHEDULE_DETAILS = "view_schedule_details"
+    const val CLICK_KAKAO_SHARE = "click_kakao_share"
+    const val CLICK_CLOSE_KAKAO = "click_close_kakao"
+    const val CLICK_OPEN_KAKAO = "click_open_kakao"
+    const val VIEW_PATH = "view_path"
+    const val DATE_COURSE_NUM = "date_course_num"
+    const val DATE_TOTAL_DURATION = "date_total_duration"
 }
