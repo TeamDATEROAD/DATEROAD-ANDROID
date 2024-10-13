@@ -17,7 +17,7 @@ import org.sopt.dateroad.domain.type.TimelineTimeType
 class TimelineRepositoryImpl @Inject constructor(
     private val timelineRemoteDataSource: TimelineRemoteDataSource
 ) : TimelineRepository {
-    override suspend fun deleteTimeline(timelineId: Int) {
+    override suspend fun deleteTimeline(timelineId: Int) = runCatching {
         timelineRemoteDataSource.deleteTimeline(timelineId)
     }
 

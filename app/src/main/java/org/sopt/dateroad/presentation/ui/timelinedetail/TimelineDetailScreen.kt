@@ -200,7 +200,7 @@ fun TimelineDetailScreen(
                         style = DateRoadTheme.typography.bodyMed15,
                         color = DateRoadTheme.colors.black
                     )
-                    if (uiState.timelineDetail.dDay != "") {
+                    if (uiState.timelineDetail.dDay.isNotEmpty()) {
                         DateRoadTextTag(
                             textContent = uiState.timelineDetail.dDay,
                             tagContentType = TagType.TIMELINE_D_DAY

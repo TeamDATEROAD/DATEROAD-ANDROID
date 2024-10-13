@@ -11,6 +11,7 @@ import org.sopt.dateroad.data.repositoryimpl.CourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.MyCourseRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.ProfileRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.TimelineRepositoryImpl
+import org.sopt.dateroad.data.repositoryimpl.UserInfoRepositoryImpl
 import org.sopt.dateroad.data.repositoryimpl.UserPointRepositoryImpl
 import org.sopt.dateroad.domain.repository.AdvertisementRepository
 import org.sopt.dateroad.domain.repository.AuthRepository
@@ -18,6 +19,7 @@ import org.sopt.dateroad.domain.repository.CourseRepository
 import org.sopt.dateroad.domain.repository.MyCourseRepository
 import org.sopt.dateroad.domain.repository.ProfileRepository
 import org.sopt.dateroad.domain.repository.TimelineRepository
+import org.sopt.dateroad.domain.repository.UserInfoRepository
 import org.sopt.dateroad.domain.repository.UserPointRepository
 
 @Module
@@ -37,17 +39,21 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsTimelineRepository(timelineRepositoryImpl: TimelineRepositoryImpl): TimelineRepository
-
-    @Binds
-    @Singleton
     abstract fun bindsMyCourseRepository(myCourseRepositoryImpl: MyCourseRepositoryImpl): MyCourseRepository
 
     @Binds
     @Singleton
-    abstract fun bindsUserPointRepository(userPointRepositoryImpl: UserPointRepositoryImpl): UserPointRepository
+    abstract fun bindsProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository
 
     @Binds
     @Singleton
-    abstract fun bindsProfileRepository(profileRepositoryImpl: ProfileRepositoryImpl): ProfileRepository
+    abstract fun bindsTimelineRepository(timelineRepositoryImpl: TimelineRepositoryImpl): TimelineRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserInfoRepository(userInfoRepositoryImpl: UserInfoRepositoryImpl): UserInfoRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserPointRepository(userPointRepositoryImpl: UserPointRepositoryImpl): UserPointRepository
 }

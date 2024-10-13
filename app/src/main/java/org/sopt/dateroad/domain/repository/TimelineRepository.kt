@@ -8,7 +8,7 @@ import org.sopt.dateroad.domain.model.TimelineDetail
 import org.sopt.dateroad.domain.type.TimelineTimeType
 
 interface TimelineRepository {
-    suspend fun deleteTimeline(timelineId: Int)
+    suspend fun deleteTimeline(timelineId: Int): Result<Unit>
 
     suspend fun getTimelineDetail(timelineId: Int): Result<TimelineDetail>
 

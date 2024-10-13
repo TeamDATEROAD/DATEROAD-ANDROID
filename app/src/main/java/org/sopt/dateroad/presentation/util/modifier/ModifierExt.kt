@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.sopt.dateroad.presentation.util.Default.CLICKABLE_DELAY
 
 inline fun Modifier.noRippleClickable(
     crossinline onClick: () -> Unit = {}
@@ -39,7 +40,7 @@ fun Modifier.noRippleDebounceClickable(
             clickable = false
             CoroutineScope(Dispatchers.Main).launch {
                 onClick()
-                delay(500)
+                delay(CLICKABLE_DELAY)
                 clickable = true
             }
         }

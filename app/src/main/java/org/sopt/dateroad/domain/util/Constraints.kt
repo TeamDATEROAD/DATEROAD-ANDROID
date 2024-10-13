@@ -1,33 +1,17 @@
 package org.sopt.dateroad.domain.util
 
+object Advertisement {
+    const val EDITOR = "에디터 픽"
+    const val AD = "광고"
+    const val ABOUT = "ABOUT"
+    const val HOT = "이달의 HOT"
+}
+
 object Cost {
     const val EXCESS_100000_TITLE = "10만원 초과"
     const val LESS_THAN_100000_TITLE = "10만원 이하"
     const val LESS_THAN_50000_TITLE = "5만원 이하"
     const val LESS_THAN_30000_TITLE = "3만원 이하"
-}
-
-object Region {
-    const val SEOUL = "서울"
-    const val GYEONGGI = "경기"
-    const val INCHEON = "인천"
-}
-
-object Seoul {
-    const val SEOUL_ENTIRE = "서울 전체"
-    const val GANGNAM_SEOCHO = "강남/서초"
-    const val JAMSIL_SONGPA_GANGDONG = "잠실/송파/강동"
-    const val KONDAE_SEONGSU_SEONGDONG = "건대/성수/성동"
-    const val GWANGIN_JUNGBANG = "광진/중랑"
-    const val JONGNO_JUNGRO = "종로/중구"
-    const val EUNPYEONG_SEODAEMUN = "은평/서대문"
-    const val HONGDAE_HAPJEONG_MAPO = "홍대/합정/마포"
-    const val YEONGDEUNGPO_YEOUIDO = "영등포/여의도"
-    const val YONGSAN_ITAEWON_HANNAM = "용산/이태원/한남"
-    const val YANGCHEON_GANGSEO_GURO = "양천/강서/구로"
-    const val DONGDAEMUN_SEONGBUK = "동대문/성북"
-    const val NOWON_DOBONG_GANGBUK = "노원/도봉/강북"
-    const val GWANAK_DONGJAK_GEUMCHEON = "관악/동작/금천"
 }
 
 object Gyeonggi {
@@ -54,13 +38,6 @@ object Incheon {
     const val INCHEON_ENTIRE = "인천 전체"
 }
 
-object Advertisement {
-    const val EDITOR = "에디터 픽"
-    const val AD = "광고"
-    const val ABOUT = "ABOUT"
-    const val HOT = "이달의 HOT"
-}
-
 object Month {
     const val JANUARY = "January"
     const val FEBRUARY = "February"
@@ -74,4 +51,27 @@ object Month {
     const val OCTOBER = "October"
     const val NOVEMBER = "November"
     const val DECEMBER = "December"
+}
+
+object Region {
+    const val SEOUL = "서울"
+    const val GYEONGGI = "경기"
+    const val INCHEON = "인천"
+}
+
+object Seoul {
+    const val SEOUL_ENTIRE = "서울 전체"
+    const val GANGNAM_SEOCHO = "강남/서초"
+    const val JAMSIL_SONGPA_GANGDONG = "잠실/송파/강동"
+    const val KONDAE_SEONGSU_SEONGDONG = "건대/성수/성동"
+    const val GWANGIN_JUNGBANG = "광진/중랑"
+    const val JONGNO_JUNGRO = "종로/중구"
+    const val EUNPYEONG_SEODAEMUN = "은평/서대문"
+    const val HONGDAE_HAPJEONG_MAPO = "홍대/합정/마포"
+    const val YEONGDEUNGPO_YEOUIDO = "영등포/여의도"
+    const val YONGSAN_ITAEWON_HANNAM = "용산/이태원/한남"
+    const val YANGCHEON_GANGSEO_GURO = "양천/강서/구로"
+    const val DONGDAEMUN_SEONGBUK = "동대문/성북"
+    const val NOWON_DOBONG_GANGBUK = "노원/도봉/강북"
+    const val GWANAK_DONGJAK_GEUMCHEON = "관악/동작/금천"
 }

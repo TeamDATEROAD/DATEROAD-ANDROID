@@ -43,17 +43,17 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindTimelineRemoteDataSource(timelineRemoteDataSourceImpl: TimelineRemoteDataSourceImpl): TimelineRemoteDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindsMyCourseRemoteDataSource(myCourseRemoteDataSourceImpl: MyCourseRemoteDataSourceImpl): MyCourseRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindsUserPointRemoteDataSource(userPointRemoteDataSourceImpl: UserPointRemoteDataSourceImpl): UserPointRemoteDataSource
+    abstract fun bindsProfileDataSource(profileDataSourceImpl: ProfileRemoteDataSourceImpl): ProfileRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindsProfileDataSource(profileDataSourceImpl: ProfileRemoteDataSourceImpl): ProfileRemoteDataSource
+    abstract fun bindTimelineRemoteDataSource(timelineRemoteDataSourceImpl: TimelineRemoteDataSourceImpl): TimelineRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserPointRemoteDataSource(userPointRemoteDataSourceImpl: UserPointRemoteDataSourceImpl): UserPointRemoteDataSource
 }

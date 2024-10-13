@@ -9,7 +9,20 @@ import org.sopt.dateroad.presentation.type.EnrollScreenType
 import org.sopt.dateroad.presentation.type.EnrollType
 import org.sopt.dateroad.presentation.ui.component.bottomsheet.model.Picker
 import org.sopt.dateroad.presentation.ui.component.textfield.model.TextFieldValidateResult
+import org.sopt.dateroad.presentation.util.DatePicker.DAY_END
+import org.sopt.dateroad.presentation.util.DatePicker.DAY_START
+import org.sopt.dateroad.presentation.util.DatePicker.MONTH_END
+import org.sopt.dateroad.presentation.util.DatePicker.MONTH_START
+import org.sopt.dateroad.presentation.util.DatePicker.YEAR_END
+import org.sopt.dateroad.presentation.util.DatePicker.YEAR_START
+import org.sopt.dateroad.presentation.util.DatePicker.YEAR_START_INDEX
+import org.sopt.dateroad.presentation.util.DurationPicker.DURATION_END
+import org.sopt.dateroad.presentation.util.DurationPicker.DURATION_START
 import org.sopt.dateroad.presentation.util.TimePicker
+import org.sopt.dateroad.presentation.util.TimePicker.HOUR_END
+import org.sopt.dateroad.presentation.util.TimePicker.HOUR_START
+import org.sopt.dateroad.presentation.util.TimePicker.MINUTE_END
+import org.sopt.dateroad.presentation.util.TimePicker.MINUTE_START
 import org.sopt.dateroad.presentation.util.base.UiEvent
 import org.sopt.dateroad.presentation.util.base.UiSideEffect
 import org.sopt.dateroad.presentation.util.base.UiState
@@ -27,15 +40,15 @@ class EnrollContract {
         val dateValidateState: TextFieldValidateResult = TextFieldValidateResult.Basic,
         val isDatePickerBottomSheetOpen: Boolean = false,
         val datePickers: List<Picker> = listOf(
-            Picker(items = (2000..2024).map { it.toString() }, startIndex = 24),
-            Picker(items = (1..12).map { it.toString() }),
-            Picker(items = (1..31).map { it.toString() })
+            Picker(items = (YEAR_START..YEAR_END).map { it.toString() }, startIndex = YEAR_START_INDEX),
+            Picker(items = (MONTH_START..MONTH_END).map { it.toString() }),
+            Picker(items = (DAY_START..DAY_END).map { it.toString() })
         ),
         val isTimePickerBottomSheetOpen: Boolean = false,
         val timePickers: List<Picker> = listOf(
             Picker(items = listOf(TimePicker.AM, TimePicker.PM)),
-            Picker(items = (1..12).map { it.toString() }),
-            Picker(items = (0..59).map { it.toString().padStart(2, '0') })
+            Picker(items = (HOUR_START..HOUR_END).map { it.toString() }),
+            Picker(items = (MINUTE_START..MINUTE_END).map { it.toString().padStart(2, '0') })
         ),
         val isRegionBottomSheetOpen: Boolean = false,
         val onRegionBottomSheetRegionSelected: RegionType? = RegionType.SEOUL,
@@ -43,7 +56,7 @@ class EnrollContract {
         val place: Place = Place(),
         val isPlaceEditable: Boolean = true,
         val isDurationBottomSheetOpen: Boolean = false,
-        val durationPicker: List<Picker> = listOf(Picker(items = (1..12).map { (it * 0.5).toString() })),
+        val durationPicker: List<Picker> = listOf(Picker(items = (DURATION_START..DURATION_END).map { (it * 0.5).toString() })),
         val isEnrollSuccessDialogOpen: Boolean = false
     ) : UiState
 

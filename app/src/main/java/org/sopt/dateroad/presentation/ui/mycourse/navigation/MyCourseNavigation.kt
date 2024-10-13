@@ -41,5 +41,6 @@ object MyCourseRoute {
     private const val ROUTE = "myCourses"
     const val ARGUMENT = "myCourseType"
     const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT}"
+
     fun route(myCourseType: MyCourseType) = "$ROUTE/${myCourseType.name}"
 }

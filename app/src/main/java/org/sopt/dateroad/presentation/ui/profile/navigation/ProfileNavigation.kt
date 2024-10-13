@@ -2,30 +2,37 @@ package org.sopt.dateroad.presentation.ui.profile.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.ui.profile.ProfileRoute
+import org.sopt.dateroad.presentation.ui.profile.navigation.ProfileRoute.ROUTE_WITH_ARGUMENT
 
-fun NavController.navigationEnrollProfile() {
+fun NavController.navigationProfile(profileType: ProfileType) {
     navigate(
-        route = EnrollProfileRoute.ROUTE
+        route = ProfileRoute.route(profileType = profileType)
     )
 }
 
-fun NavController.navigationEditProfile() {
-    navigate(
-        route = EditProfileRoute.ROUTE
-    )
-}
-
-fun NavGraphBuilder.enrollProfileNavGraph(
+fun NavGraphBuilder.profileNavGraph(
     navigateToHome: () -> Unit,
     navigateToMyPage: () -> Unit,
-    profileType: ProfileType,
     popBackStack: () -> Unit
 
 ) {
-    composable(route = EnrollProfileRoute.ROUTE) {
+    composable(
+        route = ROUTE_WITH_ARGUMENT,
+        arguments = listOf(
+            navArgument(ProfileRoute.ARGUMENT) {
+                type = NavType.StringType
+            }
+        )
+    ) { backStackEntry ->
+        val profileType = backStackEntry.arguments?.getString(ProfileRoute.ARGUMENT)?.let {
+            ProfileType.valueOf(it)
+        } ?: ProfileType.EDIT
+
         ProfileRoute(
             navigationToHome = navigateToHome,
             navigationToMyPage = navigateToMyPage,
@@ -36,27 +43,10 @@ fun NavGraphBuilder.enrollProfileNavGraph(
     }
 }
 
-fun NavGraphBuilder.editProfileNavGraph(
-    navigateToHome: () -> Unit,
-    navigateToMyPage: () -> Unit,
-    profileType: ProfileType,
-    popBackStack: () -> Unit
+object ProfileRoute {
+    const val ROUTE = "Profile"
+    const val ARGUMENT = "profileType"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT}"
 
-) {
-    composable(route = EditProfileRoute.ROUTE) {
-        ProfileRoute(
-            navigationToHome = navigateToHome,
-            navigationToMyPage = navigateToMyPage,
-            profileType = profileType,
-            popBackStack = popBackStack
-        )
-    }
-}
-
-object EnrollProfileRoute {
-    const val ROUTE = "enrollProfile"
-}
-
-object EditProfileRoute {
-    const val ROUTE = "editProfile"
+    fun route(profileType: ProfileType) = "$ROUTE/${profileType.name}"
 }

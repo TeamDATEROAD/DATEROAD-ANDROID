@@ -33,7 +33,7 @@ class ContentUriRequestBody(
         }
     }
 
-    fun getFileName() = fileName
+    private fun getFileName() = fileName
 
     override fun contentLength(): Long = size
 

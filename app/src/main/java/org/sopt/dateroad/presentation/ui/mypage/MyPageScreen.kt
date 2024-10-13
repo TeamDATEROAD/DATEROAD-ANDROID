@@ -42,6 +42,7 @@ import org.sopt.dateroad.domain.model.Profile
 import org.sopt.dateroad.presentation.type.DateTagType.Companion.getDateTagTypeByName
 import org.sopt.dateroad.presentation.type.MyCourseType
 import org.sopt.dateroad.presentation.type.MyPageMenuType
+import org.sopt.dateroad.presentation.type.ProfileType
 import org.sopt.dateroad.presentation.type.TagType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogType
 import org.sopt.dateroad.presentation.type.TwoButtonDialogWithDescriptionType
@@ -66,11 +67,11 @@ import org.sopt.dateroad.ui.theme.DateRoadTheme
 fun MyPageRoute(
     padding: PaddingValues,
     viewModel: MyPageViewModel = hiltViewModel(),
-    navigateToEditProfile: () -> Unit,
     navigateToPointHistory: () -> Unit,
     navigateToMyCourse: (MyCourseType) -> Unit,
     navigateToPointGuide: () -> Unit,
-    navigateToSignIn: () -> Unit
+    navigateToSignIn: () -> Unit,
+    navigateToProfile: (ProfileType) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -83,7 +84,7 @@ fun MyPageRoute(
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { myPageSideEffect ->
                 when (myPageSideEffect) {
-                    is MyPageContract.MyPageSideEffect.NavigateToEditProfile -> navigateToEditProfile()
+                    is MyPageContract.MyPageSideEffect.NavigateToEditProfile -> navigateToProfile(ProfileType.EDIT)
                     is MyPageContract.MyPageSideEffect.NavigateToPointHistory -> navigateToPointHistory()
                     is MyPageContract.MyPageSideEffect.NavigateToMyCourse -> navigateToMyCourse(MyCourseType.ENROLL)
                     is MyPageContract.MyPageSideEffect.NavigateToPointGuide -> navigateToPointGuide()

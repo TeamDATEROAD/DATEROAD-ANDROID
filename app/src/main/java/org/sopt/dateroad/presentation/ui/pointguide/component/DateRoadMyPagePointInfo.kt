@@ -32,7 +32,7 @@ fun DateRoadMyPagePointInfo(myPagePointInfoType: MyPagePointInfoType) {
             .clip(RoundedCornerShape(14.dp))
             .background(DateRoadTheme.colors.gray100)
             .padding(14.dp),
-        verticalAlignment = Alignment.CenterVertically // Aligns items vertically centered
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = painterResource(id = myPagePointInfoType.imageRes),

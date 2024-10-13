@@ -5,5 +5,6 @@ import org.sopt.dateroad.data.dataremote.model.response.ResponseAdvertisementsDt
 
 interface AdvertisementRemoteDataSource {
     suspend fun getAdvertisementDetail(advertisementId: Int): ResponseAdvertisementDetailDto
+
     suspend fun getHomeAdvertisements(): ResponseAdvertisementsDto
 }
