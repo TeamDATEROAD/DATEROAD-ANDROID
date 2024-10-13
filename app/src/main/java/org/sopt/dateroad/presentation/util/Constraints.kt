@@ -4,6 +4,17 @@ object CourseDetail {
     const val POINT_LACK = 50
 }
 
+object CourseDetailAmplitude {
+    const val VIEW_COURSE_DETAILS = "view_course_details"
+    const val CLICK_COURSE_BACK = "click_course_back"
+    const val CLICK_COURSE_LIKES = "click_course_likes"
+    const val COURSE_LIST_ID = "course_list_id"
+    const val COURSE_LIST_TITLE = "course_list_title"
+    const val CLICK_COURSE_PURCHASE = "click_course_purchase"
+    const val PURCHASE_SUCCESS = "purchase_success"
+    const val COURSE_LIST_LIKE = "course_list_like"
+}
+
 object DatePicker {
     const val DATE_PATTERN = "yyyy.MM.dd"
     const val YEAR_START = 2000
@@ -79,6 +90,18 @@ object Home {
     const val ADVERTISEMENT_DELAY = 4000L
 }
 
+object HomeAmplitude {
+    const val VIEW_MAIN = "view_main"
+    const val USER_NAME = "user_name"
+    const val USER_POINT = "user_point"
+    const val COURSE_LIST_ID = "course_list_id"
+    const val COURSE_LIST_TITLE = "course_list_title"
+    const val COURSE_LIST_LOCATION = "course_list_location"
+    const val COURSE_LIST_COST = "course_list_cost"
+    const val HOT = "Hot: "
+    const val NEW = " / New: "
+}
+
 object LoadingView {
     const val LOTTIE = "loading.json"
     const val CLIP_MIN = 0
@@ -131,6 +154,7 @@ object TimelineAmplitude {
     const val COUNT_DATE_SCHEDULE = "count_date_schedule"
     const val CLICK_ADD_SCHEDULE = "click_add_schedule"
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
+    const val DURATION = "시간"
 }
 
 object TimelineDetailAmplitude {
