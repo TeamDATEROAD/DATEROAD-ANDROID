@@ -14,6 +14,7 @@ fun NavController.navigateToTimelineDetail(timelineType: TimelineType, timelineI
 }
 
 fun NavGraphBuilder.timelineDetailGraph(
+    viewPath: String,
     popBackStack: () -> Unit
 ) {
     composable(
@@ -29,7 +30,8 @@ fun NavGraphBuilder.timelineDetailGraph(
         TimelineDetailRoute(
             popBackStack = popBackStack,
             timelineId = timelineId,
-            timelineType = timelineType
+            timelineType = timelineType,
+            previousView = viewPath
         )
     }
 }

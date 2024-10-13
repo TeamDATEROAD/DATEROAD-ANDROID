@@ -133,6 +133,16 @@ object TimelineAmplitude {
     const val DATE_SCHEDULE_NUM = "date_schedule_num"
 }
 
+object TimelineDetailAmplitude {
+    const val VIEW_SCHEDULE_DETAILS = "view_schedule_details"
+    const val CLICK_KAKAO_SHARE = "click_kakao_share"
+    const val CLICK_CLOSE_KAKAO = "click_close_kakao"
+    const val CLICK_OPEN_KAKAO = "click_open_kakao"
+    const val VIEW_PATH = "view_path"
+    const val DATE_COURSE_NUM = "date_course_num"
+    const val DATE_TOTAL_DURATION = "date_total_duration"
+}
+
 object TimePicker {
     const val AM = "오전"
     const val PM = "오후"

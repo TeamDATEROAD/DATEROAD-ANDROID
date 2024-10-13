@@ -10,6 +10,8 @@ import org.sopt.dateroad.domain.usecase.DeleteCourseUseCase
 import org.sopt.dateroad.domain.usecase.GetCourseDetailUseCase
 import org.sopt.dateroad.domain.usecase.PostCourseLikeUseCase
 import org.sopt.dateroad.domain.usecase.PostUsePointUseCase
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.CLICK_COURSE_LIKES
+import org.sopt.dateroad.presentation.util.CourseDetailAmplitude.COURSE_LIST_LIKE
 import org.sopt.dateroad.presentation.util.Point
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_FREE_REMAINED
 import org.sopt.dateroad.presentation.util.UserPropertyAmplitude.USER_POINT
@@ -38,7 +40,7 @@ class CourseDetailViewModel @Inject constructor(
             is CourseDetailContract.CourseDetailEvent.DismissDialogDeleteCourse -> setState { copy(isDeleteCourseDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnDialogReportCourse -> setState { copy(isReportCourseDialogOpen = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogReportCourse -> setState { copy(isReportCourseDialogOpen = false) }
-            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true) }
+            is CourseDetailContract.CourseDetailEvent.OnDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = true, hasPointReadDialogOpened = true) }
             is CourseDetailContract.CourseDetailEvent.DismissDialogLookedByPoint -> setState { copy(isPointReadDialogOpen = false) }
             is CourseDetailContract.CourseDetailEvent.OnLikeButtonClicked -> setState { copy(isLikedButtonChecked = !isLikedButtonChecked) }
             is CourseDetailContract.CourseDetailEvent.OnDeleteCourseBottomSheet -> setState { copy(isDeleteCourseBottomSheetOpen = true) }
@@ -60,6 +62,7 @@ class CourseDetailViewModel @Inject constructor(
             setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail))
             deleteCourseLikeUseCase(courseId = courseId).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail.copy(isUserLiked = false, like = currentState.courseDetail.like - 1)))
+                AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.DeleteCourseLike(courseDetail = currentState.courseDetail))
             }
@@ -84,6 +87,7 @@ class CourseDetailViewModel @Inject constructor(
             )
             postCourseLikeUseCase(courseId = courseId).onSuccess {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(courseDetail = currentState.courseDetail.copy(isUserLiked = true, like = currentState.courseDetail.like + 1)))
+                AmplitudeUtils.trackEventWithProperty(eventName = CLICK_COURSE_LIKES, propertyName = COURSE_LIST_LIKE, propertyValue = currentState.courseDetail.isUserLiked)
             }.onFailure {
                 setEvent(CourseDetailContract.CourseDetailEvent.PostCourseLike(courseDetail = currentState.courseDetail))
             }
