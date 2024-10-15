@@ -75,7 +75,7 @@ class ProfileViewModel @Inject constructor(
                         signUp = currentState.signUp.copy(userSignUpInfo = currentState.signUp.userSignUpInfo.copy(name = event.name)),
                         isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH,
                         nicknameValidateResult = when {
-                            event.name.length < 2 -> TextFieldValidateResult.ValidationError
+                            event.name.length < MIN_NICKNAME_LENGTH -> TextFieldValidateResult.ValidationError
                             else -> TextFieldValidateResult.Basic
                         }
                     )
@@ -84,7 +84,7 @@ class ProfileViewModel @Inject constructor(
                         editProfile = currentState.editProfile.copy(name = event.name),
                         isNicknameButtonEnabled = event.name.length in MIN_NICKNAME_LENGTH..MAX_NICKNAME_LENGTH,
                         nicknameValidateResult = when {
-                            event.name.length < 2 -> TextFieldValidateResult.ValidationError
+                            event.name.length < MIN_NICKNAME_LENGTH -> TextFieldValidateResult.ValidationError
                             else -> TextFieldValidateResult.Basic
                         }
                     )
