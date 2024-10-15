@@ -76,13 +76,17 @@ fun ProfileRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val getGalleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = uri.toString()))
-        viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = uri.toString()))
+        uri?.let {
+            viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = it.toString()))
+            viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = it.toString()))
+        }
     }
 
     val getPhotoPickerLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-        viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = uri.toString()))
-        viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = uri.toString()))
+        uri?.let {
+            viewModel.setEvent(ProfileContract.ProfileEvent.SetSignUpImage(image = it.toString()))
+            viewModel.setEvent(ProfileContract.ProfileEvent.SetEditProfileImage(image = it.toString()))
+        }
     }
 
     LaunchedEffect(Unit) {
