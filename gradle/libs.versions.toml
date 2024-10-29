@@ -2,7 +2,7 @@
 compileSdk = "34"
 minSdk = "28"
 targetSdk = "34"
-versionCode = "2"
+versionCode = "3"
 versionName = "1.0.0"
 jvmTarget = "1.8"
 kotlinCompilerExtensionVersion = "1.5.13"
@@ -31,6 +31,7 @@ pagingCommonAndroid = "3.3.2"
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
 firebaseBom = "33.3.0"
+firebaseCrashlyticsBuildtools = "3.0.2"
 
 # Accompanist
 accompanistPager = "0.25.0"
@@ -82,6 +83,7 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 google-firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlytics" }
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 
 # Accompanist
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
@@ -109,7 +111,6 @@ kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" 
 kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
 amplitude = { group = "com.amplitude", name = "analytics-android", version.ref = "amplitude" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
-
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

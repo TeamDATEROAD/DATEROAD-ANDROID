@@ -391,21 +391,23 @@ fun EnrollScreen(
                     leftIconResource = R.drawable.ic_top_bar_back_white,
                     onLeftIconClick = onTopBarBackButtonClick,
                     buttonContent = {
-                        Row {
-                            DateRoadFilledButton(
-                                isEnabled = true,
-                                textContent = stringResource(id = R.string.top_bar_button_text_load),
-                                onClick = onTopBarLoadButtonClick,
-                                textStyle = DateRoadTheme.typography.bodyMed13,
-                                enabledBackgroundColor = DateRoadTheme.colors.purple600,
-                                enabledTextColor = DateRoadTheme.colors.white,
-                                disabledBackgroundColor = DateRoadTheme.colors.gray200,
-                                disabledTextColor = DateRoadTheme.colors.gray400,
-                                cornerRadius = 20.dp,
-                                paddingHorizontal = 10.dp,
-                                paddingVertical = 5.dp
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
+                        if (enrollUiState.page == EnrollScreenType.FIRST) {
+                            Row {
+                                DateRoadFilledButton(
+                                    isEnabled = true,
+                                    textContent = stringResource(id = R.string.top_bar_button_text_load),
+                                    onClick = onTopBarLoadButtonClick,
+                                    textStyle = DateRoadTheme.typography.bodyMed13,
+                                    enabledBackgroundColor = DateRoadTheme.colors.purple600,
+                                    enabledTextColor = DateRoadTheme.colors.white,
+                                    disabledBackgroundColor = DateRoadTheme.colors.gray200,
+                                    disabledTextColor = DateRoadTheme.colors.gray400,
+                                    cornerRadius = 20.dp,
+                                    paddingHorizontal = 10.dp,
+                                    paddingVertical = 5.dp
+                                )
+                                Spacer(modifier = Modifier.width(16.dp))
+                            }
                         }
                     }
                 )
@@ -499,7 +501,7 @@ fun EnrollScreen(
         },
         titleText = stringResource(id = R.string.region_bottom_sheet_title),
         buttonText = stringResource(id = R.string.apply),
-        onButtonClick = { regoion, area -> onRegionBottomSheetButtonClick(regoion, area) },
+        onButtonClick = { region, area -> onRegionBottomSheetButtonClick(region, area) },
         onDismissRequest = onRegionBottomSheetDismissRequest
     )
 
