@@ -91,7 +91,6 @@ dependencies {
     implementation(libs.bundles.androidx)
     implementation(platform(libs.androidx.compose.bom))
 
-
     // Google
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.google.firebase.crashlytics)
