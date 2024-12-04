@@ -17,11 +17,11 @@ val properties = Properties().apply {
 }
 
 android {
-    namespace = "org.sopt.dateroad"
+    namespace = "org.sopt.teamdateroad"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "org.sopt.dateroad"
+        applicationId = "org.sopt.teamdateroad"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
@@ -94,6 +94,7 @@ dependencies {
     // Google
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.google.firebase.crashlytics)
+    implementation(libs.firebase.crashlytics.buildtools)
 
     // Network
     implementation(platform(libs.okhttp.bom))
