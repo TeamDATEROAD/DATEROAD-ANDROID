@@ -6,22 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import kotlinx.coroutines.delay
 import org.sopt.teamdateroad.R
 import org.sopt.teamdateroad.ui.theme.DateRoadTheme
 
 @Composable
-fun SplashScreen(onTimeout: () -> Unit) {
-    LaunchedEffect(Unit) {
-        delay(2000)
-        onTimeout()
-    }
-
+fun SplashScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,5 +30,5 @@ fun SplashScreen(onTimeout: () -> Unit) {
 @Preview
 @Composable
 fun SplashScreenPreview() {
-    SplashScreen {}
+    SplashScreen()
 }

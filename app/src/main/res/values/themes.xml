@@ -3,8 +3,6 @@
 
     <style name="Theme.DATEROAD" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
