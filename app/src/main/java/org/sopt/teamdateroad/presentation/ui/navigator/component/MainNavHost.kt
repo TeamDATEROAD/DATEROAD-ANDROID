@@ -42,6 +42,7 @@ fun MainNavHost(
         NavHost(
             navController = navigator.navHostController,
             startDestination = navigator.startDestination
+//            startDestination = navigator.startDestination
         ) {
             advertisementGraph(
                 popBackStack = navigator::popBackStackIfNotHome

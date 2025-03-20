@@ -102,6 +102,7 @@ fun MyPageRoute(
         LoadState.Success -> {
             navigateToSignIn()
         }
+
         else -> Unit
     }
 
@@ -266,6 +267,7 @@ fun MyPageScreen(
             }
             Spacer(modifier = Modifier.weight(1f))
             DateRoadTextButton(
+                modifier = Modifier.align(Alignment.Start),
                 textContent = stringResource(id = R.string.my_page_menu_withdrawal),
                 textStyle = DateRoadTheme.typography.bodyMed13,
                 textColor = DateRoadTheme.colors.gray400,
